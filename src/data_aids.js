@@ -56,7 +56,7 @@ function lbBand(lgTotal) { return lgTotal <= 0 ? 0 : lgTotal <= 6 ? 1 : lgTotal 
 function lbLookup(lgTotal, troops, shift, d66v) {
   const band0 = lbBand(lgTotal);
   const band = Math.max(0, Math.min(4, band0 + (shift || 0)));
-  const t = Math.max(1, Math.min(3, troops));
+  const t = Math.max(1, Math.min(3, Math.floor(Number(troops)) || 1));
   const col = LB_TABLE[band][t - 1];
   let res = null;
   col.forEach((rg, i) => { if (rg && d66v >= rg[0] && d66v <= rg[1]) res = LB_ORDER[i]; });

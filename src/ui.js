@@ -25,7 +25,11 @@ function sgn(n) { return (n > 0 ? '+' : n < 0 ? '−' : '±') + Math.abs(n); }
 function esc(t) { return String(t).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]); }
 
 /* ---------- persistence ---------- */
-function autosave() { try { if (G_STATE) localStorage.setItem(SAVE_KEY, JSON.stringify({ state: G_STATE, undo: UNDO.slice(-25) })); } catch (e) { /* storage full or blocked */ } }
+function autosave() {
+  if (!G_STATE) return;
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ state: G_STATE, undo: UNDO.slice(-25) })); UI.saveFailed = false; }
+  catch (e) { UI.saveFailed = true; }   // storage full or blocked: the header shows a warning
+}
 function loadSaved() { try { const t = localStorage.getItem(SAVE_KEY); return t ? JSON.parse(t) : null; } catch (e) { return null; } }
 function doAct(answer) {
   if (!G_STATE || !G_STATE.prompt) return;
@@ -50,11 +54,60 @@ function startGame(human, seed, opts) {
   autosave(); render();
 }
 function saveText() { return JSON.stringify({ state: G_STATE, undo: [] }); }
+/* Check a loaded save before it replaces anything. Fields added by later versions are filled in from a
+   fresh game; anything missing, mistyped or out of range is refused with a message. */
+function checkSaveState(st) {
+  const bad = what => { throw new Error(`this save is damaged or incomplete (${what}). Your current game was not changed.`); };
+  if (!st || typeof st !== 'object' || Array.isArray(st)) throw new Error('this does not look like a Solo Companion save. Your current game was not changed.');
+  if (st.human !== 'US' && st.human !== 'BR') bad('campaign side');
+  const fresh = newGame(st.human, 1);
+  const core = ['ai', 'turn', 'ships', 'zones', 'forces', 'calls', 'vp', 'supply', 'convoys', 'flagship', 'leader', 'troops', 'deck', 'rng'];
+  const missing = core.filter(k => !(k in st));
+  if (missing.length) bad('missing ' + missing.join(', '));
+  if (st.ai !== OTHER[st.human]) bad('A.I. side');
+  Object.keys(fresh).forEach(k => { if (!(k in st)) st[k] = JSON.parse(JSON.stringify(fresh[k])); });
+  if (st.options && typeof st.options === 'object' && !Array.isArray(st.options)) st.options = Object.assign(defaultOptions(), st.options);
+  Object.keys(fresh).forEach(k => {
+    const a = fresh[k], b = st[k];
+    if (a === null) return;
+    if (b === null || Array.isArray(a) !== Array.isArray(b) || typeof a !== typeof b) bad(`field “${k}”`);
+    if (typeof a === 'number' && !Number.isFinite(b)) bad(`field “${k}”`);
+  });
+  if (!Number.isInteger(st.turn) || st.turn < 0 || st.turn > 8) bad('turn');
+  Object.keys(fresh.ships).forEach(id => {
+    const sh = st.ships[id];
+    if (!sh || typeof sh !== 'object' || typeof sh.box !== 'string' || !Number.isInteger(sh.steps) || sh.steps < 0 || (sh.owner !== 'US' && sh.owner !== 'BR')) bad('ship ' + id);
+    if (!sh.flags || typeof sh.flags !== 'object') sh.flags = {};
+  });
+  ZONES.forEach(z => { if (!st.zones[z] || typeof st.zones[z] !== 'object') bad('zone ' + z); if (!st.zones[z].flags) st.zones[z].flags = {}; });
+  ['US', 'BR'].forEach(sd => {
+    ['vp', 'supply', 'cd'].forEach(k => { if (!Number.isFinite(st[k][sd])) bad(`${k} ${sd}`); });
+    if (!st.troops[sd] || !Number.isInteger(st.troops[sd].available) || st.troops[sd].available < 0 || !Array.isArray(st.troops[sd].track)) bad('Troops');
+    if (!st.leader[sd] || !st.ships[st.flagship[sd]]) bad('Flagship / Leader');
+  });
+  Object.values(st.forces).forEach(fr => { if (!fr || !Array.isArray(fr.ships) || (fr.troops != null && !Number.isInteger(fr.troops))) bad('a Force'); });
+  st.calls.forEach(fr => { if (!fr || !PROCS[fr.proc] || typeof fr.pc !== 'string') bad('procedure stack'); });
+  if (!st.over && st.calls.length && (!st.prompt || typeof st.prompt.kind !== 'string')) bad('pending decision');
+  return st;
+}
+// Replace the current game with a checked save; if it cannot be shown, put the old game back.
+function commitLoaded(st, undo) {
+  const prevS = G_STATE, prevU = UNDO;
+  G_STATE = st; UNDO = Array.isArray(undo) ? undo.filter(u => typeof u === 'string') : []; UI.local = null; UI.err = '';
+  try { render(); }
+  catch (e) {
+    G_STATE = prevS; UNDO = prevU;
+    try { render(); } catch (e2) { /* ignore */ }
+    throw new Error(`this save could not be displayed (${e.message}). Your current game was not changed.`);
+  }
+  autosave();
+}
 function loadFromText(txt) {
-  const d = JSON.parse(txt);
-  const st = d.state || d;
-  if (!st || !st.ships || !st.calls) throw new Error('This does not look like a Solo Companion save.');
-  G_STATE = st; UNDO = []; UI.local = null; UI.err = ''; autosave(); closeModal(); render();
+  let d;
+  try { d = JSON.parse(txt); } catch (e) { throw new Error('this is not complete save text (it may have been cut off). Your current game was not changed.'); }
+  const st = checkSaveState(d && typeof d === 'object' && d.state ? d.state : d);
+  commitLoaded(st, []);
+  closeModal();
 }
 function exportSave() {
   const box = el('div');
@@ -142,6 +195,7 @@ function renderHeader(s) {
   TURN_NAMES.forEach((n, i) => tt.appendChild(el('span', { class: i === s.turn ? 'cur' : i < s.turn ? 'past' : '' }, n.replace('September', 'Sep').replace('August', 'Aug').replace('June', 'Jun').replace('July', 'Jul'))));
   const score = gameScore(s);
   h.appendChild(el('div', { class: 'stat' }, el('span', null, `${SIDE_NAME[s.human]} campaign`), tt));
+  if (UI.saveFailed) h.appendChild(el('div', { class: 'stat', style: { color: '#b00' } }, el('b', null, 'Not autosaved'), el('span', null, 'This browser refused to store the game – use Save to keep a copy.')));
   h.appendChild(el('div', { class: 'stat' }, el('span', null, 'VP U.S. / Br.'), el('b', null, `${sgn(s.vp.US)} / ${sgn(-s.vp.BR)}`)));
   h.appendChild(el('div', { class: 'stat' }, el('span', null, 'Game Score'), el('b', null, `${score >= 0 ? '+' : ''}${score}`), el('span', null, victoryLevel(score))));
   h.appendChild(el('div', { class: 'stat' }, el('span', null, 'Naval Balance'), el('b', null, `${s.nb >= 0 ? '+' : ''}${s.nb}`), el('span', null, NB_LABELS[s.nbBand])));
@@ -251,9 +305,15 @@ function renderLineup(s, pr) {
     const unt = L.att.filter(id => isCLS(s.ships[id]) && towed.indexOf(id) < 0).length;
     wrap.appendChild(el('div', { class: 'muted', style: { marginTop: '4px' } }, unt ? `${unt} untowed Laker Schooner(s): roll 1d6 – ≤ ${unt / 2} gives −2 DRM, ≤ ${unt} gives −1.` : 'No untowed Laker Schooners – no DRM penalty.'));
   }
-  const def_ = encIds(s, OTHER[pr.side]);
-  const str = sideStrength(s, L.att, pr.side, hazeActive(s)), dstr = sideStrength(s, def_, pr.side, hazeActive(s));
-  wrap.appendChild(el('div', { class: 'muted' }, `Gunnery strength ${fmt(str)} vs ${fmt(dstr)} → ${dstr ? fmt(str / dstr) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(dstr ? str / dstr : 99)]})${hazeActive(s) ? ' – Haze: no Long Guns in Gunnery Round 1' : ''}.`));
+  // Preview the first Round exactly as it will be fought: same defenders, Missed Signal and Haze
+  const ms = missedSignalShip(s);
+  const attNow = L.att.filter(id => id !== ms);
+  const def_ = defendingIds(s, OTHER[pr.side]).filter(id => id !== ms);
+  const str = sideStrength(s, attNow, pr.side, hazeActive(s)), dstr = sideStrength(s, def_, pr.side, hazeActive(s));
+  const notes = [];
+  if (ms) notes.push(`Missed Signal: ${shipName(s, ms)} sits out the first Round`);
+  if (hazeActive(s)) notes.push('Haze: no Long Guns in Gunnery Round 1');
+  wrap.appendChild(el('div', { class: 'muted' }, `First-Round Gunnery strength ${fmt(str)} vs ${fmt(dstr)} → ${dstr ? fmt(str / dstr) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(dstr ? str / dstr : 99)]})${notes.length ? ' – ' + notes.join('; ') : ''}.`));
   wrap.appendChild(el('div', { class: 'opts' }, el('button', { class: 'primary', disabled: !!err, onclick: () => doAct(ans) }, 'Attack with these ships')));
   if (err) wrap.appendChild(el('div', { class: 'err' }, err));
   return wrap;
@@ -331,8 +391,8 @@ function renderAssign(s, pr) {
     const row = el('div', { class: 'row' }, el('b', null, `Force ${i + 1}`), mSel, zSel);
     if (f.mission === 'ArmySupport') {
       const cap = troopCapacity(s, f.ships);
-      const tIn = el('input', { type: 'number', min: 1, max: pr.troops, value: f.troops || 1, style: { width: '52px' } });
-      tIn.addEventListener('change', () => { f.troops = Math.max(0, +tIn.value || 0); renderProc(s); });
+      const tIn = el('input', { type: 'number', min: 1, max: pr.troops, step: 1, inputmode: 'numeric', value: f.troops || 1, style: { width: '52px' } });
+      tIn.addEventListener('change', () => { const v = Number(tIn.value); f.troops = Number.isFinite(v) ? Math.max(0, v) : 0; renderProc(s); });
       row.appendChild(el('span', null, ' Troops ', tIn, ` (capacity ${cap})`));
     }
     row.appendChild(el('button', { class: 'small', onclick: () => { L.forces.splice(i, 1); renderProc(s); } }, 'Remove'));
@@ -537,7 +597,16 @@ function renderSetup() {
   box.appendChild(el('h2', null, 'A Glorious Chance – Solo Companion'));
   box.appendChild(el('p', null, 'This companion runs the A.I. opponent, all the bookkeeping and the dice for the U.S. and British Solo Campaigns of ',
     el('i', null, 'A Glorious Chance: The Naval Struggle for Lake Ontario in the War of 1812'), ' (Legion Wargames). Keep your physical map, counters and cards in front of you – the app tells you what to move, and it draws the cards for you.'));
-  if (saved && saved.state && !saved.state.over) box.appendChild(el('div', { class: 'banner' }, `A game in progress was found: ${SIDE_NAME[saved.state.human]} campaign, ${TURN_NAMES[saved.state.turn]}. `, el('button', { class: 'primary', onclick: () => { G_STATE = saved.state; UNDO = saved.undo || []; render(); } }, 'Continue it')));
+  if (saved && saved.state && typeof saved.state === 'object') {
+    const ss = saved.state, fin = !!ss.over;
+    const msg = el('div', { class: 'err' });
+    const label = `${SIDE_NAME[ss.human] || '?'} campaign, ${TURN_NAMES[Math.min(ss.turn, 7)] || '?'}`;
+    box.appendChild(el('div', { class: 'banner' }, fin ? `A finished game was found: ${label}. ` : `A game in progress was found: ${label}. `,
+      el('button', { class: 'primary', onclick: () => {
+        try { commitLoaded(checkSaveState(ss), saved.undo || []); }
+        catch (e) { msg.textContent = 'Could not open it: ' + e.message; }
+      } }, fin ? 'Review it' : 'Continue it'), msg));
+  }
   const camp = el('div', { class: 'camp' });
   const bUS = el('button', { class: 'on' }, el('b', null, 'U.S. Solo Campaign'), el('br'), el('span', { class: 'muted' }, 'You are Cdre. Chauncey; the A.I. runs the British squadron.'));
   const bBR = el('button', null, el('b', null, 'British Solo Campaign'), el('br'), el('span', { class: 'muted' }, 'You are Cdre. Yeo; the A.I. runs the American squadron.'));
@@ -601,7 +670,7 @@ function openRef() {
     el('li', null, 'Disengagement: 1d6 1–3 Disengages (−1 per friendly ship already Struck). Fast ships pass their first check automatically.'),
     el('li', null, 'Strike Check: 1d10 1–2 Fight On, 3–8 Strike Colors, 9–10 Sinks (−1 Flagship with original Leader; +1 per hit on a zero-step ship).'),
     el('li', null, 'Leader Casualty: 2d6 10 Wounded, 11–12 Killed (+1 hit in Close Action, +1 win Melee, +2 lose Melee).'),
-    el('li', null, 'Close Action: 2:1 CA or better; 1d10 ≤ difference = step loss, otherwise Melee (d6 + CA each; 150% captures).'),
+    el('li', null, 'Close Action: 2:1 CA or better; 1d10 ≤ difference = step loss (then Disengagement/Strike Check – a defender still Engaged goes to Melee), otherwise Melee (d6 + CA each; 150% captures).'),
     el('li', null, 'Reaction Check: 1d10 5–9 succeeds; +1 same zone, −1 per zone of distance (Homeport to its zone = 1). A.I. Homeport pool: no modifiers.'),
     el('li', null, 'Struck ships at Encounter end: Captured if their side withdrew/was eliminated, rescued if the enemy did, otherwise 1d6 1–3 Captured.')));
   r.appendChild(el('h2', null, 'Ships'));
@@ -631,8 +700,11 @@ function openAdjust() {
   box.appendChild(el('h2', null, 'Adjust (manual corrections)'));
   box.appendChild(el('p', { class: 'muted' }, 'Use this to match the app to your table if something went differently. Every change is logged and can be undone.'));
   const num = (label, get, set) => {
-    const inp = el('input', { type: 'number', value: get(), style: { width: '70px' } });
-    return el('label', null, label + ' ', inp, ' ', el('button', { class: 'small', onclick: () => { UNDO.push(JSON.stringify(s)); set(+inp.value); log(s, `Manual adjustment: ${label} = ${inp.value}`, 'player'); autosave(); render(); openAdjust(); } }, 'Set'));
+    const inp = el('input', { type: 'number', step: 1, value: get(), style: { width: '70px' } });
+    return el('label', null, label + ' ', inp, ' ', el('button', { class: 'small', onclick: () => {
+      const v = Number(inp.value);
+      if (inp.value === '' || !Number.isInteger(v)) { inp.value = get(); return; }   // whole numbers only
+      UNDO.push(JSON.stringify(s)); set(v); log(s, `Manual adjustment: ${label} = ${v}`, 'player'); autosave(); render(); openAdjust(); } }, 'Set'));
   };
   box.appendChild(num('U.S. VP', () => s.vp.US, v => { s.vp.US = v; }));
   box.appendChild(num('British VP', () => s.vp.BR, v => { s.vp.BR = v; }));

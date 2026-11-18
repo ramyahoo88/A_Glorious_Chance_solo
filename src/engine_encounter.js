@@ -12,6 +12,19 @@ function encAdd(s, id, status) {
   const e = s.encounter;
   e.ships[id] = status || 'in';
   e.side[id] = s.ships[id].owner;
+  if (s.flagship[e.side[id]] === id) { e.flagIn = e.flagIn || {}; e.flagIn[e.side[id]] = true; }
+}
+// Event cards 29/31: Intelligence benefits only the next Encounter involving the enemy Flagship.
+function consumeIntelligence(s) {
+  const e = s.encounter;
+  if (!e || !e.flagIn) return;
+  ['US', 'BR'].forEach(side => {
+    const it = s.intelligence[side];
+    if (it && s.turn <= it.until && e.flagIn[OTHER[side]]) {
+      s.intelligence[side] = null;
+      log(s, `Intelligence (Event #${it.card}) has been used in this Encounter with the enemy Flagship – the card returns to the Event deck.`, 'event');
+    }
+  });
 }
 
 PROCS.encounter = {
@@ -169,8 +182,7 @@ PROCS.encounter = {
         if (dist > 1) return;
         const ships = fr.ships.filter(id => isFull(s.ships[id]));
         if (!ships.length) return;
-        let drm = (dist === 0 ? 1 : -dist) + windAI;
-        if (intel) drm = Math.max(0, drm) + 1;
+        const drm = reactionDRM(dist, windAI, intel);
         const r = d10(s), ok = r + drm >= 5;
         lines.push(`A.I. ${forceLabel(s, fr)} (${ZONE_NAME[fr.zone]}): d10 ${r}${drm ? (drm > 0 ? ' +' : ' ') + drm : ''} → ${ok ? 'SUCCESS' : 'fails'}`);
         if (ok) joinEncounter(s, ships, ai);
@@ -268,8 +280,17 @@ function upgradeChecksFor(s, ids) {
 function intelligenceApplies(s, side) {
   const it = s.intelligence[side];
   if (!it || s.turn > it.until) return false;
+  const e = s.encounter; if (!e) return false;
   const enemyFlag = s.flagship[OTHER[side]];
-  return !!(s.encounter && s.encounter.ships[enemyFlag]);
+  return !!(e.ships[enemyFlag] || (e.flagIn && e.flagIn[OTHER[side]]));
+}
+// 11.2.3 Reaction DRM: distance (+1 same zone, −1 per zone away) plus wind. Intelligence cancels the
+// negative distance DRM, keeps positive ones and adds +1 (Event cards 29/31).
+function reactionDRM(dist, wind, intel) {
+  let d = dist === 0 ? 1 : -dist;
+  if (intel) d = Math.max(0, d);
+  let w = wind; if (intel) w = Math.max(0, w);
+  return d + w + (intel ? 1 : 0);
 }
 
 function humanReactionCandidates(s) {
@@ -279,8 +300,7 @@ function humanReactionCandidates(s) {
   const intel = intelligenceApplies(s, h);
   const out = [];
   const mk = (key, label, ships, dist) => {
-    let drm = (dist === 0 ? 1 : -dist) + wind;
-    if (intel) drm = Math.max(0, drm) + 1;
+    const drm = reactionDRM(dist, wind, intel);
     out.push({ key, label, ships, drm });
   };
   if (!isBlockaded(s, h)) {
@@ -427,6 +447,7 @@ function abortCoastalMission(s, fr) {
 function resolveEncounterEnd(s) {
   const e = s.encounter, lines = [];
   if (!e) return lines;
+  consumeIntelligence(s);
   // Commanding Breeze affects only the Encounter it was drawn for (Event cards 37-38)
   if (s.zones[e.zone] && s.zones[e.zone].flags) delete s.zones[e.zone].flags.breeze;
   const gone = side => !encIds(s, side, ['in', 'dis']).length;

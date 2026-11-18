@@ -232,6 +232,7 @@ PROCS.harbor = {
       if (st === 'hstruck') { lines.push(`${shipName(s, id)} struck her colors in her own harbor – not captured.`); }
       if (sh && sh.owner === e.harborDefender && sh.box === 'deployable' && isReduced(sh)) sh.box = 'transit';
     });
+    consumeIntelligence(s);
     s.encounter = null; s.combat = null;
     lines.forEach(l => log(s, l, 'combat'));
     return lines.length ? P(info('Harbor Encounter ends', lines.join('\n')), '__done') : R();

@@ -117,13 +117,20 @@ const SCATTER = [
 ];
 
 /* Lake Combat Gunnery Hit Distribution Table (Player Aid VI) – block sizes of
-   the 36 results (11..66) per position, for 1..12 Engaged ships. Read from the
-   table as reproduced in the rulebook example (p. 32). For 13+ ships the app
-   picks a position uniformly (no column printed in the reproduced extract). */
+   the 36 results (11..66) per position, for 1..18 Engaged ships, read from the
+   full table reproduced in the British Living Rulebook example (p. 32); the U.S.
+   rulebook's copy is cut off after column 12. Beyond 18 (possible only with
+   Open Range's +5) the app picks a position uniformly. */
 const HIT_DIST = {
   1: [36], 2: [18, 18], 3: [12, 12, 12], 4: [9, 9, 9, 9], 5: [7, 7, 8, 7, 7], 6: [6, 6, 6, 6, 6, 6],
   7: [5, 5, 5, 6, 5, 5, 5], 8: [3, 5, 5, 5, 5, 5, 5, 3], 9: [4, 4, 4, 4, 4, 4, 4, 4, 4],
   10: [2, 4, 4, 4, 4, 4, 4, 4, 4, 2], 11: [1, 4, 4, 4, 5, 4, 4, 4, 4, 1, 1], 12: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+  13: [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2],
+  14: [2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 1],
+  15: [2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2],
+  16: [2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2],
+  17: [2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2],
+  18: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
 };
 function d66Index(red, blue) { return (red - 1) * 6 + (blue - 1); } // 0..35
 function hitPosition(nShips, red, blue) {

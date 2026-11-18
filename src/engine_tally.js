@@ -197,7 +197,8 @@ function convoySupply(s, side, say) {
   if (!c.real) return;
   if (c.result === 'C') { moveSupply(s, OTHER[side], 1, 'Convoy captured'); say(`F5: the ${SIDE_SHORT[side]} Convoy was captured – no advance; ${SIDE_SHORT[OTHER[side]]} +1 Convoy Supply.`); return; }
   if (c.result === 'D') { say(`F5: the ${SIDE_SHORT[side]} Convoy was destroyed – no advance.`); return; }
-  if (c.result === 'S') { say(`F5: the ${SIDE_SHORT[side]} Convoy scattered – no advance.`); return; }
+  // A Scattered Convoy is delayed, not lost: it takes a Convoy Delay marker and arrives later (Living Playbook p.16-17)
+  if (c.result === 'S') { s.pendingConvoy[side].push({ status: 'delayed', turn: s.turn }); say(`F5: the ${SIDE_SHORT[side]} Convoy scattered – no advance this turn; it takes a Convoy Delay marker and arrives later.`); return; }
   if (blk) { s.pendingConvoy[side].push({ status: 'delayed', turn: s.turn }); say(`F5: the ${SIDE_SHORT[side]} Homeport is Blockaded – the Convoy receives a Convoy Delay marker.`); return; }
   if (c.delay) { s.pendingConvoy[side].push({ status: 'delayed', turn: s.turn }); say(`F5: the ${SIDE_SHORT[side]} Convoy is delayed – no advance this turn (arrives later).`); return; }
   moveSupply(s, side, 2, 'Convoy arrives'); say(`F5: the ${SIDE_SHORT[side]} Convoy arrives – +2 Convoy Supply.`);

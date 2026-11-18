@@ -6,11 +6,11 @@ These are the places where the rules are silent or ambiguous, or where the compo
 1. **Victory levels** follow the Living Rules 3.3.2 (−33 / −22 / −11 / ±10 / +11 / +22 / +33). The Player Aid VIII image in the VASSAL module still shows the older ±53 / ±32 / ±11 bands.
 2. **Cutting-Out (optional OA2)** allows one Deployment per side per game, as in the Living Rules (A7) and the Playbook. Some Target Cards still say “maximum two”.
 3. **A.I. American attack precondition (British campaign).** The British Living Rules LC1 text compares *Carronade + Defense* for the A.I. Americans. The Lake Combat Sequences of Play mat compares *Long Gun + Defense*, which matches the U.S. Breakout rule (14.3). The default is the mat; it can be switched on the setup screen.
-4. **Hit Distribution Table** was read from the rulebook reproduction for 1–12 Engaged ships. With 13 or more ships (or Open Range pushing past 12), the position is picked uniformly and hits on empty positions miss.
+4. **Hit Distribution Table** (Player Aid VI) is transcribed for 1–18 Engaged ships from the full table reproduced in the British Living Rulebook (p. 32); the U.S. rulebook's copy is cut off after column 12. Only Open Range can push the column past 18; then the position is picked uniformly. Hits on empty positions miss. The attacker's column in a Gunnery Round holds only the ships attacking in that Round: Reduced ships stay behind in the previous Round's zone and cannot be hit by return fire (Playbook p. 15).
 5. **Adverse Wind** is applied as printed on all four cards: +2 to the human player's Reaction Checks in that zone. It reads like a misprint for −2 (Fair Wind gives the same +2), but the printed value is kept by player ruling (Nov 2026).
 
 ## Dice readings
-6. The d10 is read **0–9** for the Lake Combat Table, Reaction Checks, the Convoy Scatter Table, Cutting-Out and Minor Damage. It is read **1–10** for Strike Checks (1–2 / 3–8 / 9–10), the Upgrade-limit roll (1 = 3 ships … 10 = 0) and the Close Action “roll ≤ CA difference” check. (The combat mat prints the Close Action check as “1d10 roll > ratio numerator hits”; the app follows the Living Rules LC7d and the Playbook example, where a roll ≤ the difference hits.)
+6. The d10 is read **0–9** for the Lake Combat Table, Reaction Checks, the Convoy Scatter Table, Cutting-Out and Minor Damage. It is read **1–10** for Strike Checks (1–2 / 3–8 / 9–10), the Upgrade-limit roll (1 = 3 ships … 10 = 0) and the Close Action “roll ≤ CA difference” check. (The combat mat prints the Close Action check as “1d10 roll > ratio numerator hits”; the errata of 1 Dec 2023 says the mat is wrong and to follow LC7d, where a roll ≤ the difference hits.)
 
 ## Preparation Phase
 7. **In Ordinary is reversible.** In A4 you choose which ships are laid up this turn, and previously laid-up ships can be recommissioned. The A.I. recommissions its laid-up ships each A4 and then applies the 30-point limit: Secondary ships go first, then the lowest capture VP, and never the Flagship. Ships placed In Ordinary in A5 to buy down Construction Delay count only in the turn they are placed.
@@ -35,7 +35,7 @@ These are the places where the rules are silent or ambiguous, or where the compo
 22. **Leader casualties:** the Leader is captured only if the Flagship is captured in Melee, or Strikes/sinks while no other friendly ship remains Engaged. Otherwise a lost Flagship just shifts the flag to the best remaining ship. Gale or Explosion sinking the Flagship kills the Leader. You are offered a flag transfer when your Flagship is Reduced. The A.I. transfers only when it is attacking and the transfer keeps its Command DRM.
 23. **Withdrawal:** the whole Force withdraws (LC5): its Engaged ships, ships hit by the W result that pass their Disengagement Check, and ships that Disengaged earlier in the Encounter. Ships that just failed their check, and ships that “Fight On”, stay Engaged. Coastal missions of withdrawing Forces abort, and their Troops return to the Available box in F7.
 24. **Pursuit** cancels the Defender's withdrawal and starts a new Encounter (a new Weather Gage draw; the zone's Lake Event stays in force).
-25. **Reaction Segment** happens when the Patrol Segment ends with both sides still having Engaged ships. Your homeport-to-zone distance counts the port as one zone (11.2.3). Intelligence gives +1 and cancels negative DRMs.
+25. **Reaction Segment** happens when the Patrol Segment ends with both sides still having Engaged ships. Your homeport-to-zone distance counts the port as one zone (11.2.3). **Intelligence** (Event cards 29/31) gives +1 and cancels the negative distance DRM while keeping positive ones such as Fair Wind. It is used up by the first Encounter that involves the enemy Flagship, whether or not anyone makes a Reaction Check; otherwise it lapses at the end of the next turn.
 26. **Struck Colors:** if exactly one side withdrew or was eliminated, its struck ships are captured and the other side's are rescued. Otherwise each struck ship rolls 1d6 (1–3 captured).
 27. **Sickness** lowers only Close Action Strength. **Haze** removes Long Guns in the first Gunnery Round 1 fought in that zone each turn.
 28. **Gale:** losses from the Gale (sunk or captured on the beach) score no VPs, because they have a non-combat cause.
@@ -55,7 +55,7 @@ These are the places where the rules are silent or ambiguous, or where the compo
 38. **Package #9** takes the 0-Close Action Secondary with the lowest Long Gun, random among ties. **Package #11** draws Secondary ships at random until their steps total at least 5.
 39. **Land Battle Table misprint:** in the printed 0 Long Gun / 3 Troops column, rolls 62–63 have no result (Attacker Success 35-61, Attacker Major Success 64-65). The app reads Attacker Success as 35–63, following the 65 / 64 / 63 progression of that band. All 14 other columns cover 11–66 exactly.
 40. **Land Battle column shifts** (More Defenders −2) stop at the 0 Long Gun column. More than 3 Troops markers use the 3-Troops column.
-41. **Stolen Supplies:** Player Aid VII says a successful Land Battle against a Homeport *advances the attacker's* Convoy Supply marker two spaces. The Living Rules F5.3 (2024) say the *defender's* marker *regresses* two spaces. The app follows the Living Rules.
+41. **Stolen Supplies:** Player Aid VII says a successful Land Battle against a Homeport *advances the attacker's* Convoy Supply marker two spaces. The Living Rules F5.3 (2024) say the *defender's* marker *regresses* two spaces, and the errata (1 Oct 2023) deletes the player-aid paragraph. The app regresses the defender.
 
 ## Not automated
 42. Optional Advanced rules beyond OA1 and OA2 are not implemented.
@@ -66,6 +66,15 @@ These are the places where the rules are silent or ambiguous, or where the compo
 45. **Commanding Breeze** affects only the Encounter it was drawn for (cards 37–38), not later Encounters in that zone the same turn.
 46. **Last-turn sudden death (5.1)** counts an A.I. ship as eligible if it will be Deployable on Sept. II: Deployable or Make Ready; Repairing with no delay marker (not a newly built damaged ship); In Transit at full strength; laid up and undamaged (the A.I. recommissions it); or back from Requisition.
 47. **Blockaded A.I. ships in Lake Action** may Deploy for an Encounter in any zone (player ruling, Nov 2026); 14.1.2 bars them only from missions and the Enemy Operations Phase.
-48. **Fast ships:** both rulebooks (LC5.2 and the errata) say a full-strength “F” ship automatically passes her first Disengagement Check. The Playbook example has the Lady of the Lake roll; the app follows the rulebooks.
+48. **Fast ships:** both rulebooks (LC5.2) and the errata (which answers exactly this question) say a full-strength “F” ship automatically passes her first Disengagement Check. The Playbook example has the Lady of the Lake roll; the app follows the rulebooks.
 49. **Final-turn cards:** the British rulebook says 27 cards carry the final-turn symbol; 28 B-deck cards actually show it. The app removes the cards that show it.
 50. **VP errata:** the errata's corrected Player Aid VIII text (“destroyed ±2 to ±32”) does not match the map's VP list; the app uses the map values.
+
+## Added in 0.2.2 (independent audit of 0.2.1)
+51. **Scattered Convoys** are delayed, not lost: no advance that turn, a Convoy Delay marker, and +2 at the next F5 with no enemy Blockade (Living Playbook p. 16–17). Destroyed and Captured Convoys are lost.
+52. **Flag transfer (LC5.1)** is also allowed when the Reduced Flagship has just Disengaged, while she is still in the column before the gap closes (Playbook p. 19). A wounded Leader cannot transfer.
+53. **Withdrawal for your Force** is offered after a W result even when all your ships in the Encounter have Disengaged; accepting it sends them In Transit with the rest of the Force.
+54. **Troops** are whole markers: fractional entries are refused in A7, in Adjust and in loaded saves.
+55. **Lineup preview** shows the first Round exactly as it will be fought, including a Missed Signal ship sitting out and the A.I. British leaving Converted Laker Schooners out of the defending line.
+56. **Loading a save** checks it first. A damaged, cut-off or incomplete save is refused with a message and the current game, its autosave and Undo history are left untouched. Saves from earlier versions are accepted; fields added later are filled with their starting values.
+57. **Force Package 8 split (open question):** when several minimum-size first Forces are legal, the app takes the first one found and does not check ahead whether the rest can still form the second Force. The rules do not say which first Force to prefer.

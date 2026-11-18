@@ -80,6 +80,17 @@ function buildColumn(s, ids, tows, side) {
   return col;
 }
 function colShips(c, side) { return (c.col[side] || []).filter(Boolean); }
+// Ships that defend in a Lake Combat (the A.I. British never put Converted Laker Schooners in the line)
+function defendingIds(s, side) {
+  const ids = encIds(s, side);
+  return side === 'BR' && s.ai === 'BR' ? ids.filter(id => !isCLS(s.ships[id])) : ids;
+}
+// The ship a pending Missed Signal Event keeps out of the next first Round of combat in this zone (or null)
+function missedSignalShip(s) {
+  if (!s.encounter) return null;
+  const zf = s.zones[s.encounter.zone].flags;
+  return zf.missedSignal && !zf.missedSignalUsed && s.encounter.ships[zf.missedSignal] === 'in' ? zf.missedSignal : null;
+}
 
 /* ---------- Lake Combat procedure ----------------------------------------------------------- */
 PROCS.combat = {
@@ -97,8 +108,8 @@ PROCS.combat = {
       const cands = encIds(s, c.att).filter(id => isFull(s.ships[id]));
       if (!cands.length) return R({ outcome: 'segmentEnd' });
       return P({ kind: 'lineup', title: `Lake Combat – choose your attacking ships`, side: c.att,
-        text: `Only full-strength ships may attack. ${c.att === 'US' ? 'Each ship with a “T” may tow one Converted Laker Schooner (towing avoids the untowed-schooner DRM penalty; untowed schooners in a U.S. attack risk −1/−2 DRM).' : ''}\nDefending: ${encIds(s, c.def).map(id => shipName(s, id)).join(', ')}.`,
-        candidates: cands, defenders: encIds(s, c.def), defaultTows: defaultTows(s, cands) }, 'assemble2');
+        text: `Only full-strength ships may attack. ${c.att === 'US' ? 'Each ship with a “T” may tow one Converted Laker Schooner (towing avoids the untowed-schooner DRM penalty; untowed schooners in a U.S. attack risk −1/−2 DRM).' : ''}\nDefending: ${defendingIds(s, c.def).map(id => shipName(s, id)).join(', ')}.`,
+        candidates: cands, defenders: defendingIds(s, c.def), defaultTows: defaultTows(s, cands) }, 'assemble2');
     }
     return G('assemble2');
   },
@@ -112,13 +123,11 @@ PROCS.combat = {
     }
     c.tows = tows;
     c.col[c.att] = buildColumn(s, attIds, tows, c.att);
-    let defIds = encIds(s, c.def);
-    if (c.def === 'BR' && s.ai === 'BR') defIds = defIds.filter(id => !isCLS(s.ships[id]));
-    c.col[c.def] = buildColumn(s, defIds, {}, c.def);
+    c.col[c.def] = buildColumn(s, defendingIds(s, c.def), {}, c.def);
     // Missed Signal: the ship sits out the first Round her Force fights
     c.sitting = null;
-    if (zf.missedSignal && !zf.missedSignalUsed) {
-      const ms = zf.missedSignal;
+    const ms = missedSignalShip(s);
+    if (ms) {
       ['US', 'BR'].forEach(sd => { if (c.col[sd].indexOf(ms) >= 0) { c.sitting = { id: ms, side: sd }; c.col[sd] = c.col[sd].filter(x => x !== ms); } });
       if (c.sitting) { zf.missedSignalUsed = true; log(s, `Missed Signal: ${shipName(s, c.sitting.id)} sits out this Round.`, 'event'); }
     }
@@ -322,8 +331,11 @@ PROCS.combat = {
       else distributeHits(s, c.col[c.def], res.dHits, dMap, lines, { openRange: c.def === 'BR' && tacActive(c, 'def', 'D_openrange'), subgroup: f.L.subgroup, side: c.def });
     }
     if (res.aHits) {
-      if (res.defRake) distributeHits(s, c.col[c.att], res.aHits, aMap, lines, { forceCol: 2, side: c.att });
-      else distributeHits(s, c.col[c.att], res.aHits, aMap, lines, { side: c.att });
+      // Only the ships attacking in this Gunnery Round are in the attacker's column for this Round; Reduced ships
+      // stay behind in the previous Round zone (LC5 "column of ships for this Gunnery Round"; Playbook p.15).
+      const attCol = c.col[c.att].filter(id => id && (c.roundAttackers || []).indexOf(id) >= 0);
+      if (res.defRake) distributeHits(s, attCol, res.aHits, aMap, lines, { forceCol: 2, side: c.att });
+      else distributeHits(s, attCol, res.aHits, aMap, lines, { side: c.att });
     }
     const ctx = { round: 'GR', escapeSide: res.escape ? c.def : null };
     const rd = applyHits(s, c.def, dMap, ctx, lines);
@@ -348,7 +360,7 @@ PROCS.combat = {
       return G('withdraw');
     }
     if (side === s.human) {
-      const stay = encIds(s, side).length;
+      const stay = encIds(s, side, ['in', 'dis']).length;
       if (!stay) return G('withdraw');
       return P(choice('Withdrawal result against you', `${f.L.lines.join('\n')}\n\nThe result lets your Force Withdraw (optional for the human player). Withdraw to your Homeport's In Transit area (Coastal missions abort), or ignore the W and fight on at your own risk?`,
         [{ id: 'withdraw', label: 'Withdraw', primary: true }, { id: 'stay', label: 'Ignore – fight on' }], { combatView: true }), 'withdraw2');
@@ -678,7 +690,8 @@ function flagTransferOptions(s, side) {
   const c = s.combat; if (!c) return [];
   const fl = s.flagship[side];
   const sh = s.ships[fl];
-  if (!sh || !isReduced(sh) || s.encounter.ships[fl] !== 'in') return [];
+  // The Flagship may be Engaged or have just Disengaged (it is still in the column until the gap closes): Playbook p.19
+  if (!sh || !isReduced(sh) || ['in', 'dis'].indexOf(s.encounter.ships[fl]) < 0) return [];
   const L = s.leader[side]; if (L.wounded) return [];
   const col = c.col[side] || []; const i = col.indexOf(fl);
   if (i < 0) return [];

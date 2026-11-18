@@ -41,6 +41,7 @@ function validateAssignment(s, p, a) {
     if (fr.mission === 'Raid') { if (raids[fr.zone]) return 'Only one Raid per Lake Zone per turn'; raids[fr.zone] = 1; }
     if (fr.mission === 'CuttingOut') cut++;
     const t = fr.troops || 0;
+    if (typeof t !== 'number' || !Number.isInteger(t) || t < 0) return 'Troops must be a whole number of markers';
     if (fr.mission === 'ArmySupport') {
       asCount++;
       if (t < 1) return 'An Army Support Force must carry at least one Troops marker';

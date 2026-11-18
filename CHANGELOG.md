@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.2 – 2026-11-18
+Fixes from an independent audit of 0.2.1 (RULES_NOTES 4, 25, 51–57).
+* A Scattered Convoy is now delayed and arrives later (+2), instead of being lost.
+* Gunnery: return fire hits only the ships attacking in that Round; Reduced ships left behind can no longer be hit.
+* Hit Distribution columns 13–18 now use the printed table instead of an approximation.
+* Intelligence is used up by its first Encounter with the enemy Flagship, and no longer cancels Fair Wind.
+* A Flagship that has just Disengaged can still transfer the flag.
+* A W result can be taken even when all your ships have Disengaged.
+* Troops must be whole markers (A7, Adjust, loaded saves); the Land Battle lookup no longer stalls on a fraction.
+* The attack preview now matches the first Round, including Missed Signal.
+* Loading a damaged or incomplete save is refused and leaves the current game, autosave and Undo untouched.
+* A finished game can be reopened from the start screen; a warning shows if the browser refuses to autosave.
+* In-app Close Action reminder updated for the 0.2.1 hit-then-Melee rule.
+* 22 new regression checks (tests/regression.js).
+
 ## 0.2.1 – 2026-11-18
 Rules fixes from the audit of 0.2.0. Rule references are in RULES_NOTES 43–50 and the updated notes 5, 6, 10, 12, 13, 23, 32 and 33.
 * Close Action: a defender that is hit and stays Engaged now goes on to a Melee, as in the Playbook example.

@@ -116,5 +116,85 @@ X(`var s=newGame('BR',13); s.turn=2; ${base} s.troops.BR.available=0; s.zones.SA
    s.calls=[{proc:'turn',pc:'D1',A:{},L:{}}]; run(s);`);
 eq('R1 A.I. side: no blockaders → A.I. Convoy not delayed', X(`!!s.convoys.US[2].delay`), false);
 
+// ===== v0.2.2: findings from the independent audit of v0.2.1 (G01–G10) =====
+const sayNull = `function(){}`;
+
+// G01 – a Scattered Convoy is delayed, not lost (Living Playbook p.16-17)
+X(`var s=newGame('US',1); ${base} s.supply.US=1; s.turn=0; s.convoys.US[0]={real:true,revealed:true,delay:false,deployed:true,result:'S'}; s.convoys.US[1]={real:false,revealed:true};
+   convoySupply(s,'US',${sayNull}); var g1a=s.supply.US; s.pendingConvoy.US.forEach(p=>{ if(p.status==='delayed' && !isBlockaded(s,'US')) p.status='arrived'; });
+   s.turn=1; convoySupply(s,'US',${sayNull});`);
+eq('G01 Scattered Convoy: no advance that turn, +2 the next', X(`[g1a, s.supply.US, s.pendingConvoy.US.length]`), [1, 3, 0]);
+X(`var s=newGame('US',1); ${base} s.supply.US=1; s.turn=0; s.convoys.US[0]={real:true,revealed:true,result:'D'}; convoySupply(s,'US',${sayNull});`);
+eq('G01 Destroyed Convoy stays lost', X(`[s.supply.US, s.pendingConvoy.US.length]`), [1, 0]);
+
+// G02 – return fire on the attacker only hits ships attacking in this Round (Reduced Wolfe stays behind)
+let g2wolfe = 0, g2rg = 0, g2col = 0;
+for (let seed = 1; seed <= 30; seed++) {
+  X(`var s=newGame('BR',${seed}); s.turn=2; ${base} newForce(s,'BR','NOR','Patrol',['wolfe','rg']); newForce(s,'US','NOR','Patrol',['pike']); s.ships.wolfe.steps=2;
+     ${enc('NOR', ['wolfe', 'rg', 'pike'])}
+     s.combat={att:'BR',def:'US',seq:'B',pos:1,segment:'patrol',col:{BR:['wolfe','rg'],US:['pike']},tows:{},tac:{att:null,def:null},gr:1,newSeq:false,roundAttackers:['rg']};
+     s.log=[]; s.calls=[{proc:'combat',pc:'grApply',A:{},L:{st:'GR2',txt:'test',res:{aHits:1,dHits:0}}}]; run(s);`);
+  if (X(`s.ships.wolfe.steps`) !== 2) g2wolfe++;
+  if (X(`s.ships.rg.steps`) < 3) g2rg++;
+  if (X(`s.log.some(l=>l.text.indexOf('hit distribution (1-ship column')>=0)`)) g2col++;
+}
+eq('G02 Reduced Wolfe (not attacking) never hit; Royal George always hit; 1-ship column', [g2wolfe, g2rg, g2col], [0, 30, 30]);
+
+// G03 – printed Hit Distribution columns 13-18 (British Living Rulebook p.32)
+eq('G03 13 ships, roll 12 → #2', X(`hitPosition(13,1,2)`), 2);
+eq('G03 13 ships, roll 11 → #1; 66 → #13', X(`[hitPosition(13,1,1),hitPosition(13,6,6)]`), [1, 13]);
+eq('G03 14 ships, rolls 65/66 → #13/#14', X(`[hitPosition(14,6,5),hitPosition(14,6,6)]`), [13, 14]);
+eq('G03 15 ships, roll 31 → #7 (four-roll block)', X(`hitPosition(15,3,1)`), 7);
+eq('G03 18 ships, rolls 11/12/66 → #1/#1/#18', X(`[hitPosition(18,1,1),hitPosition(18,1,2),hitPosition(18,6,6)]`), [1, 1, 18]);
+
+// G04 – Intelligence benefits one Encounter with the enemy Flagship, then is used up
+X(`var s=newGame('US',1); s.turn=2; ${base} s.intelligence.US={card:29,until:3};
+   newForce(s,'US','NOR','Patrol',['oneida']); newForce(s,'BR','NOR','Patrol',['rg']); ${enc('NOR', ['oneida', 'rg'])}
+   var g4a=intelligenceApplies(s,'US'); resolveEncounterEnd(s); s.encounter=null; var g4b=!!s.intelligence.US;`);
+eq('G04 Encounter without the enemy Flagship: not used, still held', X(`[g4a, g4b]`), [false, true]);
+X(`newForce(s,'BR','YOR','Patrol',['wolfe']); newForce(s,'US','YOR','Patrol',['madison']); ${enc('YOR', ['wolfe', 'madison'])}
+   var g4c=intelligenceApplies(s,'US'); resolveEncounterEnd(s); s.encounter=null;
+   newForce(s,'BR','SOU','Patrol',['moira']); newForce(s,'US','SOU','Patrol',['tompkins']); s.flagship.BR='moira'; ${enc('SOU', ['moira', 'tompkins'])}`);
+eq('G04 used in the Encounter with Wolfe, gone for the next', X(`[g4c, s.intelligence.US, intelligenceApplies(s,'US')]`), [true, null, false]);
+
+// G05 – Intelligence cancels the negative distance DRM but keeps Fair Wind
+eq('G05 reactionDRM(distance 2, wind +2, Intelligence) = +3', X(`reactionDRM(2,2,true)`), 3);
+eq('G05 without Intelligence = 0; same zone with Intelligence = +2', X(`[reactionDRM(2,2,false), reactionDRM(0,0,true), reactionDRM(1,0,true)]`), [0, 2, 1]);
+X(`var s=newGame('BR',1); s.turn=2; ${base} s.intelligence.BR={card:29,until:3}; s.flagship.US='oneida'; s.zones.NOR.event=8;
+   newForce(s,'US','NOR','Patrol',['oneida']); newForce(s,'BR','NOR','Patrol',['wolfe']); ${enc('NOR', ['oneida', 'wolfe'])}
+   var g5=humanReactionCandidates(s).find(c=>c.key==='home');`);
+eq('G05 Kingston ships reacting into North Lake with Fair Wind + Intelligence: DRM', X(`g5 && g5.drm`), 3);
+
+// G07 – a Reduced Flagship that has just Disengaged can still shift the flag (Playbook p.19)
+X(`var s=newGame('BR',1); s.turn=2; ${base} newForce(s,'BR','NOR','Patrol',['wolfe','rg']); newForce(s,'US','NOR','Patrol',['madison']);
+   ${enc('NOR', ['wolfe', 'rg', 'madison'])} s.ships.wolfe.steps=2; s.encounter.ships.wolfe='dis';
+   s.combat={att:'US',def:'BR',seq:'A',pos:0,col:{BR:['wolfe','rg'],US:['madison']},tows:{},tac:{att:null,def:null},gr:1};`);
+eq('G07 just-Disengaged Flagship may transfer to adjacent Royal George', X(`flagTransferOptions(s,'BR')`), ['rg']);
+X(`s.leader.BR.wounded=true;`);
+eq('G07 …but not if the Leader is wounded', X(`flagTransferOptions(s,'BR')`), []);
+
+// G08 – Troops are whole markers
+X(`var s=newGame('BR',2); s.turn=1; ${base} s.troops.BR.available=2; var pa=buildAssignPrompt(s);`);
+eq('G08 1.5 Troops refused', X(`validateAssignment(s,pa,{flagship:'wolfe',forces:[{zone:'NIA',mission:'ArmySupport',ships:['wolfe'],troops:1.5}]})`), 'Troops must be a whole number of markers');
+eq('G08 2 Troops accepted', X(`validateAssignment(s,pa,{flagship:'wolfe',forces:[{zone:'NIA',mission:'ArmySupport',ships:['wolfe'],troops:2}]})`), null);
+eq('G08 Land Battle lookup survives a stray fraction', X(`lbLookup(0,1.5,0,35).troops`), 1);
+
+// G09 – a W result still lets a human Force whose ships have all Disengaged withdraw
+X(`var s=newGame('US',1); s.turn=2; ${base} newForce(s,'US','NOR','Patrol',['oneida']); newForce(s,'BR','NOR','Patrol',['wolfe']);
+   ${enc('NOR', ['oneida', 'wolfe'])} s.ships.oneida.steps=1; s.encounter.ships.oneida='dis';
+   s.combat={att:'BR',def:'US',seq:'B',pos:1,col:{BR:['wolfe'],US:[]},tows:{},tac:{att:null,def:null},gr:1};
+   s.calls=[{proc:'combat',pc:'withdraw',A:{},L:{wQueue:['US'],lines:['test'],failedDis:{US:[],BR:[]},hit:{US:['oneida'],BR:[]}}}]; run(s);`);
+eq('G09 Withdrawal choice offered', X(`s.prompt && s.prompt.title`), 'Withdrawal result against you');
+X(`act(s,'withdraw'); resolveEncounterEnd(s);`);
+eq('G09 …and Oneida goes to In Transit', X(`s.ships.oneida.box`), 'transit');
+
+// G10 – the lineup preview and the first Round use the same ships (Missed Signal)
+X(`var s=newGame('US',1); s.turn=2; ${base} newForce(s,'US','NOR','Patrol',['madison','oneida']); newForce(s,'BR','NOR','Patrol',['wolfe']);
+   ${enc('NOR', ['madison', 'oneida', 'wolfe'])} s.zones.NOR.flags.missedSignal='madison';`);
+eq('G10 Missed Signal ship known before the attack', X(`missedSignalShip(s)`), 'madison');
+X(`s.combat={att:'US',def:'BR',seq:'A',pos:0,segment:'patrol',col:{US:[],BR:[]},tows:{},tac:{att:null,def:null},gr:0,newSeq:false,roundAttackers:[]};
+   s.calls=[{proc:'combat',pc:'assemble2',A:{},L:{},answer:{attackers:['madison','oneida'],tows:{}}}]; run(s);`);
+eq('G10 …and she is the one left out of the first Round', X(`[s.combat.col.US, s.combat.sitting && s.combat.sitting.id, missedSignalShip(s)]`), [['oneida'], 'madison', null]);
+
 console.log(`regression tests: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
