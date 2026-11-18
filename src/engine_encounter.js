@@ -24,6 +24,8 @@ PROCS.encounter = {
     if (A.kind === 'breakout') {
       const bs = A.breakoutSide, other = OTHER[bs], z = A.zone;
       const sortie = deployable(s, bs, 'home').map(sh => sh.id);
+      // 7.1: British ships leaving port for an Encounter make Upgrade Checks (U.S. campaign)
+      if (bs === 'BR' && s.human === 'US') upgradeChecksFor(s, sortie);
       const sf = newForce(s, bs, z, 'Patrol', sortie, { origin: 'breakout' });
       const blk = shipsInZone(s, z, other).map(sh => sh.id);
       sortie.forEach(id => encAdd(s, id)); blk.forEach(id => encAdd(s, id));
@@ -425,6 +427,8 @@ function abortCoastalMission(s, fr) {
 function resolveEncounterEnd(s) {
   const e = s.encounter, lines = [];
   if (!e) return lines;
+  // Commanding Breeze affects only the Encounter it was drawn for (Event cards 37-38)
+  if (s.zones[e.zone] && s.zones[e.zone].flags) delete s.zones[e.zone].flags.breeze;
   const gone = side => !encIds(s, side, ['in', 'dis']).length;
   const struck = Object.keys(e.ships).filter(id => e.ships[id] === 'struck');
   struck.forEach(id => {

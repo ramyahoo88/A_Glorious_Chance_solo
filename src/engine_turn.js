@@ -342,7 +342,12 @@ PROCS.turn = {
       f.L.done.h = true;
       const blockaders = shipsInZone(s, homeZone(h), ai);
       const mine = deployable(s, h, 'home');
-      if (blockaders.length && mine.some(isFull)) {
+      if (!blockaders.length) {
+        // 14.3 note: an unmaintained Blockade lapses in F2.3, so no Breakout is needed and the Convoy is not delayed
+        log(s, 'D: no enemy ships are on station outside your Homeport – the Blockade will lapse in F2.3 and your Convoy runs on schedule.', 'player');
+        return G('D1');
+      }
+      if (mine.some(isFull)) {
         return P(choice('D Breakout Attack?', `Your Homeport is Blockaded by ${blockaders.map(sh => shipName(s, sh.id)).join(', ')}. Launch a Breakout Attack with your ships in port (you start with the Weather Gage), or Pass?`,
           [{ id: 'attack', label: 'Breakout Attack', primary: true }, { id: 'pass', label: 'Pass' }]), 'D1h');
       }
@@ -350,15 +355,16 @@ PROCS.turn = {
     }
     if (isBlockaded(s, ai) && !f.L.done.ai) {
       f.L.done.ai = true;
-      const blockaders = shipsInZone(s, homeZone(ai), h);
-      const theirs = deployable(s, ai, 'home');
-      const key = ai === 'BR' ? car : lg;
-      const a = sumBy(theirs, key), b = sumBy(blockaders, key);
-      if (theirs.length && blockaders.length && a > b) {
-        log(s, `AI Breakout check: ${ai === 'BR' ? 'Carronade' : 'Long Gun'} ${a} vs your ${b} – the AI breaks out!`, 'ai');
+      const bc = aiBreakoutCheck(s, ai);
+      if (!bc.blockaders.length) {
+        log(s, 'D: none of your ships are on station outside the AI Homeport – the Blockade will lapse in F2.3 and the AI Convoy is not delayed.', 'ai');
+        return G('D1');
+      }
+      if (bc.ok) {
+        log(s, `AI Breakout check: ${bc.label} ${bc.a} vs your ${bc.b} – the AI breaks out!`, 'ai');
         return C('encounter', { zone: homeZone(ai), kind: 'breakout', breakoutSide: ai, startAt: 'event' }, 'D1');
       }
-      log(s, `AI Breakout check: ${ai === 'BR' ? 'Carronade' : 'Long Gun'} ${a} vs your ${b} – the AI stays in port; the Blockade continues.`, 'ai');
+      log(s, `AI Breakout check: ${bc.label} ${bc.a} vs your ${bc.b} – the AI stays in port; the Blockade continues.`, 'ai');
       const c = s.convoys[ai][s.turn]; if (c) { c.delay = true; }
       return G('D1');
     }
@@ -377,7 +383,7 @@ PROCS.turn = {
     s.turn++;
     if (s.turn > 7) { endGame(s); return R(); }
     // 5.1 Last-turn sudden death
-    if (s.turn === 7 && !sideShips(s, s.ai).some(sh => ['deployable', 'makeReady', 'repairing', 'transit'].indexOf(sh.box) >= 0)) {
+    if (s.turn === 7 && !sideShips(s, s.ai).some(sh => aiShipDeployableNextTurn(s, sh, s.turn))) {
       log(s, 'Sudden death (5.1): the AI has no ships eligible to be Deployable on the last turn – the game ends.', 'turn');
       endGame(s); return R();
     }
@@ -388,6 +394,31 @@ PROCS.turn = {
 /* ------------------------------------------------------------------------- */
 // 14.1.2: Blockaded ships may not Deploy in an Enemy Operations Phase (nor react, by analogy with 11.2.1);
 // they may still Deploy for a Lake Action Encounter (the A10 left-shift makes the blockaders' zone come first).
+// 14.3: the Blockaded A.I. breaks out if its in-port Carronade (British) / Long Gun (U.S.) total
+// exceeds that of the blockading ships.
+function aiBreakoutCheck(s, ai) {
+  const blockaders = shipsInZone(s, homeZone(ai), OTHER[ai]);
+  const theirs = deployable(s, ai, 'home');
+  const key = ai === 'BR' ? car : lg;
+  const a = sumBy(theirs, key), b = sumBy(blockaders, key);
+  return { ok: !!(theirs.length && blockaders.length && a > b), a, b, blockaders, label: ai === 'BR' ? 'Carronade' : 'Long Gun' };
+}
+// Whether a Blockaded side meets the requirements to launch a Breakout Attack (14.2 / 14.3)
+function canLaunchBreakout(s, side) {
+  if (side === s.ai) return aiBreakoutCheck(s, side).ok;
+  return shipsInZone(s, homeZone(side), OTHER[side]).length > 0 && deployable(s, side, 'home').some(isFull);
+}
+// 5.1: will this A.I. ship be Deployable in next turn's Preparation Phase?
+function aiShipDeployableNextTurn(s, sh, nextTurn) {
+  switch (sh.box) {
+    case 'deployable': case 'makeReady': return true;                    // A2: Make Ready → Deployable
+    case 'repairing': return !sh.delay && !sh.flags.builtDamaged;         // A3.i (delayed / newly built go elsewhere)
+    case 'transit': return isFull(sh);                                     // A3.ii: Reduced ships go to Repairing
+    case 'ordinary': return !sh.flags.damaged;                             // A4: the A.I. recommissions laid-up ships
+    case 'requisitioned': return sh.flags.reqUntil != null && nextTurn >= sh.flags.reqUntil;
+    default: return false;
+  }
+}
 function aiDeployablePool(s, phase) {
   const ai = s.ai;
   if (phase === 'lake') return deployable(s, ai);

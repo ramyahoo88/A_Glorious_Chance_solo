@@ -47,7 +47,9 @@ with sync_playwright() as p:
             pg.click("#proc button.primary")
         elif kind == 'assign':
             # add one patrol force with the first two ships
-            pg.click("text=+ Add Force")
+            # (no free ships, e.g. your whole squadron is Blockaded in port: confirm with no Forces)
+            if pg.query_selector_all('.asg-ship:not(.on):not(.taken)'):
+                pg.click("text=+ Add Force")
             for k in range(2):
                 chips = pg.query_selector_all('.asg-ship:not(.on):not(.taken)')
                 if chips: chips[0].click()

@@ -478,7 +478,6 @@ PROCS.combat = {
       log(s, lines[0], 'combat');
       return P(info('Close Action', lines.join('\n'), { combatView: true }), '__segEnd');
     }
-    const hitMap = {};
     const grapple = c.att === 'BR' && (c.grapple || tacActive(c, 'att', 'A_grapple'));
     pairs.forEach(([a, d]) => {
       const sa = s.ships[a], sd = s.ships[d];
@@ -486,16 +485,25 @@ PROCS.combat = {
       const caA = combatVals(s, sa)[2], caD = combatVals(s, sd)[2];
       const diff = caA - caD;
       const r = d10r(s);
+      let lead;
       if (r <= diff) {
-        hitMap[d] = (hitMap[d] || 0) + 1;
+        // LC7d: the defender loses a Step and makes its Disengagement or Strike Check now. If it is still
+        // Engaged afterwards (failed Disengagement, or Fight On!), the same ships go on to a Melee
+        // (LC5 sidebar; Playbook example of play, Wolfe vs Lady of the Lake).
         lines.push(`${shipName(s, a)} (CA ${caA}) vs ${shipName(s, d)} (CA ${caD}): d10 ${r} ≤ ${diff} – HIT`);
-        return;
+        applyHits(s, c.def, { [d]: 1 }, { round: 'CA', grapple }, lines);
+        if (e.ships[a] !== 'in' || e.ships[d] !== 'in') return;
+        if (a === 'pike' || d === 'pike') { lines.push(`${shipName(s, d)} is still Engaged, but Gen. Pike cannot Melee.`); return; }
+        lead = `${shipName(s, d)} is still Engaged – the ships go to MELEE`;
+      } else {
+        if (a === 'pike' || d === 'pike') { lines.push(`${shipName(s, a)} vs ${shipName(s, d)}: d10 ${r} > ${diff} – no effect (Gen. Pike cannot Melee)`); return; }
+        lead = `${shipName(s, a)} vs ${shipName(s, d)}: d10 ${r} > ${diff} – MELEE`;
       }
-      if (a === 'pike' || d === 'pike') { lines.push(`${shipName(s, a)} vs ${shipName(s, d)}: d10 ${r} > ${diff} – no effect (Gen. Pike cannot Melee)`); return; }
+      const mA = combatVals(s, sa)[2], mD = combatVals(s, sd)[2];
       let ra = d6(s); if (grapple) { const r2 = d6(s); ra = Math.max(ra, r2); }
       const rd = d6(s);
-      const ma = ra + caA, md = rd + caD;
-      let txt = `${shipName(s, a)} vs ${shipName(s, d)}: d10 ${r} > ${diff} – MELEE ${ra}+${caA}=${ma} vs ${rd}+${caD}=${md}`;
+      const ma = ra + mA, md = rd + mD;
+      let txt = `${lead} ${ra}+${mA}=${ma} vs ${rd}+${mD}=${md}`;
       let winner = null, loser = null;
       if (ma >= 1.5 * md) { winner = a; loser = d; }
       else if (md >= 1.5 * ma) { winner = d; loser = a; }
@@ -509,7 +517,6 @@ PROCS.combat = {
       e.ships[loser] = 'cap';
       captureShip(s, loser, wSide, 'Melee', false, lfate);
     });
-    applyHits(s, c.def, hitMap, { round: 'CA', grapple }, lines);
     lines.forEach(l => log(s, l, 'combat'));
     c.pos++;
     f.L.lines = lines;
@@ -689,8 +696,10 @@ function tryFlagTransfer(s, side, to, lines) {
 /* ---------- Withdrawal ------------------------------------------------------------------------ */
 function doWithdrawal(s, side, stayed, hitNow) {
   const e = s.encounter, lines = [];
-  // ships hit by this W result that passed their Disengagement Check join the withdrawal (LC5 W d.)
-  const leaving = encIds(s, side).filter(id => stayed.indexOf(id) < 0).concat((hitNow || []).filter(id => e.ships[id] === 'dis'));
+  // LC5 W d.: the whole Force withdraws – Engaged ships, ships hit by this W result that passed their
+  // Disengagement Check, and ships that Disengaged earlier in the Encounter. Only ships that just failed
+  // a Disengagement Check (or fought on) stay.
+  const leaving = encIds(s, side, ['in', 'dis']).filter(id => stayed.indexOf(id) < 0);
   const forcesHit = {};
   leaving.forEach(id => {
     const sh = s.ships[id];
@@ -731,23 +740,36 @@ function tidyColumns(s) {
 /* ---------- Close Action matchups ----------------------------------------------------------- */
 function closeActionMatchups(s, attackers, defenders, aiAttacking) {
   const caOf = id => combatVals(s, s.ships[id])[2];
-  const atts = attackers.slice().sort((a, b) => caOf(b) - caOf(a));
   const free = defenders.slice();
   const pairs = [];
+  if (aiAttacking) {
+    // LC7c: the A.I. picks, strongest attacker first, by capture VP, then guns, then lowest CA.
+    const atts = attackers.slice().sort((a, b) => caOf(b) - caOf(a));
+    atts.forEach(a => {
+      const ca_ = caOf(a);
+      const ok = free.filter(d => ca_ > 0 && ca_ >= 2 * caOf(d));
+      if (!ok.length) return;
+      const best = ok.sort((x, y) => (vpCapture(s.ships[y]) - vpCapture(s.ships[x])) || (guns(s.ships[y]) - guns(s.ships[x])) || (caOf(x) - caOf(y)))[0];
+      pairs.push([a, best]);
+      free.splice(free.indexOf(best), 1);
+    });
+    return pairs;
+  }
+  // LC7b, human attacker: every attacker that can be matched at 2:1 attacks ("the most advantageous
+  // matchups possible"). Each attacker can take any defender up to half its CA, so the eligible sets are
+  // nested; taking attackers weakest-first and giving each the weakest free defender it can reach
+  // matches the largest possible number of ships, against the weakest defenders.
+  const atts = attackers.filter(a => caOf(a) > 0).sort((a, b) => caOf(a) - caOf(b));
   atts.forEach(a => {
     const ca_ = caOf(a);
-    const ok = free.filter(d => ca_ > 0 && ca_ >= 2 * caOf(d));
+    const ok = free.filter(d => ca_ >= 2 * caOf(d));
     if (!ok.length) return;
-    let best;
-    if (aiAttacking) {
-      best = ok.sort((x, y) => (vpCapture(s.ships[y]) - vpCapture(s.ships[x])) || (guns(s.ships[y]) - guns(s.ships[x])) || (caOf(x) - caOf(y)))[0];
-    } else {
-      best = ok.sort((x, y) => (caOf(x) - caOf(y)) || (vpCapture(s.ships[y]) - vpCapture(s.ships[x])))[0];
-    }
+    const best = ok.sort((x, y) => (caOf(x) - caOf(y)) || (vpCapture(s.ships[y]) - vpCapture(s.ships[x])))[0];
     pairs.push([a, best]);
     free.splice(free.indexOf(best), 1);
   });
-  return pairs;
+  // Present the strongest attacker first, as before.
+  return pairs.sort((p, q) => caOf(q[0]) - caOf(p[0]));
 }
 
 function combatSummary(s) {

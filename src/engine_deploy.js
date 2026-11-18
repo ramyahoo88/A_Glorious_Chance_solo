@@ -107,6 +107,9 @@ function effectiveMission(s, card, phase) {
       if (forcesInZone(s, card.zone, ai).some(f => f.mission === 'Raid')) { sec(); why = 'an AI Raid is already in this zone'; }
       break;
     case 'escortNeedsConvoy': {
+      // 9.1.2 (both rulebooks): enemy Convoys can be Encountered only on a turn when the Sacket's Lake Zone
+      // is free of Blockade.
+      if (phase === 'lake' && s.zones.SAC.blockade) { sec(); why = "the Sacket's Lake Zone is under Blockade, so no Convoy can be Encountered"; break; }
       const c = s.convoys[ai][s.turn];
       if (!c || !c.real || s.convoyDeployed[ai]) { sec(); why = !c || !c.real ? 'no AI Convoy this turn' : 'the AI Convoy already Deployed'; }
       if (c && !c.revealed) { c.revealed = true; log(s, `AI Convoy marker for ${TURN_NAMES[s.turn]} revealed: ${c.real ? 'Convoy' : 'No Convoy'}.`, 'ai'); }
@@ -114,6 +117,9 @@ function effectiveMission(s, card, phase) {
     }
     case 'attackConvoyIfRunning': {
       const c = s.convoys[h][s.turn];
+      // British campaign 9.1.2 / 11.3.1 case 2: the Escort Convoy box Deploys only in an Enemy Operations
+      // Phase, so in a Lake Action Encounter the card is a plain Patrol (player ruling, Nov 2026).
+      if (h === 'BR' && phase !== 'enemy') break;
       if (c && c.real && !s.convoyDeployed[h]) { sec(); why = 'your Convoy is running this turn'; }
       break;
     }

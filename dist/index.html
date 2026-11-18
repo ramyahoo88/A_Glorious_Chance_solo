@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Glorious Chance – Solo Companion v0.2.0</title>
+<title>A Glorious Chance – Solo Companion v0.2.1</title>
 <style>
 :root {
   --bg: #f3efe6; --panel: #fffdf8; --ink: #1f2a33; --muted: #6b7680; --line: #d9d1c2;
@@ -628,7 +628,7 @@ function lbLookup(lgTotal, troops, shift, d66v) {
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.0';
+const APP_VERSION = '0.2.1';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -1292,7 +1292,12 @@ PROCS.turn = {
       f.L.done.h = true;
       const blockaders = shipsInZone(s, homeZone(h), ai);
       const mine = deployable(s, h, 'home');
-      if (blockaders.length && mine.some(isFull)) {
+      if (!blockaders.length) {
+        // 14.3 note: an unmaintained Blockade lapses in F2.3, so no Breakout is needed and the Convoy is not delayed
+        log(s, 'D: no enemy ships are on station outside your Homeport – the Blockade will lapse in F2.3 and your Convoy runs on schedule.', 'player');
+        return G('D1');
+      }
+      if (mine.some(isFull)) {
         return P(choice('D Breakout Attack?', `Your Homeport is Blockaded by ${blockaders.map(sh => shipName(s, sh.id)).join(', ')}. Launch a Breakout Attack with your ships in port (you start with the Weather Gage), or Pass?`,
           [{ id: 'attack', label: 'Breakout Attack', primary: true }, { id: 'pass', label: 'Pass' }]), 'D1h');
       }
@@ -1300,15 +1305,16 @@ PROCS.turn = {
     }
     if (isBlockaded(s, ai) && !f.L.done.ai) {
       f.L.done.ai = true;
-      const blockaders = shipsInZone(s, homeZone(ai), h);
-      const theirs = deployable(s, ai, 'home');
-      const key = ai === 'BR' ? car : lg;
-      const a = sumBy(theirs, key), b = sumBy(blockaders, key);
-      if (theirs.length && blockaders.length && a > b) {
-        log(s, `AI Breakout check: ${ai === 'BR' ? 'Carronade' : 'Long Gun'} ${a} vs your ${b} – the AI breaks out!`, 'ai');
+      const bc = aiBreakoutCheck(s, ai);
+      if (!bc.blockaders.length) {
+        log(s, 'D: none of your ships are on station outside the AI Homeport – the Blockade will lapse in F2.3 and the AI Convoy is not delayed.', 'ai');
+        return G('D1');
+      }
+      if (bc.ok) {
+        log(s, `AI Breakout check: ${bc.label} ${bc.a} vs your ${bc.b} – the AI breaks out!`, 'ai');
         return C('encounter', { zone: homeZone(ai), kind: 'breakout', breakoutSide: ai, startAt: 'event' }, 'D1');
       }
-      log(s, `AI Breakout check: ${ai === 'BR' ? 'Carronade' : 'Long Gun'} ${a} vs your ${b} – the AI stays in port; the Blockade continues.`, 'ai');
+      log(s, `AI Breakout check: ${bc.label} ${bc.a} vs your ${bc.b} – the AI stays in port; the Blockade continues.`, 'ai');
       const c = s.convoys[ai][s.turn]; if (c) { c.delay = true; }
       return G('D1');
     }
@@ -1327,7 +1333,7 @@ PROCS.turn = {
     s.turn++;
     if (s.turn > 7) { endGame(s); return R(); }
     // 5.1 Last-turn sudden death
-    if (s.turn === 7 && !sideShips(s, s.ai).some(sh => ['deployable', 'makeReady', 'repairing', 'transit'].indexOf(sh.box) >= 0)) {
+    if (s.turn === 7 && !sideShips(s, s.ai).some(sh => aiShipDeployableNextTurn(s, sh, s.turn))) {
       log(s, 'Sudden death (5.1): the AI has no ships eligible to be Deployable on the last turn – the game ends.', 'turn');
       endGame(s); return R();
     }
@@ -1338,6 +1344,31 @@ PROCS.turn = {
 /* ------------------------------------------------------------------------- */
 // 14.1.2: Blockaded ships may not Deploy in an Enemy Operations Phase (nor react, by analogy with 11.2.1);
 // they may still Deploy for a Lake Action Encounter (the A10 left-shift makes the blockaders' zone come first).
+// 14.3: the Blockaded A.I. breaks out if its in-port Carronade (British) / Long Gun (U.S.) total
+// exceeds that of the blockading ships.
+function aiBreakoutCheck(s, ai) {
+  const blockaders = shipsInZone(s, homeZone(ai), OTHER[ai]);
+  const theirs = deployable(s, ai, 'home');
+  const key = ai === 'BR' ? car : lg;
+  const a = sumBy(theirs, key), b = sumBy(blockaders, key);
+  return { ok: !!(theirs.length && blockaders.length && a > b), a, b, blockaders, label: ai === 'BR' ? 'Carronade' : 'Long Gun' };
+}
+// Whether a Blockaded side meets the requirements to launch a Breakout Attack (14.2 / 14.3)
+function canLaunchBreakout(s, side) {
+  if (side === s.ai) return aiBreakoutCheck(s, side).ok;
+  return shipsInZone(s, homeZone(side), OTHER[side]).length > 0 && deployable(s, side, 'home').some(isFull);
+}
+// 5.1: will this A.I. ship be Deployable in next turn's Preparation Phase?
+function aiShipDeployableNextTurn(s, sh, nextTurn) {
+  switch (sh.box) {
+    case 'deployable': case 'makeReady': return true;                    // A2: Make Ready → Deployable
+    case 'repairing': return !sh.delay && !sh.flags.builtDamaged;         // A3.i (delayed / newly built go elsewhere)
+    case 'transit': return isFull(sh);                                     // A3.ii: Reduced ships go to Repairing
+    case 'ordinary': return !sh.flags.damaged;                             // A4: the A.I. recommissions laid-up ships
+    case 'requisitioned': return sh.flags.reqUntil != null && nextTurn >= sh.flags.reqUntil;
+    default: return false;
+  }
+}
 function aiDeployablePool(s, phase) {
   const ai = s.ai;
   if (phase === 'lake') return deployable(s, ai);
@@ -1508,6 +1539,9 @@ function effectiveMission(s, card, phase) {
       if (forcesInZone(s, card.zone, ai).some(f => f.mission === 'Raid')) { sec(); why = 'an AI Raid is already in this zone'; }
       break;
     case 'escortNeedsConvoy': {
+      // 9.1.2 (both rulebooks): enemy Convoys can be Encountered only on a turn when the Sacket's Lake Zone
+      // is free of Blockade.
+      if (phase === 'lake' && s.zones.SAC.blockade) { sec(); why = "the Sacket's Lake Zone is under Blockade, so no Convoy can be Encountered"; break; }
       const c = s.convoys[ai][s.turn];
       if (!c || !c.real || s.convoyDeployed[ai]) { sec(); why = !c || !c.real ? 'no AI Convoy this turn' : 'the AI Convoy already Deployed'; }
       if (c && !c.revealed) { c.revealed = true; log(s, `AI Convoy marker for ${TURN_NAMES[s.turn]} revealed: ${c.real ? 'Convoy' : 'No Convoy'}.`, 'ai'); }
@@ -1515,6 +1549,9 @@ function effectiveMission(s, card, phase) {
     }
     case 'attackConvoyIfRunning': {
       const c = s.convoys[h][s.turn];
+      // British campaign 9.1.2 / 11.3.1 case 2: the Escort Convoy box Deploys only in an Enemy Operations
+      // Phase, so in a Lake Action Encounter the card is a plain Patrol (player ruling, Nov 2026).
+      if (h === 'BR' && phase !== 'enemy') break;
       if (c && c.real && !s.convoyDeployed[h]) { sec(); why = 'your Convoy is running this turn'; }
       break;
     }
@@ -1790,6 +1827,8 @@ PROCS.encounter = {
     if (A.kind === 'breakout') {
       const bs = A.breakoutSide, other = OTHER[bs], z = A.zone;
       const sortie = deployable(s, bs, 'home').map(sh => sh.id);
+      // 7.1: British ships leaving port for an Encounter make Upgrade Checks (U.S. campaign)
+      if (bs === 'BR' && s.human === 'US') upgradeChecksFor(s, sortie);
       const sf = newForce(s, bs, z, 'Patrol', sortie, { origin: 'breakout' });
       const blk = shipsInZone(s, z, other).map(sh => sh.id);
       sortie.forEach(id => encAdd(s, id)); blk.forEach(id => encAdd(s, id));
@@ -2191,6 +2230,8 @@ function abortCoastalMission(s, fr) {
 function resolveEncounterEnd(s) {
   const e = s.encounter, lines = [];
   if (!e) return lines;
+  // Commanding Breeze affects only the Encounter it was drawn for (Event cards 37-38)
+  if (s.zones[e.zone] && s.zones[e.zone].flags) delete s.zones[e.zone].flags.breeze;
   const gone = side => !encIds(s, side, ['in', 'dis']).length;
   const struck = Object.keys(e.ships).filter(id => e.ships[id] === 'struck');
   struck.forEach(id => {
@@ -2698,7 +2739,6 @@ PROCS.combat = {
       log(s, lines[0], 'combat');
       return P(info('Close Action', lines.join('\n'), { combatView: true }), '__segEnd');
     }
-    const hitMap = {};
     const grapple = c.att === 'BR' && (c.grapple || tacActive(c, 'att', 'A_grapple'));
     pairs.forEach(([a, d]) => {
       const sa = s.ships[a], sd = s.ships[d];
@@ -2706,16 +2746,25 @@ PROCS.combat = {
       const caA = combatVals(s, sa)[2], caD = combatVals(s, sd)[2];
       const diff = caA - caD;
       const r = d10r(s);
+      let lead;
       if (r <= diff) {
-        hitMap[d] = (hitMap[d] || 0) + 1;
+        // LC7d: the defender loses a Step and makes its Disengagement or Strike Check now. If it is still
+        // Engaged afterwards (failed Disengagement, or Fight On!), the same ships go on to a Melee
+        // (LC5 sidebar; Playbook example of play, Wolfe vs Lady of the Lake).
         lines.push(`${shipName(s, a)} (CA ${caA}) vs ${shipName(s, d)} (CA ${caD}): d10 ${r} ≤ ${diff} – HIT`);
-        return;
+        applyHits(s, c.def, { [d]: 1 }, { round: 'CA', grapple }, lines);
+        if (e.ships[a] !== 'in' || e.ships[d] !== 'in') return;
+        if (a === 'pike' || d === 'pike') { lines.push(`${shipName(s, d)} is still Engaged, but Gen. Pike cannot Melee.`); return; }
+        lead = `${shipName(s, d)} is still Engaged – the ships go to MELEE`;
+      } else {
+        if (a === 'pike' || d === 'pike') { lines.push(`${shipName(s, a)} vs ${shipName(s, d)}: d10 ${r} > ${diff} – no effect (Gen. Pike cannot Melee)`); return; }
+        lead = `${shipName(s, a)} vs ${shipName(s, d)}: d10 ${r} > ${diff} – MELEE`;
       }
-      if (a === 'pike' || d === 'pike') { lines.push(`${shipName(s, a)} vs ${shipName(s, d)}: d10 ${r} > ${diff} – no effect (Gen. Pike cannot Melee)`); return; }
+      const mA = combatVals(s, sa)[2], mD = combatVals(s, sd)[2];
       let ra = d6(s); if (grapple) { const r2 = d6(s); ra = Math.max(ra, r2); }
       const rd = d6(s);
-      const ma = ra + caA, md = rd + caD;
-      let txt = `${shipName(s, a)} vs ${shipName(s, d)}: d10 ${r} > ${diff} – MELEE ${ra}+${caA}=${ma} vs ${rd}+${caD}=${md}`;
+      const ma = ra + mA, md = rd + mD;
+      let txt = `${lead} ${ra}+${mA}=${ma} vs ${rd}+${mD}=${md}`;
       let winner = null, loser = null;
       if (ma >= 1.5 * md) { winner = a; loser = d; }
       else if (md >= 1.5 * ma) { winner = d; loser = a; }
@@ -2729,7 +2778,6 @@ PROCS.combat = {
       e.ships[loser] = 'cap';
       captureShip(s, loser, wSide, 'Melee', false, lfate);
     });
-    applyHits(s, c.def, hitMap, { round: 'CA', grapple }, lines);
     lines.forEach(l => log(s, l, 'combat'));
     c.pos++;
     f.L.lines = lines;
@@ -2909,8 +2957,10 @@ function tryFlagTransfer(s, side, to, lines) {
 /* ---------- Withdrawal ------------------------------------------------------------------------ */
 function doWithdrawal(s, side, stayed, hitNow) {
   const e = s.encounter, lines = [];
-  // ships hit by this W result that passed their Disengagement Check join the withdrawal (LC5 W d.)
-  const leaving = encIds(s, side).filter(id => stayed.indexOf(id) < 0).concat((hitNow || []).filter(id => e.ships[id] === 'dis'));
+  // LC5 W d.: the whole Force withdraws – Engaged ships, ships hit by this W result that passed their
+  // Disengagement Check, and ships that Disengaged earlier in the Encounter. Only ships that just failed
+  // a Disengagement Check (or fought on) stay.
+  const leaving = encIds(s, side, ['in', 'dis']).filter(id => stayed.indexOf(id) < 0);
   const forcesHit = {};
   leaving.forEach(id => {
     const sh = s.ships[id];
@@ -2951,23 +3001,36 @@ function tidyColumns(s) {
 /* ---------- Close Action matchups ----------------------------------------------------------- */
 function closeActionMatchups(s, attackers, defenders, aiAttacking) {
   const caOf = id => combatVals(s, s.ships[id])[2];
-  const atts = attackers.slice().sort((a, b) => caOf(b) - caOf(a));
   const free = defenders.slice();
   const pairs = [];
+  if (aiAttacking) {
+    // LC7c: the A.I. picks, strongest attacker first, by capture VP, then guns, then lowest CA.
+    const atts = attackers.slice().sort((a, b) => caOf(b) - caOf(a));
+    atts.forEach(a => {
+      const ca_ = caOf(a);
+      const ok = free.filter(d => ca_ > 0 && ca_ >= 2 * caOf(d));
+      if (!ok.length) return;
+      const best = ok.sort((x, y) => (vpCapture(s.ships[y]) - vpCapture(s.ships[x])) || (guns(s.ships[y]) - guns(s.ships[x])) || (caOf(x) - caOf(y)))[0];
+      pairs.push([a, best]);
+      free.splice(free.indexOf(best), 1);
+    });
+    return pairs;
+  }
+  // LC7b, human attacker: every attacker that can be matched at 2:1 attacks ("the most advantageous
+  // matchups possible"). Each attacker can take any defender up to half its CA, so the eligible sets are
+  // nested; taking attackers weakest-first and giving each the weakest free defender it can reach
+  // matches the largest possible number of ships, against the weakest defenders.
+  const atts = attackers.filter(a => caOf(a) > 0).sort((a, b) => caOf(a) - caOf(b));
   atts.forEach(a => {
     const ca_ = caOf(a);
-    const ok = free.filter(d => ca_ > 0 && ca_ >= 2 * caOf(d));
+    const ok = free.filter(d => ca_ >= 2 * caOf(d));
     if (!ok.length) return;
-    let best;
-    if (aiAttacking) {
-      best = ok.sort((x, y) => (vpCapture(s.ships[y]) - vpCapture(s.ships[x])) || (guns(s.ships[y]) - guns(s.ships[x])) || (caOf(x) - caOf(y)))[0];
-    } else {
-      best = ok.sort((x, y) => (caOf(x) - caOf(y)) || (vpCapture(s.ships[y]) - vpCapture(s.ships[x])))[0];
-    }
+    const best = ok.sort((x, y) => (caOf(x) - caOf(y)) || (vpCapture(s.ships[y]) - vpCapture(s.ships[x])))[0];
     pairs.push([a, best]);
     free.splice(free.indexOf(best), 1);
   });
-  return pairs;
+  // Present the strongest attacker first, as before.
+  return pairs.sort((p, q) => caOf(q[0]) - caOf(p[0]));
 }
 
 function combatSummary(s) {
@@ -3342,7 +3405,7 @@ PROCS.tally = {
     ['US', 'BR'].forEach(bl => {
       const vic = OTHER[bl];
       if (s.zones[homeZone(vic)].blockade === bl && s.zones[TEMP_HOMEPORT_ZONE[vic]].blockade === bl) {
-        const canBreak = deployable(s, vic).some(isFull);
+        const canBreak = canLaunchBreakout(s, vic);
         if (!canBreak) { say(`14.2: Dual Blockade – the ${SIDE_PL[vic]} cannot break out. ${bl === 'BR' ? 'British' : 'U.S.'} Decisive Victory!`); s.suddenDeath = bl; }
       }
     });

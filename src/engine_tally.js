@@ -117,7 +117,7 @@ PROCS.tally = {
     ['US', 'BR'].forEach(bl => {
       const vic = OTHER[bl];
       if (s.zones[homeZone(vic)].blockade === bl && s.zones[TEMP_HOMEPORT_ZONE[vic]].blockade === bl) {
-        const canBreak = deployable(s, vic).some(isFull);
+        const canBreak = canLaunchBreakout(s, vic);
         if (!canBreak) { say(`14.2: Dual Blockade – the ${SIDE_PL[vic]} cannot break out. ${bl === 'BR' ? 'British' : 'U.S.'} Decisive Victory!`); s.suddenDeath = bl; }
       }
     });

@@ -45,7 +45,8 @@ To use your own judgment instead (5.3.1 allows it), turn on *Pick Force Package 
 ```
 src/        engine (rng, data, state, engine_*.js, assign.js) + ui.js, main.js, style.css
 tools/      build.js (→ dist/index.html), bundle_engine.js (engine for Node tests), files.json (source order)
-tests/      unit.js (tables & rule arithmetic), sim.js (thousands of random full games, invariants),
+tests/      unit.js (tables & rule arithmetic), scenario.js (tally/blockade/convoy), regression.js (audit fixes),
+            sim.js (thousands of random full games, invariants),
             trace.js (print a full game log), browser/smoke.py (Playwright click-through)
 dist/       index.html (the app) – single self-contained file
 ```
@@ -55,6 +56,8 @@ Build and test:
 ```
 node tools/build.js          # writes dist/index.html
 node tests/unit.js           # data + arithmetic tests
+node tests/scenario.js       # tally, blockade and convoy scenarios
+node tests/regression.js     # rules fixes from the 0.2.0 audit
 node tests/sim.js 200        # 400 random complete games (both campaigns) with invariant checks
 node tests/trace.js BR 42    # print the log of one simulated British-campaign game
 python3 tests/browser/smoke.py US 400   # headless browser click-through (needs Playwright + Chrome)
