@@ -184,7 +184,7 @@ PROCS.aiDeploy = {
   pick(s, f) {
     const card = TARGET_CARDS[f.L.card];
     const pool = aiDeployablePool(s, f.A.phase);
-    if (!pool.length) { log(s, `${f.L.head} – no AI Deployable ships remain.`, 'ai'); return R({ none: true }); }
+    if (!pool.length) { log(s, `${f.L.head} – no AI Deployable ships remain.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }
     if (card.deck === 'A') {
       // U.S. campaign: all British Deployable ships deploy as a single Force [5.3]
       f.L.ships = pool.map(sh => sh.id);
@@ -198,6 +198,7 @@ PROCS.aiDeploy = {
       if (!res.ok) {
         const txt = `${f.L.head}\n${f.L.cellTxt}\nForce Package #${pkg}: ${FORCE_PACKAGE_TEXT[pkg]}\nRequirements not met – ${res.why}. No Deployment.`;
         log(s, txt.replace(/\n/g, ' '), 'ai');
+        if (f.L.convoyEscort) return G('convoyUnescorted');
         return f.A.encounter ? aiPauseR(s, `Encounter ${f.A.peNum || ''} – no enemy`, txt, { none: true }, { targetCard: card.id }) : (s.options.confirmAiSteps ? aiPauseR(s, 'AI Deployment', txt, { none: true }, { targetCard: card.id }) : R({ none: true }));
       }
       f.L.ships = res.ships; f.L.ships2 = res.ships2 || null;
@@ -212,7 +213,7 @@ PROCS.aiDeploy = {
   },
   pickB(s, f) {
     f.L.ships = f.answer || [];
-    if (!f.L.ships.length) { log(s, `${f.L.head} Force Package requirements not met – no Deployment.`, 'ai'); return R({ none: true }); }
+    if (!f.L.ships.length) { log(s, `${f.L.head} Force Package requirements not met – no Deployment.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }
     if (f.L.cell.v === 8 && f.L.ships.length > 1) {
       return P({ kind: 'select', title: 'Force Package #8 – second stack', text: 'Package #8 deploys as two Forces. Select the ships that form the second stack (the rest form the first).',
         items: f.L.ships.map(id => ({ id, label: shipName(s, id) })), min: 0, max: f.L.ships.length - 1 }, 'pickB2');
@@ -241,7 +242,7 @@ PROCS.aiDeploy = {
             if (chosen.length) {
               s.nb = computeNavalBalance(s); s.nbBand = navalBalanceBand(s.nb);
               const cell = cardCell(s, TARGET_CARDS[f.L.card]);
-              if (!cell.v || !f.L.ships.length) { log(s, `Naval Balance now ${s.nb}: the card no longer Deploys ships.`, 'ai'); return R({ none: true }); }
+              if (!cell.v || !f.L.ships.length) { log(s, `Naval Balance now ${s.nb}: the card no longer Deploys ships.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }
             }
           }
         }
@@ -306,16 +307,22 @@ PROCS.aiDeploy = {
     const zone = ai === 'BR' ? card.zone : 'SAC';
     s.convoyDeployed[ai] = { zone };
     const c = s.convoys[ai][s.turn]; c.deployed = true;
-    const hf = s.forces[A.humanForceId];
-    if (!f.L.cell.v) {
-      const g = sumBy(forceShips(s, hf).filter(isFull), guns);
-      const res = scatterRoll(s, ai, g, `your ${forceLabel(s, hf)}`);
-      const txt = `${f.L.head}\nThe AI ${MONTHS[Math.floor(s.turn / 2)]} Convoy is found in ${ZONE_NAME[zone]} – unescorted!\nConvoy Scatter Table: ${g} guns, ${res.txt}.`;
-      return aiPauseR(s, 'Convoy found!', txt, { convoyHandled: true }, { targetCard: card.id });
-    }
+    if (!f.L.cell.v) return G('convoyUnescorted');
     f.L.mission = 'Escort';
     f.L.convoyEscort = true;
     return G('pick');
+  },
+  // The AI Convoy sails with no warships – blank cell, or no ships could fill the escort package [11.3.1]:
+  // your Force rolls on the Convoy Scatter Table with its full-strength guns
+  convoyUnescorted(s, f) {
+    const ai = s.ai, A = f.A, card = TARGET_CARDS[f.L.card];
+    const zone = (s.convoyDeployed[ai] || {}).zone || (ai === 'BR' ? card.zone : 'SAC');
+    const hf = s.forces[A.humanForceId];
+    const g = hf ? sumBy(forceShips(s, hf).filter(isFull), guns) : 0;
+    const res = scatterRoll(s, ai, g, hf ? `your ${forceLabel(s, hf)}` : 'your Force');
+    const why = f.L.cell.v ? 'no A.I. warships could deploy to escort it' : 'unescorted';
+    const txt = `${f.L.head}\nThe AI ${MONTHS[Math.floor(s.turn / 2)]} Convoy is found in ${ZONE_NAME[zone]} – ${why}!\nConvoy Scatter Table: ${g} guns, ${res.txt}.`;
+    return aiPauseR(s, 'Convoy found!', txt, { convoyHandled: true }, { targetCard: card.id });
   },
   attackConvoy(s, f) {
     const h = s.human, card = TARGET_CARDS[f.L.card], A = f.A;

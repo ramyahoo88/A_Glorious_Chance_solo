@@ -226,5 +226,176 @@ X(`var s=newGame('US',1); s.turn=2; ${base} s.intelligence.US={card:29,until:3};
    var r2c=intelligenceApplies(s,'US'); resolveEncounterEnd(s);`);
 eq('R02c same-turn Encounter: not applied, still held for next turn', X(`[r2c, s.intelligence.US && s.intelligence.US.until]`), [false, 3]);
 
+// ===== v0.2.4: follow-up audit of v0.2.3 (N01–N11) =====
+// Board helpers (positions modelled on the auditor's evidence saves; dice states are fixed seeds)
+X(`
+function fresh(side, seed) { const s = newGame(side, seed); s.turn = 2; s.phase = 'lake'; s.calls = []; s.prompt = null; s.lossesThisTurn = []; s.troopsReturning = { US: 0, BR: 0 }; return s; }
+function waitAt(s, proc, pc, A, L) { s.calls = [{ proc, pc, A: A || {}, L: L || {} }]; s.prompt = info('Test position', 'Continue.'); }
+function stageCombat(s, zone, us, br, att) {
+  att = att || 'US';
+  const u = newForce(s, 'US', zone, 'Patrol', us), b = newForce(s, 'BR', zone, 'Patrol', br);
+  s.encounter = { zone, kind: 'normal', segment: 'patrol', ships: {}, side: {}, struckBy: {}, withdrawn: { BR: false, US: false },
+    humanForce: (s.human === 'US' ? u : b).id, aiForce: (s.ai === 'US' ? u : b).id, wg: att, wgCard: 8, firstAttack: false };
+  us.concat(br).forEach(id => encAdd(s, id));
+  s.zones[zone].event = 8; s.deck.event = [9].concat(s.deck.event.filter(n => n !== 8 && n !== 9));
+  s.combat = { att, def: OTHER[att], seq: att === 'US' ? 'A' : 'B', pos: 0, segment: 'patrol', col: { US: us.slice(), BR: br.slice() }, tows: {}, tac: { att: null, def: null }, gr: 0, roundAttackers: [], newSeq: false };
+}
+function afterCombatCaller(s) { s.calls.unshift({ proc: 'encounter', pc: 'afterCombat', A: {}, L: {} }); }
+function playUntil(s, stop) {
+  for (let i = 0; i < 40; i++) {
+    if (stop(s)) return true;
+    const p = s.prompt; if (!p) return false;
+    let a = 'ok';
+    if (p.kind === 'choice') a = (p.options.find(o => o.primary) || p.options[0]).id;
+    else if (p.kind === 'select') a = p.initial || [];
+    else if (p.kind === 'lineup') a = { attackers: p.candidates, tows: p.defaultTows || {} };
+    act(s, a);
+  }
+  return false;
+}
+function convoyBoard(card, pool, mission, spy) {
+  const s = fresh('BR', 182301); s.options.cuttingOut = true;
+  const fr = newForce(s, 'BR', 'SAC', mission || 'Patrol', ['wolfe']);
+  if (mission === 'CuttingOut') s.cuttingOutUsed.BR = true;
+  sideShips(s, 'US').forEach(sh => { if (sh.box === 'deployable' && pool.indexOf(sh.id) < 0) sh.box = 'ordinary'; });
+  s.nb = 0; s.nbBand = 3; s.aiTroops.box = [];
+  s.convoys.US[2] = { real: true, revealed: false, delay: false, deployed: false, result: null };
+  s.convoys.US[3] = { real: false, revealed: false, delay: false, deployed: false, result: null };
+  s.targetRow = [{ id: card, revealed: false, enc: false, removed: false }];
+  s.pe = [{ num: 1, idx: 0, zone: 'SAC', forceId: fr.id, status: 'possible' }];
+  const first = spy === false ? 22 : 8; s.deck.event = [first].concat(s.deck.event.filter(id => id !== first));
+  waitAt(s, 'turn', 'B2'); s.rng = 1; return s;
+}
+function galeBoard(human) {
+  const s = fresh(human, 182311);
+  const b = newForce(s, 'BR', 'NIA', 'ArmySupport', ['wolfe'], { troops: 1 }), u = newForce(s, 'US', 'NIA', 'Patrol', ['oneida']);
+  if (human === 'BR') { s.troops.BR.available = 0; s.troops.BR.track = [7, 8]; }
+  else { s.aiTroops.track = [{ space: 7, troops: true }, { space: 8, troops: true }]; s.aiTroops.box = []; }
+  s.deck.event = [30].concat(s.deck.event.filter(n => n !== 30)); s.rng = 4;
+  waitAt(s, 'encounter', 'start', { zone: 'NIA', kind: 'normal', humanForces: [human === 'BR' ? b.id : u.id], aiForces: [human === 'BR' ? u.id : b.id] });
+  s.calls.unshift({ proc: 'turn', pc: 'E', A: {}, L: {} }); return s;
+}
+`);
+
+// N11 – Troops on a Force that a Gale wipes out come back at F7 (both campaigns)
+for (const human of ['BR', 'US']) {
+  X(`var s = galeBoard('${human}'); act(s, 'ok'); var galeTxt = s.prompt.text; playUntil(s, q => q.prompt && /^Reset/.test(q.prompt.title));`);
+  ok(`N11 ${human === 'BR' ? 'human' : 'A.I.'} Gale wipes out the Troops' Force`, X(`!Object.values(s.forces).some(f => f.troops) && s.ships.wolfe.box !== 'lake'`), X('galeTxt').slice(0, 80));
+  eq(`N11 ${human === 'BR' ? 'human' : 'A.I.'} unlaunched Troops return at F7`, X(human === 'BR' ? `s.troops.BR.available` : `s.aiTroops.box.filter(t => t.troops).length`), 1);
+}
+X(`var s = galeBoard('BR'); waitAt(s, 'tally', 'reset'); act(s, 'ok');`);
+eq('N11 control: Troops still on a Force at F7 return', X(`s.troops.BR.available`), 1);
+ok('N11 the Reset screen reports the returned Troops', X(`/1 unlaunched Troops marker\\(s\\) return/.test(s.prompt.text)`));
+
+// N02 – a confirmed Encounter with no U.S. deployment ends your Force's Encounter: no Cutting-Out capture
+for (const spy of [true, false]) {
+  X(`var s = convoyBoard('B40', ['madison'], 'CuttingOut', ${spy}); s.rng = 2; act(s, 'ok');
+     playUntil(s, q => q.prompt && /^Tally/.test(q.prompt.title));
+     var marker = { pe: s.pe[0].status, ended: !!(s.forces.F1 && s.forces.F1.ended) };
+     var vp = s.vpLog.filter(v => v.side === 'BR' && /Madison captured/.test(v.why)).reduce((a, v) => a + v.n, 0);`);
+  if (spy) {
+    eq('N02 confirmed Encounter, no deployment → Encounter Ended', X(`marker`), { pe: 'ended', ended: true });
+    eq('N02 … and the Cutting-Out mission aborts (no capture)', X(`[s.ships.madison.owner, vp]`), ['US', 0]);
+  } else {
+    eq('N02 control: false alarm leaves the Force free', X(`marker`), { pe: 'discarded', ended: false });
+    eq('N02 control: false alarm → Cutting-Out goes ahead', X(`[s.ships.madison.owner, vp]`), ['BR', 32]);
+  }
+}
+
+// N01 – the A.I. U.S. Convoy whose escort package cannot be filled sails unescorted: Scatter Table roll
+for (const [name, card, pool] of [['N01 unfilled package (B2, Oneida only)', 'B2', ['oneida']], ['N01 control: blank cell (B15)', 'B15', ['oneida']]]) {
+  X(`var s = convoyBoard('${card}', ${JSON.stringify(pool)}); act(s, 'ok'); var msg = s.prompt.text;
+     playUntil(s, q => q.prompt && /^Tally/.test(q.prompt.title)); var c = s.convoys.US[2];`);
+  ok(`${name}: the Convoy is found unescorted`, X(`/unescorted|no A\\.I\\. warships/.test(msg) && /Convoy Scatter Table/.test(msg)`), X('msg').split('\n')[1]);
+  eq(`${name}: Scatter Table result (d10 6 → Destroyed, supply stays 1)`, X(`[c.result, s.supply.US]`), ['D', 1]);
+}
+X(`var s = convoyBoard('B2', ['lady', 'growler']); act(s, 'ok');`);
+eq('N01 control: a filled package escorts the Convoy', X(`Object.values(s.forces).find(f => f.side === 'US').ships.slice().sort()`), ['growler', 'lady']);
+
+// N10 – Cutting-Out cannot be assigned against a port with no ships to cut out
+for (const box of [null, 'makeReady', 'deployable']) {
+  X(`var s = fresh('BR', 182309); s.phase = 'prep'; s.options.cuttingOut = true;
+     sideShips(s, 'US').forEach(sh => { if (sh.box === 'deployable' || sh.box === 'makeReady') sh.box = 'ordinary'; });
+     ${box ? `s.ships.oneida.box = '${box}';` : ''} waitAt(s, 'turn', 'A7'); act(s, 'ok');
+     var p = s.prompt, err = validateAnswer(s, p, { flagship: p.flagship, forces: [{ mission: 'CuttingOut', zone: 'SAC', ships: ['wolfe'], troops: 0 }] });`);
+  if (box) eq(`N10 control: Oneida in ${box} → Cutting-Out allowed`, X(`err`), null);
+  else { ok('N10 empty port → Cutting-Out refused', X(`err !== null && !p.missions.CuttingOut`), X('err')); eq('N10 … and the once-per-game mission is not spent', X(`!!s.cuttingOutUsed.BR`), false); }
+}
+
+// N04 – Pursuit needs a Defender ship eligible to withdraw; Disengaged ships come back for the new Encounter
+for (const mode of ['dis', 'failed']) {
+  X(`var s = fresh('US', 182304); stageCombat(s, 'NOR', ['oneida'], ['moira']);
+     s.combat.tac.att = { id: 'A_pursuit', used: false, negated: false }; s.deck.tacA = s.deck.tacA.filter(id => id !== 'A_pursuit'); s.tacPlayed = ['A_pursuit'];
+     waitAt(s, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(s); s.rng = ${mode === 'dis' ? 15 : 12};
+     act(s, 'ok'); var round = s.prompt.text; act(s, 'ok');
+     var started = s.log.some(l => /Pursuit/.test(l.text) && /new Encounter/.test(l.text));`);
+  ok(`N04 ${mode}: the roll is D1W`, X(`/→ D1W/.test(round)`), X('round').split('\n')[0]);
+  if (mode === 'dis') {
+    eq('N04 Moira passed her check → Pursuit: new Encounter with Moira back in', X(`[started, s.encounter && s.encounter.ships.moira]`), [true, 'in']);
+    ok('N04 … and the new Encounter goes on (not ended for lack of ships)', X(`!/no ships left/.test(s.prompt.text)`));
+  } else {
+    eq('N04 Moira failed her check → nothing withdraws, Pursuit not used', X(`[started, s.combat ? s.combat.tac.att.used : null]`), [false, false]);
+  }
+}
+
+// N05 – a tow counts only while the towing ship attacks in the Round
+for (const [name, active] of [['N05 Madison Disengaged → Tompkins rolls as untowed', false], ['N05 control: Madison attacking → tow active', true]]) {
+  X(`var s = fresh('US', 182305); stageCombat(s, 'NOR', ['madison', 'tompkins'], ['moira']);
+     s.combat.col.US = ${active} ? ['madison', 'tompkins'] : ['tompkins'];
+     if (!${active}) { s.encounter.ships.madison = 'dis'; s.ships.madison.steps = 2; }
+     s.combat.pos = 2; s.combat.gr = 1; s.combat.tows = { madison: 'tompkins' };
+     waitAt(s, 'combat', 'grDecide', {}, { st: 'GR2' });
+     s.prompt = choice('Gunnery Round 2', 'Attack?', [{ id: 'attack', label: 'Attack', primary: true }, { id: 'pass', label: 'Pass' }]);
+     afterCombatCaller(s); s.rng = 45; act(s, 'attack');
+     var line = s.log.map(l => l.text).find(t => /^Gunnery Round 2:/.test(t)) || '';`);
+  ok(name, X(`/untowed Laker/.test(line)`) === !active, X('line').slice(0, 160));
+}
+
+// N03 – Shipyard Damage 8–9 flips ships on the stocks only when there is more than one
+for (const [name, ids, side, want] of [['N03 lone hull (Melville) stays full', ['melville'], 'BR', [2]], ['N03 control: two hulls (Pike, Sylph) both flipped', ['pike', 'sylph'], 'US', [2, 2]]]) {
+  X(`var s = fresh('${side === 'BR' ? 'US' : 'BR'}', 182303); var ids = ${JSON.stringify(ids)};
+     sideShips(s, '${side}').forEach(sh => { if (sh.box === 'construction' && ids.indexOf(sh.id) < 0) sh.box = 'makeReady'; });
+     s.coastal = { raids: [], battles: [{ side: OTHER['${side}'], target: 'HOME', zone: homeZone('${side}'), result: 'AM' }], cutouts: [] }; s.phase = 'tally';
+     var cd0 = s.cd['${side}']; waitAt(s, 'tally', 'start'); s.rng = 4; act(s, 'ok');`);
+  ok(`${name}: 2d6 roll 8`, X(`/Shipyard Damage vs .* – 2d6 8 = 8/.test(s.prompt.text)`), X(`s.prompt.text`).split('\n')[0]);
+  eq(`${name}`, X(`ids.map(i => s.ships[i].steps)`), want);
+  eq(`${name}: +2 Construction Delay`, X(`s.cd['${side}'] - cd0`), 2);
+}
+
+// N06 – Last Step markers are discarded on withdrawal and at F7: back to the printed Reduced face
+X(`var s = fresh('BR', 182306); stageCombat(s, 'NOR', ['oneida'], ['rg', 'moira'], 'US');
+   s.ships.rg.steps = 1; s.encounter.ships.rg = 'dis'; s.combat.col.BR = ['moira'];
+   waitAt(s, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(s); s.rng = 15; act(s, 'ok'); act(s, 'withdraw');`);
+eq('N06 withdrawn Royal George (Last Step) → In Transit on her 2-step Reduced face', X(`[s.ships.rg.box, s.ships.rg.steps]`), ['transit', 2]);
+X(`var s = fresh('BR', 182306); newForce(s, 'BR', 'NOR', 'Patrol', ['rg']); s.ships.rg.steps = 1; s.phase = 'tally'; waitAt(s, 'tally', 'reset'); act(s, 'ok');`);
+eq('N06 Royal George (Last Step) returning at F7 → 2 steps', X(`[s.ships.rg.box, s.ships.rg.steps]`), ['transit', 2]);
+X(`var s = fresh('BR', 182306); newForce(s, 'BR', 'NOR', 'Patrol', ['julia']); s.ships.julia.steps = 0; s.phase = 'tally'; waitAt(s, 'tally', 'reset'); act(s, 'ok');`);
+eq('N06 control: a one-step ship keeps her zero-step Reduced face', X(`s.ships.julia.steps`), 0);
+
+// N07 / N08 – Rake: the random ship is named before the choice; the used card goes back to its deck at once
+X(`var s = fresh('US', 182307); stageCombat(s, 'NOR', ['madison', 'oneida'], ['wolfe', 'rg', 'moira']);
+   s.combat.tac.att = { id: 'A_rake', negated: false, used: false }; s.deck.tacA = s.deck.tacA.filter(id => id !== 'A_rake'); s.tacPlayed = ['A_rake'];
+   s.rng = 42; waitAt(s, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(s); act(s, 'ok');
+   var opts = s.prompt.options.map(o => o.label), saved = JSON.stringify(s);`);
+ok('N07 the random option names its ship before you choose', X(`/^Random ship: /.test(opts[2])`), X('opts.join(" / ")'));
+const rnd = X(`opts[2].replace('Random ship: ', '')`);
+X(`act(s, 'random'); var hitLine = s.log.map(l => l.text).find(t => /^Rake:/.test(t));`);
+eq('N07 choosing it hits that same ship', X('hitLine'), `Rake: all hits on ${rnd}.`);
+X(`var s2 = JSON.parse(saved); act(s2, 'random');`);
+eq('N07 the named ship survives a save/reload', X(`s2.log.map(l => l.text).find(t => /^Rake:/.test(t))`), `Rake: all hits on ${rnd}.`);
+eq('N08 used Attacker Rake is back in its deck once, off the played pile', X(`[s.deck.tacA.filter(id => id === 'A_rake').length, s.tacPlayed.indexOf('A_rake')]`), [1, -1]);
+eq('N08 … and is not returned twice', X(`(spendRake(s, s.combat), s.deck.tacA.filter(id => id === 'A_rake').length)`), 1);
+
+// N09 – Command Decision odds use the first Round's ships (Missed Signal)
+for (const missed of [true, false]) {
+  X(`var s = fresh('US', 182310); stageCombat(s, 'NOR', ['madison', 'oneida'], ['wolfe']); s.combat = null;
+     if (${missed}) { s.zones.NOR.flags.missedSignal = 'madison'; s.zones.NOR.event = 13; s.encounter.wgCard = 13; }
+     waitAt(s, 'encounter', 'command'); act(s, 'ok');
+     var preview = s.prompt.text.split('\\n').find(a => a.startsWith('Odds if you attack')); act(s, 'attack');
+     var first = ${missed} ? s.prompt.candidates.filter(i => i !== 'madison') : s.prompt.candidates;
+     var str = sideStrength(s, first, 'US', false);`);
+  ok(`N09 ${missed ? 'Missed Signal' : 'control: no Missed Signal'} – Command Decision matches the first Round`, X(`preview.includes('ships: ' + fmt(str) + ' vs 8')`), X('preview'));
+}
+
 console.log(`regression tests: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

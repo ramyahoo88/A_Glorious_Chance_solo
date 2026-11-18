@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Glorious Chance – Solo Companion v0.2.3</title>
+<title>A Glorious Chance – Solo Companion v0.2.4</title>
 <style>
 :root {
   --bg: #f3efe6; --panel: #fffdf8; --ink: #1f2a33; --muted: #6b7680; --line: #d9d1c2;
@@ -523,8 +523,8 @@ EVENT_RAW.forEach(r => { EVENTS[r[0]] = { id: r[0], spy: !!r[1], wg: r[2], sym: 
 const TACTICS = [
   { id: 'A_sweep', deck: 'A', name: 'Sweep Up & Fire', sym: 'square', color: 'white', only: 'US', text: 'U.S. only, when the attacking ships are ALL untowed Converted Laker Schooners. For the current Combat Sequence: ignore the untowed-schooner DRM penalty; ignore A# and AW results; after Gunnery Round 1 skip the Weather Gage recheck and go to Gunnery Round 2; ignore Commanding Breeze. Not valid against a British Force consisting solely of reflagged Laker Schooners.' },
   { id: 'A_surprise', deck: 'A', name: 'Surprise', sym: 'star', color: 'lavender', text: 'Patrol Segment only, once. Gunnery Round 1: the Attacker gets a +1 column shift.' },
-  { id: 'A_rake', deck: 'A', name: 'Rake', sym: 'star', color: 'salmon', text: 'Once in the current Combat Sequence: on the next Defender Hit result the Attacker applies ALL the hits to one ship – the lead ship, the rear ship, or a random ship (A.I. picks the highest VP of the three options).' },
-  { id: 'A_pursuit', deck: 'A', name: 'Pursuit', sym: 'arrow', color: 'yellow', text: 'Applies once if a DW result is rolled during the current Combat Sequence: the opposing withdrawal is cancelled and a new Encounter is conducted at once between the same forces.' },
+  { id: 'A_rake', deck: 'A', name: 'Rake', sym: 'star', color: 'salmon', text: 'Once in the current Combat Sequence: on the next Defender Hit result the Attacker applies ALL the hits to one ship – the lead ship, the rear ship, or a random ship. You see the random ship before choosing; the A.I. picks the highest VP of the three. Once used, the card returns to its deck.' },
+  { id: 'A_pursuit', deck: 'A', name: 'Pursuit', sym: 'arrow', color: 'yellow', text: 'Applies once if a DW result is rolled during the current Combat Sequence: if the opposing side has ships eligible to withdraw (after Hits and Disengagement Checks), their withdrawal is cancelled and a new Encounter is conducted at once between the same forces.' },
   { id: 'A_outmaneuver', deck: 'A', name: 'Outmaneuver', sym: 'heart', color: 'salmon', text: 'Gunnery Round 1: gaps created in the Defender column stay open. Gunnery Round 2: the Attacker fires its full strength at one of the separated Defender subgroups.' },
   { id: 'A_grapple', deck: 'A', name: 'Grapple', sym: 'diamond', color: 'teal', only: 'BR', text: 'British only, when attacking (Sequence B). After Gunnery Round 2 skip the Weather Gage recheck and go to a Close Action Round: +2 DRM to Leader Casualty Checks on U.S. ships; in Melee British ships roll two d6 and use the higher.' },
   { id: 'A_firstshot', deck: 'A', name: 'First Shot', sym: 'club', color: 'lavender', text: 'This Gunnery Round only: the Attacker re-rolls once if the result included AW, or an A# calling for more hits than the D#.' },
@@ -635,7 +635,7 @@ function lbLookup(lgTotal, troops, shift, d66v) {
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.3';
+const APP_VERSION = '0.2.4';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -730,6 +730,8 @@ function def(sh) { return SHIP_BY_ID[defId(sh)]; }
 function shipName(s, id) { const sh = s.ships[id]; const d = def(sh); return d.name + (d.ver ? ' (' + d.ver + ')' : '') + (sh.owner !== d.side ? ' [' + (sh.owner === 'US' ? 'U.S.' : 'Br.') + ']' : ''); }
 function isFull(sh) { return sh.steps >= def(sh).full[4]; }
 function isReduced(sh) { return !isFull(sh); }
+// Discard Last Step / No Steps markers: a Reduced ship goes back to its printed Reduced face [LC5 W d; F7]
+function discardStepMarkers(sh) { const r = def(sh).red; if (r && isReduced(sh) && sh.steps < r[4]) sh.steps = r[4]; }
 function curVals(sh) { return isFull(sh) ? def(sh).full : def(sh).red; }
 function lg(sh) { return curVals(sh)[0]; }
 function car(sh) { return curVals(sh)[1]; }
@@ -765,7 +767,15 @@ function addShipToForce(s, sid, fid) {
 function removeShipFromForce(s, sid) {
   const sh = s.ships[sid];
   const f = s.forces[sh.forceId];
-  if (f) { f.ships = f.ships.filter(x => x !== sid); if (!f.ships.length) delete s.forces[f.id]; }
+  if (f) {
+    f.ships = f.ships.filter(x => x !== sid);
+    if (!f.ships.length) {
+      // Unlaunched Troops are never lost with their Force: they come back at F7 like any other
+      // unlaunched Troops (Gale, sinking, capture or a ship moving to another Force).
+      if (f.troops) { s.troopsReturning = s.troopsReturning || { US: 0, BR: 0 }; s.troopsReturning[f.side] = (s.troopsReturning[f.side] || 0) + f.troops; f.troops = 0; }
+      delete s.forces[f.id];
+    }
+  }
   sh.forceId = null;
 }
 function forcesInZone(s, z, side) { return Object.values(s.forces).filter(f => f.zone === z && f.ships.length && (!side || f.side === side)); }
@@ -1250,8 +1260,14 @@ PROCS.turn = {
   B2after(s, f) {
     const pe = s.pe.find(p => p.num === f.L.pe);
     const res = f.ret;
-    if (!res || res.none) { pe.status = 'ended'; return G('B2'); }
-    if (res.convoyHandled) { pe.status = 'ended'; return G('B2'); }
+    if (!res || res.none || res.convoyHandled) {
+      // A confirmed Encounter with no A.I. deployment (or an unescorted Convoy) still ends your Force's
+      // Encounter: it gets an Encounter Ended marker, so a Cutting-Out or other mission cannot go on
+      pe.status = 'ended';
+      const hf = s.forces[pe.forceId];
+      if (hf && hf.side === s.human) hf.ended = true;
+      return G('B2');
+    }
     return C('encounter', { zone: pe.zone, kind: res.convoy ? 'convoy' : 'normal', convoySide: res.convoy || null, peNum: pe.num, humanForces: res.escortForces || [pe.forceId], aiForces: res.forces, startAt: 'event' }, 'B2done');
   },
   B2done(s, f) {
@@ -1623,7 +1639,7 @@ PROCS.aiDeploy = {
   pick(s, f) {
     const card = TARGET_CARDS[f.L.card];
     const pool = aiDeployablePool(s, f.A.phase);
-    if (!pool.length) { log(s, `${f.L.head} – no AI Deployable ships remain.`, 'ai'); return R({ none: true }); }
+    if (!pool.length) { log(s, `${f.L.head} – no AI Deployable ships remain.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }
     if (card.deck === 'A') {
       // U.S. campaign: all British Deployable ships deploy as a single Force [5.3]
       f.L.ships = pool.map(sh => sh.id);
@@ -1637,6 +1653,7 @@ PROCS.aiDeploy = {
       if (!res.ok) {
         const txt = `${f.L.head}\n${f.L.cellTxt}\nForce Package #${pkg}: ${FORCE_PACKAGE_TEXT[pkg]}\nRequirements not met – ${res.why}. No Deployment.`;
         log(s, txt.replace(/\n/g, ' '), 'ai');
+        if (f.L.convoyEscort) return G('convoyUnescorted');
         return f.A.encounter ? aiPauseR(s, `Encounter ${f.A.peNum || ''} – no enemy`, txt, { none: true }, { targetCard: card.id }) : (s.options.confirmAiSteps ? aiPauseR(s, 'AI Deployment', txt, { none: true }, { targetCard: card.id }) : R({ none: true }));
       }
       f.L.ships = res.ships; f.L.ships2 = res.ships2 || null;
@@ -1651,7 +1668,7 @@ PROCS.aiDeploy = {
   },
   pickB(s, f) {
     f.L.ships = f.answer || [];
-    if (!f.L.ships.length) { log(s, `${f.L.head} Force Package requirements not met – no Deployment.`, 'ai'); return R({ none: true }); }
+    if (!f.L.ships.length) { log(s, `${f.L.head} Force Package requirements not met – no Deployment.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }
     if (f.L.cell.v === 8 && f.L.ships.length > 1) {
       return P({ kind: 'select', title: 'Force Package #8 – second stack', text: 'Package #8 deploys as two Forces. Select the ships that form the second stack (the rest form the first).',
         items: f.L.ships.map(id => ({ id, label: shipName(s, id) })), min: 0, max: f.L.ships.length - 1 }, 'pickB2');
@@ -1680,7 +1697,7 @@ PROCS.aiDeploy = {
             if (chosen.length) {
               s.nb = computeNavalBalance(s); s.nbBand = navalBalanceBand(s.nb);
               const cell = cardCell(s, TARGET_CARDS[f.L.card]);
-              if (!cell.v || !f.L.ships.length) { log(s, `Naval Balance now ${s.nb}: the card no longer Deploys ships.`, 'ai'); return R({ none: true }); }
+              if (!cell.v || !f.L.ships.length) { log(s, `Naval Balance now ${s.nb}: the card no longer Deploys ships.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }
             }
           }
         }
@@ -1745,16 +1762,22 @@ PROCS.aiDeploy = {
     const zone = ai === 'BR' ? card.zone : 'SAC';
     s.convoyDeployed[ai] = { zone };
     const c = s.convoys[ai][s.turn]; c.deployed = true;
-    const hf = s.forces[A.humanForceId];
-    if (!f.L.cell.v) {
-      const g = sumBy(forceShips(s, hf).filter(isFull), guns);
-      const res = scatterRoll(s, ai, g, `your ${forceLabel(s, hf)}`);
-      const txt = `${f.L.head}\nThe AI ${MONTHS[Math.floor(s.turn / 2)]} Convoy is found in ${ZONE_NAME[zone]} – unescorted!\nConvoy Scatter Table: ${g} guns, ${res.txt}.`;
-      return aiPauseR(s, 'Convoy found!', txt, { convoyHandled: true }, { targetCard: card.id });
-    }
+    if (!f.L.cell.v) return G('convoyUnescorted');
     f.L.mission = 'Escort';
     f.L.convoyEscort = true;
     return G('pick');
+  },
+  // The AI Convoy sails with no warships – blank cell, or no ships could fill the escort package [11.3.1]:
+  // your Force rolls on the Convoy Scatter Table with its full-strength guns
+  convoyUnescorted(s, f) {
+    const ai = s.ai, A = f.A, card = TARGET_CARDS[f.L.card];
+    const zone = (s.convoyDeployed[ai] || {}).zone || (ai === 'BR' ? card.zone : 'SAC');
+    const hf = s.forces[A.humanForceId];
+    const g = hf ? sumBy(forceShips(s, hf).filter(isFull), guns) : 0;
+    const res = scatterRoll(s, ai, g, hf ? `your ${forceLabel(s, hf)}` : 'your Force');
+    const why = f.L.cell.v ? 'no A.I. warships could deploy to escort it' : 'unescorted';
+    const txt = `${f.L.head}\nThe AI ${MONTHS[Math.floor(s.turn / 2)]} Convoy is found in ${ZONE_NAME[zone]} – ${why}!\nConvoy Scatter Table: ${g} guns, ${res.txt}.`;
+    return aiPauseR(s, 'Convoy found!', txt, { convoyHandled: true }, { targetCard: card.id });
   },
   attackConvoy(s, f) {
     const h = s.human, card = TARGET_CARDS[f.L.card], A = f.A;
@@ -1952,6 +1975,10 @@ PROCS.encounter = {
     if (r.outcome === 'pursuit') {
       log(s, 'Pursuit! The withdrawal is cancelled and a new Encounter begins between the same forces.', 'combat');
       endEncounterEffects(s);   // the Encounter that just ended uses up its one-Encounter effects
+      // Disengaged ships were eligible to withdraw: their withdrawal is cancelled and they fight on (damage kept)
+      const back = Object.keys(e.ships).filter(id => e.ships[id] === 'dis');
+      back.forEach(id => { e.ships[id] = 'in'; });
+      if (back.length) log(s, `Back in the new Encounter: ${back.map(id => shipName(s, id)).join(', ')}.`, 'combat');
       e.flagIn = {};
       Object.keys(e.ships).forEach(id => { const sd = e.side[id]; if ((e.ships[id] === 'in' || e.ships[id] === 'dis') && s.flagship[sd] === id) e.flagIn[sd] = true; });
       e.segment = 'patrol';
@@ -2065,12 +2092,17 @@ function encSummary(s) {
   const e = s.encounter;
   const side = sd => encIds(s, sd).map(id => { const sh = s.ships[id]; return `${shipName(s, id)}${isReduced(sh) ? ' (Reduced)' : ''}`; }).join(', ') || '—';
   const h = s.human, ai = s.ai, noLG = hazeActive(s);
-  const hAtt = encIds(s, h).filter(id => isFull(s.ships[id]));
+  // First-Round odds exactly as the line of battle will compute them: same defenders, Missed Signal and Haze
+  const ms = missedSignalShip(s);
+  const notMs = id => id !== ms;
+  const hAtt = encIds(s, h).filter(id => isFull(s.ships[id])).filter(notMs);
   const odds = (att, attIds, defIds) => { const a = sideStrength(s, attIds, att, noLG), d = sideStrength(s, defIds, att, noLG); return `${fmt(a)} vs ${fmt(d)} = ${d ? fmt(a / d) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(d ? a / d : 99)]})`; };
   let aiAtt = encIds(s, ai).filter(id => isFull(s.ships[id])); if (ai === 'BR') aiAtt = aiAtt.filter(id => !isCLS(s.ships[id]));
+  aiAtt = aiAtt.filter(notMs);
   return `${ZONE_NAME[e.zone]} – U.S.: ${side('US')}\nBritish: ${side('BR')}\n` +
-    `Odds if you attack with all full-strength ships: ${hAtt.length ? odds(h, hAtt, encIds(s, ai)) : 'no full-strength ships'}.\n` +
-    `Odds if the A.I. attacks: ${aiAtt.length ? odds(ai, aiAtt, encIds(s, h)) : 'no full-strength ships'}.${noLG ? ' (Haze: no Long Guns in the first Gunnery Round 1 here.)' : ''}`;
+    `Odds if you attack with all full-strength ships: ${hAtt.length ? odds(h, hAtt, defendingIds(s, ai).filter(notMs)) : 'no full-strength ships'}.\n` +
+    `Odds if the A.I. attacks: ${aiAtt.length ? odds(ai, aiAtt, defendingIds(s, h).filter(notMs)) : 'no full-strength ships'}.` +
+    `${ms ? `\nBoth are first-Round odds: ${shipName(s, ms)} missed the signal and sits out the first Round.` : ''}${noLG ? ' (Haze: no Long Guns in the first Gunnery Round 1 here.)' : ''}`;
 }
 
 function joinEncounter(s, ids, side) {
@@ -2381,6 +2413,11 @@ function buildColumn(s, ids, tows, side) {
   return col;
 }
 function colShips(c, side) { return (c.col[side] || []).filter(Boolean); }
+// Schooners towed in this round: a tow counts only while BOTH ships are among the participating attackers [LC2, LC4.2]
+function towedInRound(c, attackers) {
+  const tows = c.tows || {};
+  return Object.keys(tows).filter(t => attackers.indexOf(t) >= 0 && attackers.indexOf(tows[t]) >= 0).map(t => tows[t]);
+}
 // Ships that defend in a Lake Combat (the A.I. British never put Converted Laker Schooners in the line)
 function defendingIds(s, side) {
   const ids = encIds(s, side);
@@ -2566,7 +2603,7 @@ PROCS.combat = {
     const fl = s.flagship[c.att];
     if (attackers.indexOf(fl) >= 0 && commandDRMAvailable(s, c.att)) { drm++; drms.push(`+1 Command (${leaderName(s, c.att)})`); }
     if (c.att === 'US' && !tacActive(c, 'att', 'A_sweep')) {
-      const towed = Object.values(c.tows || {}).filter(id => attackers.indexOf(id) >= 0);
+      const towed = towedInRound(c, attackers);
       const untowed = attackers.filter(id => isCLS(s.ships[id]) && towed.indexOf(id) < 0);
       if (untowed.length) {
         const r = d6(s), n = untowed.length;
@@ -2604,21 +2641,23 @@ PROCS.combat = {
     if (res.dHits && tacActive(c, 'att', 'A_rake') && !c.tac.att.used) {
       const colD = colShips(c, c.def);
       if (c.att === s.human) {
-        return P(choice('Rake – where do the hits go?', `${txt}\nApply ALL ${res.dHits} hit(s) to one ship:`,
-          [{ id: 'lead', label: `Lead ship: ${shipName(s, colD[0])}` }, { id: 'rear', label: `Rear ship: ${shipName(s, colD[colD.length - 1])}` }, { id: 'random', label: 'A random ship' }]), 'grRake');
+        // Card A06: the human may determine the random ship first, then choose the best of the three
+        f.L.rakeRandom = pick(s, colD);
+        return P(choice('Rake – where do the hits go?', `${txt}\nApply ALL ${res.dHits} hit(s) to one ship (the random ship has already been rolled):`,
+          [{ id: 'lead', label: `Lead ship: ${shipName(s, colD[0])}` }, { id: 'rear', label: `Rear ship: ${shipName(s, colD[colD.length - 1])}` }, { id: 'random', label: `Random ship: ${shipName(s, f.L.rakeRandom)}` }]), 'grRake');
       }
       const opts = [colD[0], colD[colD.length - 1], pick(s, colD)];
       f.L.rakeTarget = opts.sort((a, b) => vpCapture(s.ships[b]) - vpCapture(s.ships[a]))[0];
-      c.tac.att.used = true;
       log(s, `A.I. Rake: all hits on ${shipName(s, f.L.rakeTarget)}.`, 'combat');
+      spendRake(s, c);
     }
     return G('grApply');
   },
   grRake(s, f) {
     const c = cmb(s), colD = colShips(c, c.def);
-    f.L.rakeTarget = f.answer === 'lead' ? colD[0] : f.answer === 'rear' ? colD[colD.length - 1] : pick(s, colD);
-    c.tac.att.used = true;
+    f.L.rakeTarget = f.answer === 'lead' ? colD[0] : f.answer === 'rear' ? colD[colD.length - 1] : (f.L.rakeRandom && colD.indexOf(f.L.rakeRandom) >= 0 ? f.L.rakeRandom : pick(s, colD));
     log(s, `Rake: all hits on ${shipName(s, f.L.rakeTarget)}.`, 'combat');
+    spendRake(s, c);
     return G('grApply');
   },
   grApply(s, f) {
@@ -2653,16 +2692,17 @@ PROCS.combat = {
     const c = cmb(s);
     const side = f.L.wQueue.shift();
     if (!side) return G('flagTransfer');
-    // Pursuit: cancel the Defender's withdrawal and start a new Encounter
+    const eligible = withdrawEligible(s, side, f.L.failedDis[side]);
+    // Pursuit (card A05): only if the Defender has ships eligible to withdraw after Hits and Disengagement Checks
     if (side === c.def && tacActive(c, 'att', 'A_pursuit') && !c.tac.att.used) {
+      if (!eligible.length) { f.L.lines.push('Pursuit: no Defender ship is eligible to withdraw (every one failed Disengagement), so nothing withdraws and the card is not used.'); return G('withdraw'); }
       c.tac.att.used = true;
       f.L.lines.push('Pursuit! The Defender’s withdrawal is cancelled – a new Encounter follows between the same forces.');
       f.L.outcome = 'pursuit';
       return G('withdraw');
     }
     if (side === s.human) {
-      const stay = encIds(s, side, ['in', 'dis']).length;
-      if (!stay) return G('withdraw');
+      if (!eligible.length) return G('withdraw');
       return P(choice('Withdrawal result against you', `${f.L.lines.join('\n')}\n\nThe result lets your Force Withdraw (optional for the human player). Withdraw to your Homeport's In Transit area (Coastal missions abort), or ignore the W and fight on at your own risk?`,
         [{ id: 'withdraw', label: 'Withdraw', primary: true }, { id: 'stay', label: 'Ignore – fight on' }], { combatView: true }), 'withdraw2');
     }
@@ -2845,6 +2885,16 @@ PROCS.combat = {
 };
 
 /* ---------- Tactic helpers ---------------------------------------------------------------- */
+// Attacker Rake is single-use: once its hits are allocated the card goes back to its deck (Playbook p.19)
+function spendRake(s, c) {
+  const t = c.tac.att;
+  t.used = true;
+  if (t.returned) return;
+  t.returned = true;
+  const i = (s.tacPlayed || []).indexOf('A_rake');
+  if (i >= 0) s.tacPlayed.splice(i, 1);
+  if (s.deck.tacA.indexOf('A_rake') < 0) returnTactics(s, 'A', ['A_rake']);
+}
 function tacActive(c, who, id) { const t = c.tac[who]; return !!(t && t.id === id && !t.negated); }
 function useTac(c, who) { if (c.tac[who]) c.tac[who].used = true; }
 function wgSymbolsText(s) { const ev = EVENTS[s.encounter.wgCard]; return ev && ev.sym.length ? '(' + ev.sym.map(x => SYM[x]).join(' ') + ')' : '(no symbols)'; }
@@ -2861,7 +2911,7 @@ function tacticValid(s, id, side) {
   if (id === 'D_openrange' && !(side === 'BR' && !attacking)) return false;
   if (id === 'A_sweep') {
     const ids = colShips(c, c.att);
-    const towed = Object.values(c.tows || {});
+    const towed = towedInRound(c, ids);
     if (!(side === 'US' && attacking && ids.length && ids.every(x => isCLS(s.ships[x]) && towed.indexOf(x) < 0))) return false;
     const defs = colShips(c, c.def);
     if (defs.length && defs.every(x => isCLS(s.ships[x]))) return false;
@@ -3008,12 +3058,14 @@ function tryFlagTransfer(s, side, to, lines) {
 }
 
 /* ---------- Withdrawal ------------------------------------------------------------------------ */
+// Ships that leave with a Withdrawal: everything still in the Encounter or Disengaged, except ships that just failed a Disengagement Check [LC5 W c–d]
+function withdrawEligible(s, side, stayed) { return encIds(s, side, ['in', 'dis']).filter(id => (stayed || []).indexOf(id) < 0); }
 function doWithdrawal(s, side, stayed, hitNow) {
   const e = s.encounter, lines = [];
   // LC5 W d.: the whole Force withdraws – Engaged ships, ships hit by this W result that passed their
   // Disengagement Check, and ships that Disengaged earlier in the Encounter. Only ships that just failed
   // a Disengagement Check (or fought on) stay.
-  const leaving = encIds(s, side, ['in', 'dis']).filter(id => stayed.indexOf(id) < 0);
+  const leaving = withdrawEligible(s, side, stayed);
   const forcesHit = {};
   leaving.forEach(id => {
     const sh = s.ships[id];
@@ -3024,6 +3076,7 @@ function doWithdrawal(s, side, stayed, hitNow) {
     const sh = s.ships[id];
     removeShipFromForce(s, id);
     sh.box = 'transit'; sh.zone = null; sh.flags.withdrawn = true;
+    discardStepMarkers(sh);
     e.ships[id] = 'wd';
   });
   if (leaving.length) lines.push(`${SIDE_NAME[side]} ships withdraw to In Transit: ${leaving.map(id => shipName(s, id)).join(', ')}.`);
@@ -3116,6 +3169,12 @@ function homeportOfZone(s, side, z) {
   return null;
 }
 
+// Cutting-Out targets: enemy ships in the Deployable or Make Ready areas of the Homeport in that zone [OA2]
+function cuttingOutTargets(s, side, z) {
+  const other = OTHER[side], port = homeportOfZone(s, other, z);
+  return port ? sideShips(s, other).filter(sh => (sh.box === 'deployable' || sh.box === 'makeReady') && sh.port === port) : [];
+}
+
 PROCS.coastal = {
   start(s, f) {
     s.phase = 'coastal'; s.stepLabel = 'E Coastal Action Phase';
@@ -3139,7 +3198,7 @@ PROCS.coastal = {
     const fr = s.forces[fid], side = f.L.side, other = OTHER[side];
     if (!fr || !fr.ships.length) return G('cut');
     const port = homeportOfZone(s, other, fr.zone);
-    const targets = port ? sideShips(s, other).filter(sh => (sh.box === 'deployable' || sh.box === 'makeReady') && sh.port === port) : [];
+    const targets = cuttingOutTargets(s, side, fr.zone);
     let txt;
     if (fr.ended) txt = 'The Force has an Encounter Ended marker – the Cutting-Out mission aborts.';
     else if (!targets.length) txt = 'No enemy ships in the Deployable or Make Ready areas – the mission aborts.';
@@ -3480,13 +3539,19 @@ PROCS.tally = {
         sh.box = isFull(sh) ? 'deployable' : 'transit';
       }
       if (sh.box === 'transit' && isFull(sh)) sh.box = 'deployable';
+      if (sh.box !== 'sunk' && sh.box !== 'outOfPlay') discardStepMarkers(sh);
       delete sh.flags.withdrawn; delete sh.flags.heatedShot; delete sh.flags.requisition;
     });
     // Troops
-    Object.values(s.forces).forEach(fr => {
-      if (fr.troops) { if (fr.side === s.ai) returnAiTroops(s, fr.troops); else s.troops[fr.side].available += fr.troops; }
+    const back = { US: 0, BR: 0 };
+    Object.values(s.forces).forEach(fr => { if (fr.troops) { back[fr.side] += fr.troops; fr.troops = 0; } });
+    s.troopsReturning = s.troopsReturning || { US: 0, BR: 0 };
+    ['US', 'BR'].forEach(side => { back[side] += s.troopsReturning[side] || 0; s.troopsReturning[side] = 0; });
+    ['US', 'BR'].forEach(side => {
+      if (!back[side]) return;
+      if (side === s.ai) { returnAiTroops(s, back[side]); lines.push(`${back[side]} unlaunched A.I. Troops marker(s) return to its pool.`); }
+      else { s.troops[side].available += back[side]; lines.push(`${back[side]} unlaunched Troops marker(s) return – you have ${s.troops[side].available} Available.`); }
     });
-    ['US', 'BR'].forEach(side => { if (s.troopsReturning[side]) { s.troops[side].available += s.troopsReturning[side]; s.troopsReturning[side] = 0; } });
     const nowAvail = s.troops[h].track.filter(sp => sp <= s.supply[h]);
     if (nowAvail.length) { s.troops[h].track = s.troops[h].track.filter(sp => sp > s.supply[h]); s.troops[h].available += nowAvail.length; lines.push(`${nowAvail.length} of your Troops marker(s) become Available.`); }
     const aiNow = s.aiTroops.track.filter(m => m.space <= s.supply[s.ai]);
@@ -3551,7 +3616,9 @@ function applyShipyard(s, vic, att, eff, say) {
   const cons = sideShips(s, vic).filter(sh => sh.box === 'construction').sort((a, b) => vpCapture(b) - vpCapture(a));
   if (eff === 'repairDelay' && repairing.length) { const sh = pick(s, repairing); sh.delay = (sh.delay || 0) + 2; say(`${shipName(s, sh.id)}'s repairs are delayed.`); }
   if (eff === 'reduceOneConstruction' && cons.length) { const sh = cons[0]; sh.steps = def(sh).full[4] - 1; say(`${def(sh).name} is damaged on the stocks.`); }
-  if (eff === 'reduceAllConstruction') cons.forEach(sh => { sh.steps = def(sh).full[4] - 1; say(`${def(sh).name} is damaged on the stocks.`); });
+  // 8–9: flip the ships on the stocks only if there is more than one (Homeport Display table)
+  if (eff === 'reduceAllConstruction' && cons.length > 1) cons.forEach(sh => { sh.steps = def(sh).full[4] - 1; say(`${def(sh).name} is damaged on the stocks.`); });
+  if (eff === 'reduceAllConstruction' && cons.length === 1) say(`Only one ship is under construction (${def(cons[0]).name}) – this row flips ships only when there is more than one.`);
   if (eff === 'destroyOneConstruction' && cons.length) { const sh = cons[0]; destroyOnStocks(s, sh, att, say); }
   if (eff === 'destroyAllConstruction') cons.forEach(sh => destroyOnStocks(s, sh, att, say));
 }
@@ -3575,7 +3642,11 @@ function missionZones(s, side) {
   const m = { Patrol: ZONES.slice() };
   if (convoyRunning(s, side)) m.Escort = side === 'US' ? ['SAC'] : ['ESC'];
   m.Raid = RAID_ZONES[side].slice();
-  if (s.options.cuttingOut && !s.cuttingOutUsed[side]) m.CuttingOut = [homeZone(other)].concat(tempOther);
+  if (s.options.cuttingOut && !s.cuttingOutUsed[side]) {
+    // the once-per-game mission may only be sent where the enemy port has ships to cut out [OA2]
+    const cz = [homeZone(other)].concat(tempOther).filter(z => cuttingOutTargets(s, side, z).length);
+    if (cz.length) m.CuttingOut = cz;
+  }
   if (s.troops[side].available > 0) m.ArmySupport = ['NIA', homeZone(other)].concat(tempOther);
   return m;
 }
@@ -3607,7 +3678,7 @@ function validateAssignment(s, p, a) {
     if (p.missions[fr.mission].indexOf(fr.zone) < 0) return `${MISSION_NAME[fr.mission]} is not allowed in ${ZONE_NAME[fr.zone] || fr.zone}`;
     for (const id of fr.ships) { if (p.ships.indexOf(id) < 0) return 'Ship not available: ' + id; if (used[id]) return 'A ship is assigned twice'; used[id] = 1; }
     if (fr.mission === 'Raid') { if (raids[fr.zone]) return 'Only one Raid per Lake Zone per turn'; raids[fr.zone] = 1; }
-    if (fr.mission === 'CuttingOut') cut++;
+    if (fr.mission === 'CuttingOut') { cut++; if (!cuttingOutTargets(s, s.human, fr.zone).length) return `No enemy ships in the Deployable or Make Ready areas at ${ZONE_NAME[fr.zone] || fr.zone} – nothing to cut out`; }
     const t = fr.troops || 0;
     if (typeof t !== 'number' || !Number.isInteger(t) || t < 0) return 'Troops must be a whole number of markers';
     if (fr.mission === 'ArmySupport') {

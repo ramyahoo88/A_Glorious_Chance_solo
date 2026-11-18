@@ -138,13 +138,19 @@ PROCS.tally = {
         sh.box = isFull(sh) ? 'deployable' : 'transit';
       }
       if (sh.box === 'transit' && isFull(sh)) sh.box = 'deployable';
+      if (sh.box !== 'sunk' && sh.box !== 'outOfPlay') discardStepMarkers(sh);
       delete sh.flags.withdrawn; delete sh.flags.heatedShot; delete sh.flags.requisition;
     });
     // Troops
-    Object.values(s.forces).forEach(fr => {
-      if (fr.troops) { if (fr.side === s.ai) returnAiTroops(s, fr.troops); else s.troops[fr.side].available += fr.troops; }
+    const back = { US: 0, BR: 0 };
+    Object.values(s.forces).forEach(fr => { if (fr.troops) { back[fr.side] += fr.troops; fr.troops = 0; } });
+    s.troopsReturning = s.troopsReturning || { US: 0, BR: 0 };
+    ['US', 'BR'].forEach(side => { back[side] += s.troopsReturning[side] || 0; s.troopsReturning[side] = 0; });
+    ['US', 'BR'].forEach(side => {
+      if (!back[side]) return;
+      if (side === s.ai) { returnAiTroops(s, back[side]); lines.push(`${back[side]} unlaunched A.I. Troops marker(s) return to its pool.`); }
+      else { s.troops[side].available += back[side]; lines.push(`${back[side]} unlaunched Troops marker(s) return – you have ${s.troops[side].available} Available.`); }
     });
-    ['US', 'BR'].forEach(side => { if (s.troopsReturning[side]) { s.troops[side].available += s.troopsReturning[side]; s.troopsReturning[side] = 0; } });
     const nowAvail = s.troops[h].track.filter(sp => sp <= s.supply[h]);
     if (nowAvail.length) { s.troops[h].track = s.troops[h].track.filter(sp => sp > s.supply[h]); s.troops[h].available += nowAvail.length; lines.push(`${nowAvail.length} of your Troops marker(s) become Available.`); }
     const aiNow = s.aiTroops.track.filter(m => m.space <= s.supply[s.ai]);
@@ -209,7 +215,9 @@ function applyShipyard(s, vic, att, eff, say) {
   const cons = sideShips(s, vic).filter(sh => sh.box === 'construction').sort((a, b) => vpCapture(b) - vpCapture(a));
   if (eff === 'repairDelay' && repairing.length) { const sh = pick(s, repairing); sh.delay = (sh.delay || 0) + 2; say(`${shipName(s, sh.id)}'s repairs are delayed.`); }
   if (eff === 'reduceOneConstruction' && cons.length) { const sh = cons[0]; sh.steps = def(sh).full[4] - 1; say(`${def(sh).name} is damaged on the stocks.`); }
-  if (eff === 'reduceAllConstruction') cons.forEach(sh => { sh.steps = def(sh).full[4] - 1; say(`${def(sh).name} is damaged on the stocks.`); });
+  // 8–9: flip the ships on the stocks only if there is more than one (Homeport Display table)
+  if (eff === 'reduceAllConstruction' && cons.length > 1) cons.forEach(sh => { sh.steps = def(sh).full[4] - 1; say(`${def(sh).name} is damaged on the stocks.`); });
+  if (eff === 'reduceAllConstruction' && cons.length === 1) say(`Only one ship is under construction (${def(cons[0]).name}) – this row flips ships only when there is more than one.`);
   if (eff === 'destroyOneConstruction' && cons.length) { const sh = cons[0]; destroyOnStocks(s, sh, att, say); }
   if (eff === 'destroyAllConstruction') cons.forEach(sh => destroyOnStocks(s, sh, att, say));
 }

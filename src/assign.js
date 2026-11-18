@@ -7,7 +7,11 @@ function missionZones(s, side) {
   const m = { Patrol: ZONES.slice() };
   if (convoyRunning(s, side)) m.Escort = side === 'US' ? ['SAC'] : ['ESC'];
   m.Raid = RAID_ZONES[side].slice();
-  if (s.options.cuttingOut && !s.cuttingOutUsed[side]) m.CuttingOut = [homeZone(other)].concat(tempOther);
+  if (s.options.cuttingOut && !s.cuttingOutUsed[side]) {
+    // the once-per-game mission may only be sent where the enemy port has ships to cut out [OA2]
+    const cz = [homeZone(other)].concat(tempOther).filter(z => cuttingOutTargets(s, side, z).length);
+    if (cz.length) m.CuttingOut = cz;
+  }
   if (s.troops[side].available > 0) m.ArmySupport = ['NIA', homeZone(other)].concat(tempOther);
   return m;
 }
@@ -39,7 +43,7 @@ function validateAssignment(s, p, a) {
     if (p.missions[fr.mission].indexOf(fr.zone) < 0) return `${MISSION_NAME[fr.mission]} is not allowed in ${ZONE_NAME[fr.zone] || fr.zone}`;
     for (const id of fr.ships) { if (p.ships.indexOf(id) < 0) return 'Ship not available: ' + id; if (used[id]) return 'A ship is assigned twice'; used[id] = 1; }
     if (fr.mission === 'Raid') { if (raids[fr.zone]) return 'Only one Raid per Lake Zone per turn'; raids[fr.zone] = 1; }
-    if (fr.mission === 'CuttingOut') cut++;
+    if (fr.mission === 'CuttingOut') { cut++; if (!cuttingOutTargets(s, s.human, fr.zone).length) return `No enemy ships in the Deployable or Make Ready areas at ${ZONE_NAME[fr.zone] || fr.zone} – nothing to cut out`; }
     const t = fr.troops || 0;
     if (typeof t !== 'number' || !Number.isInteger(t) || t < 0) return 'Troops must be a whole number of markers';
     if (fr.mission === 'ArmySupport') {

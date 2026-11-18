@@ -80,6 +80,11 @@ function buildColumn(s, ids, tows, side) {
   return col;
 }
 function colShips(c, side) { return (c.col[side] || []).filter(Boolean); }
+// Schooners towed in this round: a tow counts only while BOTH ships are among the participating attackers [LC2, LC4.2]
+function towedInRound(c, attackers) {
+  const tows = c.tows || {};
+  return Object.keys(tows).filter(t => attackers.indexOf(t) >= 0 && attackers.indexOf(tows[t]) >= 0).map(t => tows[t]);
+}
 // Ships that defend in a Lake Combat (the A.I. British never put Converted Laker Schooners in the line)
 function defendingIds(s, side) {
   const ids = encIds(s, side);
@@ -265,7 +270,7 @@ PROCS.combat = {
     const fl = s.flagship[c.att];
     if (attackers.indexOf(fl) >= 0 && commandDRMAvailable(s, c.att)) { drm++; drms.push(`+1 Command (${leaderName(s, c.att)})`); }
     if (c.att === 'US' && !tacActive(c, 'att', 'A_sweep')) {
-      const towed = Object.values(c.tows || {}).filter(id => attackers.indexOf(id) >= 0);
+      const towed = towedInRound(c, attackers);
       const untowed = attackers.filter(id => isCLS(s.ships[id]) && towed.indexOf(id) < 0);
       if (untowed.length) {
         const r = d6(s), n = untowed.length;
@@ -303,21 +308,23 @@ PROCS.combat = {
     if (res.dHits && tacActive(c, 'att', 'A_rake') && !c.tac.att.used) {
       const colD = colShips(c, c.def);
       if (c.att === s.human) {
-        return P(choice('Rake – where do the hits go?', `${txt}\nApply ALL ${res.dHits} hit(s) to one ship:`,
-          [{ id: 'lead', label: `Lead ship: ${shipName(s, colD[0])}` }, { id: 'rear', label: `Rear ship: ${shipName(s, colD[colD.length - 1])}` }, { id: 'random', label: 'A random ship' }]), 'grRake');
+        // Card A06: the human may determine the random ship first, then choose the best of the three
+        f.L.rakeRandom = pick(s, colD);
+        return P(choice('Rake – where do the hits go?', `${txt}\nApply ALL ${res.dHits} hit(s) to one ship (the random ship has already been rolled):`,
+          [{ id: 'lead', label: `Lead ship: ${shipName(s, colD[0])}` }, { id: 'rear', label: `Rear ship: ${shipName(s, colD[colD.length - 1])}` }, { id: 'random', label: `Random ship: ${shipName(s, f.L.rakeRandom)}` }]), 'grRake');
       }
       const opts = [colD[0], colD[colD.length - 1], pick(s, colD)];
       f.L.rakeTarget = opts.sort((a, b) => vpCapture(s.ships[b]) - vpCapture(s.ships[a]))[0];
-      c.tac.att.used = true;
       log(s, `A.I. Rake: all hits on ${shipName(s, f.L.rakeTarget)}.`, 'combat');
+      spendRake(s, c);
     }
     return G('grApply');
   },
   grRake(s, f) {
     const c = cmb(s), colD = colShips(c, c.def);
-    f.L.rakeTarget = f.answer === 'lead' ? colD[0] : f.answer === 'rear' ? colD[colD.length - 1] : pick(s, colD);
-    c.tac.att.used = true;
+    f.L.rakeTarget = f.answer === 'lead' ? colD[0] : f.answer === 'rear' ? colD[colD.length - 1] : (f.L.rakeRandom && colD.indexOf(f.L.rakeRandom) >= 0 ? f.L.rakeRandom : pick(s, colD));
     log(s, `Rake: all hits on ${shipName(s, f.L.rakeTarget)}.`, 'combat');
+    spendRake(s, c);
     return G('grApply');
   },
   grApply(s, f) {
@@ -352,16 +359,17 @@ PROCS.combat = {
     const c = cmb(s);
     const side = f.L.wQueue.shift();
     if (!side) return G('flagTransfer');
-    // Pursuit: cancel the Defender's withdrawal and start a new Encounter
+    const eligible = withdrawEligible(s, side, f.L.failedDis[side]);
+    // Pursuit (card A05): only if the Defender has ships eligible to withdraw after Hits and Disengagement Checks
     if (side === c.def && tacActive(c, 'att', 'A_pursuit') && !c.tac.att.used) {
+      if (!eligible.length) { f.L.lines.push('Pursuit: no Defender ship is eligible to withdraw (every one failed Disengagement), so nothing withdraws and the card is not used.'); return G('withdraw'); }
       c.tac.att.used = true;
       f.L.lines.push('Pursuit! The Defender’s withdrawal is cancelled – a new Encounter follows between the same forces.');
       f.L.outcome = 'pursuit';
       return G('withdraw');
     }
     if (side === s.human) {
-      const stay = encIds(s, side, ['in', 'dis']).length;
-      if (!stay) return G('withdraw');
+      if (!eligible.length) return G('withdraw');
       return P(choice('Withdrawal result against you', `${f.L.lines.join('\n')}\n\nThe result lets your Force Withdraw (optional for the human player). Withdraw to your Homeport's In Transit area (Coastal missions abort), or ignore the W and fight on at your own risk?`,
         [{ id: 'withdraw', label: 'Withdraw', primary: true }, { id: 'stay', label: 'Ignore – fight on' }], { combatView: true }), 'withdraw2');
     }
@@ -544,6 +552,16 @@ PROCS.combat = {
 };
 
 /* ---------- Tactic helpers ---------------------------------------------------------------- */
+// Attacker Rake is single-use: once its hits are allocated the card goes back to its deck (Playbook p.19)
+function spendRake(s, c) {
+  const t = c.tac.att;
+  t.used = true;
+  if (t.returned) return;
+  t.returned = true;
+  const i = (s.tacPlayed || []).indexOf('A_rake');
+  if (i >= 0) s.tacPlayed.splice(i, 1);
+  if (s.deck.tacA.indexOf('A_rake') < 0) returnTactics(s, 'A', ['A_rake']);
+}
 function tacActive(c, who, id) { const t = c.tac[who]; return !!(t && t.id === id && !t.negated); }
 function useTac(c, who) { if (c.tac[who]) c.tac[who].used = true; }
 function wgSymbolsText(s) { const ev = EVENTS[s.encounter.wgCard]; return ev && ev.sym.length ? '(' + ev.sym.map(x => SYM[x]).join(' ') + ')' : '(no symbols)'; }
@@ -560,7 +578,7 @@ function tacticValid(s, id, side) {
   if (id === 'D_openrange' && !(side === 'BR' && !attacking)) return false;
   if (id === 'A_sweep') {
     const ids = colShips(c, c.att);
-    const towed = Object.values(c.tows || {});
+    const towed = towedInRound(c, ids);
     if (!(side === 'US' && attacking && ids.length && ids.every(x => isCLS(s.ships[x]) && towed.indexOf(x) < 0))) return false;
     const defs = colShips(c, c.def);
     if (defs.length && defs.every(x => isCLS(s.ships[x]))) return false;
@@ -707,12 +725,14 @@ function tryFlagTransfer(s, side, to, lines) {
 }
 
 /* ---------- Withdrawal ------------------------------------------------------------------------ */
+// Ships that leave with a Withdrawal: everything still in the Encounter or Disengaged, except ships that just failed a Disengagement Check [LC5 W c–d]
+function withdrawEligible(s, side, stayed) { return encIds(s, side, ['in', 'dis']).filter(id => (stayed || []).indexOf(id) < 0); }
 function doWithdrawal(s, side, stayed, hitNow) {
   const e = s.encounter, lines = [];
   // LC5 W d.: the whole Force withdraws – Engaged ships, ships hit by this W result that passed their
   // Disengagement Check, and ships that Disengaged earlier in the Encounter. Only ships that just failed
   // a Disengagement Check (or fought on) stay.
-  const leaving = encIds(s, side, ['in', 'dis']).filter(id => stayed.indexOf(id) < 0);
+  const leaving = withdrawEligible(s, side, stayed);
   const forcesHit = {};
   leaving.forEach(id => {
     const sh = s.ships[id];
@@ -723,6 +743,7 @@ function doWithdrawal(s, side, stayed, hitNow) {
     const sh = s.ships[id];
     removeShipFromForce(s, id);
     sh.box = 'transit'; sh.zone = null; sh.flags.withdrawn = true;
+    discardStepMarkers(sh);
     e.ships[id] = 'wd';
   });
   if (leaving.length) lines.push(`${SIDE_NAME[side]} ships withdraw to In Transit: ${leaving.map(id => shipName(s, id)).join(', ')}.`);

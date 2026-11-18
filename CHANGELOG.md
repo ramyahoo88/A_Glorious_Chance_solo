@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.4 – 2026-11-18
+Fixes from the follow-up audit of 0.2.3 (RULES_NOTES 4, 57–67).
+* Troops on a Force lost to a Gale, sinking or capture are no longer lost: unlaunched Troops come back at F7, and the Reset screen says how many.
+* A confirmed Encounter where the A.I. deploys nothing now marks your Force Encounter Ended, so a Cutting-Out mission aborts (a false alarm still doesn't).
+* The A.I. Convoy sails unescorted, and you roll on the Convoy Scatter Table, when its escort package cannot be filled.
+* Cutting-Out is offered only against a port with ships to cut out, so the once-per-game mission can't be spent on an empty port.
+* Pursuit applies only if a Defender ship is eligible to withdraw after Hits and Disengagement Checks; Disengaged ships come back into the new Encounter.
+* A schooner's tow counts only while its towing ship is attacking in that Round.
+* Shipyard Damage 8–9 flips ships on the stocks only when there is more than one.
+* Last Step / No Steps markers are discarded on withdrawal and at F7: Reduced ships go back to their printed Reduced face.
+* Rake: you see the random ship before choosing, and a used Attacker Rake returns to its deck at once.
+* Command Decision odds now match the first Round (Missed Signal).
+* README and rules note 57 corrected.
+* 42 new regression checks (paired with controls).
+
 ## 0.2.3 – 2026-11-18
 Fixes from the re-audit of 0.2.2 (RULES_NOTES 25, 56).
 * Save loading also checks procedure steps, ship boxes, step limits, Convoy Supply range and whole-number scores; a save that fails is refused and nothing changes.

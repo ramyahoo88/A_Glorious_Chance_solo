@@ -1,7 +1,7 @@
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.3';
+const APP_VERSION = '0.2.4';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -96,6 +96,8 @@ function def(sh) { return SHIP_BY_ID[defId(sh)]; }
 function shipName(s, id) { const sh = s.ships[id]; const d = def(sh); return d.name + (d.ver ? ' (' + d.ver + ')' : '') + (sh.owner !== d.side ? ' [' + (sh.owner === 'US' ? 'U.S.' : 'Br.') + ']' : ''); }
 function isFull(sh) { return sh.steps >= def(sh).full[4]; }
 function isReduced(sh) { return !isFull(sh); }
+// Discard Last Step / No Steps markers: a Reduced ship goes back to its printed Reduced face [LC5 W d; F7]
+function discardStepMarkers(sh) { const r = def(sh).red; if (r && isReduced(sh) && sh.steps < r[4]) sh.steps = r[4]; }
 function curVals(sh) { return isFull(sh) ? def(sh).full : def(sh).red; }
 function lg(sh) { return curVals(sh)[0]; }
 function car(sh) { return curVals(sh)[1]; }
@@ -131,7 +133,15 @@ function addShipToForce(s, sid, fid) {
 function removeShipFromForce(s, sid) {
   const sh = s.ships[sid];
   const f = s.forces[sh.forceId];
-  if (f) { f.ships = f.ships.filter(x => x !== sid); if (!f.ships.length) delete s.forces[f.id]; }
+  if (f) {
+    f.ships = f.ships.filter(x => x !== sid);
+    if (!f.ships.length) {
+      // Unlaunched Troops are never lost with their Force: they come back at F7 like any other
+      // unlaunched Troops (Gale, sinking, capture or a ship moving to another Force).
+      if (f.troops) { s.troopsReturning = s.troopsReturning || { US: 0, BR: 0 }; s.troopsReturning[f.side] = (s.troopsReturning[f.side] || 0) + f.troops; f.troops = 0; }
+      delete s.forces[f.id];
+    }
+  }
   sh.forceId = null;
 }
 function forcesInZone(s, z, side) { return Object.values(s.forces).filter(f => f.zone === z && f.ships.length && (!side || f.side === side)); }

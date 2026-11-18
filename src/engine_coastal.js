@@ -18,6 +18,12 @@ function homeportOfZone(s, side, z) {
   return null;
 }
 
+// Cutting-Out targets: enemy ships in the Deployable or Make Ready areas of the Homeport in that zone [OA2]
+function cuttingOutTargets(s, side, z) {
+  const other = OTHER[side], port = homeportOfZone(s, other, z);
+  return port ? sideShips(s, other).filter(sh => (sh.box === 'deployable' || sh.box === 'makeReady') && sh.port === port) : [];
+}
+
 PROCS.coastal = {
   start(s, f) {
     s.phase = 'coastal'; s.stepLabel = 'E Coastal Action Phase';
@@ -41,7 +47,7 @@ PROCS.coastal = {
     const fr = s.forces[fid], side = f.L.side, other = OTHER[side];
     if (!fr || !fr.ships.length) return G('cut');
     const port = homeportOfZone(s, other, fr.zone);
-    const targets = port ? sideShips(s, other).filter(sh => (sh.box === 'deployable' || sh.box === 'makeReady') && sh.port === port) : [];
+    const targets = cuttingOutTargets(s, side, fr.zone);
     let txt;
     if (fr.ended) txt = 'The Force has an Encounter Ended marker – the Cutting-Out mission aborts.';
     else if (!targets.length) txt = 'No enemy ships in the Deployable or Make Ready areas – the mission aborts.';

@@ -37,7 +37,7 @@ To use your own judgment instead (5.3.1 allows it), turn on *Pick Force Package 
 ## Data sources
 
 * Ship values, VP values, the Lake Combat Table, the Convoy Scatter Table, the Shipyard Damage Table, the Convoy Supply Track triggers, the Naval Balance bands and card counts, all 104 Target Cards (zone, missions, conditions, removal symbols, and the full 4×7 deployment tables), all 38 Event Cards and all 20 Tactic Cards come from the published **VASSAL module v1.0** artwork. They were cross-checked against the rulebook examples (see `tests/unit.js`).
-* Player Aids V and VII come from photos of the printed aids. The Hit Distribution Table (Player Aid VI) was read from the reproduction in the U.S. Living Rulebook (p. 32) for 1–12 ships. For 13+ engaged ships the app picks a position uniformly.
+* Player Aids V and VII come from photos of the printed aids. The Hit Distribution Table (Player Aid VI) covers 1–18 Engaged ships, read from the full reproduction in the British Living Rulebook (p. 32); only Open Range can push the column past 18, and then the app picks a position uniformly (rules note 4).
 * Rules come from the **Living Rulebooks** (U.S. 13 Apr 2024, British 7 Aug 2024), the **Living Playbook** (6 Aug 2024) and the April 2024 errata. Interpretations are listed in `RULES_NOTES.md`.
 
 ## Project layout

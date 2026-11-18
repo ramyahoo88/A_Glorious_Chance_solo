@@ -142,6 +142,10 @@ PROCS.encounter = {
     if (r.outcome === 'pursuit') {
       log(s, 'Pursuit! The withdrawal is cancelled and a new Encounter begins between the same forces.', 'combat');
       endEncounterEffects(s);   // the Encounter that just ended uses up its one-Encounter effects
+      // Disengaged ships were eligible to withdraw: their withdrawal is cancelled and they fight on (damage kept)
+      const back = Object.keys(e.ships).filter(id => e.ships[id] === 'dis');
+      back.forEach(id => { e.ships[id] = 'in'; });
+      if (back.length) log(s, `Back in the new Encounter: ${back.map(id => shipName(s, id)).join(', ')}.`, 'combat');
       e.flagIn = {};
       Object.keys(e.ships).forEach(id => { const sd = e.side[id]; if ((e.ships[id] === 'in' || e.ships[id] === 'dis') && s.flagship[sd] === id) e.flagIn[sd] = true; });
       e.segment = 'patrol';
@@ -255,12 +259,17 @@ function encSummary(s) {
   const e = s.encounter;
   const side = sd => encIds(s, sd).map(id => { const sh = s.ships[id]; return `${shipName(s, id)}${isReduced(sh) ? ' (Reduced)' : ''}`; }).join(', ') || '—';
   const h = s.human, ai = s.ai, noLG = hazeActive(s);
-  const hAtt = encIds(s, h).filter(id => isFull(s.ships[id]));
+  // First-Round odds exactly as the line of battle will compute them: same defenders, Missed Signal and Haze
+  const ms = missedSignalShip(s);
+  const notMs = id => id !== ms;
+  const hAtt = encIds(s, h).filter(id => isFull(s.ships[id])).filter(notMs);
   const odds = (att, attIds, defIds) => { const a = sideStrength(s, attIds, att, noLG), d = sideStrength(s, defIds, att, noLG); return `${fmt(a)} vs ${fmt(d)} = ${d ? fmt(a / d) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(d ? a / d : 99)]})`; };
   let aiAtt = encIds(s, ai).filter(id => isFull(s.ships[id])); if (ai === 'BR') aiAtt = aiAtt.filter(id => !isCLS(s.ships[id]));
+  aiAtt = aiAtt.filter(notMs);
   return `${ZONE_NAME[e.zone]} – U.S.: ${side('US')}\nBritish: ${side('BR')}\n` +
-    `Odds if you attack with all full-strength ships: ${hAtt.length ? odds(h, hAtt, encIds(s, ai)) : 'no full-strength ships'}.\n` +
-    `Odds if the A.I. attacks: ${aiAtt.length ? odds(ai, aiAtt, encIds(s, h)) : 'no full-strength ships'}.${noLG ? ' (Haze: no Long Guns in the first Gunnery Round 1 here.)' : ''}`;
+    `Odds if you attack with all full-strength ships: ${hAtt.length ? odds(h, hAtt, defendingIds(s, ai).filter(notMs)) : 'no full-strength ships'}.\n` +
+    `Odds if the A.I. attacks: ${aiAtt.length ? odds(ai, aiAtt, defendingIds(s, h).filter(notMs)) : 'no full-strength ships'}.` +
+    `${ms ? `\nBoth are first-Round odds: ${shipName(s, ms)} missed the signal and sits out the first Round.` : ''}${noLG ? ' (Haze: no Long Guns in the first Gunnery Round 1 here.)' : ''}`;
 }
 
 function joinEncounter(s, ids, side) {

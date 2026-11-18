@@ -293,8 +293,14 @@ PROCS.turn = {
   B2after(s, f) {
     const pe = s.pe.find(p => p.num === f.L.pe);
     const res = f.ret;
-    if (!res || res.none) { pe.status = 'ended'; return G('B2'); }
-    if (res.convoyHandled) { pe.status = 'ended'; return G('B2'); }
+    if (!res || res.none || res.convoyHandled) {
+      // A confirmed Encounter with no A.I. deployment (or an unescorted Convoy) still ends your Force's
+      // Encounter: it gets an Encounter Ended marker, so a Cutting-Out or other mission cannot go on
+      pe.status = 'ended';
+      const hf = s.forces[pe.forceId];
+      if (hf && hf.side === s.human) hf.ended = true;
+      return G('B2');
+    }
     return C('encounter', { zone: pe.zone, kind: res.convoy ? 'convoy' : 'normal', convoySide: res.convoy || null, peNum: pe.num, humanForces: res.escortForces || [pe.forceId], aiForces: res.forces, startAt: 'event' }, 'B2done');
   },
   B2done(s, f) {
