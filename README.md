@@ -7,7 +7,7 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Hosted app page:** https://claude.ai/artifact/RSB5JeLQjeMfostduLDrx4 serves the current release (v0.2.4: `dist/index.html` from commit `f15cdd3`, 295,018 bytes, SHA-256 `65709398b2964946de21c346c96a2f92aca8decc53e944314196618b67fcca93`). It opens only for people its owner has shared it with; anyone else can open `dist/index.html` directly.
+**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.4: `dist/index.html` from commit `f15cdd3`, 295,018 bytes, SHA-256 `65709398b2964946de21c346c96a2f92aca8decc53e944314196618b67fcca93`). On a phone, open it once and use the browser's Add to Home Screen; your game stays in that browser.
 
 You still play on your physical map with your counters. The app tells you what to move, and it draws and reads every card for you.
 
