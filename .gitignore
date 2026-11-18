@@ -1,0 +1,3 @@
+node_modules/
+tests/browser/shots/*.png
+dist/engine.js

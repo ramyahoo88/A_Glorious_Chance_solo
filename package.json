@@ -1,0 +1,11 @@
+{
+  "name": "a-glorious-chance-solo-companion",
+  "version": "0.2.0",
+  "description": "Offline solo companion app for A Glorious Chance (Legion Wargames): runs the AI, bookkeeping and dice for the U.S. and British Solo Campaigns.",
+  "scripts": {
+    "build": "node tools/build.js",
+    "test": "node tests/unit.js && node tests/scenario.js && node tests/sim.js 100"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}
