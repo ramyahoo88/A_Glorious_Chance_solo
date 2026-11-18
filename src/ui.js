@@ -74,26 +74,53 @@ function checkSaveState(st) {
     if (typeof a === 'number' && !Number.isFinite(b)) bad(`field “${k}”`);
   });
   if (!Number.isInteger(st.turn) || st.turn < 0 || st.turn > 8) bad('turn');
+  Object.keys(st.ships).forEach(id => { if (!fresh.ships[id]) bad('unknown ship ' + id); });
   Object.keys(fresh.ships).forEach(id => {
     const sh = st.ships[id];
-    if (!sh || typeof sh !== 'object' || typeof sh.box !== 'string' || !Number.isInteger(sh.steps) || sh.steps < 0 || (sh.owner !== 'US' && sh.owner !== 'BR')) bad('ship ' + id);
+    if (!sh || typeof sh !== 'object' || sh.id !== id || BOXES.indexOf(sh.box) < 0 || (sh.owner !== 'US' && sh.owner !== 'BR')) bad('ship ' + id);
+    let d = null; try { d = def(sh); } catch (e) { d = null; }
+    if (!d || !Array.isArray(d.full)) bad('ship ' + id + ' version');
+    if (!Number.isInteger(sh.steps) || sh.steps < 0 || sh.steps > d.full[4]) bad(`ship ${id} steps`);
+    if (sh.delay != null && (!Number.isInteger(sh.delay) || sh.delay < 0)) bad(`ship ${id} repair delay`);
+    if (sh.box === 'lake' && ZONES.indexOf(sh.zone) < 0) bad(`ship ${id} zone`);
     if (!sh.flags || typeof sh.flags !== 'object') sh.flags = {};
   });
   ZONES.forEach(z => { if (!st.zones[z] || typeof st.zones[z] !== 'object') bad('zone ' + z); if (!st.zones[z].flags) st.zones[z].flags = {}; });
   ['US', 'BR'].forEach(sd => {
-    ['vp', 'supply', 'cd'].forEach(k => { if (!Number.isFinite(st[k][sd])) bad(`${k} ${sd}`); });
+    ['vp', 'cd'].forEach(k => { if (!Number.isInteger(st[k][sd])) bad(`${k} ${sd}`); });
+    if (!Number.isInteger(st.supply[sd]) || st.supply[sd] < SUPPLY_MIN || st.supply[sd] > SUPPLY_MAX) bad(`Convoy Supply ${sd}`);
+    if (st.cd[sd] < 0) bad(`Construction Delay ${sd}`);
     if (!st.troops[sd] || !Number.isInteger(st.troops[sd].available) || st.troops[sd].available < 0 || !Array.isArray(st.troops[sd].track)) bad('Troops');
     if (!st.leader[sd] || !st.ships[st.flagship[sd]]) bad('Flagship / Leader');
   });
-  Object.values(st.forces).forEach(fr => { if (!fr || !Array.isArray(fr.ships) || (fr.troops != null && !Number.isInteger(fr.troops))) bad('a Force'); });
-  st.calls.forEach(fr => { if (!fr || !PROCS[fr.proc] || typeof fr.pc !== 'string') bad('procedure stack'); });
-  if (!st.over && st.calls.length && (!st.prompt || typeof st.prompt.kind !== 'string')) bad('pending decision');
+  Object.values(st.forces).forEach(fr => {
+    if (!fr || !Array.isArray(fr.ships) || fr.ships.some(id => !st.ships[id]) || (fr.troops != null && (!Number.isInteger(fr.troops) || fr.troops < 0))) bad('a Force');
+  });
+  if (!Number.isInteger(st.nbBand) || st.nbBand < 0 || st.nbBand >= NB_LABELS.length) bad('Naval Balance');
+  st.calls.forEach(fr => {
+    if (!fr || typeof fr !== 'object' || !PROCS[fr.proc] || typeof fr.pc !== 'string' || typeof PROCS[fr.proc][fr.pc] !== 'function') bad('procedure stack');
+    if (fr.L != null && typeof fr.L !== 'object') bad('procedure stack');
+  });
+  if (!st.over && st.calls.length && (!st.prompt || typeof st.prompt.kind !== 'string' || ['info', 'choice', 'select', 'assign', 'lineup'].indexOf(st.prompt.kind) < 0)) bad('pending decision');
+  if (st.over && !st.result) bad('final result');
+  if (st.encounter) {
+    const e = st.encounter;
+    if (typeof e !== 'object' || ZONES.indexOf(e.zone) < 0 || !e.ships || typeof e.ships !== 'object' || Object.keys(e.ships).some(id => !st.ships[id])) bad('current Encounter');
+    if (!e.side) e.side = {};
+    if (!e.flagIn) {   // saves before 0.2.2: record which Flagships are in the Encounter
+      e.flagIn = {};
+      Object.keys(e.ships).forEach(id => { const sd = e.side[id] || st.ships[id].owner; if (st.flagship[sd] === id) e.flagIn[sd] = true; });
+    }
+  }
   return st;
 }
 // Replace the current game with a checked save; if it cannot be shown, put the old game back.
 function commitLoaded(st, undo) {
   const prevS = G_STATE, prevU = UNDO;
-  G_STATE = st; UNDO = Array.isArray(undo) ? undo.filter(u => typeof u === 'string') : []; UI.local = null; UI.err = '';
+  const loadedUndo = Array.isArray(undo) ? undo.filter(u => typeof u === 'string') : [];
+  // keep the previous game reachable: one Undo after loading returns to it (and its own Undo history)
+  const keep = prevS ? prevU.concat([JSON.stringify(prevS)]) : [];
+  G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.err = '';
   try { render(); }
   catch (e) {
     G_STATE = prevS; UNDO = prevU;
@@ -135,6 +162,7 @@ function exportSave() {
 function importSave() {
   const box = el('div');
   box.appendChild(el('h2', null, 'Load game'));
+  box.appendChild(el('p', { class: 'muted' }, 'Loading replaces the game you have open. The save is checked first; if you load one by mistake, press Undo once to get your previous game back.'));
   const msg = el('div', { class: 'err' });
   const inp = el('input', { type: 'file', accept: '.json,application/json' });
   inp.addEventListener('change', () => {

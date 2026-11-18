@@ -14,17 +14,30 @@ function encAdd(s, id, status) {
   e.side[id] = s.ships[id].owner;
   if (s.flagship[e.side[id]] === id) { e.flagIn = e.flagIn || {}; e.flagIn[e.side[id]] = true; }
 }
-// Event cards 29/31: Intelligence benefits only the next Encounter involving the enemy Flagship.
+// Did the side's Flagship take part in the current Encounter? (flagIn is recorded as ships join; saves
+// made before 0.2.2 have no record, so fall back to the ships present.)
+function flagshipInEncounter(s, side) {
+  const e = s.encounter; if (!e) return false;
+  return !!((e.flagIn && e.flagIn[side]) || e.ships[s.flagship[side]]);
+}
+// Event cards 29/31: Intelligence is drawn in the Coastal Action Phase and applies next turn, to the next
+// Encounter involving the enemy Flagship; that Encounter uses it up.
 function consumeIntelligence(s) {
-  const e = s.encounter;
-  if (!e || !e.flagIn) return;
+  if (!s.encounter) return;
   ['US', 'BR'].forEach(side => {
     const it = s.intelligence[side];
-    if (it && s.turn <= it.until && e.flagIn[OTHER[side]]) {
+    if (it && s.turn === it.until && flagshipInEncounter(s, OTHER[side])) {
       s.intelligence[side] = null;
       log(s, `Intelligence (Event #${it.card}) has been used in this Encounter with the enemy Flagship – the card returns to the Event deck.`, 'event');
     }
   });
+}
+// Effects that last for one Encounter only end here: normal end, Harbor end, and before a Pursuit
+// starts a new Encounter between the same forces.
+function endEncounterEffects(s) {
+  const e = s.encounter; if (!e) return;
+  consumeIntelligence(s);
+  if (s.zones[e.zone] && s.zones[e.zone].flags) delete s.zones[e.zone].flags.breeze;   // Event cards 37-38
 }
 
 PROCS.encounter = {
@@ -128,6 +141,9 @@ PROCS.encounter = {
     const e = s.encounter, r = f.ret || {};
     if (r.outcome === 'pursuit') {
       log(s, 'Pursuit! The withdrawal is cancelled and a new Encounter begins between the same forces.', 'combat');
+      endEncounterEffects(s);   // the Encounter that just ended uses up its one-Encounter effects
+      e.flagIn = {};
+      Object.keys(e.ships).forEach(id => { const sd = e.side[id]; if ((e.ships[id] === 'in' || e.ships[id] === 'dis') && s.flagship[sd] === id) e.flagIn[sd] = true; });
       e.segment = 'patrol';
       return G('event');
     }
@@ -279,10 +295,8 @@ function upgradeChecksFor(s, ids) {
 
 function intelligenceApplies(s, side) {
   const it = s.intelligence[side];
-  if (!it || s.turn > it.until) return false;
-  const e = s.encounter; if (!e) return false;
-  const enemyFlag = s.flagship[OTHER[side]];
-  return !!(e.ships[enemyFlag] || (e.flagIn && e.flagIn[OTHER[side]]));
+  if (!it || s.turn !== it.until) return false;
+  return flagshipInEncounter(s, OTHER[side]);
 }
 // 11.2.3 Reaction DRM: distance (+1 same zone, −1 per zone away) plus wind. Intelligence cancels the
 // negative distance DRM, keeps positive ones and adds +1 (Event cards 29/31).
@@ -447,9 +461,7 @@ function abortCoastalMission(s, fr) {
 function resolveEncounterEnd(s) {
   const e = s.encounter, lines = [];
   if (!e) return lines;
-  consumeIntelligence(s);
-  // Commanding Breeze affects only the Encounter it was drawn for (Event cards 37-38)
-  if (s.zones[e.zone] && s.zones[e.zone].flags) delete s.zones[e.zone].flags.breeze;
+  endEncounterEffects(s);
   const gone = side => !encIds(s, side, ['in', 'dis']).length;
   const struck = Object.keys(e.ships).filter(id => e.ships[id] === 'struck');
   struck.forEach(id => {

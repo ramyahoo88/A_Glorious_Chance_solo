@@ -148,7 +148,7 @@ eq('G03 15 ships, roll 31 → #7 (four-roll block)', X(`hitPosition(15,3,1)`), 7
 eq('G03 18 ships, rolls 11/12/66 → #1/#1/#18', X(`[hitPosition(18,1,1),hitPosition(18,1,2),hitPosition(18,6,6)]`), [1, 1, 18]);
 
 // G04 – Intelligence benefits one Encounter with the enemy Flagship, then is used up
-X(`var s=newGame('US',1); s.turn=2; ${base} s.intelligence.US={card:29,until:3};
+X(`var s=newGame('US',1); s.turn=2; ${base} s.intelligence.US={card:29,until:2};
    newForce(s,'US','NOR','Patrol',['oneida']); newForce(s,'BR','NOR','Patrol',['rg']); ${enc('NOR', ['oneida', 'rg'])}
    var g4a=intelligenceApplies(s,'US'); resolveEncounterEnd(s); s.encounter=null; var g4b=!!s.intelligence.US;`);
 eq('G04 Encounter without the enemy Flagship: not used, still held', X(`[g4a, g4b]`), [false, true]);
@@ -160,7 +160,7 @@ eq('G04 used in the Encounter with Wolfe, gone for the next', X(`[g4c, s.intelli
 // G05 – Intelligence cancels the negative distance DRM but keeps Fair Wind
 eq('G05 reactionDRM(distance 2, wind +2, Intelligence) = +3', X(`reactionDRM(2,2,true)`), 3);
 eq('G05 without Intelligence = 0; same zone with Intelligence = +2', X(`[reactionDRM(2,2,false), reactionDRM(0,0,true), reactionDRM(1,0,true)]`), [0, 2, 1]);
-X(`var s=newGame('BR',1); s.turn=2; ${base} s.intelligence.BR={card:29,until:3}; s.flagship.US='oneida'; s.zones.NOR.event=8;
+X(`var s=newGame('BR',1); s.turn=2; ${base} s.intelligence.BR={card:29,until:2}; s.flagship.US='oneida'; s.zones.NOR.event=8;
    newForce(s,'US','NOR','Patrol',['oneida']); newForce(s,'BR','NOR','Patrol',['wolfe']); ${enc('NOR', ['oneida', 'wolfe'])}
    var g5=humanReactionCandidates(s).find(c=>c.key==='home');`);
 eq('G05 Kingston ships reacting into North Lake with Fair Wind + Intelligence: DRM', X(`g5 && g5.drm`), 3);
@@ -195,6 +195,36 @@ eq('G10 Missed Signal ship known before the attack', X(`missedSignalShip(s)`), '
 X(`s.combat={att:'US',def:'BR',seq:'A',pos:0,segment:'patrol',col:{US:[],BR:[]},tows:{},tac:{att:null,def:null},gr:0,newSeq:false,roundAttackers:[]};
    s.calls=[{proc:'combat',pc:'assemble2',A:{},L:{},answer:{attackers:['madison','oneida'],tows:{}}}]; run(s);`);
 eq('G10 …and she is the one left out of the first Round', X(`[s.combat.col.US, s.combat.sitting && s.combat.sitting.id, missedSignalShip(s)]`), [['oneida'], 'madison', null]);
+
+// ===== v0.2.3: re-audit of v0.2.2 (R01 save validation, R02 Intelligence lifetime) =====
+vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'src', 'ui.js'), 'utf8'), ctx);   // checkSaveState
+const refused = code => X(`(function(){ try { checkSaveState(${code}); return 'accepted'; } catch (e) { return 'refused'; } })()`);
+X(`var g=newGame('US',181123); run(g); var __n=0; while(g.prompt && g.prompt.kind==='info' && __n++<20) act(g,'ok'); var gtxt=JSON.stringify(g);`);
+eq('R01 a valid mid-game save is accepted', refused(`JSON.parse(gtxt)`), 'accepted');
+eq('R01 unknown procedure step refused', refused(`(function(){ var x=JSON.parse(gtxt); x.calls[x.calls.length-1].pc='__audit_missing_handler__'; return x; })()`), 'refused');
+eq('R01 Madison with 999 steps refused', refused(`(function(){ var x=JSON.parse(gtxt); x.ships.madison.steps=999; return x; })()`), 'refused');
+eq('R01 Convoy Supply 13 refused', refused(`(function(){ var x=JSON.parse(gtxt); x.supply.US=13; return x; })()`), 'refused');
+eq('R01 unknown ship box refused', refused(`(function(){ var x=JSON.parse(gtxt); x.ships.oneida.box='attic'; return x; })()`), 'refused');
+eq('R01 unknown ship refused', refused(`(function(){ var x=JSON.parse(gtxt); x.ships.nautilus=Object.assign({},x.ships.oneida,{id:'nautilus'}); return x; })()`), 'refused');
+eq('R01 fractional VP refused', refused(`(function(){ var x=JSON.parse(gtxt); x.vp.US=1.5; return x; })()`), 'refused');
+
+// R02a – Pursuit starts a new Encounter: the one that just ended uses up Intelligence first
+X(`var s=newGame('US',1); s.turn=2; ${base} s.intelligence.US={card:29,until:2};
+   newForce(s,'US','NOR','Patrol',['oneida']); newForce(s,'BR','NOR','Patrol',['wolfe']); ${enc('NOR', ['oneida', 'wolfe'])}
+   s.zones.NOR.flags.breeze=true; var r2a=intelligenceApplies(s,'US');
+   s.calls=[{proc:'encounter',pc:'afterCombat',A:{zone:'NOR',kind:'normal'},L:{},ret:{outcome:'pursuit'}}]; run(s);`);
+eq('R02a Intelligence used by the pursued Encounter; Breeze ended; new Encounter under way', X(`[r2a, s.intelligence.US, !!s.zones.NOR.flags.breeze, !!s.encounter]`), [true, null, false, true]);
+// R02b – an Encounter saved by 0.2.1 (no flagIn record) still uses Intelligence up
+X(`var s=newGame('US',1); s.turn=2; ${base} s.intelligence.US={card:29,until:2};
+   newForce(s,'US','NOR','Patrol',['oneida']); newForce(s,'BR','NOR','Patrol',['wolfe']); ${enc('NOR', ['oneida', 'wolfe'])}
+   delete s.encounter.flagIn; var old=JSON.parse(JSON.stringify(s)); old.calls=[]; old.prompt=null; checkSaveState(old); var mig=old.encounter.flagIn;
+   resolveEncounterEnd(s);`);
+eq('R02b old save: flag record rebuilt on load, and Intelligence used at the end', X(`[mig && mig.BR, s.intelligence.US]`), [true, null]);
+// R02c – drawn this turn (Coastal Action Phase): neither applies to nor is used by an Encounter until next turn
+X(`var s=newGame('US',1); s.turn=2; ${base} s.intelligence.US={card:29,until:3};
+   newForce(s,'US','NOR','Patrol',['oneida']); newForce(s,'BR','NOR','Patrol',['wolfe']); ${enc('NOR', ['oneida', 'wolfe'])}
+   var r2c=intelligenceApplies(s,'US'); resolveEncounterEnd(s);`);
+eq('R02c same-turn Encounter: not applied, still held for next turn', X(`[r2c, s.intelligence.US && s.intelligence.US.until]`), [false, 3]);
 
 console.log(`regression tests: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

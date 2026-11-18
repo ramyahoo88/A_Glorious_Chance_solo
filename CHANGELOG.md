@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.3 – 2026-11-18
+Fixes from the re-audit of 0.2.2 (RULES_NOTES 25, 56).
+* Save loading also checks procedure steps, ship boxes, step limits, Convoy Supply range and whole-number scores; a save that fails is refused and nothing changes.
+* Loading is undoable: one Undo right after loading returns to the game you had open.
+* Intelligence is used up by the pursued Encounter before a Pursuit starts a new one, and by an Encounter in a save made before 0.2.2.
+* Intelligence applies only on the turn after it is drawn, as the card says.
+* Commanding Breeze also ends when a Pursuit starts a new Encounter.
+* 10 new regression checks.
+
 ## 0.2.2 – 2026-11-18
 Fixes from an independent audit of 0.2.1 (RULES_NOTES 4, 25, 51–57).
 * A Scattered Convoy is now delayed and arrives later (+2), instead of being lost.
