@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.15 - 2026-11-19
+
+* Fix occupied map ports and the Beached section so their ship buttons appear under every box heading.
+* Record public ship movements after each automatic procedure step, including deployment followed by Separated Ships displacement before the next prompt. Keep their order through grouped updates, saves, reload and Undo.
+* Route arrows around measured fleet/port labels, reserve separate approaches for shared routes, and place readable number badges clear of labels and other badges. Recalculate after resizing.
+* Make Tracks fit the available panel width, including narrow desktop layouts, while retaining every supply space.
+* Add **Back to map**, **Back to fleet** and **Back to port** during inspection, preserving parent scroll and keyboard focus.
+* Add 30 focused control assertions; verify the original audit positions, 84 visual layouts, 128 paired map campaigns, 128 option-grid campaigns and two complete Chromium campaigns. Game rules, dice, hidden-information access and scoring behavior are preserved.
+
 ## 0.2.14 – 2026-11-19
 
 * Add a schematic Lake Ontario campaign map with public U.S./British ship groups, A.I. labels, missions, homeports, temporary ports and Escort boxes. Tap a fleet or port to inspect its ships.

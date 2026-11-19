@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Glorious Chance – Solo Companion v0.2.14</title>
+<title>A Glorious Chance – Solo Companion v0.2.15</title>
 <style>
 :root {
   --bg: #f3efe6; --panel: #fffdf8; --ink: #1f2a33; --muted: #52606b; --line: #d9d1c2;
@@ -103,8 +103,9 @@ button.optcard { display: block; width: 100%; text-align: left; }
 .box .bl { font-size: .7rem; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
 
 /* Tracks */
-.tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; font-size: .85rem; margin-top: 8px; }
-.trk { display: flex; gap: 2px; align-items: center; }
+.tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 6px 14px; font-size: .85rem; margin-top: 8px; }
+.trk { display: flex; flex-wrap: wrap; gap: 2px; align-items: center; }
+.tracks > div { min-width: 0; overflow-wrap: anywhere; }
 .trk i { display: inline-block; width: 15px; height: 15px; font-size: .62rem; text-align: center; line-height: 15px; border: 1px solid #c9c0ae; background: #fff; font-style: normal; color: #52606b; }
 .trk i.on.US { background: var(--us); color: #fff; border-color: var(--us); }
 .trk i.on.BR { background: var(--br); color: #fff; border-color: var(--br); }
@@ -165,6 +166,8 @@ button.optcard { display: block; width: 100%; text-align: left; }
 #modal.open { display: flex; }
 #modal .inner { background: var(--panel); border-radius: 10px; max-width: 900px; width: 94vw; max-height: 88vh; overflow: auto; padding: 16px; }
 #modal .inner > div:first-child { position: sticky; top: 0; z-index: 2; background: var(--panel); padding: 3px 0; }
+.modal-controls { display: flex; justify-content: flex-end; gap: 8px; }
+.modal-controls button:first-child:not(:last-child) { margin-right: auto; }
 .ref-topic { max-width: 100%; overflow-x: auto; }
 .ref select { max-width: 100%; }
 .ref caption { text-align: left; font-weight: bold; margin: 4px 0; }
@@ -234,6 +237,8 @@ button.optcard { display: block; width: 100%; text-align: left; }
 .map-help, .map-caption { font-size: .76rem; margin: 6px 0; line-height: 1.3; }
 .map-stage { position: relative; width: 100%; aspect-ratio: 1000 / 640; min-height: 470px; border: 1px solid #b8bda7; border-radius: 9px; isolation: isolate; }
 .map-water { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 9px; pointer-events: none; }
+.map-routes { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.map-route { stroke-linejoin: round; stroke-linecap: round; }
 .map-geography { font: 18px Georgia, serif; letter-spacing: 3px; fill: #506d74; }
 .map-route-badge { position: absolute; transform: translate(-50%, -50%); z-index: 2; width: 21px; height: 21px; border: 1px solid #465c67; border-radius: 50%; background: #fffdf8; color: var(--ink); text-align: center; line-height: 19px; font-size: .75rem; font-weight: bold; pointer-events: none; }
 .map-zone, .map-port { position: absolute; transform: translate(-50%, -50%); width: 26%; }
@@ -717,7 +722,7 @@ function lbLookup(lgTotal, troops, shift, d66v) {
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.14';
+const APP_VERSION = '0.2.15';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -954,7 +959,7 @@ function P(prompt, then) { return { prompt, then }; }
 
 function topFrame(s) { return s.calls[s.calls.length - 1]; }
 
-function run(s) {
+function run(s, onStep) {
   let guard = 0;
   while (!s.prompt && s.calls.length && !s.over) {
     if (++guard > 50000) throw new Error('Runaway procedure loop at ' + JSON.stringify(topFrame(s)).slice(0, 200));
@@ -965,6 +970,9 @@ function run(s) {
     if (!h) throw new Error('No handler ' + f.proc + '.' + f.pc);
     const r = h(s, f);
     if (!r) throw new Error('Handler returned nothing: ' + f.proc + '.' + f.pc);
+    // Optional presentation observer: never stored in the campaign or used to
+    // choose a move. A handler is the boundary of an automatic procedure step.
+    if (onStep) onStep(s);
     if (r.goto !== undefined) f.pc = r.goto;
     else if (r.call) { f.pc = r.then; f.ret = undefined; s.calls.push({ proc: r.call, pc: 'start', A: r.args, L: {} }); }
     else if (r.ret !== undefined) { s.calls.pop(); const p = topFrame(s); if (p) p.ret = r.ret; }
@@ -975,7 +983,7 @@ function run(s) {
   }
 }
 
-function act(s, answer) {
+function act(s, answer, onStep) {
   if (!s.prompt) throw new Error('No prompt pending');
   s.build = APP_VERSION;   // marks saves written by the corrected procedures (see upgradeLegacy)
   const err = validateAnswer(s, s.prompt, answer);
@@ -984,7 +992,7 @@ function act(s, answer) {
   const f = topFrame(s);
   f.answer = answer;
   s.prompt = null;
-  run(s);
+  run(s, onStep);
 }
 
 function validateAnswer(s, p, a) {
@@ -5280,6 +5288,7 @@ function renderBoard(s) {
   lg_.appendChild(count); lg_.appendChild(toggle);
   lg_.appendChild(logBox);
   b.appendChild(lg_);
+  refreshCampaignMaps();
 }
 function zoneView(s, z) {
   const zs = s.zones[z];
@@ -5392,25 +5401,44 @@ function renderSetup() {
 }
 
 /* ---------- modals ---------- */
-function openModal(content) {
+function openModal(content, navigation = {}) {
   const m = $('modal');
+  const nested = m.classList.contains('open') && navigation.backLabel;
   if (!m.classList.contains('open')) UI.modalReturnFocus = document.activeElement;
-  m.innerHTML = '';
+  if (nested) {
+    const previous = m.querySelector('.inner');
+    (UI.modalStack ||= []).push({ inner: previous, focus: document.activeElement,
+      scroll: previous.scrollTop });
+    previous.remove();
+  } else { UI.modalStack = []; m.replaceChildren(); }
   const title = content.querySelector('h2');
   if (title) title.id = 'modal-title';
   const close = el('button', { type: 'button', onclick: closeModal }, 'Close');
-  const inner = el('div', { class: 'inner', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': title ? title.id : null, 'aria-label': title ? null : 'Game dialog', tabindex: -1 }, el('div', { style: { textAlign: 'right' } }, close), content);
+  const controls = el('div', { class: 'modal-controls' });
+  if (navigation.backLabel) controls.appendChild(el('button', { type: 'button', onclick: nested ? modalBack : closeModal }, navigation.backLabel));
+  controls.appendChild(close);
+  const inner = el('div', { class: 'inner', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': title ? title.id : null, 'aria-label': title ? null : 'Game dialog', tabindex: -1 }, controls, content);
   m.appendChild(inner); m.classList.add('open');
   $('hdr').setAttribute('inert', ''); $('app').setAttribute('inert', '');
   m.onclick = (e) => { if (e.target === m) closeModal(); };
   close.focus();
+  refreshCampaignMaps();
+}
+function modalBack() {
+  const previous = UI.modalStack?.pop();
+  if (!previous) return;
+  $('modal').replaceChildren(previous.inner);
+  refreshCampaignMaps();
+  if (previous.focus?.isConnected) previous.focus.focus({ preventScroll: true });
+  previous.inner.scrollTop = previous.scroll;
 }
 function closeModal() {
   $('modal').classList.remove('open');
+  UI.modalStack = [];
   $('hdr').removeAttribute('inert'); $('app').removeAttribute('inert');
   const target = UI.modalReturnFocus;
   UI.modalReturnFocus = null;
-  if (target && target.isConnected && typeof target.focus === 'function') target.focus();
+  if (target && target.isConnected && typeof target.focus === 'function') target.focus({ preventScroll: true });
 }
 function modalKeydown(e) {
   const m = $('modal');
@@ -5683,7 +5711,10 @@ function openShipDetails(s, initial, choices) {
     pick.addEventListener('change', () => show(pick.value));
     body.appendChild(el('label', null, 'Ship ', pick));
   }
-  show(initial); body.appendChild(details); openModal(body);
+  const parent = $('modal').classList.contains('open') && $('modal').querySelector('.map-zone-details, .map-port-details');
+  show(initial); body.appendChild(details); openModal(body, parent ? {
+    backLabel: parent.classList.contains('map-port-details') ? 'Back to port' : 'Back to fleet'
+  } : {});
 }
 
 function hitDistributionLookup() {
@@ -5872,9 +5903,11 @@ function playTableAction(s, answer) {
   const notices = [], changes = [], moves = [];
   const map = { title: s.prompt?.title || 'Action', turn: s.turn, phase: s.phase, moves };
   function advance(value) {
-    const positions = mapShipSnapshot(s);
-    act(s, value);
-    moves.push(...mapShipChanges(positions, s));
+    let positions = mapShipSnapshot(s);
+    act(s, value, () => {
+      moves.push(...mapShipChanges(positions, s));
+      positions = mapShipSnapshot(s);
+    });
     const after = publicBoard(s);
     for (const key of new Set([...before.keys(), ...after.keys()])) {
       if (before.get(key) !== after.get(key))
@@ -5891,7 +5924,7 @@ function playTableAction(s, answer) {
     advance(next.answer);
   }
   // Every action replaces the recap, including an action with no movement.
-  // Grouped steps retain each transition rather than only the net displacement.
+  // Both automatic procedure steps and grouped prompts keep their transitions.
   s.tableReport = { changes, notices, map };
 }
 
@@ -5953,17 +5986,17 @@ function mapPortShips(s, place) {
 function openMapZone(s, z) {
   const body = el('div', { class: 'map-zone-details' }, el('h2', null, ZONE_NAME[z]), zoneView(s, z));
   const beached = Object.values(s.ships).filter(sh => sh.box === 'coast' && sh.zone === z);
-  if (beached.length) body.appendChild(el('h3', null, 'Beached'), el('div', { class: 'ships' }, ...beached.map(sh => shipChip(s, sh.id))));
-  openModal(body);
+  if (beached.length) body.append(el('h3', null, 'Beached'), el('div', { class: 'ships' }, ...beached.map(sh => shipChip(s, sh.id))));
+  openModal(body, { backLabel: 'Back to map' });
 }
 function openMapPort(s, place, label) {
-  const ships = mapPortShips(s, place), body = el('div', null, el('h2', null, label));
+  const ships = mapPortShips(s, place), body = el('div', { class: 'map-port-details' }, el('h2', null, label));
   if (!ships.length) body.appendChild(el('p', null, 'No ships here.'));
   for (const box of BOXES) {
     const group = ships.filter(sh => sh.box === box);
-    if (group.length) body.appendChild(el('h3', null, BOX_NAME[box]), el('div', { class: 'ships' }, ...group.map(sh => shipChip(s, sh.id))));
+    if (group.length) body.append(el('h3', null, BOX_NAME[box]), el('div', { class: 'ships' }, ...group.map(sh => shipChip(s, sh.id))));
   }
-  openModal(body);
+  openModal(body, { backLabel: 'Back to map' });
 }
 function campaignMap(s, scope = 'board') {
   const wrap = el('div', { class: 'campaign-map' }), action = recordedMapAction(s);
@@ -5979,9 +6012,6 @@ function campaignMap(s, scope = 'board') {
   const shore = 'M70 310 C62 230 130 174 250 160 C390 145 515 170 635 128 C740 90 818 108 870 134 L932 190 L913 285 L940 332 L886 387 C798 420 720 452 603 476 C420 506 255 520 159 473 C104 444 76 375 70 310Z';
   const defs = mapSvg('defs', null,
     mapSvg('clipPath', { id: 'lake-clip-' + scope }, mapSvg('path', { d: shore })));
-  for (const side of ['US', 'BR']) defs.appendChild(mapSvg('marker', { id: 'map-arrow-' + side + '-' + scope,
-    viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' },
-    mapSvg('path', { d: 'M0 0 L10 5 L0 10Z', fill: side === 'US' ? '#2f5f9e' : '#a8322d' })));
   svg.appendChild(defs);
   svg.appendChild(mapSvg('rect', { width: 1000, height: 640, fill: '#ebe5ce' }));
   svg.appendChild(mapSvg('path', { d: shore, fill: '#cee5ed', stroke: '#608e9c', 'stroke-width': 3 }));
@@ -5992,38 +6022,27 @@ function campaignMap(s, scope = 'board') {
     svg.appendChild(mapSvg('text', { x, y, 'text-anchor': 'middle', class: 'map-geography' }, text));
   svg.appendChild(mapSvg('path', { d: 'M955 90 L955 40 M945 55 L955 40 L965 55', fill: 'none', stroke: '#526d70', 'stroke-width': 3 }));
   svg.appendChild(mapSvg('text', { x: 955, y: 28, 'text-anchor': 'middle', class: 'map-geography' }, 'N'));
-  const touched = new Set(), badges = [];
+  const touched = new Set();
+  const routes = mapSvg('svg', { class: 'map-routes', 'aria-hidden': 'true' });
+  const routeDefs = mapSvg('defs');
+  for (const side of ['US', 'BR']) routeDefs.appendChild(mapSvg('marker', {
+    id: 'route-tip-' + side + '-' + scope, viewBox: '0 0 10 10', refX: 9, refY: 5,
+    markerWidth: 10, markerHeight: 10, markerUnits: 'userSpaceOnUse', orient: 'auto'
+  }, mapSvg('path', { d: 'M0 0 L10 5 L0 10Z', fill: side === 'US' ? '#2f5f9e' : '#a8322d' })));
+  routes.appendChild(routeDefs);
+  stage.append(svg, routes);
   (action?.moves || []).forEach((move, i) => {
-    const a = MAP_POINTS[move.from.place], b = MAP_POINTS[move.to.place];
-    if (a) touched.add(move.from.place); if (b) touched.add(move.to.place);
-    if (!a || !b || move.from.place === move.to.place) return;
-    const dx = b[0] - a[0], dy = b[1] - a[1], length = Math.hypot(dx, dy);
-    const halfHeight = place => ZONES.includes(place) ? 40 + ['US', 'BR'].filter(sd => mapZoneShips(s, place, sd).length).length * 26 : 32;
-    const edge = (p, place, sign) => {
-      const fraction = Math.min(dx ? 142 / Math.abs(dx) : Infinity, dy ? halfHeight(place) / Math.abs(dy) : Infinity);
-      return [p[0] + sign * dx * fraction, p[1] + sign * dy * fraction];
-    };
-    let start, end, mid;
-    if (ZONES.includes(move.from.place) && ZONES.includes(move.to.place) && Math.abs(dy) < 60) {
-      // Sail around the fleet labels, keeping the route and arrowhead visible.
-      const direction = a[1] < 320 ? 1 : -1;
-      start = [a[0], a[1] + direction * halfHeight(move.from.place)];
-      end = [b[0], b[1] + direction * halfHeight(move.to.place)];
-      mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2 + direction * (180 + i % 3 * 16)];
-    } else {
-      start = edge(a, move.from.place, 1); end = edge(b, move.to.place, -1);
-      const bend = (i % 3 - 1) * 28;
-      mid = [(start[0] + end[0]) / 2 - dy / length * bend, (start[1] + end[1]) / 2 + dx / length * bend];
-    }
-    svg.appendChild(mapSvg('path', { d: `M${start} Q${mid} ${end}`, class: 'map-route ' + move.side,
-      'data-move': i + 1, fill: 'none', stroke: move.side === 'US' ? '#2f5f9e' : '#a8322d',
-      'stroke-width': 5, 'stroke-dasharray': move.side === 'US' ? '10 5' : 'none', 'marker-end': `url(#map-arrow-${move.side}-${scope})` }));
-    const label = [start[0] / 4 + mid[0] / 2 + end[0] / 4, start[1] / 4 + mid[1] / 2 + end[1] / 4];
-    badges.push(el('span', { class: 'map-route-badge', 'aria-hidden': 'true',
-      style: { left: label[0] / 10 + '%', top: label[1] / 6.4 + '%' } }, String(i + 1)));
+    if (MAP_POINTS[move.from.place]) touched.add(move.from.place);
+    if (MAP_POINTS[move.to.place]) touched.add(move.to.place);
+    if (!MAP_POINTS[move.from.place] || !MAP_POINTS[move.to.place] || move.from.place === move.to.place) return;
+    routes.appendChild(mapSvg('path', { class: 'map-route ' + move.side, 'data-move': i + 1,
+      'data-from': move.from.place, 'data-to': move.to.place, d: 'M0 0',
+      fill: 'none', stroke: move.side === 'US' ? '#2f5f9e' : '#a8322d',
+      'stroke-width': 2.5, 'stroke-dasharray': move.side === 'US' ? '7 4' : 'none',
+      'marker-end': `url(#route-tip-${move.side}-${scope})` }));
+    stage.appendChild(el('span', { class: 'map-route-badge', 'data-move': i + 1,
+      'aria-hidden': 'true' }, String(i + 1)));
   });
-  stage.appendChild(svg);
-  badges.forEach(badge => stage.appendChild(badge));
   const position = (node, place) => {
     const [x, y] = MAP_POINTS[place]; node.style.left = x / 10 + '%'; node.style.top = y / 6.4 + '%';
     if (touched.has(place)) node.classList.add('map-moved');
@@ -6080,6 +6099,176 @@ function openCampaignMap(s, lastAction = false) {
   if (lastAction) appendTableReport(body, s);
   openModal(body);
 }
+
+;
+/* ---- ui_map_layout.js ---- */
+/* Route layout uses CSS pixels and the actual public label rectangles. It
+   never reads campaign state. The background geography keeps its own scale. */
+const MAP_OBSERVED = new Set();
+let mapResizeObserver;
+function refreshCampaignMaps() {
+  if (!mapResizeObserver && typeof ResizeObserver !== 'undefined')
+    mapResizeObserver = new ResizeObserver(entries => entries.forEach(e => layoutCampaignMap(e.target)));
+  for (const stage of MAP_OBSERVED) if (!stage.isConnected) {
+    mapResizeObserver?.unobserve(stage); MAP_OBSERVED.delete(stage);
+  }
+  for (const stage of document.querySelectorAll('.map-stage')) {
+    if (!MAP_OBSERVED.has(stage)) { MAP_OBSERVED.add(stage); mapResizeObserver?.observe(stage); }
+    layoutCampaignMap(stage);
+  }
+}
+function mapRectHit(a, b) {
+  return a.l < b.r && a.r > b.l && a.t < b.b && a.b > b.t;
+}
+function mapPolylinePoint(points, distance) {
+  for (let i = 1; i < points.length; i++) {
+    const a = points[i - 1], b = points[i], length = Math.hypot(b.x - a.x, b.y - a.y);
+    if (distance <= length) return { x: a.x + (b.x - a.x) * distance / (length || 1), y: a.y + (b.y - a.y) * distance / (length || 1) };
+    distance -= length;
+  }
+  return points[points.length - 1];
+}
+function mapClosestPoint(points, p) {
+  let best, distance = Infinity;
+  for (let i = 1; i < points.length; i++) {
+    const a = points[i - 1], b = points[i], dx = b.x - a.x, dy = b.y - a.y;
+    const f = Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / (dx * dx + dy * dy || 1)));
+    const q = { x: a.x + f * dx, y: a.y + f * dy }, d = Math.hypot(q.x - p.x, q.y - p.y);
+    if (d < distance) { best = q; distance = d; }
+  }
+  return { point: best, distance };
+}
+function mapRoutePath(from, to, obstacles, width, height, lane, occupied) {
+  // Four possible entrances for each label. Repeated voyages use different
+  // points along its edge, and previously used corridors carry an extra cost.
+  const anchors = r => {
+    const f = [.35, .65, .5][lane % 3], x = r.l + (r.r - r.l) * f, y = r.t + (r.b - r.t) * f;
+    return [{ x: r.l, y, nx: -1, ny: 0 }, { x: r.r, y, nx: 1, ny: 0 },
+      { x, y: r.t, nx: 0, ny: -1 }, { x, y: r.b, nx: 0, ny: 1 }];
+  };
+  const starts = anchors(from), ends = anchors(to), all = starts.concat(ends);
+  const coords = values => [...new Set(values.filter(n => Number.isFinite(n)))].sort((a, b) => a - b);
+  const xs = coords([5, width - 5, ...obstacles.flatMap(r => [r.l, r.r]), ...all.map(p => p.x)]),
+    ys = coords([5, height - 5, ...obstacles.flatMap(r => [r.t, r.b]), ...all.map(p => p.y)]);
+  const cols = xs.length, size = cols * ys.length, point = i => ({ x: xs[i % cols], y: ys[Math.floor(i / cols)] });
+  const index = p => ys.indexOf(p.y) * cols + xs.indexOf(p.x);
+  const valid = Array.from({ length: size }, (_, i) => {
+    const p = point(i);
+    return p.x >= 4 && p.x <= width - 4 && p.y >= 4 && p.y <= height - 4 &&
+      !obstacles.some(r => p.x > r.l + .01 && p.x < r.r - .01 && p.y > r.t + .01 && p.y < r.b - .01);
+  });
+  const goals = new Map(ends.map(p => [index(p), p])), sources = new Map(starts.map(p => [index(p), p]));
+  const distance = new Float64Array(size * 3).fill(Infinity), previous = new Int32Array(size * 3).fill(-1), heap = [];
+  const push = item => {
+    let i = heap.length; heap.push(item);
+    while (i) { const parent = (i - 1) >> 1; if (heap[parent][0] <= item[0]) break; heap[i] = heap[parent]; i = parent; }
+    heap[i] = item;
+  };
+  const pop = () => {
+    const first = heap[0], last = heap.pop();
+    if (heap.length) {
+      let i = 0;
+      while (i * 2 + 1 < heap.length) {
+        let child = i * 2 + 1;
+        if (child + 1 < heap.length && heap[child + 1][0] < heap[child][0]) child++;
+        if (heap[child][0] >= last[0]) break;
+        heap[i] = heap[child]; i = child;
+      }
+      heap[i] = last;
+    }
+    return first;
+  };
+  for (const p of starts) { const i = index(p); if (valid[i]) { distance[i * 3] = 0; push([0, i * 3]); } }
+  let finish = -1;
+  while (heap.length) {
+    const [cost, key] = pop(); if (cost !== distance[key]) continue;
+    const i = Math.floor(key / 3), direction = key % 3, a = point(i);
+    if (direction && goals.has(i)) { finish = key; break; }
+    for (const [delta, nextDirection] of [[-1, 1], [1, 1], [-cols, 2], [cols, 2]]) {
+      const j = i + delta;
+      if (j < 0 || j >= size || !valid[j] || (nextDirection === 1 && Math.floor(i / cols) !== Math.floor(j / cols))) continue;
+      const b = point(j), dx = Math.sign(b.x - a.x), dy = Math.sign(b.y - a.y);
+      if (!direction) { const start = sources.get(i); if (dx !== start.nx || dy !== start.ny) continue; }
+      const goal = goals.get(j); if (goal && (dx !== -goal.nx || dy !== -goal.ny)) continue;
+      const segment = { l: Math.min(a.x, b.x) + .01, r: Math.max(a.x, b.x) - .01,
+        t: Math.min(a.y, b.y) + .01, b: Math.max(a.y, b.y) - .01 };
+      if (obstacles.some(r => nextDirection === 1 ?
+        a.y > r.t + .01 && a.y < r.b - .01 && segment.l < r.r - .01 && segment.r > r.l + .01 :
+        a.x > r.l + .01 && a.x < r.r - .01 && segment.t < r.b - .01 && segment.b > r.t + .01)) continue;
+      const length = Math.hypot(b.x - a.x, b.y - a.y);
+      const shared = occupied.some(([c, d]) => nextDirection === 1 ?
+        Math.abs(c.y - a.y) < 5 && Math.abs(d.y - a.y) < 5 && Math.min(c.x, d.x) < segment.r && Math.max(c.x, d.x) > segment.l :
+        Math.abs(c.x - a.x) < 5 && Math.abs(d.x - a.x) < 5 && Math.min(c.y, d.y) < segment.b && Math.max(c.y, d.y) > segment.t);
+      const next = j * 3 + nextDirection, total = cost + length * (shared ? 2 : 1) + (direction && direction !== nextDirection ? 18 : 0);
+      if (total < distance[next]) { distance[next] = total; previous[next] = key; push([total, next]); }
+    }
+  }
+  if (finish < 0) return null;
+  const points = [];
+  for (let key = finish; key >= 0; key = previous[key]) points.push(point(Math.floor(key / 3)));
+  points.reverse();
+  return points.filter((p, i) => !i || i === points.length - 1 ||
+    (points[i - 1].x === p.x) !== (p.x === points[i + 1].x));
+}
+function layoutCampaignMap(stage) {
+  const width = stage.clientWidth, height = stage.clientHeight;
+  if (!stage.isConnected || !width || !height) return; // Also supports DOM-only tests without invented geometry.
+  const base = stage.getBoundingClientRect(), rects = new Map();
+  for (const node of stage.querySelectorAll('[data-place]')) {
+    const r = node.getBoundingClientRect();
+    rects.set(node.dataset.place, { l: r.left - base.left - stage.clientLeft, r: r.right - base.left - stage.clientLeft,
+      t: r.top - base.top - stage.clientTop, b: r.bottom - base.top - stage.clientTop });
+  }
+  const layer = stage.querySelector('.map-routes');
+  layer.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  layer.querySelectorAll('.map-badge-leader').forEach(n => n.remove());
+  const obstacles = [...rects.values()].map(r => ({ l: r.l - 9, r: r.r + 9, t: r.t - 9, b: r.b + 9 }));
+  const occupied = [], badges = [], counts = new Map();
+  for (const path of layer.querySelectorAll('.map-route')) {
+    const from = path.dataset.from, to = path.dataset.to, pair = [from, to].sort().join('-');
+    const lane = counts.get(pair) || 0; counts.set(pair, lane + 1);
+    const source = rects.get(from), destination = rects.get(to);
+    const a = obstacles[[...rects.keys()].indexOf(from)], b = obstacles[[...rects.keys()].indexOf(to)];
+    if (!source || !destination) continue;
+    let points = mapRoutePath(a, b, obstacles, width, height, lane, occupied);
+    if (!points) {
+      // If labels are unusually large, allow the route closer to their edges.
+      const tight = [...rects.values()].map(r => ({ l: r.l - 4, r: r.r + 4, t: r.t - 4, b: r.b + 4 }));
+      points = mapRoutePath(tight[[...rects.keys()].indexOf(from)], tight[[...rects.keys()].indexOf(to)], tight, width, height, lane, occupied);
+    }
+    if (!points) { path.setAttribute('d', 'M0 0'); continue; }
+    path.setAttribute('d', points.map((p, i) => `${i ? 'L' : 'M'}${p.x},${p.y}`).join(' '));
+    for (let i = 1; i < points.length; i++) occupied.push([points[i - 1], points[i]]);
+    const length = points.slice(1).reduce((sum, p, i) => sum + Math.hypot(p.x - points[i].x, p.y - points[i].y), 0), middle = mapPolylinePoint(points, length / 2);
+    const badge = stage.querySelector(`.map-route-badge[data-move="${path.dataset.move}"]`);
+    const radius = Math.max(badge.offsetWidth, badge.offsetHeight) / 2 + 3;
+    const fits = p => {
+      const r = { l: p.x - radius, r: p.x + radius, t: p.y - radius, b: p.y + radius };
+      return r.l >= 2 && r.r <= width - 2 && r.t >= 2 && r.b <= height - 2 &&
+        ![...rects.values(), ...badges].some(b => mapRectHit(r, b));
+    };
+    let chosen;
+    for (let d = 0; d <= length / 2 && !chosen; d += 12) for (const sign of [1, -1]) {
+      const p = mapPolylinePoint(points, Math.max(0, Math.min(length, length / 2 + sign * d)));
+      if (fits(p)) { chosen = p; break; }
+    }
+    if (!chosen) {
+      let best = Infinity;
+      for (let y = radius + 3; y < height - radius; y += 12) for (let x = radius + 3; x < width - radius; x += 12) {
+        const p = { x, y }; if (!fits(p)) continue;
+        const cost = mapClosestPoint(points, p).distance * 3 + Math.hypot(x - middle.x, y - middle.y);
+        if (cost < best) { chosen = p; best = cost; }
+      }
+    }
+    chosen ||= middle;
+    const nearest = mapClosestPoint(points, chosen);
+    if (nearest.distance > 2) layer.appendChild(mapSvg('path', { class: 'map-badge-leader',
+      d: `M${chosen.x},${chosen.y} L${nearest.point.x},${nearest.point.y}`, stroke: path.getAttribute('stroke'), 'stroke-width': 1, fill: 'none' }));
+    badge.style.left = chosen.x + 'px'; badge.style.top = chosen.y + 'px';
+    badges.push({ l: chosen.x - radius, r: chosen.x + radius, t: chosen.y - radius, b: chosen.y + radius });
+  }
+}
+window.addEventListener('resize', refreshCampaignMaps);
 
 ;
 /* ---- main.js ---- */

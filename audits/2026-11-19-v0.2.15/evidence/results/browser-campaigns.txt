@@ -1,0 +1,8 @@
+US 973001 25 AI Deployment
+US 973001 50 Encounter 2 in Niagara
+US 973001 75 A7 Assign your ships
+US 973001 100 A4 In Ordinary? (30-point limit)
+BR 973002 25 Tactics
+BR 973002 50 A2 British Ship Upgrades
+BR 973002 75 A4 In Ordinary? (30-point limit)
+{"games":[{"seed":973001,"side":"US","style":"fleet","width":1440,"group":false,"steps":110,"roundTrips":2,"undos":3,"inspections":5,"result":{"score":-22,"level":"British Victory"},"errors":[]},{"seed":973002,"side":"BR","style":"coast","width":390,"group":true,"steps":97,"roundTrips":2,"undos":3,"inspections":5,"result":{"score":15,"level":"U.S. Marginal Victory"},"errors":[]}],"browser":"153.0.8010.0"}

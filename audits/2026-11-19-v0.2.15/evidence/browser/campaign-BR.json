@@ -1,0 +1,871 @@
+{
+  "seed": 973002,
+  "side": "BR",
+  "style": "coast",
+  "width": 390,
+  "group": true,
+  "steps": 97,
+  "roundTrips": 2,
+  "undos": 3,
+  "inspections": 5,
+  "result": {
+    "score": 15,
+    "level": "U.S. Marginal Victory"
+  },
+  "errors": [],
+  "trace": [
+    {
+      "n": 1,
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "answer": "I",
+      "moveGroups": 0
+    },
+    {
+      "n": 2,
+      "title": "A2 British Ship Upgrades",
+      "kind": "select",
+      "answer": [
+        "wolfe"
+      ],
+      "moveGroups": 1
+    },
+    {
+      "n": 3,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "answer": [],
+      "moveGroups": 0
+    },
+    {
+      "n": 4,
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "sss"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "SOU",
+            "ships": [
+              "beres"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "SAC",
+            "ships": [
+              "rg"
+            ],
+            "troops": 1
+          }
+        ],
+        "flagship": "rg"
+      },
+      "moveGroups": 3
+    },
+    {
+      "n": 5,
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "kind": "choice",
+      "answer": "F1",
+      "moveGroups": 0
+    },
+    {
+      "n": 6,
+      "title": "Convoy found!",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 7,
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 8,
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 9,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 10,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 11,
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 12,
+      "title": "British Raid on South Lake",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 13,
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 14,
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 15,
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 16,
+      "title": "Harbor Encounter ends",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 17,
+      "title": "Land Battle result",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 7
+    },
+    {
+      "n": 18,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "answer": [],
+      "moveGroups": 0
+    },
+    {
+      "n": 19,
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "answer": {
+        "forces": [
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "beres",
+              "sss"
+            ],
+            "troops": 1
+          }
+        ],
+        "flagship": "wolfe"
+      },
+      "moveGroups": 1
+    },
+    {
+      "n": 20,
+      "title": "Encounter 1 – no enemy",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 21,
+      "title": "Encounter 2: enemy sighted",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 22,
+      "title": "Encounter 2 in Niagara",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 23,
+      "title": "Command Decision – the A.I. holds the Weather Gage",
+      "kind": "choice",
+      "answer": "bypass",
+      "moveGroups": 0
+    },
+    {
+      "n": 24,
+      "title": "The A.I. attacks!",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 25,
+      "title": "LC3 Tactics – you are the Defender",
+      "kind": "choice",
+      "answer": "D_escape",
+      "moveGroups": 0
+    },
+    {
+      "n": 26,
+      "title": "Tactics",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 27,
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 2
+    },
+    {
+      "n": 28,
+      "title": "Encounter ended",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 29,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 30,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 31,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 32,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 33,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 34,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 35,
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "answer": "I",
+      "moveGroups": 0
+    },
+    {
+      "n": 36,
+      "title": "A2 British Ship Upgrades",
+      "kind": "select",
+      "answer": [
+        "rg"
+      ],
+      "moveGroups": 3
+    },
+    {
+      "n": 37,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "answer": [],
+      "moveGroups": 0
+    },
+    {
+      "n": 38,
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "moira"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "SAC",
+            "ships": [
+              "wolfe"
+            ],
+            "troops": 1
+          }
+        ],
+        "flagship": "wolfe"
+      },
+      "moveGroups": 2
+    },
+    {
+      "n": 39,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 40,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 41,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 42,
+      "title": "Your Convoy is attacked!",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 43,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 44,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 45,
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 46,
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 47,
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 48,
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 49,
+      "title": "Harbor Encounter ends",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 50,
+      "title": "Land Battle result",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 3
+    },
+    {
+      "n": 51,
+      "title": "A2 British Ship Upgrades",
+      "kind": "select",
+      "answer": [
+        "moira"
+      ],
+      "moveGroups": 3
+    },
+    {
+      "n": 52,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "answer": [],
+      "moveGroups": 1
+    },
+    {
+      "n": 53,
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "answer": {
+        "forces": [],
+        "flagship": "rg"
+      },
+      "moveGroups": 1
+    },
+    {
+      "n": 54,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 55,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 56,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 57,
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "answer": "I",
+      "moveGroups": 3
+    },
+    {
+      "n": 58,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "answer": [],
+      "moveGroups": 0
+    },
+    {
+      "n": 59,
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "melville"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "SOU",
+            "ships": [
+              "moira"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "wolfe"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "rg"
+      },
+      "moveGroups": 3
+    },
+    {
+      "n": 60,
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "kind": "choice",
+      "answer": "F11",
+      "moveGroups": 1
+    },
+    {
+      "n": 61,
+      "title": "Encounter 1: enemy sighted",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 62,
+      "title": "Encounter 1 in Sacket's",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 63,
+      "title": "The A.I. declines battle",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 64,
+      "title": "Encounter ended",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 65,
+      "title": "Encounter 3: enemy sighted",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 66,
+      "title": "Encounter 3 in Sacket's",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 67,
+      "title": "Command Decision – the A.I. holds the Weather Gage",
+      "kind": "choice",
+      "answer": "bypass",
+      "moveGroups": 0
+    },
+    {
+      "n": 68,
+      "title": "The A.I. declines battle",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 69,
+      "title": "Encounter ended",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 70,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 71,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 72,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 73,
+      "title": "Your Convoy is attacked!",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 74,
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 75,
+      "title": "British Raid on South Lake",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 6
+    },
+    {
+      "n": 76,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "answer": [],
+      "moveGroups": 0
+    },
+    {
+      "n": 77,
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "melville"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "SOU",
+            "ships": [
+              "moira"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "wolfe"
+            ],
+            "troops": 1
+          }
+        ],
+        "flagship": "rg"
+      },
+      "moveGroups": 3
+    },
+    {
+      "n": 78,
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 79,
+      "title": "Encounter 2 – no enemy",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 80,
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 2
+    },
+    {
+      "n": 81,
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 82,
+      "title": "British Raid on South Lake",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 83,
+      "title": "Land Battle result",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 5
+    },
+    {
+      "n": 84,
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "answer": "I",
+      "moveGroups": 0
+    },
+    {
+      "n": 85,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "answer": [],
+      "moveGroups": 0
+    },
+    {
+      "n": 86,
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "melville"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "wolfe"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "rg"
+      },
+      "moveGroups": 2
+    },
+    {
+      "n": 87,
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "kind": "choice",
+      "answer": "F22",
+      "moveGroups": 3
+    },
+    {
+      "n": 88,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 89,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 90,
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 6
+    },
+    {
+      "n": 91,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "answer": [],
+      "moveGroups": 0
+    },
+    {
+      "n": 92,
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "melville"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "SOU",
+            "ships": [
+              "moira"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "wolfe"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "rg"
+      },
+      "moveGroups": 3
+    },
+    {
+      "n": 93,
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "kind": "choice",
+      "answer": "F27",
+      "moveGroups": 0
+    },
+    {
+      "n": 94,
+      "title": "AI Deployment",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 1
+    },
+    {
+      "n": 95,
+      "title": "Land Battle result",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 96,
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 0
+    },
+    {
+      "n": 97,
+      "title": "British Raid on South Lake",
+      "kind": "info",
+      "answer": "ok",
+      "moveGroups": 4
+    }
+  ]
+}

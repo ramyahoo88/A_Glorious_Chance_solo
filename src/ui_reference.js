@@ -25,7 +25,10 @@ function openShipDetails(s, initial, choices) {
     pick.addEventListener('change', () => show(pick.value));
     body.appendChild(el('label', null, 'Ship ', pick));
   }
-  show(initial); body.appendChild(details); openModal(body);
+  const parent = $('modal').classList.contains('open') && $('modal').querySelector('.map-zone-details, .map-port-details');
+  show(initial); body.appendChild(details); openModal(body, parent ? {
+    backLabel: parent.classList.contains('map-port-details') ? 'Back to port' : 'Back to fleet'
+  } : {});
 }
 
 function hitDistributionLookup() {

@@ -1,0 +1,186 @@
+{
+  "games": 128,
+  "actions": 12381,
+  "saveChecks": 892,
+  "moves": 9740,
+  "intermediateOmissions": 0,
+  "crowdedPositions": 0,
+  "examples": {
+    "shared-routes": {
+      "human": "US",
+      "seed": 971000,
+      "style": "fleet",
+      "options": {
+        "groupUpdates": false,
+        "confirmAiSteps": false,
+        "cuttingOut": true
+      },
+      "step": 3,
+      "prompt": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Escort",
+            "zone": "SAC",
+            "ships": [
+              "scourge"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      },
+      "pairs": {
+        "HOME_US-NIA": 1,
+        "HOME_US-SAC": 2
+      }
+    },
+    "home-to-sackets": {
+      "human": "US",
+      "seed": 971000,
+      "style": "fleet",
+      "options": {
+        "groupUpdates": false,
+        "confirmAiSteps": false,
+        "cuttingOut": true
+      },
+      "step": 24,
+      "prompt": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Escort",
+            "zone": "SAC",
+            "ships": [
+              "pike"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    "withdrawal": {
+      "human": "US",
+      "seed": 971000,
+      "style": "fleet",
+      "options": {
+        "groupUpdates": false,
+        "confirmAiSteps": false,
+        "cuttingOut": true
+      },
+      "step": 29,
+      "prompt": "Tactics",
+      "answer": "ok"
+    }
+  },
+  "modes": {
+    "0": 32,
+    "1": 32,
+    "2": 32,
+    "3": 32
+  },
+  "busiest": {
+    "human": "BR",
+    "seed": 971006,
+    "style": "screen",
+    "options": {
+      "groupUpdates": true,
+      "confirmAiSteps": false,
+      "cuttingOut": true
+    },
+    "step": 4,
+    "prompt": "A7 Assign your ships",
+    "answer": {
+      "forces": [
+        {
+          "mission": "Escort",
+          "zone": "ESC",
+          "ships": [
+            "sss"
+          ],
+          "troops": 0
+        },
+        {
+          "mission": "Escort",
+          "zone": "ESC",
+          "ships": [
+            "beres"
+          ],
+          "troops": 0
+        },
+        {
+          "mission": "Patrol",
+          "zone": "SAC",
+          "ships": [
+            "rg"
+          ],
+          "troops": 0
+        }
+      ],
+      "flagship": "rg"
+    },
+    "routes": 9
+  },
+  "crowdedPosition": {
+    "human": "BR",
+    "seed": 971012,
+    "style": "fleet",
+    "options": {
+      "groupUpdates": false,
+      "confirmAiSteps": false,
+      "cuttingOut": true
+    },
+    "step": 59,
+    "prompt": "AI Deployment",
+    "answer": "ok",
+    "crowd": 28
+  },
+  "passedGameplayEquivalence": true
+}

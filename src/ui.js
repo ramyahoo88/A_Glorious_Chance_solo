@@ -891,6 +891,7 @@ function renderBoard(s) {
   lg_.appendChild(count); lg_.appendChild(toggle);
   lg_.appendChild(logBox);
   b.appendChild(lg_);
+  refreshCampaignMaps();
 }
 function zoneView(s, z) {
   const zs = s.zones[z];
@@ -1003,25 +1004,44 @@ function renderSetup() {
 }
 
 /* ---------- modals ---------- */
-function openModal(content) {
+function openModal(content, navigation = {}) {
   const m = $('modal');
+  const nested = m.classList.contains('open') && navigation.backLabel;
   if (!m.classList.contains('open')) UI.modalReturnFocus = document.activeElement;
-  m.innerHTML = '';
+  if (nested) {
+    const previous = m.querySelector('.inner');
+    (UI.modalStack ||= []).push({ inner: previous, focus: document.activeElement,
+      scroll: previous.scrollTop });
+    previous.remove();
+  } else { UI.modalStack = []; m.replaceChildren(); }
   const title = content.querySelector('h2');
   if (title) title.id = 'modal-title';
   const close = el('button', { type: 'button', onclick: closeModal }, 'Close');
-  const inner = el('div', { class: 'inner', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': title ? title.id : null, 'aria-label': title ? null : 'Game dialog', tabindex: -1 }, el('div', { style: { textAlign: 'right' } }, close), content);
+  const controls = el('div', { class: 'modal-controls' });
+  if (navigation.backLabel) controls.appendChild(el('button', { type: 'button', onclick: nested ? modalBack : closeModal }, navigation.backLabel));
+  controls.appendChild(close);
+  const inner = el('div', { class: 'inner', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': title ? title.id : null, 'aria-label': title ? null : 'Game dialog', tabindex: -1 }, controls, content);
   m.appendChild(inner); m.classList.add('open');
   $('hdr').setAttribute('inert', ''); $('app').setAttribute('inert', '');
   m.onclick = (e) => { if (e.target === m) closeModal(); };
   close.focus();
+  refreshCampaignMaps();
+}
+function modalBack() {
+  const previous = UI.modalStack?.pop();
+  if (!previous) return;
+  $('modal').replaceChildren(previous.inner);
+  refreshCampaignMaps();
+  if (previous.focus?.isConnected) previous.focus.focus({ preventScroll: true });
+  previous.inner.scrollTop = previous.scroll;
 }
 function closeModal() {
   $('modal').classList.remove('open');
+  UI.modalStack = [];
   $('hdr').removeAttribute('inert'); $('app').removeAttribute('inert');
   const target = UI.modalReturnFocus;
   UI.modalReturnFocus = null;
-  if (target && target.isConnected && typeof target.focus === 'function') target.focus();
+  if (target && target.isConnected && typeof target.focus === 'function') target.focus({ preventScroll: true });
 }
 function modalKeydown(e) {
   const m = $('modal');

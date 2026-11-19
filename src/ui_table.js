@@ -117,9 +117,11 @@ function playTableAction(s, answer) {
   const notices = [], changes = [], moves = [];
   const map = { title: s.prompt?.title || 'Action', turn: s.turn, phase: s.phase, moves };
   function advance(value) {
-    const positions = mapShipSnapshot(s);
-    act(s, value);
-    moves.push(...mapShipChanges(positions, s));
+    let positions = mapShipSnapshot(s);
+    act(s, value, () => {
+      moves.push(...mapShipChanges(positions, s));
+      positions = mapShipSnapshot(s);
+    });
     const after = publicBoard(s);
     for (const key of new Set([...before.keys(), ...after.keys()])) {
       if (before.get(key) !== after.get(key))
@@ -136,7 +138,7 @@ function playTableAction(s, answer) {
     advance(next.answer);
   }
   // Every action replaces the recap, including an action with no movement.
-  // Grouped steps retain each transition rather than only the net displacement.
+  // Both automatic procedure steps and grouped prompts keep their transitions.
   s.tableReport = { changes, notices, map };
 }
 

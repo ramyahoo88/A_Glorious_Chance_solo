@@ -38,17 +38,17 @@ function mapPortShips(s, place) {
 function openMapZone(s, z) {
   const body = el('div', { class: 'map-zone-details' }, el('h2', null, ZONE_NAME[z]), zoneView(s, z));
   const beached = Object.values(s.ships).filter(sh => sh.box === 'coast' && sh.zone === z);
-  if (beached.length) body.appendChild(el('h3', null, 'Beached'), el('div', { class: 'ships' }, ...beached.map(sh => shipChip(s, sh.id))));
-  openModal(body);
+  if (beached.length) body.append(el('h3', null, 'Beached'), el('div', { class: 'ships' }, ...beached.map(sh => shipChip(s, sh.id))));
+  openModal(body, { backLabel: 'Back to map' });
 }
 function openMapPort(s, place, label) {
-  const ships = mapPortShips(s, place), body = el('div', null, el('h2', null, label));
+  const ships = mapPortShips(s, place), body = el('div', { class: 'map-port-details' }, el('h2', null, label));
   if (!ships.length) body.appendChild(el('p', null, 'No ships here.'));
   for (const box of BOXES) {
     const group = ships.filter(sh => sh.box === box);
-    if (group.length) body.appendChild(el('h3', null, BOX_NAME[box]), el('div', { class: 'ships' }, ...group.map(sh => shipChip(s, sh.id))));
+    if (group.length) body.append(el('h3', null, BOX_NAME[box]), el('div', { class: 'ships' }, ...group.map(sh => shipChip(s, sh.id))));
   }
-  openModal(body);
+  openModal(body, { backLabel: 'Back to map' });
 }
 function campaignMap(s, scope = 'board') {
   const wrap = el('div', { class: 'campaign-map' }), action = recordedMapAction(s);
@@ -64,9 +64,6 @@ function campaignMap(s, scope = 'board') {
   const shore = 'M70 310 C62 230 130 174 250 160 C390 145 515 170 635 128 C740 90 818 108 870 134 L932 190 L913 285 L940 332 L886 387 C798 420 720 452 603 476 C420 506 255 520 159 473 C104 444 76 375 70 310Z';
   const defs = mapSvg('defs', null,
     mapSvg('clipPath', { id: 'lake-clip-' + scope }, mapSvg('path', { d: shore })));
-  for (const side of ['US', 'BR']) defs.appendChild(mapSvg('marker', { id: 'map-arrow-' + side + '-' + scope,
-    viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' },
-    mapSvg('path', { d: 'M0 0 L10 5 L0 10Z', fill: side === 'US' ? '#2f5f9e' : '#a8322d' })));
   svg.appendChild(defs);
   svg.appendChild(mapSvg('rect', { width: 1000, height: 640, fill: '#ebe5ce' }));
   svg.appendChild(mapSvg('path', { d: shore, fill: '#cee5ed', stroke: '#608e9c', 'stroke-width': 3 }));
@@ -77,38 +74,27 @@ function campaignMap(s, scope = 'board') {
     svg.appendChild(mapSvg('text', { x, y, 'text-anchor': 'middle', class: 'map-geography' }, text));
   svg.appendChild(mapSvg('path', { d: 'M955 90 L955 40 M945 55 L955 40 L965 55', fill: 'none', stroke: '#526d70', 'stroke-width': 3 }));
   svg.appendChild(mapSvg('text', { x: 955, y: 28, 'text-anchor': 'middle', class: 'map-geography' }, 'N'));
-  const touched = new Set(), badges = [];
+  const touched = new Set();
+  const routes = mapSvg('svg', { class: 'map-routes', 'aria-hidden': 'true' });
+  const routeDefs = mapSvg('defs');
+  for (const side of ['US', 'BR']) routeDefs.appendChild(mapSvg('marker', {
+    id: 'route-tip-' + side + '-' + scope, viewBox: '0 0 10 10', refX: 9, refY: 5,
+    markerWidth: 10, markerHeight: 10, markerUnits: 'userSpaceOnUse', orient: 'auto'
+  }, mapSvg('path', { d: 'M0 0 L10 5 L0 10Z', fill: side === 'US' ? '#2f5f9e' : '#a8322d' })));
+  routes.appendChild(routeDefs);
+  stage.append(svg, routes);
   (action?.moves || []).forEach((move, i) => {
-    const a = MAP_POINTS[move.from.place], b = MAP_POINTS[move.to.place];
-    if (a) touched.add(move.from.place); if (b) touched.add(move.to.place);
-    if (!a || !b || move.from.place === move.to.place) return;
-    const dx = b[0] - a[0], dy = b[1] - a[1], length = Math.hypot(dx, dy);
-    const halfHeight = place => ZONES.includes(place) ? 40 + ['US', 'BR'].filter(sd => mapZoneShips(s, place, sd).length).length * 26 : 32;
-    const edge = (p, place, sign) => {
-      const fraction = Math.min(dx ? 142 / Math.abs(dx) : Infinity, dy ? halfHeight(place) / Math.abs(dy) : Infinity);
-      return [p[0] + sign * dx * fraction, p[1] + sign * dy * fraction];
-    };
-    let start, end, mid;
-    if (ZONES.includes(move.from.place) && ZONES.includes(move.to.place) && Math.abs(dy) < 60) {
-      // Sail around the fleet labels, keeping the route and arrowhead visible.
-      const direction = a[1] < 320 ? 1 : -1;
-      start = [a[0], a[1] + direction * halfHeight(move.from.place)];
-      end = [b[0], b[1] + direction * halfHeight(move.to.place)];
-      mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2 + direction * (180 + i % 3 * 16)];
-    } else {
-      start = edge(a, move.from.place, 1); end = edge(b, move.to.place, -1);
-      const bend = (i % 3 - 1) * 28;
-      mid = [(start[0] + end[0]) / 2 - dy / length * bend, (start[1] + end[1]) / 2 + dx / length * bend];
-    }
-    svg.appendChild(mapSvg('path', { d: `M${start} Q${mid} ${end}`, class: 'map-route ' + move.side,
-      'data-move': i + 1, fill: 'none', stroke: move.side === 'US' ? '#2f5f9e' : '#a8322d',
-      'stroke-width': 5, 'stroke-dasharray': move.side === 'US' ? '10 5' : 'none', 'marker-end': `url(#map-arrow-${move.side}-${scope})` }));
-    const label = [start[0] / 4 + mid[0] / 2 + end[0] / 4, start[1] / 4 + mid[1] / 2 + end[1] / 4];
-    badges.push(el('span', { class: 'map-route-badge', 'aria-hidden': 'true',
-      style: { left: label[0] / 10 + '%', top: label[1] / 6.4 + '%' } }, String(i + 1)));
+    if (MAP_POINTS[move.from.place]) touched.add(move.from.place);
+    if (MAP_POINTS[move.to.place]) touched.add(move.to.place);
+    if (!MAP_POINTS[move.from.place] || !MAP_POINTS[move.to.place] || move.from.place === move.to.place) return;
+    routes.appendChild(mapSvg('path', { class: 'map-route ' + move.side, 'data-move': i + 1,
+      'data-from': move.from.place, 'data-to': move.to.place, d: 'M0 0',
+      fill: 'none', stroke: move.side === 'US' ? '#2f5f9e' : '#a8322d',
+      'stroke-width': 2.5, 'stroke-dasharray': move.side === 'US' ? '7 4' : 'none',
+      'marker-end': `url(#route-tip-${move.side}-${scope})` }));
+    stage.appendChild(el('span', { class: 'map-route-badge', 'data-move': i + 1,
+      'aria-hidden': 'true' }, String(i + 1)));
   });
-  stage.appendChild(svg);
-  badges.forEach(badge => stage.appendChild(badge));
   const position = (node, place) => {
     const [x, y] = MAP_POINTS[place]; node.style.left = x / 10 + '%'; node.style.top = y / 6.4 + '%';
     if (touched.has(place)) node.classList.add('map-moved');

@@ -15,7 +15,7 @@ function P(prompt, then) { return { prompt, then }; }
 
 function topFrame(s) { return s.calls[s.calls.length - 1]; }
 
-function run(s) {
+function run(s, onStep) {
   let guard = 0;
   while (!s.prompt && s.calls.length && !s.over) {
     if (++guard > 50000) throw new Error('Runaway procedure loop at ' + JSON.stringify(topFrame(s)).slice(0, 200));
@@ -26,6 +26,9 @@ function run(s) {
     if (!h) throw new Error('No handler ' + f.proc + '.' + f.pc);
     const r = h(s, f);
     if (!r) throw new Error('Handler returned nothing: ' + f.proc + '.' + f.pc);
+    // Optional presentation observer: never stored in the campaign or used to
+    // choose a move. A handler is the boundary of an automatic procedure step.
+    if (onStep) onStep(s);
     if (r.goto !== undefined) f.pc = r.goto;
     else if (r.call) { f.pc = r.then; f.ret = undefined; s.calls.push({ proc: r.call, pc: 'start', A: r.args, L: {} }); }
     else if (r.ret !== undefined) { s.calls.pop(); const p = topFrame(s); if (p) p.ret = r.ret; }
@@ -36,7 +39,7 @@ function run(s) {
   }
 }
 
-function act(s, answer) {
+function act(s, answer, onStep) {
   if (!s.prompt) throw new Error('No prompt pending');
   s.build = APP_VERSION;   // marks saves written by the corrected procedures (see upgradeLegacy)
   const err = validateAnswer(s, s.prompt, answer);
@@ -45,7 +48,7 @@ function act(s, answer) {
   const f = topFrame(s);
   f.answer = answer;
   s.prompt = null;
-  run(s);
+  run(s, onStep);
 }
 
 function validateAnswer(s, p, a) {
