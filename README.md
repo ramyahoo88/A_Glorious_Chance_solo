@@ -9,7 +9,7 @@ Open `dist/index.html` in any modern browser. It needs no install and no network
 
 **Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.11, `dist/index.html`, 367,635 bytes, SHA-256 `18b5ecf165f322f344bbd3df7e1bf4b0d1a9d9b747780beb8640213fa675d05e`). On a phone, open it once and use the browser's Add to Home Screen; your game stays in that browser.
 
-**Latest audit:** [v0.2.9 comprehensive report and evidence](audits/2026-11-18-v0.2.9/) — fresh-game rules, controls, saves and release verification; 28 confirmed groups fixed, with open rulings documented.
+**Latest audit.** [v0.2.11 report, importable saves and reproducible evidence](audits/2026-11-18-v0.2.11/)
 
 You play on your physical map with your counters. Open **board changes** after an action to see which pieces moved. **Settings → Group routine updates** collects automatic reports before the next decision. The default pace displays them individually. Select a ship to inspect its counter, or open **Reference** for the hit-distribution lookup and the cards already revealed.
 
