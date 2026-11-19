@@ -22,8 +22,12 @@ async function launch() {
   // L13: real Adjust and assignment controls. The test adds available Troops,
   // then checks the input and validation agree before any decision is applied.
   const a = await launch(); a.button('Adjust');
-  const troopLabel = [...a.d.querySelectorAll('#modal label')].find(x => x.textContent.startsWith('Your Available Troops'));
-  a.change(troopLabel.querySelector('input'), '3'); a.button('Set', troopLabel); a.button('Close', a.d.querySelector('#modal'));
+  while (a.w.eval('G_STATE.troops.US.track.length')) {
+    const space = a.w.eval('G_STATE.troops.US.track[0]');
+    a.change(a.d.querySelector('[aria-label="Move one Troops marker"]'), String(space));
+    a.button('Move marker', a.d.querySelector('#modal'));
+  }
+  a.button('Close', a.d.querySelector('#modal'));
   a.button('June I (this turn)'); a.button('Confirm'); a.button('+ Add Force');
   a.change(a.d.querySelector('.asg-force select'), 'ArmySupport');
   for (const ship of ['Madison', 'Oneida']) [...a.d.querySelectorAll('.asg-ship')].find(x => x.textContent === ship).click();

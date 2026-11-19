@@ -41,7 +41,11 @@ async function launch(saved) {
   n.dom.window.close();
 
   for (const value of [0, 1, 3]) {
-    const t = await launch(); t.start(290003); before = t.state(); t.button('Adjust');
+    const t = await launch(); t.start(290003);
+    if (t.read('G_STATE.ships.wolfe.steps') === value) {
+      t.button('Adjust'); t.change(t.d.querySelector('#modal input[min="0"]'), '2'); t.button('Apply', t.d.querySelector('#modal')); t.button('Close', t.d.querySelector('#modal'));
+    }
+    before = t.state(); t.button('Adjust');
     t.change(t.d.querySelector('#modal input[min="0"]'), String(value)); t.button('Apply', t.d.querySelector('#modal')); t.button('Close', t.d.querySelector('#modal'));
     const changed = t.state();
     check(`Valid ship steps ${value} apply`, t.read('G_STATE.ships.wolfe.steps') === value);
@@ -73,10 +77,10 @@ async function launch(saved) {
   b.button('↶ Undo'); check('Import Undo still restores previous game when storage refuses writes', b.state() === before);
   b.dom.window.close();
 
-  for (const label of ['Pause after each A.I. move', 'Pick American Force Package ships myself', 'Read the Land Battle Table myself']) {
+  for (const label of [/Pause after each A\.I\. move|Show individual Target Card/, /Pick American Force Package ships myself/, /Read the Land Battle Table myself/]) {
     const settings = await launch(); settings.start(290011); previousStore = settings.stored();
     settings.read("Storage.prototype.setItem = function () { throw new Error('simulated storage refusal'); }");
-    settings.button('Settings'); const field = [...settings.d.querySelectorAll('#modal label')].find(l => l.textContent.includes(label)); field.querySelector('input').click();
+    settings.button('Settings'); const field = [...settings.d.querySelectorAll('#modal label')].find(l => label.test(l.textContent)); field.querySelector('input').click();
     check(`Settings ${label} immediately reports storage refusal`, settings.d.querySelector('#hdr').textContent.includes('Not autosaved') && settings.stored() === previousStore);
     settings.dom.window.close();
   }

@@ -113,27 +113,27 @@ PROCS.tally = {
         }
       });
     });
-    // 14.2 Dual Blockades
-    ['US', 'BR'].forEach(bl => {
-      const vic = OTHER[bl];
-      if (s.zones[homeZone(vic)].blockade === bl && s.zones[TEMP_HOMEPORT_ZONE[vic]].blockade === bl) {
-        const canBreak = canLaunchBreakout(s, vic);
-        if (!canBreak) { say(`14.2: Dual Blockade – the ${SIDE_PL[vic]} cannot break out. ${bl === 'BR' ? 'British' : 'U.S.'} Decisive Victory!`); s.suddenDeath = bl; }
-      }
-    });
     f.L.lines = lines;
     f.L.vpDelta = { US: s.vp.US - vp0.US, BR: s.vp.BR - vp0.BR };
     return P(info(`Tally – ${TURN_NAMES[s.turn]}`, (lines.length ? lines.join('\n') : 'Nothing to score.') + `\n\nThis turn: U.S. ${f.L.vpDelta.US >= 0 ? '+' : ''}${f.L.vpDelta.US} VP, British ${f.L.vpDelta.BR >= 0 ? '−' : '+'}${Math.abs(f.L.vpDelta.BR)} VP. Game Score ${gameScore(s) >= 0 ? '+' : ''}${gameScore(s)}.`), 'reset');
   },
   reset(s, f) {
     const h = s.human, lines = [];
+    // 14.2 compares the squadron on station with the blockaded port at turn end.
+    // F7 returns both fleets, so retain the on-station force before moving ships.
+    const onStation = {};
+    ['US', 'BR'].forEach(side => {
+      const enemy = OTHER[side];
+      if (s.zones[homeZone(side)].blockade === enemy && s.zones[TEMP_HOMEPORT_ZONE[side]].blockade === enemy)
+        onStation[side] = shipsInZone(s, homeZone(side), enemy);
+    });
     // F7: ships return
     Object.values(s.ships).forEach(sh => {
       if (sh.box === 'lake' || sh.box === 'escortBox') {
         sh.forceId = null; sh.zone = null;
         sh.port = sh.isolated ? 'temp' : 'home';
-        if (sh.flags.heatedShot) { delete sh.flags.heatedShot; sh.box = 'ordinary'; sh.flags.damaged = true; return; }
-        if (sh.flags.requisition) { delete sh.flags.requisition; sh.box = 'requisitioned'; sh.flags.reqUntil = s.turn + 2; }
+        if (sh.flags.heatedShot) { sh.box = 'ordinary'; sh.flags.damaged = true; }
+        else if (sh.flags.requisition) { sh.box = 'requisitioned'; sh.flags.reqUntil = s.turn + 2; }
         else sh.box = isFull(sh) ? 'deployable' : 'transit';
       }
       if (sh.box === 'transit' && isFull(sh)) sh.box = 'deployable';
@@ -174,8 +174,17 @@ PROCS.tally = {
     s.deck.tacD = shuffle(s, TACTICS.filter(t => t.deck === 'D').map(t => t.id));
     s.tacPlayed = [];
     ['US', 'BR'].forEach(side => { const fs = s.ships[s.flagship[side]]; if (!fs || fs.owner !== side || fs.box === 'sunk' || fs.box === 'outOfPlay') flagshipLost(s, side, null); });
-    if (s.suddenDeath) { endGame(s, s.suddenDeath); return R(); }
+    Object.entries(onStation).forEach(([side, blockaders]) => {
+      if (canLaunchBreakout(s, side, blockaders)) {
+        if (s.suddenDeath === OTHER[side]) delete s.suddenDeath;
+        lines.push(`14.2: The ${SIDE_PL[side]} meet the Breakout requirements after ships return.`);
+      } else {
+        s.suddenDeath = OTHER[side];
+        lines.push(`14.2: Dual Blockade – the ${SIDE_PL[side]} cannot break out. ${SIDE_SHORT[s.suddenDeath]} Decisive Victory!`);
+      }
+    });
     lines.forEach(l => log(s, l, 'info'));
+    if (s.suddenDeath) { endGame(s, s.suddenDeath); return R(); }
     return P(info(`Reset – end of ${TURN_NAMES[s.turn]}`, (lines.length ? lines.join('\n') + '\n' : '') + `Return ships from the lake to their Homeport Displays (Reduced ships to In Transit), return Target, Event and Tactic cards to their decks and shuffle, and advance the Turn marker.`), '__ret');
   },
   __ret(s, f) { return R(); },

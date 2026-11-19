@@ -13,14 +13,21 @@ function combos(arr, k, cb) {
   if (k <= n) rec(0, 0);
 }
 // Smallest set of ships whose value sums to at least `need` – random choice among all minimal sets
-function minSubset(s, ships, val, need) {
-  if (need <= 0) return [];
+function minimumCount(ships, val, need) {
   const sorted = ships.slice().sort((a, b) => val(b) - val(a));
   let tot = 0, k = 0;
   for (const sh of sorted) { if (tot >= need) break; tot += val(sh); k++; }
-  if (tot < need) return null;
+  return tot < need ? null : k;
+}
+function minimumSubsets(ships, val, need) {
+  const k = minimumCount(ships, val, need);
   const found = [];
-  combos(ships, k, c => { if (sumBy(c, val) >= need) found.push(c); });
+  if (k !== null) combos(ships, k, c => { if (sumBy(c, val) >= need) found.push(c); });
+  return found;
+}
+function minSubset(s, ships, val, need) {
+  if (need <= 0) return [];
+  const found = minimumSubsets(ships, val, need);
   return found.length ? found[rint(s, found.length)] : null;
 }
 function lowestBy(s, ships, val, n) {
@@ -34,6 +41,99 @@ function mainsFirst(s, pool, val, need) {
   const rest = minSubset(s, secs, val, need - mTot);
   return rest ? mains.concat(rest) : null;
 }
+// Legal ties under 5.3.1. Use the same Main-first and minimum-size criteria as the bot.
+function meetsMinimum(pool, selection, val, need) {
+  const mains = pool.filter(isMain);
+  const mainTotal = sumBy(mains, val);
+  if (mainTotal >= need) {
+    return selection.every(isMain) && sumBy(selection, val) >= need &&
+      minimumCount(mains, val, need) === selection.length;
+  }
+  if (!mains.every(sh => selection.includes(sh))) return false;
+  const secs = pool.filter(sh => !isMain(sh)), required = need - mainTotal;
+  const chosen = selection.filter(sh => !isMain(sh));
+  if (sumBy(chosen, val) < required) return false;
+  return minimumCount(secs, val, required) === chosen.length;
+}
+function sameShips(a, b) { return a.length === b.length && a.every(sh => b.includes(sh)); }
+// With #8 a legitimate random first stack can leave fewer than 22 LG. Keep that
+// outcome available while requiring both stacks whenever the player actually deploys.
+function manualPackage8(s, pool, combined, chosenPatrol) {
+  const firsts = minimumSubsets(pool.filter(isMain), ca, 8);
+  let canFail = !firsts.length || !aiTroopsInBox(s);
+  let patrol = null;
+  if (aiTroopsInBox(s)) {
+    for (const first of firsts) {
+      const remaining = pool.filter(sh => !first.includes(sh));
+      if (sumBy(remaining, lg) < 22) { canFail = true; continue; }
+      if (!first.every(sh => combined.includes(sh))) continue;
+      const second = combined.filter(sh => !first.includes(sh));
+      if ((!chosenPatrol || sameShips(second, chosenPatrol)) && meetsMinimum(remaining, second, lg, 22)) {
+        patrol = second;
+        break;
+      }
+    }
+  }
+  return { canFail, patrol };
+}
+function manualPackagePatrol(p) {
+  return p.packageStage === 'patrol' || p.title === 'Force Package #8 – second stack';
+}
+function manualPackageSuggestion(s, p) {
+  const items = p.items.map(i => s.ships[i.id]);
+  if (manualPackagePatrol(p)) {
+    const pool = aiDeployablePool(s, topFrame(s).A.phase);
+    return (manualPackage8(s, pool, items).patrol || []).map(sh => sh.id);
+  }
+  const res = forcePackageSelect(Object.assign({}, s), p.pkg, items);
+  return res.ok ? res.ships.concat(res.ships2 || []) : [];
+}
+function manualPackageError(s, p, ids) {
+  const items = p.items.map(i => s.ships[i.id]), selected = ids.map(id => s.ships[id]);
+  const second = manualPackagePatrol(p);
+  if (p.pkg === 8 || second) {
+    const pool = second ? aiDeployablePool(s, topFrame(s).A.phase) : items;
+    const split = manualPackage8(s, pool, second ? items : selected, second ? selected : null);
+    if (!second && !ids.length && split.canFail) return null;
+    if (split.patrol) return null;
+    return second ? 'Choose a 22-Long Gun Patrol from these ships, leaving a legal 8-Close Action Main-ship Army Support Force. Use Main Ships first and the fewest ships needed.'
+      : 'Select both Forces together: Main Ships totaling at least 8 Close Action for Army Support and separate ships totaling at least 22 Long Gun for Patrol. Use Main Ships first and the fewest ships needed in each Force.';
+  }
+  if (!selected.length) {
+    const suggested = manualPackageSuggestion(s, p);
+    if (!suggested.length) return null;
+    if (topFrame(s).L.mission === 'ArmySupport' && troopCapacity(s, suggested) < 1) return null;
+    return 'This package can Deploy. Select ships meeting its requirements.';
+  }
+  switch (p.pkg) {
+    case 1: case 7:
+      if (sameShips(manualPackageSuggestion(s, p), ids)) return null;
+      break;
+    case 2: case 3: case 4: case 5: case 6:
+      if (meetsMinimum(items, selected, lg, PKG_LG_NEED[p.pkg])) return null;
+      break;
+    case 9: {
+      const suggested = manualPackageSuggestion(s, p);
+      const hasLady = items.some(sh => sh.id === 'lady');
+      const eligible = selected.every(sh => !isMain(sh) && (sh.id === 'lady' || ca(sh) === 0));
+      if (selected.length === 2 && suggested.length === 2 && eligible && (!hasLady || ids.includes('lady')) &&
+          sumBy(selected, lg) === sumBy(suggested.map(id => s.ships[id]), lg)) return null;
+      break;
+    }
+    case 10:
+      if (selected.length === 2 && selected.every(sh => !isMain(sh))) return null;
+      break;
+    case 11: {
+      const steps = sumBy(selected, sh => sh.steps);
+      // A final two-step ship may carry the random draw past five. No further ship can then be drawn.
+      if (selected.every(sh => !isMain(sh)) && steps >= 5 && selected.some(sh => steps - sh.steps < 5)) return null;
+      break;
+    }
+  }
+  return 'This selection does not meet Package #' + p.pkg + '. ' + FORCE_PACKAGE_TEXT[p.pkg] +
+    (PKG_LG_NEED[p.pkg] ? ' Select Main Ships first and use the fewest ships that meet the requirement.' : '');
+}
+SELECT_VALIDATORS.forcePackage = manualPackageError;
 function names(s, ships) { return ships.map(sh => def(sh).name + (def(sh).ver ? ' ' + def(sh).ver : '')).join(', '); }
 function forcePackageSelect(s, pkg, pool) {
   const mains = pool.filter(isMain), secs = pool.filter(sh => !isMain(sh));
@@ -168,6 +268,7 @@ PROCS.aiDeploy = {
     f.L.mission = em.mission; f.L.why = em.why;
     const cell = cardCell(s, card);
     f.L.cell = cell;
+    rowCard.usedCell = { row: cell.row, col: cell.col };
     const head = `Target Card ${card.id}: ${ZONE_NAME[card.zone]} – ${MISSION_NAME[card.mission]}${card.secondary ? ' (' + MISSION_NAME[card.secondary] + ')' : ''}.`;
     const cellTxt = deploymentCellText(card, cell);
     f.L.head = head; f.L.cellTxt = cellTxt;
@@ -215,9 +316,10 @@ PROCS.aiDeploy = {
       f.L.pkgTxt = `Force Package #${pkg}: ${res.text}`;
       return G('upgrade');
     }
-    return P({ kind: 'select', title: `AI Force Package #${pkg}`, pkg,
+    return P({ kind: 'select', title: `AI Force Package #${pkg}`, pkg, validate: 'forcePackage',
       text: `${f.L.head}\n${f.L.cellTxt}\nPackage #${pkg}: ${FORCE_PACKAGE_TEXT[pkg]}\nSelect the American ships that meet it (Main Ships first, then Secondary; fewest ships that meet the requirement; Long Gun = printed value) [5.3.1]. Select none if the package's requirements cannot be met.` +
-        (f.L.mission === 'ArmySupport' ? '\nArmy Support: the Force must have at least 4 Close Action points to carry a Troops marker.' : ''),
+        (pkg === 8 ? '\nSelect the ships for both Forces together. On the next screen, choose which of those ships form the Patrol.' :
+          f.L.mission === 'ArmySupport' ? '\nArmy Support: the Force must have at least 4 Close Action points to carry a Troops marker.' : ''),
       items: pool.map(sh => ({ id: sh.id, label: `${shipName(s, sh.id)} – LG ${lg(sh)} / Car ${car(sh)} / CA ${ca(sh)} / Def ${dfn(sh)} · ${isMain(sh) ? 'Main' : 'Secondary'} · ${guns(sh)} guns` })),
       min: 0, max: pool.length, allowSplit: pkg === 8, targetCard: card.id }, 'pickB');
   },
@@ -225,8 +327,9 @@ PROCS.aiDeploy = {
     f.L.ships = f.answer || [];
     if (!f.L.ships.length) { log(s, `${f.L.head} Force Package requirements not met – no Deployment.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }
     if (f.L.cell.v === 8 && f.L.ships.length > 1) {
-      return P({ kind: 'select', title: 'Force Package #8 – second stack', text: 'Package #8 deploys as two Forces. Select the ships that form the second stack (the rest form the first).',
-        items: f.L.ships.map(id => ({ id, label: shipName(s, id) })), min: 0, max: f.L.ships.length - 1 }, 'pickB2');
+      return P({ kind: 'select', title: 'Force Package #8 – second stack', packageStage: 'patrol', validate: 'forcePackage',
+        text: 'Select the Patrol, totaling at least 22 Long Gun. The remaining ships must be the Army Support Force: Main Ships totaling at least 8 Close Action.',
+        items: f.L.ships.map(id => ({ id, label: `${shipName(s, id)} – LG ${lg(s.ships[id])} / CA ${ca(s.ships[id])} · ${isMain(s.ships[id]) ? 'Main' : 'Secondary'}` })), min: 1, max: f.L.ships.length - 1 }, 'pickB2');
     }
     return G('upgrade');
   },
@@ -253,6 +356,7 @@ PROCS.aiDeploy = {
               s.nb = computeNavalBalance(s); s.nbBand = navalBalanceBand(s.nb);
               const cell = cardCell(s, TARGET_CARDS[f.L.card]);
               f.L.cell = cell;
+              s.targetRow[A.cardIdx].usedCell = { row: cell.row, col: cell.col };
               f.L.cellTxt = deploymentCellText(TARGET_CARDS[f.L.card], cell);
               log(s, `OA1 recheck: Naval Balance now ${s.nb}. ${f.L.cellTxt}`, 'ai');
               if (!cell.v || !f.L.ships.length) { log(s, `Naval Balance now ${s.nb}: the card no longer Deploys ships.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }

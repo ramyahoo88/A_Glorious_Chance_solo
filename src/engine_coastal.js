@@ -24,6 +24,24 @@ function cuttingOutTargets(s, side, z) {
   return port ? sideShips(s, other).filter(sh => (sh.box === 'deployable' || sh.box === 'makeReady') && sh.port === port) : [];
 }
 
+function launchCoastalTroops(s, side, item) {
+  item.troops = 0;
+  item.forces.forEach(fid => {
+    const fr = s.forces[fid];
+    item.troops += fr.troops;
+    fr.launched = fr.troops;
+    fr.troops = 0;
+  });
+  log(s, `${SIDE_SHORT[side]} Troops launched in ${ZONE_NAME[item.z]}: ${item.troops}.`, 'coastal');
+}
+
+function coastalHarbor(s, side, item) {
+  const other = OTHER[side], port = homeportOfZone(s, other, item.z);
+  if (port && harborDefendingShips(s, other, port).length)
+    return { zone: item.z, att: side, forces: item.forces, port };
+  return null;
+}
+
 PROCS.coastal = {
   start(s, f) {
     s.phase = 'coastal'; s.stepLabel = 'E Coastal Action Phase';
@@ -99,27 +117,36 @@ PROCS.coastal = {
       zonesLaunch[fr.zone].push(fid);
     });
     f.L.lz = Object.keys(zonesLaunch).map(z => ({ z, forces: zonesLaunch[z] }));
+    f.L.lz.forEach(item => launchCoastalTroops(s, side, item));
     f.L.as = [];
+    f.L.harborIndex = 0;
+    return G('asHarbor');
+  },
+  // E3.2 / E6.2 precedes every Land Battle for this side, including Niagara.
+  asHarbor(s, f) {
+    while (f.L.harborIndex < f.L.lz.length) {
+      const item = f.L.lz[f.L.harborIndex++];
+      const harbor = coastalHarbor(s, f.L.side, item);
+      if (harbor) return C('harbor', harbor, 'asHarbor');
+    }
     return G('asZone');
   },
   asZone(s, f) {
     const item = f.L.lz.shift();
     if (!item) { f.L.si++; return G('side'); }
-    const side = f.L.side, other = OTHER[side];
     f.L.cur = item;
-    let troops = 0;
-    item.forces.forEach(fid => { const fr = s.forces[fid]; troops += fr.troops; fr.launched = fr.troops; fr.troops = 0; });
-    f.L.troops = troops;
-    log(s, `${SIDE_SHORT[side]} Troops launched in ${ZONE_NAME[item.z]}: ${troops}.`, 'coastal');
-    const port = homeportOfZone(s, other, item.z);
-    if (port) {
-      const defenders = harborDefendingShips(s, other, port);
-      if (defenders.length) return C('harbor', { zone: item.z, att: side, forces: item.forces, port }, 'asBattle');
+    if (item.troops === undefined) {
+      // An in-progress older Coastal phase queues zones before their launch.
+      launchCoastalTroops(s, f.L.side, item);
+      const harbor = coastalHarbor(s, f.L.side, item);
+      if (harbor) { f.L.troops = item.troops; return C('harbor', harbor, 'asBattle'); }
     }
+    f.L.troops = item.troops;
     return G('asBattle');
   },
   asBattle(s, f) {
     const side = f.L.side, other = OTHER[side], item = f.L.cur;
+    s.stepLabel = side === s.ai ? 'E3.3 A.I. Land Battles' : 'E6.3 Your Land Battles';
     const ships = item.forces.reduce((a, fid) => a.concat(s.forces[fid] ? s.forces[fid].ships : []), []);
     const target = item.z === 'NIA' ? 'NIA' : 'HOME';
     const ev = drawEvent(s, `${SIDE_SHORT[side]} Land Battle (${ZONE_NAME[item.z]})`, false);
@@ -151,7 +178,9 @@ PROCS.coastal = {
     const lgTot = sumBy(sup, lg);
     const r = d66(s);
     f.L.lb = { side, zone: item.z, target, troops: f.L.troops, lg: lgTot, shift, storm, roll: r.v, ev: ev.id };
-    lines.push(`Land Battle vs ${target === 'NIA' ? 'the Niagara Front' : (other === 'US' ? HOMEPORT_NAME.US : HOMEPORT_NAME.BR)}: ${f.L.troops} Troops marker(s), supporting Long Gun Strength ${lgTot}${shift ? `, column shift ${shift}` : ''}. Dice (red/blue) 11-66: ${r.v}.`);
+    const targetName = target === 'NIA' ? 'the Niagara Front' :
+      (item.z === homeZone(other) ? HOMEPORT_NAME[other] : TEMP_HOMEPORT_NAME[other]);
+    lines.push(`Land Battle vs ${targetName}: ${f.L.troops} Troops marker(s), supporting Long Gun Strength ${lgTot}${shift ? `, column shift ${shift}` : ''}. Dice (red/blue) 11-66: ${r.v}.`);
     lines.forEach(l => log(s, l, 'coastal'));
     f.L.lbLines = lines;
     const lk = lbLookup(lgTot, f.L.troops, shift, r.v);
@@ -245,11 +274,34 @@ PROCS.harbor = {
     const dMap = {}, aMap = {};
     if (res.dHits) distributeHits(s, defs, res.dHits, dMap, lines, { side: c.def });
     if (res.aHits) distributeHits(s, c.col[c.att].filter(id => id !== sitsOut), res.aHits, aMap, lines, { side: c.att });
+    // LC5.1 permits transfer when this Round reduces the Flagship and its leader survives.
+    const flagBeforeHits = {};
+    [c.att, c.def].forEach(side => {
+      const id = s.flagship[side];
+      if (e.ships[id] === 'in' && isFull(s.ships[id]))
+        flagBeforeHits[side] = { id, leader: s.leader[side].seq };
+    });
     applyHits(s, c.def, dMap, { round: 'GR' }, lines);
     applyHits(s, c.att, aMap, { round: 'GR' }, lines);
-    lines.forEach(l => log(s, l, 'combat'));
     if (res.end) { lines.push('END – the Harbor Encounter ends.'); f.L.round = 2; }
-    return P(info('Harbor Encounter', lines.join('\n'), { combatView: true }), 'round');
+    const sameLeader = side => {
+      const before = flagBeforeHits[side];
+      return before && before.id === s.flagship[side] && before.leader === s.leader[side].seq;
+    };
+    f.L.lines = lines;
+    f.L.aiTransfer = !!(sameLeader(s.ai) && f.L.round < 2 && encIds(s, c.def).length);
+    const options = sameLeader(s.human) ? flagTransferOptions(s, s.human) : [];
+    if (options.length) return P(flagTransferPrompt(s, options, lines), 'transfer');
+    return PROCS.harbor.roundResults(s, f);
+  },
+  transfer(s, f) {
+    if (f.answer !== 'stay') tryFlagTransfer(s, s.human, f.answer, f.L.lines);
+    return G('roundResults');
+  },
+  roundResults(s, f) {
+    if (f.L.aiTransfer) transferAiFlagIfBeneficial(s, f.L.lines);
+    f.L.lines.forEach(line => log(s, line, 'combat'));
+    return P(info('Harbor Encounter', f.L.lines.join('\n'), { combatView: true }), 'round');
   },
   end(s, f) {
     const e = s.encounter, c = s.combat;

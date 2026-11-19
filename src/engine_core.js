@@ -41,6 +41,7 @@ function act(s, answer) {
   s.build = APP_VERSION;   // marks saves written by the corrected procedures (see upgradeLegacy)
   const err = validateAnswer(s, s.prompt, answer);
   if (err) throw new Error(err);
+  delete s.tableReport;
   const f = topFrame(s);
   f.answer = answer;
   s.prompt = null;
@@ -54,9 +55,13 @@ function validateAnswer(s, p, a) {
     if (!Array.isArray(a)) return 'Selection must be an array';
     const ids = p.items.map(i => i.id);
     if (a.some(x => ids.indexOf(x) < 0)) return 'Unknown item in selection';
+    if (new Set(a).size !== a.length) return 'Select each item only once.';
     if (p.min != null && a.length < p.min) return `Select at least ${p.min}`;
     if (p.max != null && a.length > p.max) return `Select at most ${p.max}`;
     if (p.validate) { const e = SELECT_VALIDATORS[p.validate](s, p, a); if (e) return e; }
+    else if (p.pkg || p.title === 'Force Package #8 – second stack') {
+      const e = manualPackageError(s, p, a); if (e) return e;
+    }
   } else if (p.kind === 'assign') {
     const e = validateAssignment(s, p, a); if (e) return e;
   } else if (p.kind === 'lineup') {

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.10 – 2026-11-18
+
+* Apply Gale only in Lake Action. Split a single eligible Force on Separated Ships and let the displaced Patrol react.
+* Draw the LC6 Event under Defender Outmaneuver, resolve both sides' flag transfers including Harbor, and honor Missed Signal and actual tow adjacency.
+* Validate all eleven manual Force Packages, including both stacks of package 8. Construction purchases now require an affordable reduction.
+* Launch Troops at every target before Harbor combat and land battles. Check Dual Blockades after ship returns and use the adjudicated victory in the header. The final-turn check distinguishes full and Reduced requisition returns.
+* Apply the flagship actually selected at A7. Improve ship selection, phone layout, face-up card inspection, displayed odds and the Reference lookup for all 18 hit-distribution columns.
+* Add an optional grouped pace with a record of public counter moves. Improve save recovery, Undo retention, manual corrections and full-log export.
+
+
 ## 0.2.9 – 2026-11-18
 Fresh-game rules, persistence and usability fixes from the comprehensive audit (RULES_NOTES 74–88).
 * British ships completing repairs can upgrade immediately in A2 (7.2); ordinary refits still take a turn.

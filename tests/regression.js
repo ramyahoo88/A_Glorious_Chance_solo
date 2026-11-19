@@ -590,7 +590,9 @@ for (const file of ['V027_saved_after_E01_old_B35_at_package_picker.json', 'V027
      var ack = JSON.parse(JSON.stringify(e01again)); delete ack.recovery; var ackAgain = checkSaveState(ack);`);
   eq('N02 E01: the notice survives export and reopening', X('[(e01.recovery || []).length, (e01again.recovery || []).length]'), [1, 1]);
   eq('N02 … until the player acknowledges it', X('(ackAgain.recovery || []).length'), 0);
-  X(`var played = JSON.parse(JSON.stringify(e01again)); act(played, played.prompt.kind === 'select' ? (played.prompt.initial || []) : 'ok');`);
+  X(`var played = JSON.parse(JSON.stringify(e01again));
+     var roster = played.prompt.items.map(i => played.ships[i.id]).filter(sh => def(sh).main || lg(sh) || ca(sh)).map(sh => sh.id);
+     act(played, roster);`);
   eq('N02 … and playing on keeps it on the board', X('(played.recovery || []).length'), 1);
 }
 // N03 – a state restored by Undo is stamped like a load

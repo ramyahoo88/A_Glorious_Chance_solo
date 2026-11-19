@@ -150,7 +150,7 @@ PROCS.turn = {
     aiConstructionDelayPurchase(s);
     if (s.cd[s.human] > 0) {
       const pool = deployable(s, s.human).filter(sh => ca(sh) > 0);
-      if (pool.length) return P({ kind: 'select', title: 'A5 Buy down Construction Delay?',
+      if (sumBy(pool, ca) >= 2) return P({ kind: 'select', title: 'A5 Buy down Construction Delay?', validate: 'constructionPurchase',
         text: `Your Construction Delay is ${s.cd[s.human]}. Optionally place more ships In Ordinary: every 2 Close Action points placed In Ordinary lowers Construction Delay by 1 [8.1].`,
         items: pool.map(sh => ({ id: sh.id, label: `${shipName(s, sh.id)} – CA ${ca(sh)}` })), min: 0, max: pool.length }, 'A5b');
     }
@@ -422,17 +422,16 @@ PROCS.turn = {
 // they may still Deploy for a Lake Action Encounter (the A10 left-shift makes the blockaders' zone come first).
 // 14.3: the Blockaded A.I. breaks out if its in-port Carronade (British) / Long Gun (U.S.) total
 // exceeds that of the blockading ships.
-function aiBreakoutCheck(s, ai) {
-  const blockaders = shipsInZone(s, homeZone(ai), OTHER[ai]);
+function aiBreakoutCheck(s, ai, blockaders = shipsInZone(s, homeZone(ai), OTHER[ai])) {
   const theirs = deployable(s, ai, 'home');
   const key = ai === 'BR' ? car : lg;
   const a = sumBy(theirs, key), b = sumBy(blockaders, key);
   return { ok: !!(theirs.length && blockaders.length && a > b), a, b, blockaders, label: ai === 'BR' ? 'Carronade' : 'Long Gun' };
 }
 // Whether a Blockaded side meets the requirements to launch a Breakout Attack (14.2 / 14.3)
-function canLaunchBreakout(s, side) {
-  if (side === s.ai) return aiBreakoutCheck(s, side).ok;
-  return shipsInZone(s, homeZone(side), OTHER[side]).length > 0 && deployable(s, side, 'home').some(isFull);
+function canLaunchBreakout(s, side, blockaders = shipsInZone(s, homeZone(side), OTHER[side])) {
+  if (side === s.ai) return aiBreakoutCheck(s, side, blockaders).ok;
+  return blockaders.length > 0 && deployable(s, side, 'home').some(isFull);
 }
 // 5.1: will this A.I. ship be Deployable in next turn's Preparation Phase?
 function aiShipDeployableNextTurn(s, sh, nextTurn) {
@@ -441,7 +440,8 @@ function aiShipDeployableNextTurn(s, sh, nextTurn) {
     case 'repairing': return !sh.delay && !sh.flags.builtDamaged;         // A3.i (delayed / newly built go elsewhere)
     case 'transit': return isFull(sh);                                     // A3.ii: Reduced ships go to Repairing
     case 'ordinary': return !sh.flags.damaged;                             // A4: the A.I. recommissions laid-up ships
-    case 'requisitioned': return sh.flags.reqUntil != null && nextTurn >= sh.flags.reqUntil;
+    // A2 returns a Reduced requisition to In Transit; A3 then puts her in Repairing.
+    case 'requisitioned': return isFull(sh) && sh.flags.reqUntil != null && nextTurn >= sh.flags.reqUntil;
     default: return false;
   }
 }
@@ -470,9 +470,10 @@ function aiSquadronLimit(s) {
 function aiConstructionDelayPurchase(s) {
   const side = s.ai;
   if (s.cd[side] <= 0) return;
-  const need = s.cd[side] * 2;
   const pool = deployable(s, side).filter(sh => ca(sh) > 0 && sh.id !== s.flagship[side])
     .sort((a, b) => (isMain(a) - isMain(b)) || (ca(a) - ca(b)) || (vpCapture(a) - vpCapture(b)));
+  // A purchase costs two CA per point. An unspendable last point buys nothing.
+  const need = 2 * Math.min(s.cd[side], Math.floor(sumBy(pool, ca) / 2));
   let pts = 0; const out = [];
   for (const sh of pool) { if (pts >= need) break; sh.box = 'ordinary'; pts += ca(sh); out.push(shipName(s, sh.id)); }
   if (out.length) {
@@ -486,6 +487,11 @@ SELECT_VALIDATORS.squadron30 = function (s, p, a) {
   const t = sumBy(keep, i => i.ca);
   if (t > 30) return `Deployable squadron would total ${t} Close Action points – the limit is 30. Place more ships In Ordinary.`;
   if (a.indexOf(s.flagship[s.human]) >= 0 && keep.length) return null;
+  return null;
+};
+SELECT_VALIDATORS.constructionPurchase = function (s, p, ids) {
+  if (ids.length && sumBy(ids, id => ca(s.ships[id])) < 2)
+    return 'A Construction Delay reduction costs 2 Close Action. Select more ships, or clear the selection to decline.';
   return null;
 };
 

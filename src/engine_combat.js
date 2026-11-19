@@ -38,7 +38,8 @@ function aiPlanFor(s, ai, cands, defenders, waive, existingTows) {
   // from LC1's separate comparison of the Forces' printed weapon + Defense.
   const missed = missedSignalShip(s);
   const participating = ids => ids.filter(id => id !== missed);
-  const odds = ids => { const d = sideStrength(s, participating(defenders), ai, noLG); const a = sideStrength(s, participating(ids), ai, noLG); return d <= 0 ? 99 : a / d; };
+  const odds = ids => { const d = sideStrength(s, participating(defenders), ai, noLG); const a = sideStrength(s, participating(ids), ai, noLG); return d <= 0 ? Infinity : a / d; };
+  const showOdds = n => n === Infinity ? '∞' : fmt(n);
   const out = { ships: [], tows: {}, why: '' };
   if (!cands.length) { out.why = 'no full-strength ships able to attack'; return out; }
   if (!participating(cands).length) { out.why = 'Missed Signal leaves no ships able to attack this Round'; return out; }
@@ -70,15 +71,15 @@ function aiPlanFor(s, ai, cands, defenders, waive, existingTows) {
   };
   const label = basis === 'car' ? 'Carronade + Defense' : 'Long Gun + Defense';
   let r = tryCfg(cands);
-  if (r.ok) { out.ships = cands; out.tows = tows; out.why = `A.I. preconditions met: ${label} ${r.pa} vs ${r.pd}; odds ${fmt(r.o)}:1 (needs ${r.thr}:1).`; return out; }
+  if (r.ok) { out.ships = cands; out.tows = tows; out.why = `A.I. preconditions ${waive ? 'waived for this attack' : 'met'}: ${label} ${r.pa} vs ${r.pd}; odds ${showOdds(r.o)}:1 (${waive ? 'normally needs' : 'needs'} ${r.thr}:1).`; return out; }
   if (ai === 'US') {
     const reduced = cands.filter(id => id === missed || !isCLS(s.ships[id]) || towed.indexOf(id) >= 0);
     if (reduced.length && reduced.length < cands.length) {
       const r2 = tryCfg(reduced);
-      if (r2.ok) { out.ships = reduced; out.tows = tows; out.why = `A.I. attacks without its untowed Laker Schooners: ${label} ${r2.pa} vs ${r2.pd}; odds ${fmt(r2.o)}:1.`; return out; }
+      if (r2.ok) { out.ships = reduced; out.tows = tows; out.why = `A.I. attacks without its untowed Laker Schooners: ${label} ${r2.pa} vs ${r2.pd}; odds ${showOdds(r2.o)}:1.`; return out; }
     }
   }
-  out.why = `A.I. preconditions not met: ${label} ${r.pa} vs ${r.pd} (must be greater), odds ${fmt(r.o)}:1 (needs ${r.thr}:1).`;
+  out.why = `A.I. preconditions not met: ${label} ${r.pa} vs ${r.pd} (${r.pa > r.pd ? 'passes' : 'fails: must be greater'}); odds ${showOdds(r.o)}:1 (${r.o >= r.thr ? 'passes' : 'fails'}: needs ${r.thr}:1).`;
   return out;
 }
 function hazeActive(s) { const zf = s.encounter ? zoneFlags(s) : {}; return !!(zf.haze && !zf.hazeUsed); }
@@ -96,10 +97,13 @@ function buildColumn(s, ids, tows, side) {
   return col;
 }
 function colShips(c, side) { return (c.col[side] || []).filter(Boolean); }
-// Schooners towed in this round: a tow counts only while BOTH ships are among the participating attackers [LC2, LC4.2]
+// LC2 and LC4.2: the schooner must be directly behind its assigned tower in this Round's column.
 function towedInRound(c, attackers) {
   const tows = c.tows || {};
-  return Object.keys(tows).filter(t => attackers.indexOf(t) >= 0 && attackers.indexOf(tows[t]) >= 0).map(t => tows[t]);
+  return Object.keys(tows).filter(t => {
+    const i = attackers.indexOf(t);
+    return i >= 0 && attackers[i + 1] === tows[t];
+  }).map(t => tows[t]);
 }
 // Ships that defend in a Lake Combat (the A.I. British never put Converted Laker Schooners in the line)
 function defendingIds(s, side) {
@@ -187,7 +191,7 @@ PROCS.combat = {
       }
     }
     log(s, `Line of battle – ${SIDE_SHORT[c.att]} (attacking): ${c.col[c.att].map((id, i) => (i + 1) + '.' + shipName(s, id)).join(' ')}${Object.keys(tows).length ? ' [towing: ' + Object.keys(tows).map(t => def(s.ships[t]).name + '→' + def(s.ships[tows[t]]).name).join(', ') + ']' : ''}; ${SIDE_SHORT[c.def]} (defending): ${c.col[c.def].map((id, i) => (i + 1) + '.' + shipName(s, id)).join(' ')}.`, 'combat');
-    if (!c.col[c.att].length) return R({ outcome: 'segmentEnd' });
+    if (!c.col[c.att].length && !(c.sitting && c.sitting.side === c.att)) return R({ outcome: 'segmentEnd' });
     if (c.segment === 'patrol' && zf.rainy) {
       c.rainy = true;
       c.pos = SEQ_STEPS[c.seq].indexOf('CA');
@@ -241,6 +245,15 @@ PROCS.combat = {
     const c = cmb(s);
     const st = SEQ_STEPS[c.seq][c.pos];
     s.stepLabel = `Lake Combat – Sequence ${c.seq}: ${({ GR1: 'Gunnery Round 1', GR2: 'Gunnery Round 2', WG: 'Weather Gage recheck', CA: 'Close Action Round', END: 'Segment ends' })[st]}`;
+    // The missing ship is still in the Encounter. If it was the only ship on
+    // that side of the first Round, there is no combat to resolve this Round.
+    if (c.sitting && !colShips(c, c.sitting.side).length && colShips(c, OTHER[c.sitting.side]).length &&
+        (st === 'GR1' || (st === 'CA' && c.rainy))) {
+      if (st === 'GR1') c.gr++;
+      const text = `${shipName(s, c.sitting.id)} sits out the only matchup on this side. No combat is rolled this Round. The ship rejoins the column when the Round ends.`;
+      log(s, 'Missed Signal: ' + text, 'event');
+      return P(info('Missed Signal – no combat this Round', text, { combatView: true }), 'finishRound');
+    }
     if (!colShips(c, c.def).length || !encIds(s, c.def).length) return R({ outcome: 'encounterEnd' });
     if (!encIds(s, c.att).length) return R({ outcome: 'encounterEnd' });
     if (st === 'GR1' || st === 'GR2') return G('gr');
@@ -342,7 +355,7 @@ PROCS.combat = {
         const r = d6(s), n = untowed.length;
         const pen = r <= n / 2 ? -2 : r <= n ? -1 : 0;
         if (pen) { drm += pen; }
-        drms.push(`${pen} untowed Laker Schooners (${n}, d6 ${r})`);
+        drms.push(`${n} untowed Laker Schooner${n === 1 ? '' : 's'}: d6 ${r}, DRM ${pen}`);
       }
     }
     if (tacActive(c, 'att', 'A_rof')) { drm++; drms.push('+1 Rate of Fire'); }
@@ -452,7 +465,7 @@ PROCS.combat = {
   },
   withdraw2(s, f) {
     const c = cmb(s);
-    if (f.answer === 'stay') { f.L.lines.push('You ignore the Withdrawal result.'); log(s, 'You ignore the Withdrawal result.', 'player'); return G('withdraw'); }
+    if (f.answer === 'stay') { f.L.lines.push('You ignore the Withdrawal result.'); return G('withdraw'); }
     f.L.wSide = s.human;
     return G('withdraw3');
   },
@@ -463,26 +476,26 @@ PROCS.combat = {
     return G('withdraw');
   },
   flagTransfer(s, f) {
-    const c = cmb(s), h = s.human;
+    const h = s.human;
     // Human: optional flag transfer when the Flagship is Reduced
     const opt = flagTransferOptions(s, h);
-    if (opt.length && !f.L.askedFlag) {
-      f.L.askedFlag = true;
-      return P(choice('Transfer the flag?', `${f.L.lines.join('\n')}\n\nYour Flagship ${shipName(s, s.flagship[h])} is Reduced. ${leaderName(s, h)} may try to shift his flag to an adjacent full-strength ship (he must pass a Leader Casualty Check).`,
-        [{ id: 'stay', label: 'Stay aboard', primary: true }].concat(opt.map(id => ({ id, label: `Transfer to ${shipName(s, id)}` }))), { combatView: true }), 'flagTransfer2');
+    if (opt.length) {
+      return P(flagTransferPrompt(s, opt, f.L.lines), 'flagTransfer2');
     }
-    // AI: transfer automatically if it keeps the Command bonus for an attack
-    const ai = s.ai, aopt = flagTransferOptions(s, ai);
-    if (aopt.length && c.att === ai && commandDRMAvailable(s, ai)) { tryFlagTransfer(s, ai, aopt[0], f.L.lines); }
-    return G('roundResults');
+    return G('aiFlagTransfer');
   },
   flagTransfer2(s, f) {
     if (f.answer !== 'stay') tryFlagTransfer(s, s.human, f.answer, f.L.lines);
-    f.L.askedFlag = false;
+    return G('aiFlagTransfer');
+  },
+  aiFlagTransfer(s, f) {
+    // Both sides may transfer in one Round, even when the human chose to stay.
+    transferAiFlagIfBeneficial(s, f.L.lines);
     return G('roundResults');
   },
   roundResults(s, f) {
-    logLines(s, f.L.closeResult ? f.L.lines : f.L.lines.slice(1));
+    const lines = f.L.closeResult ? f.L.lines : f.L.lines.slice(1);
+    lines.forEach(l => log(s, l, l === 'You ignore the Withdrawal result.' ? 'player' : 'combat'));
     return P(info(f.L.closeResult ? 'Close Action Round' : 'Gunnery Round results', f.L.lines.join('\n'), { combatView: true }), f.L.closeResult ? 'caDone' : 'finishRound');
   },
   finishRound(s, f) {
@@ -506,21 +519,23 @@ PROCS.combat = {
     if (prevStep === 'GR1' && tacActive(c, 'att', 'A_sweep')) { log(s, 'Sweep Up & Fire: skip the Weather Gage recheck.', 'combat'); c.pos++; return G('next'); }
     if (prevStep === 'GR2' && c.att === 'BR' && tacActive(c, 'att', 'A_grapple')) { log(s, 'Grapple: skip the Weather Gage recheck and go to Close Action.', 'combat'); c.pos++; c.grapple = true; return G('next'); }
     if (prevStep === 'GR2' && c.att === 'BR' && c.segment === 'patrol' && zf.breeze && !tacActive(c, 'att', 'A_sweep')) { log(s, 'Commanding Breeze: skip the Weather Gage recheck and go to Close Action.', 'event'); c.pos++; return G('next'); }
-    let newWG, txt;
-    if (tacActive(c, 'def', 'D_outmaneuver') && !c.tac.def.used) { c.tac.def.used = true; newWG = c.def; txt = `Defender Outmaneuver: the ${SIDE_PL[c.def]} automatically win the Weather Gage check.`; }
-    else {
-      const ev = drawEvent(s, 'Weather Gage recheck', false);
-      newWG = ev.wg === 'A' ? 'US' : 'BR'; e.wgCard = ev.id;
-      txt = `Weather Gage recheck: Event #${ev.id} → ${SIDE_NAME[newWG]}.`;
-      f.L.ev = ev.id;
+    // D06 overrides the winner of the check. LC6 still draws the Event whose
+    // symbols govern Tactics if a new Combat Sequence begins.
+    const ev = drawEvent(s, 'Weather Gage recheck', false);
+    e.wgCard = ev.id;
+    let newWG = ev.wg === 'A' ? 'US' : 'BR';
+    let txt = `Weather Gage recheck: Event #${ev.id} → ${SIDE_NAME[newWG]}.`;
+    if (tacActive(c, 'def', 'D_outmaneuver') && !c.tac.def.used) {
+      c.tac.def.used = true; newWG = c.def;
+      txt = `Weather Gage recheck: Event #${ev.id}. Defender Outmaneuver gives the Weather Gage to the ${SIDE_PL[newWG]}.`;
     }
     log(s, txt, 'event');
     e.wg = newWG;
-    if (newWG === c.att) { c.pos++; return P(info('Weather Gage recheck', txt + `\nThe ${SIDE_PL[c.att]} keep the Weather Gage – continue Combat Sequence ${c.seq}.`, { eventCard: f.L.ev || null, combatView: true }), 'next'); }
+    if (newWG === c.att) { c.pos++; return P(info('Weather Gage recheck', txt + `\nThe ${SIDE_PL[c.att]} keep the Weather Gage – continue Combat Sequence ${c.seq}.`, { eventCard: ev.id, combatView: true }), 'next'); }
     // Weather Gage changes: start the other Combat Sequence
     const newAtt = newWG;
     f.L.newAtt = newAtt;
-    return P(info('Weather Gage changes!', txt + `\nCombat Sequence ${newAtt === 'US' ? 'A' : 'B'} begins.`, { eventCard: f.L.ev || null, combatView: true }), 'wgSwitch');
+    return P(info('Weather Gage changes!', txt + `\nCombat Sequence ${newAtt === 'US' ? 'A' : 'B'} begins.`, { eventCard: ev.id, combatView: true }), 'wgSwitch');
   },
   wgSwitch(s, f) {
     const newAtt = f.L.newAtt, e = s.encounter;
@@ -930,6 +945,17 @@ function flagTransferOptions(s, side) {
   if (i < 0) return [];
   return [col[i - 1], col[i + 1]].filter(id => id && isFull(s.ships[id]) && s.encounter.ships[id] === 'in');
 }
+function flagTransferPrompt(s, options, lines) {
+  const h = s.human;
+  return choice('Transfer the flag?', `${lines.join('\n')}\n\nYour Flagship ${shipName(s, s.flagship[h])} is Reduced. ${leaderName(s, h)} may try to shift his flag to an adjacent full-strength ship (he must pass a Leader Casualty Check).`,
+    [{ id: 'stay', label: 'Stay aboard', primary: true }].concat(options.map(id => ({ id, label: `Transfer to ${shipName(s, id)}` }))), { combatView: true });
+}
+function transferAiFlagIfBeneficial(s, lines) {
+  const ai = s.ai;
+  if (s.combat.att !== ai || !commandDRMAvailable(s, ai)) return;
+  const options = flagTransferOptions(s, ai);
+  if (options.length) tryFlagTransfer(s, ai, options[0], lines);
+}
 function tryFlagTransfer(s, side, to, lines) {
   const r = twoD6(s);
   if (r >= 11) { lines.push(`${leaderName(s, side)} tries to shift his flag – 2d6 ${r}: KILLED in the attempt!`); leaderCasualty(s, side, 'killed'); return; }
@@ -970,7 +996,6 @@ function doWithdrawal(s, side, stayed, hitNow) {
     const mains = shipsInZone(s, z, side).filter(sh => isFull(sh) && isMain(sh)).length;
     if (mains < 4) { s.zones[z].blockade = null; lines.push(`The Blockade of ${ZONE_NAME[z]} is lifted.`); }
   }
-  lines.forEach(l => log(s, l, 'combat'));
   return lines;
 }
 

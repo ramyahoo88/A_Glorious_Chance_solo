@@ -8,6 +8,9 @@ function encIds(s, side, statuses) {
   const st = statuses || ['in'];
   return Object.keys(e.ships).filter(id => e.side[id] === side && st.indexOf(e.ships[id]) >= 0 && s.ships[id]);
 }
+function belongsToEncounter(e, id) {
+  return !!e.ships[id] && e.ships[id] !== 'out';
+}
 function encAdd(s, id, status) {
   const e = s.encounter;
   e.ships[id] = status || 'in';
@@ -70,7 +73,9 @@ PROCS.encounter = {
     const e = s.encounter, z = e.zone;
     s.stepLabel = `Encounter ${e.peNum || ''} – Lake Zone Event & Weather Gage`;
     const newZoneEvent = !s.zones[z].event;
-    const ev = drawEvent(s, `Encounter ${ZONE_NAME[z]} (Weather Gage${newZoneEvent ? ' + Lake Zone Event' : ''})`, newZoneEvent);
+    // Card 30 permits Gale only during Lake Action, even when another phase
+    // begins an Encounter at EN1.2 (such as a Breakout).
+    const ev = drawEvent(s, `Encounter ${ZONE_NAME[z]} (Weather Gage${newZoneEvent ? ' + Lake Zone Event' : ''})`, newZoneEvent && s.phase === 'lake');
     f.L.ev = ev.id;
     let lines = [`Event Card #${ev.id}.`];
     if (newZoneEvent) {
@@ -111,7 +116,8 @@ PROCS.encounter = {
       return P(choice('Command Decision – the A.I. holds the Weather Gage', `${encSummary(s)}\nConfront (seek battle: if the A.I. doesn't attack, go on to the Reaction Segment) or Bypass (deny battle: if the A.I. doesn't attack, the Encounter ends)?`,
         [{ id: 'confront', label: 'Confront', primary: true }, { id: 'bypass', label: 'Bypass' }], { combatPreview: true }), 'commandAI');
     }
-    f.answer = 'bypass';
+    // The A.I. makes its own attack check here. No player decision was offered.
+    f.answer = null;
     return G('commandAI');
   },
   commandHuman(s, f) {
@@ -172,6 +178,7 @@ PROCS.encounter = {
     s.stepLabel = 'Encounter – Reaction Segment';
     const cands = humanReactionCandidates(s);
     f.L.hc = cands;
+    f.L.hlines = [];
     if (!cands.length) return G('reactionAI');
     const items = [];
     cands.forEach(c => c.ships.forEach(id => items.push({ id, label: `${shipName(s, id)} – ${c.label} (DRM ${c.drm >= 0 ? '+' : ''}${c.drm})`, group: c.key })));
@@ -202,7 +209,7 @@ PROCS.encounter = {
     // a. Deployed AI Forces (Patrol / Attack Convoy cards), same or adjacent zone
     Object.values(s.forces).filter(fr => fr.side === ai && fr.origin === 'targetCard' && (fr.mission === 'Patrol' || fr.mission === 'AttackConvoy') && fr.ships.length)
       .forEach(fr => {
-        if (fr.ships.some(id => e.ships[id])) return;
+        if (fr.ships.some(id => belongsToEncounter(e, id))) return;
         const dist = zoneDistance(fr.zone, z);
         if (dist > 1) return;
         const ships = fr.ships.filter(id => isFull(s.ships[id]));
@@ -272,6 +279,14 @@ function closeActionPreviewText(s, attackers, defenders, aiAttacking) {
   const matchups = pairs.map(([a, d]) => `${shipName(s, a)} vs ${shipName(s, d)}`).join('; ');
   return `Attackers: ${describe(attackers)}. Defenders: ${describe(defenders)}. ${pairs.length ? `Close Action matchups: ${matchups}` : 'No eligible Close Action matchup at 2:1 or better'}.`;
 }
+function missedRoundPreview(s, attackers, defenders) {
+  const ms = missedSignalShip(s);
+  if (!ms || !attackers.length || !defenders.length) return '';
+  if ((attackers.length === 1 && attackers[0] === ms) || (defenders.length === 1 && defenders[0] === ms)) {
+    return `No combat roll in the first Round: ${shipName(s, ms)} sits out under Missed Signal`;
+  }
+  return '';
+}
 function encSummary(s) {
   const e = s.encounter;
   const side = sd => encIds(s, sd).map(id => { const sh = s.ships[id]; return `${shipName(s, id)}${isReduced(sh) ? ' (Reduced)' : ''}`; }).join(', ') || '—';
@@ -279,15 +294,17 @@ function encSummary(s) {
   // First-Round odds exactly as the line of battle will compute them: same defenders, Missed Signal and Haze
   const ms = missedSignalShip(s);
   const notMs = id => id !== ms;
-  const hAtt = encIds(s, h).filter(id => isFull(s.ships[id])).filter(notMs);
+  const hFull = encIds(s, h).filter(id => isFull(s.ships[id]));
   const odds = (att, attIds, defIds) => { const a = sideStrength(s, attIds, att, noLG), d = sideStrength(s, defIds, att, noLG); return `${fmt(a)} vs ${fmt(d)} = ${d ? fmt(a / d) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(d ? a / d : 99)]})`; };
   // Use the same selected ships as the A.I. decision: it can omit untowed
   // schooners to satisfy its attack threshold. This query spends no dice.
   const aiPlan = aiAttackDecision(s, e.kind === 'breakout' && e.firstAttack && e.wg === ai);
-  const aiAtt = aiPlan.ships.filter(notMs);
+  const roundOdds = (att, ids) => {
+    const defenders = defendingIds(s, OTHER[att]);
+    return missedRoundPreview(s, ids, defenders) || odds(att, ids.filter(notMs), defenders.filter(notMs));
+  };
   if (rainySquallsActive(s)) {
-    const hFull = encIds(s, h).filter(id => isFull(s.ships[id]));
-    const preview = (att, ids, tows) => closeActionPreviewText(s,
+    const preview = (att, ids, tows) => missedRoundPreview(s, ids, defendingIds(s, OTHER[att])) || closeActionPreviewText(s,
       buildColumn(s, ids, tows, att).filter(notMs), buildColumn(s, defendingIds(s, OTHER[att]), {}, OTHER[att]).filter(notMs), att === ai);
     return `${ZONE_NAME[e.zone]} – U.S.: ${side('US')}\nBritish: ${side('BR')}\nRainy Squalls: no Gunnery — straight to Close Action.\n` +
       `If you attack with all full-strength ships: ${preview(h, hFull, defaultTows(s, hFull))}\n` +
@@ -295,8 +312,8 @@ function encSummary(s) {
       `${ms ? `\nMissed Signal: ${shipName(s, ms)} sits out the first Round.` : ''}`;
   }
   return `${ZONE_NAME[e.zone]} – U.S.: ${side('US')}\nBritish: ${side('BR')}\n` +
-    `Odds if you attack with all full-strength ships: ${hAtt.length ? odds(h, hAtt, defendingIds(s, ai).filter(notMs)) : 'no full-strength ships'}.\n` +
-    `Odds if the A.I. attacks: ${aiPlan.ships.length ? odds(ai, aiAtt, defendingIds(s, h).filter(notMs)) : 'the A.I. would Pass (attack preconditions not met)'}.` +
+    `Odds if you attack with all full-strength ships: ${hFull.length ? roundOdds(h, hFull) : 'no full-strength ships'}.\n` +
+    `Odds if the A.I. attacks: ${aiPlan.ships.length ? roundOdds(ai, aiPlan.ships) : 'the A.I. would Pass (attack preconditions not met)'}.` +
     `${ms ? `\nBoth are first-Round odds: ${shipName(s, ms)} missed the signal and sits out the first Round.` : ''}${noLG ? ' (Haze: no Long Guns in the first Gunnery Round 1 here.)' : ''}`;
 }
 
@@ -361,7 +378,7 @@ function humanReactionCandidates(s) {
   const temp = deployable(s, h, 'temp').filter(isFull).map(sh => sh.id);
   if (temp.length) mk('temp', `${TEMP_HOMEPORT_NAME[h]} (Isolated, Deployable)`, temp, zoneDistance(TEMP_HOMEPORT_ZONE[h], z) + 1);
   Object.values(s.forces).filter(fr => fr.side === h && fr.mission === 'Patrol' && fr.ships.length && zoneDistance(fr.zone, z) <= 1).forEach(fr => {
-    if (fr.ships.some(id => e.ships[id])) return;
+    if (fr.ships.some(id => belongsToEncounter(e, id))) return;
     if (s.pe.some(p => p.forceId === fr.id && p.status === 'possible')) return;
     const ships = fr.ships.filter(id => isFull(s.ships[id]));
     if (ships.length) mk(fr.id, `${forceLabel(s, fr)} in ${ZONE_NAME[fr.zone]}`, ships, zoneDistance(fr.zone, z));
@@ -397,21 +414,25 @@ function applyLakeEvent(s, ev, z) {
       break;
     }
     case 'separated': case 'separatedBoth': {
-      const ids = encIds(s, side);
-      if (ids.length > 1) {
-        const n = Math.floor(ids.length / 2);
-        const moved = shuffle(s, ids).slice(0, n);
+      // A Breakout can include several separate blockading Forces. The card
+      // splits half of one Force and never combines ships from different Forces.
+      const eligible = forcesInZone(s, z, side).filter(fr => fr.ships.filter(id => e.ships[id] === 'in').length > 1);
+      if (eligible.length) {
+        const fr = eligible.length === 1 ? eligible[0] : pick(s, eligible);
+        const ids = fr.ships.filter(id => e.ships[id] === 'in');
+        const moved = shuffle(s, ids).slice(0, Math.floor(ids.length / 2));
         const to = (k === 'separatedBoth' || side === 'US') ? clockwiseOf(z) : counterClockwiseOf(z);
         const nf = newForce(s, side, to, 'Patrol', [], { origin: side === s.ai ? 'targetCard' : 'displaced' });
         moved.forEach(id => { addShipToForce(s, id, nf.id); e.ships[id] = 'out'; });
         if (k === 'separatedBoth') {
-          const rest = encIds(s, side);
-          rest.forEach(id => { const fr = s.forces[s.ships[id].forceId]; if (fr) { if (fr.mission !== 'Patrol') abortCoastalMission(s, fr); fr.mission = 'Patrol'; } });
+          if (fr.mission !== 'Patrol') abortCoastalMission(s, fr);
+          fr.mission = 'Patrol';
         }
-        out.text = `${moved.map(id => shipName(s, id)).join(', ')} are displaced to ${ZONE_NAME[to]} as a new Patrol Force.`;
+        const selected = eligible.length > 1 ? `Randomly selected Force: ${ids.map(id => shipName(s, id)).join(', ')}. ` : '';
+        out.text = selected + `${moved.map(id => shipName(s, id)).join(', ')} ${moved.length === 1 ? 'is' : 'are'} displaced to ${ZONE_NAME[to]} as a new Patrol Force.`;
         log(s, out.text, 'event');
         // PE markers on a displaced Force stay in the original zone (11.1.3) – ours are attached to the original Force.
-      } else out.text = 'The Force has only one ship – no effect.';
+      } else out.text = 'No participating Force has more than one ship – no effect.';
       break;
     }
     case 'gale': out.gale = true; out.text = resolveGale(s, z); break;
@@ -504,7 +525,10 @@ function resolveEncounterEnd(s) {
   settleStruck(s, lines);
   Object.keys(e.ships).forEach(id => { if (e.ships[id] === 'dis') e.ships[id] = 'in'; });
   // mark forces as having had their Encounter
-  Object.keys(e.ships).forEach(id => { const sh = s.ships[id]; if (sh && sh.forceId && s.forces[sh.forceId]) s.forces[sh.forceId].ended = true; });
+  Object.keys(e.ships).filter(id => belongsToEncounter(e, id)).forEach(id => {
+    const fr = s.forces[s.ships[id].forceId];
+    if (fr) fr.ended = true;
+  });
   lines.forEach(l => log(s, l, 'combat'));
   return lines;
 }

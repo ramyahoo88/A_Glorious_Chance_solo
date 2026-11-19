@@ -7,11 +7,11 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.9: `dist/index.html`, 324,911 bytes, SHA-256 `ffa43b5dd90a5540c2757cb6701d8742e8a1eff8beba51a6ec27d4b1f7c815c4`). On a phone, open it once and use the browser's Add to Home Screen; your game stays in that browser.
+**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.10, `dist/index.html`, 367,279 bytes, SHA-256 `9ae1d6e213219019682c37ef5ed59f276ef637686912c8308ac8219185c45afc`). On a phone, open it once and use the browser's Add to Home Screen; your game stays in that browser.
 
 **Latest audit:** [v0.2.9 comprehensive report and evidence](audits/2026-11-18-v0.2.9/) — fresh-game rules, controls, saves and release verification; 28 confirmed groups fixed, with open rulings documented.
 
-You still play on your physical map with your counters. The app tells you what to move, and it draws and reads every card for you.
+You play on your physical map with your counters. Open **board changes** after an action to see which pieces moved. **Settings → Group routine updates** collects automatic reports before the next decision. The default pace displays them individually. Select a ship to inspect its counter, or open **Reference** for the hit-distribution lookup and the cards already revealed.
 
 ## What the app does for you
 
@@ -47,7 +47,7 @@ To use your own judgment instead (5.3.1 allows it), turn on *Pick Force Package 
 ## Project layout
 
 ```
-src/        engine (rng, data, state, engine_*.js, assign.js) + ui.js, main.js, style.css
+src/        engine, UI, tabletop recap, reference lookups and styles
 tools/      build.js (→ dist/index.html), bundle_engine.js (engine for Node tests), files.json (source order)
 tests/      unit.js (tables & rule arithmetic), scenario.js (tally/blockade/convoy), regression.js (audit fixes),
             sim.js (thousands of random full games, invariants),

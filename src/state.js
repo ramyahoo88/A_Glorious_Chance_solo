@@ -1,7 +1,7 @@
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.9';
+const APP_VERSION = '0.2.10';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -14,6 +14,7 @@ function defaultOptions() {
     oa1Upgrades: false,         // Playbook OA1 (U.S. campaign only) instead of 7.1 random A/B
     usAiPrecondition: 'longgun',// 'longgun' (Lake Combat mat) or 'carronade' (British Living Rules LC1 text)
     confirmAiSteps: true,       // pause so the player can mirror AI moves on the physical board
+    groupUpdates: false,        // collect routine reports between decisions in the procedure panel
     manualPackages: false,      // British campaign: pick Force Package ships by hand instead of automatically
     manualLandBattle: false,    // read the Land Battle Table by hand instead of automatically
   };
