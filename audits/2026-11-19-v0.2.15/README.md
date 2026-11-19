@@ -43,3 +43,9 @@ node audits/2026-11-19-v0.2.15/evidence/browser/campaigns.js .
 ```
 
 `tests/browser/fixes_v0215.js` and the focused browser script read the original re-audit saves directly. The map observer harness independently watches completed handlers and requires their geographic transitions to occur in the recorded history. State equivalence ignores only the presentation report. The focused browser script can also run against the published page with `AGC_URL` set to its URL; it uses an isolated context.
+
+## Live publication
+
+Release `e5b72a2a21b65866e3f3b57bebaeb4fcebf274ae` is on `main`; the published branch is `aa61f2ec9fd1b7b0219a7dd1fb9521fe0872ec08`. [GitHub Pages deployment 44610655926](https://github.com/ramyahoo88/A_Glorious_Chance_solo/actions/runs/44610655926) completed successfully.
+
+The bare [public URL](https://ramyahoo88.github.io/A_Glorious_Chance_solo/) returns exactly the tested 405,177-byte release. The focused Chromium run was then repeated against that live page in an isolated browser context: both original port counts, ship details, Back navigation with scroll/focus restoration, Oneida's two ordered voyages, Undo/replay, reload, all tested Tracks widths, larger text and the actual downloaded app passed with no page errors. `evidence/browser/live-focused.json` and `evidence/results/live-build.json` record the results. These checks did not modify any existing user campaign or storage.

@@ -9,8 +9,8 @@ async function load(pg,file){
 }
 const frames=pg=>pg.evaluate('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');
 (async()=>{
- const browser=await pw.launch({executablePath:await chromium.executablePath(),args:chromium.args,headless:true});
- const pg=await browser.newPage({viewport:{width:390,height:900}}),errors=[];pg.on('pageerror',e=>errors.push(e.message));pg.setDefaultTimeout(10000);
+ const browser=await pw.launch({executablePath:await chromium.executablePath(),args:chromium.args,headless:true,...(process.env.AGC_URL&&process.env.HTTPS_PROXY?{proxy:{server:process.env.HTTPS_PROXY}}:{})});
+ const pg=await browser.newPage({viewport:{width:390,height:900},ignoreHTTPSErrors:!!process.env.AGC_URL}),errors=[];pg.on('pageerror',e=>errors.push(e.message));pg.setDefaultTimeout(10000);
  const url=process.env.AGC_URL||'file://'+path.join(root,'dist/index.html');await pg.goto(url);await pg.locator('.setup input[type=number]').fill('973000');await pg.getByRole('button',{name:'Start campaign',exact:true}).click();
  const initial=await state(pg),ports=[];
  for(const sd of ['US','BR']){
