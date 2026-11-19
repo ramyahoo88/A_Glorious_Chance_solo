@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Glorious Chance – Solo Companion v0.2.13</title>
+<title>A Glorious Chance – Solo Companion v0.2.14</title>
 <style>
 :root {
   --bg: #f3efe6; --panel: #fffdf8; --ink: #1f2a33; --muted: #52606b; --line: #d9d1c2;
@@ -226,6 +226,52 @@ button.optcard { display: block; width: 100%; text-align: left; }
 .log-search-label { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-bottom: .5rem; }
 #log-search { width: 20rem; max-width: 100%; min-width: 0; }
 .app-download { margin-top: .7rem; }
+
+/* Public campaign map. HTML buttons keep the small-screen labels readable. */
+.map-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.map-toolbar button { margin-left: auto; }
+.map-key { font-size: .82rem; font-weight: bold; }
+.map-help, .map-caption { font-size: .76rem; margin: 6px 0; line-height: 1.3; }
+.map-stage { position: relative; width: 100%; aspect-ratio: 1000 / 640; min-height: 470px; border: 1px solid #b8bda7; border-radius: 9px; isolation: isolate; }
+.map-water { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 9px; pointer-events: none; }
+.map-geography { font: 18px Georgia, serif; letter-spacing: 3px; fill: #506d74; }
+.map-route-number { font: bold 19px Georgia, serif; fill: #1f2a33; }
+.map-zone, .map-port { position: absolute; transform: translate(-50%, -50%); width: 26%; }
+.map-zone { border: 1px solid #789ca8; background: rgba(248,253,255,.94); border-radius: 7px; padding: 3px; text-align: center; box-shadow: 0 1px 3px #45646a22; }
+.map-zone-name { display: block; width: 100%; border: 0; border-radius: 4px; background: transparent; font-weight: bold; font-size: .86rem; padding: 3px 1px; }
+.map-fleet { display: block; width: 100%; margin-top: 3px; padding: 4px; text-align: left; line-height: 1.25; font-size: .75rem; border-radius: 4px; }
+.map-fleet.US { color: #254c80; background: #e6effa; border-color: #5c80ad; }
+.map-fleet.BR { color: #8d2420; background: #fbe9e7; border-color: #bc706b; }
+.map-fleet strong, .map-missions { display: block; overflow-wrap: anywhere; }
+.map-missions { font-size: .71rem; }
+.map-empty, .map-zone-note { display: block; font-size: .71rem; margin: 2px 0; }
+.map-empty { color: var(--muted); padding-bottom: 3px; }
+.map-zone.map-control-US { border-bottom: 4px solid var(--us); }
+.map-zone.map-control-BR { border-bottom: 4px solid var(--br); }
+.map-encounter { outline: 2px dashed #9e6818; outline-offset: 3px; }
+.map-port { width: 27%; padding: 4px 2px; font-size: .76rem; line-height: 1.25; background: #fffdf4; }
+.map-port strong, .map-port span { display: block; }
+.map-port.US { border-color: #5c80ad; color: #254c80; }
+.map-port.BR { border-color: #bc706b; color: #8d2420; }
+.map-escort { font-size: .68rem; padding: 2px; }
+.map-moved { box-shadow: 0 0 0 3px #c39730, 0 2px 5px #374a5060; }
+.map-action-summary { margin-top: 7px; font-size: .8rem; line-height: 1.4; overflow-wrap: anywhere; }
+.map-action-summary ol { padding-left: 1.5rem; margin: 5px 0; }
+.map-action-summary li { margin: 4px 0; }
+.map-zone-list { margin-top: 8px; }
+.map-zone-list > summary { cursor: pointer; padding: 7px 0; font-size: .86rem; font-weight: bold; }
+.map-zone-details .zone { min-height: 0; }
+@media (max-width: 640px) {
+  .map-stage { min-height: 540px; }
+  .map-zone { width: 28%; padding: 2px; }
+  .map-zone-name { font-size: .78rem; padding: 2px 0; }
+  .map-fleet { font-size: .68rem; padding: 3px 2px; }
+  .map-missions, .map-empty, .map-zone-note { font-size: .65rem; }
+  .map-port { width: 28%; font-size: .67rem; }
+  .map-escort { font-size: .6rem; }
+  .map-caption { font-size: .7rem; }
+  #modal .map-dialog { min-width: 0; }
+}
 
 </style>
 </head>
@@ -671,7 +717,7 @@ function lbLookup(lgTotal, troops, shift, d66v) {
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.13';
+const APP_VERSION = '0.2.14';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -4816,6 +4862,7 @@ function renderHeader(s) {
     el('button', { onclick: undo, disabled: !UNDO.length, title: `Undo the last action, including its dice. ${UNDO.length} Undo steps available.` }, '↶ Undo'),
     el('button', { onclick: exportSave }, 'Save'),
     el('button', { onclick: importSave }, 'Load'),
+    el('button', { onclick: () => openCampaignMap(s) }, 'Map'),
     el('button', { onclick: () => openRef() }, 'Reference'),
     el('button', { onclick: () => openAdjust() }, 'Adjust'),
     el('button', { onclick: () => openSettings() }, 'Settings'),
@@ -5171,13 +5218,14 @@ function renderBoard(s) {
   tracks.appendChild(el('div', null, el('b', null, 'Your Convoys '), convTxt));
   tracks.appendChild(el('div', null, el('b', null, 'Flagships '), `U.S.: ${shipName(s, s.flagship.US)} · Br.: ${shipName(s, s.flagship.BR)}`));
   tr.appendChild(tracks);
-  b.appendChild(tr);
   // Lake
   const lp = el('div', { class: 'panel' });
   lp.appendChild(el('h2', null, 'Lake Ontario'));
+  lp.appendChild(campaignMap(s));
+  const zoneDetails = el('details', { class: 'map-zone-list' }, el('summary', null, 'All zone details'));
   const lake = el('div', { id: 'lake' });
   ['YOR', 'NOR', 'KIN', 'NIA', 'SOU', 'SAC'].forEach(z => lake.appendChild(zoneView(s, z)));
-  lp.appendChild(lake);
+  zoneDetails.appendChild(lake); lp.appendChild(zoneDetails);
   // Target row
   if (s.targetRow && s.targetRow.length) {
     lp.appendChild(el('h3', null, 'Target Card row'));
@@ -5197,6 +5245,7 @@ function renderBoard(s) {
     lp.appendChild(row);
   }
   b.appendChild(lp);
+  b.appendChild(tr);
   // Ports
   const pp = el('div', { class: 'ports' });
   ['US', 'BR'].forEach(side => pp.appendChild(portView(s, side)));
@@ -5786,11 +5835,46 @@ function routineAnswer(s) {
   return routine ? { answer: 'ok', title: p.title, text: p.text } : null;
 }
 
+// Public ship positions, independent of cards, hidden markers and future orders.
+// Port boxes stay explicit: In Transit does not mean the ship is Deployable.
+function mapShipPosition(s, sh) {
+  const mission = s.forces[sh.forceId]?.mission || '';
+  let place = null, label = BOX_NAME[sh.box] || sh.box;
+  if ((sh.box === 'lake' || sh.box === 'coast') && ZONES.includes(sh.zone)) {
+    place = sh.zone; label = ZONE_NAME[sh.zone] + (sh.box === 'coast' ? ' · Beached' : '');
+  } else if (sh.box === 'escortBox') {
+    place = 'ESC_' + sh.owner; label = SIDE_SHORT[sh.owner] + ' Escort Convoy box';
+  } else if (['deployable', 'makeReady', 'repairing', 'construction', 'ordinary', 'transit'].includes(sh.box)) {
+    const temp = sh.port === 'temp' && ['deployable', 'transit'].includes(sh.box);
+    place = (temp ? 'TEMP_' : 'HOME_') + sh.owner;
+    label = (temp ? TEMP_HOMEPORT_NAME[sh.owner] : HOMEPORT_NAME[sh.owner]) + ' · ' + BOX_NAME[sh.box];
+  }
+  return { place, label, box: sh.box, owner: sh.owner, mission };
+}
+function mapShipSnapshot(s) {
+  return Object.fromEntries(Object.values(s.ships).map(sh => [sh.id, mapShipPosition(s, sh)]));
+}
+function mapShipChanges(before, s) {
+  const groups = new Map();
+  for (const sh of Object.values(s.ships)) {
+    const from = before[sh.id], to = mapShipPosition(s, sh);
+    if (!from || (from.place === to.place && from.box === to.box && from.owner === to.owner && from.mission === to.mission)) continue;
+    const mission = to.mission || from.mission;
+    const key = JSON.stringify([from, to, mission]);
+    if (!groups.has(key)) groups.set(key, { from, to, side: to.owner, mission, captured: from.owner !== to.owner, ships: [] });
+    groups.get(key).ships.push(sh.id);
+  }
+  return [...groups.values()];
+}
+
 function playTableAction(s, answer) {
   let before = publicBoard(s);
-  const notices = [], changes = [];
+  const notices = [], changes = [], moves = [];
+  const map = { title: s.prompt?.title || 'Action', turn: s.turn, phase: s.phase, moves };
   function advance(value) {
+    const positions = mapShipSnapshot(s);
     act(s, value);
+    moves.push(...mapShipChanges(positions, s));
     const after = publicBoard(s);
     for (const key of new Set([...before.keys(), ...after.keys()])) {
       if (before.get(key) !== after.get(key))
@@ -5806,7 +5890,9 @@ function playTableAction(s, answer) {
     notices.push({ title: next.title, text: next.text });
     advance(next.answer);
   }
-  if (changes.length || notices.length) s.tableReport = { changes, notices };
+  // Every action replaces the recap, including an action with no movement.
+  // Grouped steps retain each transition rather than only the net displacement.
+  s.tableReport = { changes, notices, map };
 }
 
 function appendTableReport(container, s) {
@@ -5823,6 +5909,161 @@ function appendTableReport(container, s) {
       details.appendChild(el('div', null, el('strong', null, notice.title), el('div', { class: 'ptext' }, notice.text)));
   }
   container.appendChild(details);
+}
+
+;
+/* ---- ui_map.js ---- */
+/* Campaign map: public positions and the recorded action, with no simulation
+   during rendering. The shoreline and zone divisions are schematic. */
+const MAP_POINTS = {
+  YOR: [185, 240], NOR: [485, 235], KIN: [790, 205],
+  NIA: [185, 435], SOU: [485, 430], SAC: [790, 425],
+  HOME_BR: [850, 65], HOME_US: [850, 575],
+  TEMP_BR: [175, 65], TEMP_US: [485, 575],
+  ESC_BR: [150, 535], ESC_US: [150, 590]
+};
+function mapSvg(tag, attrs, ...children) {
+  const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [key, value] of Object.entries(attrs || {})) node.setAttribute(key, value);
+  for (const child of children.flat()) if (child != null) node.appendChild(typeof child === 'string' ? document.createTextNode(child) : child);
+  return node;
+}
+function recordedMapAction(s) {
+  const r = s.tableReport?.map;
+  if (!r || typeof r.title !== 'string' || !Array.isArray(r.moves)) return null;
+  // A damaged optional display report must not prevent opening a campaign.
+  return { title: r.title, turn: Number.isInteger(r.turn) ? r.turn : s.turn,
+    moves: r.moves.filter(m => m && ['US', 'BR'].includes(m.side) && m.from && m.to &&
+      typeof m.from.label === 'string' && typeof m.to.label === 'string' &&
+      [m.from.place, m.to.place].every(p => p == null || (typeof p === 'string' && Object.hasOwn(MAP_POINTS, p))) &&
+      Array.isArray(m.ships) && m.ships.length && m.ships.every(id => typeof id === 'string' && Object.hasOwn(s.ships, id))) };
+}
+function mapMoveText(s, move, index) {
+  const side = SIDE_SHORT[move.side] + (move.side === s.ai ? ' A.I.' : ' (you)');
+  const mission = MISSION_NAME[move.mission];
+  return `${index + 1}. ${side}${move.captured ? ' · captured' : ''}: ${move.from.label} → ${move.to.label}` +
+    (mission ? ' · ' + mission : '') + ' · ' + move.ships.map(id => shipName(s, id)).join(', ');
+}
+function mapZoneShips(s, z, side) {
+  return Object.values(s.ships).filter(sh => ['lake', 'coast'].includes(sh.box) && sh.zone === z && sh.owner === side);
+}
+function mapPortShips(s, place) {
+  return Object.values(s.ships).filter(sh => mapShipPosition(s, sh).place === place);
+}
+function openMapZone(s, z) {
+  const body = el('div', { class: 'map-zone-details' }, el('h2', null, ZONE_NAME[z]), zoneView(s, z));
+  const beached = Object.values(s.ships).filter(sh => sh.box === 'coast' && sh.zone === z);
+  if (beached.length) body.appendChild(el('h3', null, 'Beached'), el('div', { class: 'ships' }, ...beached.map(sh => shipChip(s, sh.id))));
+  openModal(body);
+}
+function openMapPort(s, place, label) {
+  const ships = mapPortShips(s, place), body = el('div', null, el('h2', null, label));
+  if (!ships.length) body.appendChild(el('p', null, 'No ships here.'));
+  for (const box of BOXES) {
+    const group = ships.filter(sh => sh.box === box);
+    if (group.length) body.appendChild(el('h3', null, BOX_NAME[box]), el('div', { class: 'ships' }, ...group.map(sh => shipChip(s, sh.id))));
+  }
+  openModal(body);
+}
+function campaignMap(s, scope = 'board') {
+  const wrap = el('div', { class: 'campaign-map' }), action = recordedMapAction(s);
+  const head = el('div', { class: 'map-toolbar' },
+    el('span', { class: 'map-key us' }, `● U.S.${s.ai === 'US' ? ' A.I.' : ' (you)'}`),
+    el('span', { class: 'map-key br' }, `■ British${s.ai === 'BR' ? ' A.I.' : ' (you)'}`));
+  if (scope === 'board') head.appendChild(el('button', { type: 'button', class: 'small', disabled: !action,
+    onclick: () => openCampaignMap(s, true) }, 'Show last action'));
+  wrap.appendChild(head);
+  wrap.appendChild(el('p', { class: 'map-help muted' }, 'Tap a fleet or port to inspect its ships. Numbered arrows show moves in the last action.'));
+  const stage = el('div', { class: 'map-stage', role: 'group', 'aria-label': 'Lake Ontario campaign map' });
+  const svg = mapSvg('svg', { viewBox: '0 0 1000 640', preserveAspectRatio: 'none', class: 'map-water', 'aria-hidden': 'true' });
+  const shore = 'M70 310 C62 230 130 174 250 160 C390 145 515 170 635 128 C740 90 818 108 870 134 L932 190 L913 285 L940 332 L886 387 C798 420 720 452 603 476 C420 506 255 520 159 473 C104 444 76 375 70 310Z';
+  const defs = mapSvg('defs', null,
+    mapSvg('clipPath', { id: 'lake-clip-' + scope }, mapSvg('path', { d: shore })));
+  for (const side of ['US', 'BR']) defs.appendChild(mapSvg('marker', { id: 'map-arrow-' + side + '-' + scope,
+    viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' },
+    mapSvg('path', { d: 'M0 0 L10 5 L0 10Z', fill: side === 'US' ? '#2f5f9e' : '#a8322d' })));
+  svg.appendChild(defs);
+  svg.appendChild(mapSvg('rect', { width: 1000, height: 640, fill: '#ebe5ce' }));
+  svg.appendChild(mapSvg('path', { d: shore, fill: '#cee5ed', stroke: '#608e9c', 'stroke-width': 3 }));
+  const water = mapSvg('g', { 'clip-path': 'url(#lake-clip-' + scope + ')' });
+  water.appendChild(mapSvg('path', { d: 'M340 100 L340 530 M650 90 L650 530 M40 335 L965 300', fill: 'none', stroke: '#749eac', 'stroke-width': 2, 'stroke-dasharray': '8 8' }));
+  svg.appendChild(water);
+  for (const [text, x, y] of [['UPPER CANADA', 470, 70], ['NEW YORK', 640, 555], ['LAKE ONTARIO', 490, 330]])
+    svg.appendChild(mapSvg('text', { x, y, 'text-anchor': 'middle', class: 'map-geography' }, text));
+  svg.appendChild(mapSvg('path', { d: 'M955 90 L955 40 M945 55 L955 40 L965 55', fill: 'none', stroke: '#526d70', 'stroke-width': 3 }));
+  svg.appendChild(mapSvg('text', { x: 955, y: 28, 'text-anchor': 'middle', class: 'map-geography' }, 'N'));
+  const touched = new Set();
+  (action?.moves || []).forEach((move, i) => {
+    const a = MAP_POINTS[move.from.place], b = MAP_POINTS[move.to.place];
+    if (a) touched.add(move.from.place); if (b) touched.add(move.to.place);
+    if (!a || !b || move.from.place === move.to.place) return;
+    const dx = b[0] - a[0], dy = b[1] - a[1], length = Math.hypot(dx, dy);
+    const inset = Math.min(48, length / 4), bend = (i % 3 - 1) * 28;
+    const start = [a[0] + dx / length * inset, a[1] + dy / length * inset];
+    const end = [b[0] - dx / length * inset, b[1] - dy / length * inset];
+    const mid = [(a[0] + b[0]) / 2 - dy / length * bend, (a[1] + b[1]) / 2 + dx / length * bend];
+    svg.appendChild(mapSvg('path', { d: `M${start} Q${mid} ${end}`, class: 'map-route ' + move.side,
+      'data-move': i + 1, fill: 'none', stroke: move.side === 'US' ? '#2f5f9e' : '#a8322d',
+      'stroke-width': 5, 'stroke-dasharray': move.side === 'US' ? '10 5' : 'none', 'marker-end': `url(#map-arrow-${move.side}-${scope})` }));
+    svg.appendChild(mapSvg('circle', { cx: mid[0], cy: mid[1], r: 15, fill: '#fffdf8', stroke: '#465c67', 'stroke-width': 2 }));
+    svg.appendChild(mapSvg('text', { x: mid[0], y: mid[1] + 6, 'text-anchor': 'middle', class: 'map-route-number' }, String(i + 1)));
+  });
+  stage.appendChild(svg);
+  const position = (node, place) => {
+    const [x, y] = MAP_POINTS[place]; node.style.left = x / 10 + '%'; node.style.top = y / 6.4 + '%';
+    if (touched.has(place)) node.classList.add('map-moved');
+    node.setAttribute('data-place', place); return node;
+  };
+  for (const z of ZONES) {
+    const zone = s.zones[z], encounter = s.encounter?.zone === z;
+    const node = el('div', { class: `map-zone${encounter ? ' map-encounter' : ''}${zone.control ? ' map-control-' + zone.control : ''}` });
+    node.appendChild(el('button', { type: 'button', class: 'map-zone-name', onclick: () => openMapZone(s, z), 'aria-label': 'Inspect ' + ZONE_NAME[z] + ' zone' }, ZONE_NAME[z]));
+    let fleets = 0;
+    for (const side of ['US', 'BR']) {
+      const ships = mapZoneShips(s, z, side); if (!ships.length) continue; fleets++;
+      const missions = [...new Set(ships.map(sh => s.forces[sh.forceId]?.mission).filter(Boolean))].map(m => MISSION_NAME[m] || m);
+      const name = SIDE_SHORT[side] + (side === s.ai ? ' A.I.' : '');
+      const count = `${ships.length} ship${ships.length === 1 ? '' : 's'}`;
+      node.appendChild(el('button', { type: 'button', class: 'map-fleet ' + side, onclick: () => openMapZone(s, z),
+        'aria-label': `${name}: ${count} in ${ZONE_NAME[z]}${missions.length ? ' · ' + missions.join(', ') : ''}`,
+        title: ships.map(sh => shipName(s, sh.id)).join(', ') },
+        el('strong', null, `${side === 'US' ? '●' : '■'} ${name} · ${ships.length}`),
+        el('span', { class: 'map-missions' }, missions.join(' · ') || 'Beached')));
+    }
+    if (!fleets) node.appendChild(el('span', { class: 'map-empty' }, 'No ships'));
+    if (zone.blockade) node.appendChild(el('span', { class: 'map-zone-note' }, SIDE_SHORT[zone.blockade] + ' Blockade'));
+    if (zone.control) node.appendChild(el('span', { class: 'map-zone-note' }, SIDE_SHORT[zone.control] + ' control'));
+    if (encounter) node.appendChild(el('span', { class: 'map-zone-note' }, 'Encounter'));
+    for (const side of ['US', 'BR']) if (s.convoyDeployed[side]?.zone === z)
+      node.appendChild(el('span', { class: 'map-zone-note' }, SIDE_SHORT[side] + ' Convoy'));
+    stage.appendChild(position(node, z));
+  }
+  for (const side of ['BR', 'US']) for (const kind of ['HOME', 'TEMP', 'ESC']) {
+    const place = kind + '_' + side, ships = mapPortShips(s, place);
+    if (kind === 'ESC' && !ships.length && !touched.has(place)) continue;
+    const label = kind === 'HOME' ? HOMEPORT_NAME[side] : kind === 'TEMP' ? TEMP_HOMEPORT_NAME[side] : SIDE_SHORT[side] + ' Escort box';
+    const ready = ships.filter(sh => sh.box === 'deployable').length;
+    const node = el('button', { type: 'button', class: 'map-port ' + side + (kind === 'ESC' ? ' map-escort' : ''),
+      onclick: () => openMapPort(s, place, label), 'aria-label': `Inspect ${label}: ${ships.length} ships${kind === 'ESC' ? '' : ', ' + ready + ' Deployable'}` },
+      el('strong', null, (kind === 'ESC' ? '⚑ ' : '⚓ ') + label),
+      el('span', null, `${ships.length} ship${ships.length === 1 ? '' : 's'}${kind === 'ESC' ? '' : ' · ' + ready + ' Deployable'}`));
+    stage.appendChild(position(node, place));
+  }
+  wrap.appendChild(stage);
+  wrap.appendChild(el('div', { class: 'map-caption muted' }, 'Schematic map · dashed blue routes: U.S. · solid red routes: British · gold outline: changed in the last action. Port totals include ships preparing, repairing and in transit.'));
+  const summary = el('div', { class: 'map-action-summary', role: 'status' });
+  summary.appendChild(el('strong', null, action ? `Last action · ${TURN_NAMES[Math.min(7, action.turn)]} · ${action.title}` : 'Movement appears after your next action.'));
+  if (action) {
+    if (!action.moves.length) summary.appendChild(el('div', null, 'No ship movement in this action.'));
+    else summary.appendChild(el('ol', null, ...action.moves.map((m, i) => el('li', null, mapMoveText(s, m, i).replace(/^\d+\. /, '')))));
+  }
+  wrap.appendChild(summary);
+  return wrap;
+}
+function openCampaignMap(s, lastAction = false) {
+  const body = el('div', { class: 'map-dialog' }, el('h2', null, lastAction ? 'Last action' : 'Campaign map'), campaignMap(s, 'dialog'));
+  if (lastAction) appendTableReport(body, s);
+  openModal(body);
 }
 
 ;
