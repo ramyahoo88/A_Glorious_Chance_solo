@@ -1,8 +1,9 @@
+const legacyEventFixture = require('./legacy_events');
 // Replays the original audit positions using the shipped controls. Real CSS
 // geometry, browser focus and viewport resizing are checked by the browser run.
 const fs=require('fs'),path=require('path'),assert=require('assert/strict');
 const {JSDOM,VirtualConsole}=require('jsdom');
-const root=path.resolve(__dirname,'../..'),html=fs.readFileSync(path.join(root,'dist/index.html'),'utf8');
+const root=path.resolve(__dirname,'../..'),html=legacyEventFixture(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'));
 const fixtures=path.join(root,'audits/2026-11-19-v0.2.14-reaudit/evidence'),key='agc_solo_companion_v1';
 const fixture=n=>JSON.parse(fs.readFileSync(path.join(fixtures,n+'.json'))).state;
 let passed=0;const errors=[];

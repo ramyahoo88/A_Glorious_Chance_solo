@@ -5,13 +5,15 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 * **U.S. Solo Campaign:** you are Cdre. Chauncey and the app runs the A.I. British squadron.
 * **British Solo Campaign:** you are Cdre. Yeo and the app runs the A.I. American squadron.
 
+**Your physical Event deck is required.** Whenever a draw is needed, draw the top physical Event card and enter its printed number (1-38). The app resolves its effects; Target and Tactic draws remain automatic.
+
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.15, `dist/index.html`, 405,177 bytes, SHA-256 `943fab01a4be16d07d1d915b452167ddf6d03d2eaccd9d2ffd80689c0652e140`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
+**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.16, `dist/index.html`, 413,864 bytes, SHA-256 `eef9136a8220b8733f17403fce7f0c95aa3db83275fbd425d3bc5c4b7e8044e2`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
 
 **Campaign map.** v0.2.14 shows public fleets and missions on Lake Ontario, with numbered movement arrows and a **Show last action** report. Open **Map** from the toolbar at any point, or tap a fleet or port to inspect its ships. [Map verification](audits/2026-11-19-v0.2.14/).
 
-**Latest corrections.** [v0.2.15 response and verification](audits/2026-11-19-v0.2.15/) fixes the four findings from the [v0.2.14 re-audit](audits/2026-11-19-v0.2.14-reaudit/): complete port ship lists, ordered automatic movement, route readability and responsive Tracks. Inspect a ship and use **Back to fleet**, **Back to port** or **Back to map** to return to its previous view.
+**Latest update.** [v0.2.16 verification](audits/2026-11-19-v0.2.16/) adds required physical Event-card number entry throughout play, including Gale redraws, deck preparation, save/reload and Undo. Old campaigns switch at their next Event draw. [Previous map corrections](audits/2026-11-19-v0.2.15/) remain in place.
 
 You play on your physical map with your counters. Open **board changes** after an action to see which pieces moved. **Settings → Group routine updates** collects automatic reports before the next decision. The default pace displays them individually. Select a ship to inspect its counter, or open **Reference** for the hit-distribution lookup and the cards already revealed.
 

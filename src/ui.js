@@ -88,7 +88,7 @@ function doAct(answer) {
   try {
     playTableAction(G_STATE, answer);
     UNDO.push(snap); if (UNDO.length > 60) UNDO.shift();
-    UI.err = ''; UI.local = null;
+    UI.err = ''; UI.local = null; UI.physicalNote = '';
   } catch (e) {
     G_STATE = JSON.parse(snap);
     UI.err = e.message || String(e);
@@ -118,6 +118,11 @@ function undo() {
     const snapshot = UNDO.pop();
     try {
       G_STATE = checkSaveState(JSON.parse(snapshot));
+      if (G_STATE.prompt?.kind === 'event' && before?.seed === G_STATE.seed &&
+          before.log.length > G_STATE.log.length && G_STATE.log.every((r, i) => JSON.stringify(r) === JSON.stringify(before.log[i])) &&
+          before.log.slice(G_STATE.log.length).some(r => /^Physical Event card #/.test(r.text)))
+        UI.physicalNote = 'Return the Event card you just entered to the top of your physical draw pile. If this undid a reshuffle, restore the previous piles too.';
+      else UI.physicalNote = '';
       UI.local = null;
       UI.err = UI.loadNotes.filter(n => !(G_STATE.recovery || []).includes(n)).join(' ');
       if (skipped) UI.err += ' An unreadable Undo position was skipped.';
@@ -142,7 +147,8 @@ function recoveryBanner(s) {
 }
 function startGame(human, seed, opts) {
   G_STATE = newGame(human, seed, opts);
-  UNDO = []; UI.local = null; UI.localFor = null; UI.err = '';
+  enablePhysicalEvents(G_STATE);
+  UNDO = []; UI.local = null; UI.localFor = null; UI.err = ''; UI.physicalNote = '';
   run(G_STATE);
   autosave(); render();
 }
@@ -162,6 +168,7 @@ function checkSavedCards(st, bad) {
     items.forEach((id, i) => check(id, `${field}[${i}]`));
   };
   list(st.deck.event, 'deck.event', event);
+  if (new Set(st.deck.event).size !== st.deck.event.length) bad('duplicate Event cards in draw pile');
   list(st.deck.target, 'deck.target', target);
   for (const deck of ['A', 'D']) list(st.deck['tac' + deck], 'deck.tac' + deck, (id, field) => tactic(id, deck, field));
   list(st.targetRow, 'targetRow', (card, field) => target(card && card.id, field));
@@ -211,7 +218,9 @@ function checkSaveState(st) {
     // Grouping is opt-in. A missing preference already has the correct
     // behavior, so preserve the original setting on an older position.
     if (!Object.hasOwn(options, 'groupUpdates')) delete st.options.groupUpdates;
+    if (options.physicalEvents != null && typeof options.physicalEvents !== 'boolean') bad('physical Event deck');
   }
+  if (st.eventCardsPrepared != null && typeof st.eventCardsPrepared !== 'boolean') bad('physical Event deck preparation');
   Object.keys(fresh).forEach(k => {
     const a = fresh[k], b = st[k];
     if (a === null || (k === 'build' && b === undefined)) return;
@@ -253,11 +262,16 @@ function checkSaveState(st) {
     if (!fr || typeof fr !== 'object' || !PROCS[fr.proc] || typeof fr.pc !== 'string' || typeof PROCS[fr.proc][fr.pc] !== 'function') bad('procedure stack');
     if (!fr.L || typeof fr.L !== 'object' || Array.isArray(fr.L)) bad('procedure locals');
   });
-  if (!st.over && (!st.calls.length || !st.prompt || typeof st.prompt.kind !== 'string' || ['info', 'choice', 'select', 'assign', 'lineup'].indexOf(st.prompt.kind) < 0)) bad('pending decision');
+  if (!st.over && (!st.calls.length || !st.prompt || typeof st.prompt.kind !== 'string' || ['info', 'choice', 'select', 'assign', 'lineup', 'event'].indexOf(st.prompt.kind) < 0)) bad('pending decision');
   if (!st.over) {
     const p = st.prompt;
     const namedItems = items => Array.isArray(items) && items.every(item => item && (typeof item.id === 'string' || Number.isInteger(item.id)));
-    if (p.kind === 'info' || p.kind === 'choice') {
+    if (p.kind === 'event') {
+      const frame = st.calls.at(-1);
+      if (frame.proc !== 'eventDraw' || frame.pc !== 'number' || !frame.A || typeof frame.A.purpose !== 'string' ||
+          typeof frame.A.allowGale !== 'boolean' || p.purpose !== frame.A.purpose || p.allowGale !== frame.A.allowGale ||
+          !st.deck.event.length || p.remaining !== st.deck.event.length) bad('pending physical Event draw');
+    } else if (p.kind === 'info' || p.kind === 'choice') {
       if (!namedItems(p.options) || !p.options.some(o => !o.disabled && (p.kind === 'choice' || o.id === 'ok'))) bad('no usable option for the pending decision');
     } else if (p.kind === 'select') {
       const min = p.min == null ? 0 : p.min, max = p.max == null ? Infinity : p.max;
@@ -298,6 +312,7 @@ function commitLoaded(st, undo, retained) {
   const priorUndo = prevS ? prevU : retained && Array.isArray(retained.undo) ? retained.undo.filter(u => typeof u === 'string') : [];
   const keep = prior ? priorUndo.concat([JSON.stringify(prior)]) : [];
   G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.loadNotes = UI.loadNotes || [];
+  UI.physicalNote = '';
   UI.err = UI.loadNotes.filter(n => !(st.recovery || []).includes(n)).join(' '); UI.loadNotes = [];   // unresolved notices show in their own panel
   try { render(); }
   catch (e) {
@@ -485,6 +500,7 @@ function renderProc(s) {
   const p = $('proc'); p.innerHTML = '';
   p.appendChild(el('div', { class: 'step' }, `${TURN_NAMES[Math.min(s.turn, 7)]} · ${s.stepLabel || ''}`));
   const rb = recoveryBanner(s); if (rb) p.appendChild(rb);
+  if (UI.physicalNote) p.appendChild(el('div', { class: 'banner', role: 'status' }, UI.physicalNote));
   if (s.over) {
     p.appendChild(el('div', { class: 'ptitle' }, 'Game Over'));
     p.appendChild(el('div', { class: 'ptext' }, `Final Game Score: ${sgn(s.result.score)}\n${s.result.level}\n\nU.S. VP ${sgn(s.vp.US)} · British VP ${sgn(-s.vp.BR)} (British VPs count negative).`));
@@ -502,7 +518,8 @@ function renderProc(s) {
   if (pr.text && pr.kind !== 'assign') p.appendChild(el('div', { class: 'ptext' }, pr.text));
   if (pr.combatView || pr.combatPreview) { const cv = combatView(s); if (cv) p.appendChild(cv); }
   const body = el('div');
-  if (pr.kind === 'info') body.appendChild(el('div', { class: 'opts' }, el('button', { class: 'primary', onclick: () => doAct('ok'), id: 'btn-ok' }, 'Continue')));
+  if (pr.kind === 'event') body.appendChild(renderEventEntry(s, pr));
+  else if (pr.kind === 'info') body.appendChild(el('div', { class: 'opts' }, el('button', { class: 'primary', onclick: () => doAct('ok'), id: 'btn-ok' }, 'Continue')));
   else if (pr.kind === 'choice') body.appendChild(renderChoice(s, pr));
   else if (pr.kind === 'select') body.appendChild(renderSelect(s, pr));
   else if (pr.kind === 'assign') body.appendChild(renderAssign(s, pr));
@@ -957,7 +974,8 @@ function renderSetup() {
   const box = el('div', { class: 'panel setup' });
   box.appendChild(el('h2', null, 'A Glorious Chance – Solo Companion'));
   box.appendChild(el('p', null, 'This companion runs the A.I. opponent, all the bookkeeping and the dice for the U.S. and British Solo Campaigns of ',
-    el('i', null, 'A Glorious Chance: The Naval Struggle for Lake Ontario in the War of 1812'), ' (Legion Wargames). Keep your physical map, counters and cards in front of you – the app tells you what to move, and it draws the cards for you.'));
+    el('i', null, 'A Glorious Chance: The Naval Struggle for Lake Ontario in the War of 1812'), ' (Legion Wargames). Keep your physical map, counters and cards in front of you – the app tells you what to move and resolves the cards.'));
+  box.appendChild(el('p', { class: 'banner' }, 'Physical Event deck required. Draw from your deck and enter the card number when prompted. The app supplies Target and Tactic cards.'));
   if (saved && saved.state && typeof saved.state === 'object') {
     const ss = saved.state, fin = !!ss.over;
     const msg = el('div', { class: 'err' });
@@ -988,7 +1006,7 @@ function renderSetup() {
   box.appendChild(el('label', null, 'British campaign – A.I. American attack precondition: ', pc));
   const seedIn = el('input', { type: 'number', value: st.seed, style: { width: '140px' } });
   seedIn.onchange = () => { st.seed = +seedIn.value || 1; };
-  box.appendChild(el('label', null, 'Random seed: ', seedIn, el('span', { class: 'muted' }, ' (same seed + same choices = same game)')));
+  box.appendChild(el('label', null, 'Random seed: ', seedIn, el('span', { class: 'muted' }, ' (same seed, choices and Event card numbers = same game)')));
   const begin = () => startGame(st.human, st.seed, st.opts);
   box.appendChild(el('div', { class: 'opts', style: { marginTop: '12px' } }, el('button', { class: 'primary', onclick: () => {
     if (saved) confirmBox('Replace saved game?', 'Starting a new campaign replaces the game saved in this browser.', 'Start new campaign', begin);
@@ -998,7 +1016,8 @@ function renderSetup() {
   box.appendChild(el('h3', null, 'Physical setup reminders'));
   box.appendChild(el('ul', null,
     el('li', null, 'Set up the map, Homeport Displays and markers per rule 3.1 and Player Aid II or IV. When you start, the app prepares the decks and hidden markers. The log gives the setup rolls and spaces for your Troops markers.'),
-    el('li', null, 'You do not need to draw Target, Event or Tactic cards – the app draws them and shows you each card.'),
+    el('li', null, 'Your physical Event deck is required. When prompted, draw a card and enter its printed number. Keep the draw and discard piles with your saved campaign.'),
+    el('li', null, 'Target and Tactic cards are drawn by the app. Event effects, dice and table lookups are resolved automatically after you enter the Event card number.'),
     el('li', null, 'Every A.I. decision, dieroll and table lookup is shown in the log. Use Undo if you click the wrong thing, and Adjust to correct anything by hand.')));
   p.appendChild(box);
 }
@@ -1107,6 +1126,7 @@ function openSettings() {
   const s = G_STATE; if (!s) return;
   const box = el('div');
   box.appendChild(el('h2', null, 'Settings'));
+  box.appendChild(el('p', null, 'Use your physical Event deck. The app asks for the printed card number whenever an Event draw is required.'));
   const saveSettings = () => { autosave(); renderHeader(s); };
   const cb = el('input', { type: 'checkbox', checked: s.options.confirmAiSteps ? true : null });
   cb.onchange = () => { s.options.confirmAiSteps = cb.checked; saveSettings(); };
@@ -1122,6 +1142,10 @@ function openAdjust() {
   const s = G_STATE; if (!s) return;
   const box = el('div');
   box.appendChild(el('h2', null, 'Adjust (manual corrections)'));
+  if (s.prompt?.kind === 'event') {
+    box.appendChild(el('p', null, 'An Event draw is pending. Enter that card, or use Undo to return to before this draw, before making manual corrections.'));
+    openModal(box); return;
+  }
   box.appendChild(el('p', { class: 'muted' }, 'Use this to match the app to your table if something went differently. Every change is logged and can be undone.'));
   const msg = el('div', { class: 'err', role: 'status' });
   const beginCorrection = () => { UNDO.push(JSON.stringify(s)); delete s.tableReport; };
@@ -1277,10 +1301,33 @@ function openAdjust() {
 /* ---------- main render ---------- */
 function render() {
   const s = G_STATE;
+  if (s) enablePhysicalEvents(s);
   renderHeader(s);
   if (!s) { renderSetup(); return; }
   const app = $('app');
   if (!$('proc')) { app.innerHTML = ''; app.appendChild(el('div', { id: 'proc', class: 'panel' })); app.appendChild(el('div', { id: 'board' })); }
   renderProc(s);
   renderBoard(s);
+}
+
+// There is no automatic-Event option in the player interface. Old campaigns
+// switch at their next draw and receive a physical-pile preparation reminder.
+function enablePhysicalEvents(s) {
+  if (!s.options.physicalEvents) { s.options.physicalEvents = true; s.eventCardsPrepared = false; }
+}
+function renderEventEntry(s, pr) {
+  if (!UI.local) UI.local = { eventNumber: '' };
+  const form = el('form', { class: 'event-entry' });
+  const input = el('input', { id: 'event-card-number', type: 'number', min: 1, max: 38, step: 1,
+    inputmode: 'numeric', autocomplete: 'off', 'aria-describedby': 'event-entry-message' });
+  input.value = UI.local.eventNumber;
+  const message = el('div', { id: 'event-entry-message', role: 'status', class: 'err' });
+  const submit = el('button', { type: 'submit', class: 'primary' }, 'Use Event card');
+  const error = () => input.value.trim() === '' ? 'Enter the number printed on the physical card.' : validateAnswer(s, pr, Number(input.value));
+  const update = () => { UI.local.eventNumber = input.value; const err = error(); submit.disabled = !!err; message.textContent = input.value === '' ? '' : err || ''; };
+  input.addEventListener('input', update); update();
+  form.addEventListener('submit', e => { e.preventDefault(); if (!error()) doAct(Number(input.value)); });
+  form.append(el('label', { for: input.id }, 'Event card number'), input, el('div', { class: 'opts' }, submit), message,
+    el('p', { class: 'muted' }, `${pr.remaining} card${pr.remaining === 1 ? '' : 's'} remaining in this draw pile. Use Undo if you entered the wrong card.`));
+  return form;
 }

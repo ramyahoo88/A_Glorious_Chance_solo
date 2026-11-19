@@ -1,3 +1,4 @@
+const legacyEventFixture = require('./legacy_events');
 /* UI regression checks against the shipped HTML. Requires jsdom via NODE_PATH.
    node tests/browser/ui_v029.js [repo] [--require-fixed]
    Event dispatch verifies our handlers; native keyboard activation and layout
@@ -6,7 +7,7 @@ const fs = require('fs'), path = require('path'), assert = require('assert');
 const { JSDOM, VirtualConsole } = require('jsdom');
 const repo = path.resolve(process.argv[2] || path.join(__dirname, '../..'));
 const strict = process.argv.includes('--require-fixed');
-const html = fs.readFileSync(path.join(repo, 'dist/index.html'), 'utf8');
+const html = legacyEventFixture(fs.readFileSync(path.join(repo, 'dist/index.html'), 'utf8'));
 const results = [], errors = [];
 function check(name, ok, detail) { results.push({ name, pass: !!ok, detail }); }
 async function launch() {

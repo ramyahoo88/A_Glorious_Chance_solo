@@ -1,8 +1,9 @@
+const legacyEventFixture = require('./legacy_events');
 // Actual shipped controls in jsdom; visual layout is checked separately.
 const fs = require('fs'), path = require('path'), assert = require('assert/strict');
 const { JSDOM, VirtualConsole } = require('jsdom');
 const root = path.resolve(__dirname, '../..'), key = 'agc_solo_companion_v1';
-const html = fs.readFileSync(path.join(root, 'dist/index.html'), 'utf8');
+const html = legacyEventFixture(fs.readFileSync(path.join(root, 'dist/index.html'), 'utf8'));
 const fixtures = path.join(root, 'audits/2026-11-19-v0.2.14/evidence');
 const cases = JSON.parse(fs.readFileSync(path.join(fixtures, 'natural-fixtures.json'))).cases;
 const fixture = name => JSON.parse(fs.readFileSync(path.join(fixtures, name + '.json'))).state;

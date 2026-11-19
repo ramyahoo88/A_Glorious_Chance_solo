@@ -69,13 +69,15 @@ PROCS.encounter = {
   },
 
   /* EN1.2 Lake Zone Event & Weather Gage ------------------------------------------ */
-  event(s, f) {
+  event(s, f, enteredEvent) {
     const e = s.encounter, z = e.zone;
     s.stepLabel = `Encounter ${e.peNum || ''} – Lake Zone Event & Weather Gage`;
     const newZoneEvent = !s.zones[z].event;
     // Card 30 permits Gale only during Lake Action, even when another phase
     // begins an Encounter at EN1.2 (such as a Breakout).
-    const ev = drawEvent(s, `Encounter ${ZONE_NAME[z]} (Weather Gage${newZoneEvent ? ' + Lake Zone Event' : ''})`, newZoneEvent && s.phase === 'lake');
+    const purpose = `Encounter ${ZONE_NAME[z]} (Weather Gage${newZoneEvent ? ' + Lake Zone Event' : ''})`;
+    if (s.options.physicalEvents && !enteredEvent) return C('eventDraw', { purpose, allowGale: newZoneEvent && s.phase === 'lake' }, 'eventEntered');
+    const ev = enteredEvent || drawEvent(s, purpose, newZoneEvent && s.phase === 'lake');
     f.L.ev = ev.id;
     let lines = [`Event Card #${ev.id}.`];
     if (newZoneEvent) {
@@ -96,6 +98,7 @@ PROCS.encounter = {
     return P(info(`Encounter ${e.peNum || ''} in ${ZONE_NAME[z]}`, lines.join('\n'), { eventCard: ev.id }), 'command');
   },
 
+  eventEntered(s, f) { return PROCS.encounter.event(s, f, EVENTS[f.ret]); },
   /* EN1.3 Command Decision ---------------------------------------------------------- */
   command(s, f) {
     const e = s.encounter, h = s.human;
@@ -231,12 +234,16 @@ PROCS.encounter = {
       }
     }
     lines.slice((f.L.hlines || []).length).forEach(l => log(s, 'Reaction: ' + l, 'roll'));
-    // New Weather Gage draw for the Reaction Segment
-    const ev = drawEvent(s, `Reaction Segment Weather Gage (${ZONE_NAME[z]})`, false);
-    e.wg = ev.wg === 'A' ? 'US' : 'BR'; e.wgCard = ev.id;
-    lines.push(`Reaction Segment Weather Gage: Event #${ev.id} → ${SIDE_NAME[e.wg]}.`);
-    log(s, `Reaction Segment Weather Gage: ${SIDE_NAME[e.wg]} (Event #${ev.id}).`, 'event');
-    return P(info('Reaction Segment', lines.join('\n') + '\n\n' + encSummary(s), { eventCard: ev.id }), 'command');
+    // Keep completed Reaction dice and deployments while waiting for the card.
+    if (s.options.physicalEvents) {
+      f.L.reactionLines = lines;
+      return C('eventDraw', { purpose: `Reaction Segment Weather Gage (${ZONE_NAME[z]})`, allowGale: false }, 'reactionEvent');
+    }
+    return finishReactionEvent(s, drawEvent(s, `Reaction Segment Weather Gage (${ZONE_NAME[z]})`, false), lines);
+  },
+  reactionEvent(s, f) {
+    const lines = f.L.reactionLines; delete f.L.reactionLines;
+    return finishReactionEvent(s, EVENTS[f.ret], lines);
   },
 
   /* 11.3.2 escorted Convoy: after the Patrol Segment ------------------------------- */
@@ -584,4 +591,12 @@ function settleStruck(s, lines, pursued, only, atBoundary) {
     }
     e.ships[id] = 'done';
   });
+}
+
+function finishReactionEvent(s, ev, lines) {
+  const e = s.encounter;
+  e.wg = ev.wg === 'A' ? 'US' : 'BR'; e.wgCard = ev.id;
+  lines.push(`Reaction Segment Weather Gage: Event #${ev.id} → ${SIDE_NAME[e.wg]}.`);
+  log(s, `Reaction Segment Weather Gage: ${SIDE_NAME[e.wg]} (Event #${ev.id}).`, 'event');
+  return P(info('Reaction Segment', lines.join('\n') + '\n\n' + encSummary(s), { eventCard: ev.id }), 'command');
 }

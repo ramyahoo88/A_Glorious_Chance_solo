@@ -170,6 +170,7 @@ PROCS.tally = {
     const keep = [s.intelligence.US && s.intelligence.US.card, s.intelligence.BR && s.intelligence.BR.card].filter(Boolean);
     s.deck.event = shuffle(s, Object.keys(EVENTS).map(Number).filter(id => keep.indexOf(id) < 0));
     s.eventsDrawn = [];
+    if (s.options.physicalEvents) s.eventCardsPrepared = false;
     s.deck.tacA = shuffle(s, TACTICS.filter(t => t.deck === 'A').map(t => t.id));
     s.deck.tacD = shuffle(s, TACTICS.filter(t => t.deck === 'D').map(t => t.id));
     s.tacPlayed = [];

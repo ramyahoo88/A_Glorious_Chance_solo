@@ -90,18 +90,15 @@ PROCS.coastal = {
     if (!fid) return G('as');
     const fr = s.forces[fid], side = f.L.side;
     if (!fr || !fr.ships.length) return G('raid');
-    const ev = drawEvent(s, `${SIDE_SHORT[side]} Raid on ${ZONE_NAME[fr.zone]} coastline`, false);
-    const lines = [`Coastal Event #${ev.id}: ${EVENT_TITLE[ev.coastal]}${ev.coastal !== 'none' ? ' – ' + EVENT_TEXT[ev.coastal]() : ''}`];
-    const evs = [];
-    if (['localMilitia', 'suppliesBurned', 'suppliesMoved', 'suddenStorm'].indexOf(ev.coastal) >= 0) evs.push(ev.coastal);
-    if (ev.coastal === 'intelligence') grantIntelligence(s, side, ev.id, lines);
-    const ok = fr.ships.length && forceShips(s, fr).some(isFull);
-    if (ok) {
-      s.coastal.raids.push({ side, zone: fr.zone, forceId: fid, guns: sumBy(forceShips(s, fr), guns), events: evs });
-      lines.push(`The Raid marker is placed on the ${ZONE_NAME[fr.zone]} coastline (VPs and supplies in the Tally Phase).`);
-    } else lines.push('The Force has no undamaged ship – no Raid.');
-    lines.forEach(l => log(s, `${SIDE_SHORT[side]} Raid (${ZONE_NAME[fr.zone]}): ${l}`, 'coastal'));
-    return P(info(`${SIDE_NAME[side]} Raid on ${ZONE_NAME[fr.zone]}`, lines.join('\n'), { eventCard: ev.id }), 'raid');
+    if (s.options.physicalEvents) {
+      f.L.raidForce = fid;
+      return C('eventDraw', { purpose: `${SIDE_SHORT[side]} Raid on ${ZONE_NAME[fr.zone]} coastline`, allowGale: false }, 'raidEvent');
+    }
+    return finishRaidEvent(s, f, fr, drawEvent(s, `${SIDE_SHORT[side]} Raid on ${ZONE_NAME[fr.zone]} coastline`, false));
+  },
+  raidEvent(s, f) {
+    const fr = s.forces[f.L.raidForce]; delete f.L.raidForce;
+    return finishRaidEvent(s, f, fr, EVENTS[f.ret]);
   },
   /* E3/E6 Army Support -------------------------------------------------------------------- */
   as(s, f) {
@@ -144,12 +141,13 @@ PROCS.coastal = {
     f.L.troops = item.troops;
     return G('asBattle');
   },
-  asBattle(s, f) {
+  asBattle(s, f, enteredEvent) {
     const side = f.L.side, other = OTHER[side], item = f.L.cur;
     s.stepLabel = side === s.ai ? 'E3.3 A.I. Land Battles' : 'E6.3 Your Land Battles';
     const ships = item.forces.reduce((a, fid) => a.concat(s.forces[fid] ? s.forces[fid].ships : []), []);
     const target = item.z === 'NIA' ? 'NIA' : 'HOME';
-    const ev = drawEvent(s, `${SIDE_SHORT[side]} Land Battle (${ZONE_NAME[item.z]})`, false);
+    if (s.options.physicalEvents && !enteredEvent) return C('eventDraw', { purpose: `${SIDE_SHORT[side]} Land Battle (${ZONE_NAME[item.z]})`, allowGale: false }, 'asBattleEvent');
+    const ev = enteredEvent || drawEvent(s, `${SIDE_SHORT[side]} Land Battle (${ZONE_NAME[item.z]})`, false);
     const lines = [`Coastal Event #${ev.id}: ${EVENT_TITLE[ev.coastal]}${ev.coastal !== 'none' ? ' – ' + EVENT_TEXT[ev.coastal]() : ''}`];
     let shift = 0, storm = false;
     if (ev.coastal === 'moreDefenders') shift -= 2;
@@ -193,6 +191,7 @@ PROCS.coastal = {
     return P(choice(`Land Battle – read Player Aid VII`, lines.join('\n') + `\n\nOn Player Aid VII, use column “${lk.colLabel}” with ${Math.min(f.L.troops, 3)} Troops marker(s), row ${r.v}. Select the result:`,
       LB_RESULTS.map(x => ({ id: x.id, label: x.label })), { landBattle: f.L.lb }), 'asResult');
   },
+  asBattleEvent(s, f) { return PROCS.coastal.asBattle(s, f, EVENTS[f.ret]); },
   asResult(s, f) {
     const lb = f.L.lb;
     let res = f.answer;
@@ -321,3 +320,18 @@ PROCS.harbor = {
   },
   __done(s, f) { return R(); },
 };
+
+function finishRaidEvent(s, f, fr, ev) {
+  const side = f.L.side, fid = fr.id;
+  const lines = [`Coastal Event #${ev.id}: ${EVENT_TITLE[ev.coastal]}${ev.coastal !== 'none' ? ' – ' + EVENT_TEXT[ev.coastal]() : ''}`];
+  const evs = [];
+  if (['localMilitia', 'suppliesBurned', 'suppliesMoved', 'suddenStorm'].indexOf(ev.coastal) >= 0) evs.push(ev.coastal);
+  if (ev.coastal === 'intelligence') grantIntelligence(s, side, ev.id, lines);
+  const ok = fr.ships.length && forceShips(s, fr).some(isFull);
+  if (ok) {
+    s.coastal.raids.push({ side, zone: fr.zone, forceId: fid, guns: sumBy(forceShips(s, fr), guns), events: evs });
+    lines.push(`The Raid marker is placed on the ${ZONE_NAME[fr.zone]} coastline (VPs and supplies in the Tally Phase).`);
+  } else lines.push('The Force has no undamaged ship – no Raid.');
+  lines.forEach(l => log(s, `${SIDE_SHORT[side]} Raid (${ZONE_NAME[fr.zone]}): ${l}`, 'coastal'));
+  return P(info(`${SIDE_NAME[side]} Raid on ${ZONE_NAME[fr.zone]}`, lines.join('\n'), { eventCard: ev.id }), 'raid');
+}

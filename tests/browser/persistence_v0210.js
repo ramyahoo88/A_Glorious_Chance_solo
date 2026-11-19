@@ -1,3 +1,4 @@
+const legacyEventFixture = require('./legacy_events');
 /* Exercise the shipped page and its controls. NODE_PATH must provide jsdom.
    node tests/browser/persistence_v0210.js [repository or HTML file] [--require-fixed] */
 const fs = require('node:fs');
@@ -6,7 +7,7 @@ const assert = require('node:assert/strict');
 const { JSDOM, VirtualConsole } = require('jsdom');
 
 const target = path.resolve(process.argv[2] || path.join(__dirname, '../..'));
-const html = fs.readFileSync(fs.statSync(target).isDirectory() ? path.join(target, 'dist/index.html') : target, 'utf8');
+const html = legacyEventFixture(fs.readFileSync(fs.statSync(target).isDirectory() ? path.join(target, 'dist/index.html') : target, 'utf8'));
 const key = 'agc_solo_companion_v1';
 const results = [];
 const windows = [];

@@ -1,9 +1,10 @@
+const legacyEventFixture = require('./legacy_events');
 // Shipped HTML and real control handlers in jsdom; not a visual-browser test.
 // These fixtures preserve the audit's original natural and damaged positions.
 const fs = require('fs'), path = require('path'), assert = require('assert/strict');
 const { JSDOM, VirtualConsole } = require('jsdom');
 const root = path.resolve(__dirname, '../..');
-const html = fs.readFileSync(path.join(root, 'dist/index.html'), 'utf8');
+const html = legacyEventFixture(fs.readFileSync(path.join(root, 'dist/index.html'), 'utf8'));
 const fixtures = path.join(root, 'audits/2026-11-19-v0.2.12-reaudit/evidence/targeted');
 const fixture = name => {
   const raw = JSON.parse(fs.readFileSync(path.join(fixtures, name + '.json')));

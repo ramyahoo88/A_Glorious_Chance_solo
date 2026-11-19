@@ -1,0 +1,7 @@
+US 40 entries 8 Reset – end of July I
+US 80 entries 18 Draw an Event card
+US 120 entries 23 Draw an Event card
+BR 40 entries 9 Encounter ended
+BR 80 entries 18 Draw an Event card
+BR 120 entries 32 Draw an Event card
+{"games":[{"side":"US","seed":976001,"style":"fleet","width":1440,"group":false,"actions":124,"entries":24,"reloads":4,"undos":3,"inspections":3,"result":{"score":-16,"level":"British Marginal Victory"},"errors":[]},{"side":"BR","seed":976002,"style":"coast","width":390,"group":true,"actions":144,"entries":40,"reloads":6,"undos":5,"inspections":5,"result":{"score":0,"level":"Draw"},"errors":[]}],"browser":"153.0.8010.0"}

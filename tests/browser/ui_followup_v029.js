@@ -1,10 +1,11 @@
+const legacyEventFixture = require('./legacy_events');
 /* Claude v0.2.8 audit follow-ups, tested independently through shipped HTML.
    NODE_PATH=/path/to/jsdom/node_modules node tests/browser/ui_followup_v029.js [repo] [--require-fixed]
    Geometry checks stub rectangles; real responsive scrolling is a browser check. */
 const fs = require('fs'), path = require('path'), assert = require('assert');
 const { JSDOM, VirtualConsole } = require('jsdom');
 const repo = path.resolve(process.argv[2] || path.join(__dirname, '../..'));
-const html = fs.readFileSync(path.join(repo, 'dist/index.html'), 'utf8');
+const html = legacyEventFixture(fs.readFileSync(path.join(repo, 'dist/index.html'), 'utf8'));
 const checks = [], errors = [];
 const check = (name, pass, detail) => checks.push({ name, pass: !!pass, detail });
 async function launch() {

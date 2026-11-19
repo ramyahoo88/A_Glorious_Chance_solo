@@ -1,7 +1,8 @@
+const legacyEventFixture = require('./legacy_events');
 // Actual shipped HTML and control handlers in jsdom; this is not a visual-browser test.
 const fs=require('fs'),path=require('path'),assert=require('assert/strict');
 const {JSDOM,VirtualConsole}=require('jsdom');
-const root=path.resolve(__dirname,'../..'),html=fs.readFileSync(path.join(root,'dist/index.html'),'utf8');
+const root=path.resolve(__dirname,'../..'),html=legacyEventFixture(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'));
 const dir=path.join(root,'audits/2026-11-19-v0.2.11/evidence/targeted');
 const fixture=name=>JSON.parse(fs.readFileSync(path.join(dir,name+'.json')));
 const key='agc_solo_companion_v1';let passed=0;const errors=[];

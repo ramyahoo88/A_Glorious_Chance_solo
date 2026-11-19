@@ -1,10 +1,11 @@
+const legacyEventFixture = require('./legacy_events');
 /* Exercises the built HTML, including normal A7 play. Run with NODE_PATH pointing
    to jsdom and an optional path to the built HTML, followed by --observe for a baseline. */
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { JSDOM, VirtualConsole } = require('jsdom');
-const html = fs.readFileSync(process.argv[2] || path.resolve(__dirname, '../../dist/index.html'), 'utf8');
+const html = legacyEventFixture(fs.readFileSync(process.argv[2] || path.resolve(__dirname, '../../dist/index.html'), 'utf8'));
 const results = [], errors = [];
 const jsdomErrors = new VirtualConsole().on('jsdomError', e => errors.push(e.message));
 async function game(run, setup = true) {

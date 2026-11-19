@@ -1,0 +1,23 @@
+{
+  "browser/campaign-BR.json": "a6bbf3b633b0ba9e60bad340cc00631ba8d63dbec99cc5145724163dfc8a55a5",
+  "browser/campaign-US.json": "08cffd46f57d2b79ce38e1da8f83be3a8fc3de33ed194277a57151a6778f1bbf",
+  "browser/campaigns.js": "af2020a885675c19389f642868fd8bd003a95aa4418457b9c85ea42a913dd79e",
+  "browser/campaigns.json": "2c2722e25bfbfe623f87009a512e8c08d31fcfb6c7136fd7b3afff84c875d902",
+  "browser/event-redraw-390.png": "bb31f984f35fd5aa135bedb01eedc53ea6257d640fbc2b988be6ebf1a9c0246f",
+  "browser/final-BR.json": "7828751a68a09d885b2c4a73d16346051593e521a4378103492c34e06c9376ba",
+  "browser/final-BR.png": "89334556e5df29c6f20203d7124454fd741a5a1fd64bc8f97868297e20c05aa4",
+  "browser/final-US.json": "57e022cf0f7e1d196e569999360a494f4b897717ff0f15e1db13317e89fb2ab1",
+  "browser/final-US.png": "6598a7975f73840a539b71a3f908b345beb76fdbc653e19019e199c53ea635e4",
+  "browser/focused.js": "9ee412b6d69f4fc0a994b9d77e0955f8ec70f2715e37e4f78939edb664cceee3",
+  "browser/focused.json": "3c7837b0c460f84148bbea93e245d0d1d61f857cde522d4455c043a59ae492cf",
+  "browser/ui-driver.js": "201239a74cf6c0ebf0adcf2fc50365766430dca23de93f1feddc5b229adac490",
+  "physical-equivalence.json": "76638951fea3c0ff4d5e0d43b178d38fc0e7fbc3d14b8baa2d4f86c22cb795c3",
+  "results/browser-campaigns.txt": "73ee3e5a85849f436896df5898c1db17884355adf07e7a14dbfd06b44d54f03b",
+  "results/focused.txt": "3c5db65d820bb666969254429582eb7bf25d94e927af0c342c51c5045f8099d9",
+  "results/independent-build.json": "48ce11ff5184078b740e77c8636764ca66b8ae640d68a07a7dbd97f1565f3b7d",
+  "results/npm-test.txt": "7b72a3ca0dd020afcb5a712faae42d0131936dd04beb0c3808f18040f44f1581",
+  "results/npm-ui.txt": "60109b306a4812888dea14975a8a0ef7c658556473f4e9a4846ced74620c92f1",
+  "results/physical-engine.txt": "ceccd29a13bc9521858f784dcfd61782eafef7c68f4874bf4ce5467edeb77bf4",
+  "results/physical-ui.txt": "9733a0124a2ece78ea4f18e88649d3b1f06fc18c1e45f14de9ec20868c64a039",
+  "verify_release.py": "1720e83d683f68e90df74717671dd4759c725997eb0ca4c5f82e741363011660"
+}

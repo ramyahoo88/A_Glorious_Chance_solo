@@ -1,10 +1,11 @@
+const legacyEventFixture = require('./legacy_events');
 /* Shipped controls, the end-of-game shortcut, and the single-Undo boundary for grouped updates. */
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { JSDOM, VirtualConsole } = require('jsdom');
 const repo = path.resolve(process.argv[2] || path.join(__dirname, '../..'));
-const html = fs.readFileSync(path.join(repo, 'dist/index.html'), 'utf8');
+const html = legacyEventFixture(fs.readFileSync(path.join(repo, 'dist/index.html'), 'utf8'));
 (async () => {
   const errors = [], vc = new VirtualConsole();
   vc.on('jsdomError', e => errors.push(e.message)); vc.on('error', e => errors.push(String(e)));

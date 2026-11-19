@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.16 - 2026-11-19
+
+* Require the physical Event deck in the app. At each Encounter Check, Lake Zone Event, Reaction Weather Gage, combat Weather Gage recheck, Raid and Land Battle, enter the printed Event number (1-38). Target and Tactic draws continue automatically.
+* Save each pending draw as a procedure step. Do not repeat Reaction dice, ship deployments or other completed work after entry or reload. Grouped updates always stop for Event entry.
+* Reject invalid, repeated and held-Intelligence card entries. Handle Gale discard/redraw as another physical input, and explain preparation/shuffling when a pile begins or is exhausted.
+* Undo restores the previous card availability and reminds the player to return the physical card. Pending draws lock manual corrections until resolved or undone. Existing campaigns switch at their next Event draw.
+* Add physical-entry engine/DOM coverage and complete browser campaigns using an independently shuffled test deck. Preserve the older automatic regression cases through an explicit test-only fixture; the production interface has no automatic-Event setting.
+
 ## 0.2.15 - 2026-11-19
 
 * Fix occupied map ports and the Beached section so their ship buttons appear under every box heading.

@@ -222,6 +222,8 @@ button.optcard { display: block; width: 100%; text-align: left; }
 .log-search-label { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-bottom: .5rem; }
 #log-search { width: 20rem; max-width: 100%; min-width: 0; }
 .app-download { margin-top: .7rem; }
+.event-entry label { display: block; font-weight: bold; margin-bottom: 6px; }
+.event-entry input { width: 7rem; min-height: 44px; padding: 7px; font-size: 1.2rem; }
 
 /* Public campaign map. HTML buttons keep the small-screen labels readable. */
 .map-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }

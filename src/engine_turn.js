@@ -268,7 +268,7 @@ PROCS.turn = {
     log(s, `B1: Possible Encounters – ${s.pe.map(p => `PE${p.num} ${ZONE_NAME[p.zone]} (card ${p.idx + 1})`).join(', ')}.`, 'ai');
     return aiPause(s, 'B1 Possible Encounters', `Place Possible Encounter markers:\n${s.pe.map(p => `PE${p.num} on your ${forceLabel(s, s.forces[p.forceId])} in ${ZONE_NAME[p.zone]}`).join('\n')}`, 'B2');
   },
-  B2(s, f) {
+  B2(s, f, enteredEvent) {
     s.stepLabel = 'B2 Encounter Checks';
     const pe = s.pe.find(p => p.status === 'possible');
     if (!pe) return G('C1');
@@ -291,7 +291,8 @@ PROCS.turn = {
       pe.forceId = other.id; force = other;
       log(s, `PE${pe.num} transferred to your ${forceLabel(s, other)}.`, 'ai');
     }
-    const ev = drawEvent(s, `Encounter Check PE${pe.num}`, false);
+    if (s.options.physicalEvents && !enteredEvent) return C('eventDraw', { purpose: `Encounter Check PE${pe.num}`, allowGale: false }, 'B2event');
+    const ev = enteredEvent || drawEvent(s, `Encounter Check PE${pe.num}`, false);
     if (!ev.spy) {
       pe.status = 'discarded';
       log(s, `PE${pe.num} ${ZONE_NAME[pe.zone]}: Event #${ev.id} – no spyglass, false alarm.`, 'event');
@@ -303,6 +304,7 @@ PROCS.turn = {
     f.L.pe = pe.num;
     return C('aiDeploy', { cardIdx: pe.idx, zone: pe.zone, phase: 'lake', encounter: true, humanForceId: pe.forceId, peNum: pe.num }, 'B2after');
   },
+  B2event(s, f) { return PROCS.turn.B2(s, f, EVENTS[f.ret]); },
   B2transfer(s, f) {
     const pe = s.pe.find(p => p.num === f.L.transferPe);
     pe.forceId = f.answer;

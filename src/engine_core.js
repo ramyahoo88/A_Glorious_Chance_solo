@@ -52,7 +52,11 @@ function act(s, answer, onStep) {
 }
 
 function validateAnswer(s, p, a) {
-  if (p.kind === 'choice' || p.kind === 'info') {
+  if (p.kind === 'event') {
+    if (!Number.isInteger(a) || !Object.hasOwn(EVENTS, a)) return 'Enter a whole Event card number from 1 to 38.';
+    if (['US', 'BR'].some(sd => s.intelligence[sd]?.card === a)) return `Event #${a} is set aside for Intelligence. Draw another card.`;
+    if (!s.deck.event.includes(a)) return `Event #${a} is not in the draw pile. Check the number or use Undo to correct the previous entry.`;
+  } else if (p.kind === 'choice' || p.kind === 'info') {
     if (!p.options.some(o => o.id === a && !o.disabled)) return 'Invalid option ' + a;
   } else if (p.kind === 'select') {
     if (!Array.isArray(a)) return 'Selection must be an array';
@@ -88,6 +92,41 @@ function aiPause(s, title, text, then, extra) {
 const SELECT_VALIDATORS = {};
 
 /* Event deck ----------------------------------------------------------- */
+// Physical-card play uses a real saved procedure frame, so no game action is
+// replayed when the player enters a card. Automatic draws remain available to
+// engine-only regression/simulation callers; the app always enables physical draws.
+PROCS.eventDraw = {
+  start(s, f) {
+    if (!s.deck.event.length) {
+      const keep = ['US', 'BR'].map(sd => s.intelligence[sd]?.card).filter(Boolean);
+      s.deck.event = shuffle(s, Object.keys(EVENTS).map(Number).filter(id => !keep.includes(id)));
+      s.eventsDrawn = []; s.eventCardsPrepared = false;
+      log(s, 'Event deck exhausted – reshuffle the physical Event cards, keeping Intelligence cards set aside.', 'info');
+    }
+    const prepare = !s.eventCardsPrepared;
+    const cards = s.deck.event.slice().sort((a, b) => a - b);
+    const keep = ['US', 'BR'].map(sd => s.intelligence[sd]?.card).filter(Boolean);
+    const setup = prepare ? (cards.length === 38 ? 'Shuffle your physical Event deck.' :
+      `Prepare and shuffle the physical draw pile using these ${cards.length} cards: ${cards.join(', ')}. Keep the other cards aside.`) : '';
+    return P({ kind: 'event', title: 'Draw an Event card',
+      purpose: f.A.purpose, allowGale: !!f.A.allowGale,
+      text: `${f.A.purpose}\n\n${f.L.gale ? 'Discard Event #30 (Gale) and draw another card for this check.\n\n' : ''}${setup}${setup ? '\n\n' : ''}Draw the top physical Event card and enter its printed number (1–38).` +
+        (keep.length ? `\nKeep Intelligence card${keep.length > 1 ? 's' : ''} #${keep.join(', #')} out of the draw pile.` : ''),
+      remaining: cards.length }, 'number');
+  },
+  number(s, f) {
+    const id = f.answer;
+    s.deck.event.splice(s.deck.event.indexOf(id), 1);
+    s.eventsDrawn.push({ id, purpose: f.A.purpose });
+    s.eventCardsPrepared = true;
+    log(s, `Physical Event card #${id} entered for ${f.A.purpose}.`, 'event');
+    if (id === 30 && !f.A.allowGale) {
+      log(s, `Drew Event #30 Gale for ${f.A.purpose} – discarded and redrawn [2.5.1].`, 'event');
+      f.L.gale = true; return G('start');
+    }
+    return R(id);
+  }
+};
 function drawEvent(s, purpose, allowGale) {
   for (let tries = 0; tries < 200; tries++) {
     if (!s.deck.event.length) {

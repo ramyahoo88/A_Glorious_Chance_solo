@@ -515,7 +515,7 @@ PROCS.combat = {
   },
 
   /* Weather Gage recheck ----------------------------------------------------------------- */
-  wg(s, f) {
+  wg(s, f, enteredEvent) {
     const c = cmb(s), e = s.encounter, zf = zoneFlags(s);
     const prevStep = SEQ_STEPS[c.seq][c.pos - 1];
     if (prevStep === 'GR1' && tacActive(c, 'att', 'A_sweep')) { log(s, 'Sweep Up & Fire: skip the Weather Gage recheck.', 'combat'); c.pos++; return G('next'); }
@@ -523,7 +523,8 @@ PROCS.combat = {
     if (prevStep === 'GR2' && c.att === 'BR' && c.segment === 'patrol' && zf.breeze && !tacActive(c, 'att', 'A_sweep')) { log(s, 'Commanding Breeze: skip the Weather Gage recheck and go to Close Action.', 'event'); c.pos++; return G('next'); }
     // D06 overrides the winner of the check. LC6 still draws the Event whose
     // symbols govern Tactics if a new Combat Sequence begins.
-    const ev = drawEvent(s, 'Weather Gage recheck', false);
+    if (s.options.physicalEvents && !enteredEvent) return C('eventDraw', { purpose: 'Weather Gage recheck', allowGale: false }, 'wgEvent');
+    const ev = enteredEvent || drawEvent(s, 'Weather Gage recheck', false);
     e.wgCard = ev.id;
     let newWG = ev.wg === 'A' ? 'US' : 'BR';
     let txt = `Weather Gage recheck: Event #${ev.id} → ${SIDE_NAME[newWG]}.`;
@@ -539,6 +540,7 @@ PROCS.combat = {
     f.L.newAtt = newAtt;
     return P(info('Weather Gage changes!', txt + `\nCombat Sequence ${newAtt === 'US' ? 'A' : 'B'} begins.`, { eventCard: ev.id, combatView: true }), 'wgSwitch');
   },
+  wgEvent(s, f) { return PROCS.combat.wg(s, f, EVENTS[f.ret]); },
   wgSwitch(s, f) {
     const newAtt = f.L.newAtt, e = s.encounter;
     if (newAtt === s.ai) {

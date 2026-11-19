@@ -1,0 +1,748 @@
+{
+  "games": 64,
+  "actions": 7131,
+  "enteredCards": 1866,
+  "galeRedraws": 44,
+  "pendingSaveChecks": 1866,
+  "purposes": {
+    "Encounter Check PE1": 470,
+    "U.S. Land Battle (Niagara)": 59,
+    "Encounter Check PE2": 297,
+    "Encounter Check PE3": 165,
+    "British Land Battle (Sacket's)": 24,
+    "Encounter Check PE4": 75,
+    "Encounter Check PE5": 30,
+    "Encounter Sacket's (Weather Gage + Lake Zone Event)": 106,
+    "Encounter Kingston (Weather Gage + Lake Zone Event)": 76,
+    "Reaction Segment Weather Gage (Kingston)": 27,
+    "Encounter Kingston (Weather Gage)": 5,
+    "British Raid on South Lake coastline": 49,
+    "Encounter Niagara (Weather Gage + Lake Zone Event)": 22,
+    "British Land Battle (Niagara)": 50,
+    "U.S. Raid on York coastline": 82,
+    "U.S. Raid on Kingston coastline": 84,
+    "U.S. Land Battle (Kingston)": 37,
+    "Encounter York (Weather Gage + Lake Zone Event)": 11,
+    "British Raid on Sacket's coastline": 44,
+    "Encounter South Lake (Weather Gage + Lake Zone Event)": 12,
+    "Encounter Check PE6": 8,
+    "Encounter Check PE7": 3,
+    "Weather Gage recheck": 66,
+    "Reaction Segment Weather Gage (Sacket's)": 35,
+    "Encounter Sacket's (Weather Gage)": 9,
+    "Reaction Segment Weather Gage (South Lake)": 5,
+    "Reaction Segment Weather Gage (Niagara)": 7,
+    "Encounter Niagara (Weather Gage)": 2,
+    "Encounter North Lake (Weather Gage + Lake Zone Event)": 5,
+    "Encounter Check PE8": 1
+  },
+  "results": [
+    {
+      "side": "US",
+      "seed": 975000,
+      "style": "fleet",
+      "actions": 121,
+      "entries": 26,
+      "result": {
+        "score": 19,
+        "level": "U.S. Marginal Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975000,
+      "style": "fleet",
+      "actions": 137,
+      "entries": 26,
+      "result": {
+        "score": 20,
+        "level": "U.S. Marginal Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975001,
+      "style": "coast",
+      "actions": 88,
+      "entries": 33,
+      "result": {
+        "score": -60,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975001,
+      "style": "coast",
+      "actions": 93,
+      "entries": 36,
+      "result": {
+        "score": 95,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975002,
+      "style": "screen",
+      "actions": 115,
+      "entries": 22,
+      "result": {
+        "score": -41,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975002,
+      "style": "screen",
+      "actions": 154,
+      "entries": 24,
+      "result": {
+        "score": 39,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975003,
+      "style": "blockade",
+      "actions": 60,
+      "entries": 28,
+      "result": {
+        "score": -74,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975003,
+      "style": "blockade",
+      "actions": 78,
+      "entries": 25,
+      "result": {
+        "score": 2,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975004,
+      "style": "fleet",
+      "actions": 107,
+      "entries": 30,
+      "result": {
+        "score": -45,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975004,
+      "style": "fleet",
+      "actions": 158,
+      "entries": 28,
+      "result": {
+        "score": 79,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975005,
+      "style": "coast",
+      "actions": 98,
+      "entries": 40,
+      "result": {
+        "score": -63,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975005,
+      "style": "coast",
+      "actions": 117,
+      "entries": 50,
+      "result": {
+        "score": 39,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975006,
+      "style": "screen",
+      "actions": 114,
+      "entries": 23,
+      "result": {
+        "score": -67,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975006,
+      "style": "screen",
+      "actions": 136,
+      "entries": 22,
+      "result": {
+        "score": 80,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975007,
+      "style": "blockade",
+      "actions": 55,
+      "entries": 23,
+      "result": {
+        "score": -37,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975007,
+      "style": "blockade",
+      "actions": 103,
+      "entries": 29,
+      "result": {
+        "score": -42,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975008,
+      "style": "fleet",
+      "actions": 128,
+      "entries": 30,
+      "result": {
+        "score": 28,
+        "level": "U.S. Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975008,
+      "style": "fleet",
+      "actions": 171,
+      "entries": 39,
+      "result": {
+        "score": -9,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975009,
+      "style": "coast",
+      "actions": 81,
+      "entries": 40,
+      "result": {
+        "score": 49,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975009,
+      "style": "coast",
+      "actions": 95,
+      "entries": 32,
+      "result": {
+        "score": 37,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975010,
+      "style": "screen",
+      "actions": 162,
+      "entries": 29,
+      "result": {
+        "score": -71,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975010,
+      "style": "screen",
+      "actions": 139,
+      "entries": 25,
+      "result": {
+        "score": 80,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975011,
+      "style": "blockade",
+      "actions": 84,
+      "entries": 23,
+      "result": {
+        "score": -23,
+        "level": "British Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975011,
+      "style": "blockade",
+      "actions": 72,
+      "entries": 21,
+      "result": {
+        "score": 8,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975012,
+      "style": "fleet",
+      "actions": 129,
+      "entries": 32,
+      "result": {
+        "score": -26,
+        "level": "British Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975012,
+      "style": "fleet",
+      "actions": 164,
+      "entries": 33,
+      "result": {
+        "score": -4,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975013,
+      "style": "coast",
+      "actions": 99,
+      "entries": 38,
+      "result": {
+        "score": -2,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975013,
+      "style": "coast",
+      "actions": 91,
+      "entries": 44,
+      "result": {
+        "score": 51,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975014,
+      "style": "screen",
+      "actions": 139,
+      "entries": 31,
+      "result": {
+        "score": -44,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975014,
+      "style": "screen",
+      "actions": 166,
+      "entries": 26,
+      "result": {
+        "score": 58,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975015,
+      "style": "blockade",
+      "actions": 59,
+      "entries": 20,
+      "result": {
+        "score": -65,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975015,
+      "style": "blockade",
+      "actions": 59,
+      "entries": 16,
+      "result": {
+        "score": 45,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975016,
+      "style": "fleet",
+      "actions": 132,
+      "entries": 35,
+      "result": {
+        "score": 19,
+        "level": "U.S. Marginal Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975016,
+      "style": "fleet",
+      "actions": 163,
+      "entries": 34,
+      "result": {
+        "score": 49,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975017,
+      "style": "coast",
+      "actions": 97,
+      "entries": 41,
+      "result": {
+        "score": -7,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975017,
+      "style": "coast",
+      "actions": 110,
+      "entries": 35,
+      "result": {
+        "score": 42,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975018,
+      "style": "screen",
+      "actions": 142,
+      "entries": 33,
+      "result": {
+        "score": -52,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975018,
+      "style": "screen",
+      "actions": 152,
+      "entries": 25,
+      "result": {
+        "score": 42,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975019,
+      "style": "blockade",
+      "actions": 73,
+      "entries": 20,
+      "result": {
+        "score": -74,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975019,
+      "style": "blockade",
+      "actions": 92,
+      "entries": 26,
+      "result": {
+        "score": 2,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975020,
+      "style": "fleet",
+      "actions": 117,
+      "entries": 26,
+      "result": {
+        "score": -86,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975020,
+      "style": "fleet",
+      "actions": 130,
+      "entries": 25,
+      "result": {
+        "score": 31,
+        "level": "U.S. Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975021,
+      "style": "coast",
+      "actions": 82,
+      "entries": 45,
+      "result": {
+        "score": 25,
+        "level": "U.S. Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975021,
+      "style": "coast",
+      "actions": 118,
+      "entries": 59,
+      "result": {
+        "score": -7,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975022,
+      "style": "screen",
+      "actions": 108,
+      "entries": 17,
+      "result": {
+        "score": -24,
+        "level": "British Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975022,
+      "style": "screen",
+      "actions": 163,
+      "entries": 29,
+      "result": {
+        "score": 85,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975023,
+      "style": "blockade",
+      "actions": 61,
+      "entries": 22,
+      "result": {
+        "score": -8,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975023,
+      "style": "blockade",
+      "actions": 83,
+      "entries": 18,
+      "result": {
+        "score": 107,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975024,
+      "style": "fleet",
+      "actions": 133,
+      "entries": 33,
+      "result": {
+        "score": -92,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975024,
+      "style": "fleet",
+      "actions": 165,
+      "entries": 38,
+      "result": {
+        "score": -40,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975025,
+      "style": "coast",
+      "actions": 79,
+      "entries": 35,
+      "result": {
+        "score": 26,
+        "level": "U.S. Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975025,
+      "style": "coast",
+      "actions": 85,
+      "entries": 31,
+      "result": {
+        "score": 53,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975026,
+      "style": "screen",
+      "actions": 123,
+      "entries": 19,
+      "result": {
+        "score": -65,
+        "level": "British Decisive Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975026,
+      "style": "screen",
+      "actions": 153,
+      "entries": 24,
+      "result": {
+        "score": 8,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975027,
+      "style": "blockade",
+      "actions": 47,
+      "entries": 17,
+      "result": {
+        "score": 1,
+        "level": "U.S. Decisive Victory (Dual Blockade)",
+        "forced": "US"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975027,
+      "style": "blockade",
+      "actions": 72,
+      "entries": 22,
+      "result": {
+        "score": -7,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975028,
+      "style": "fleet",
+      "actions": 143,
+      "entries": 38,
+      "result": {
+        "score": -19,
+        "level": "British Marginal Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975028,
+      "style": "fleet",
+      "actions": 161,
+      "entries": 31,
+      "result": {
+        "score": 35,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975029,
+      "style": "coast",
+      "actions": 83,
+      "entries": 32,
+      "result": {
+        "score": 19,
+        "level": "U.S. Marginal Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975029,
+      "style": "coast",
+      "actions": 97,
+      "entries": 33,
+      "result": {
+        "score": 58,
+        "level": "U.S. Decisive Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975030,
+      "style": "screen",
+      "actions": 100,
+      "entries": 21,
+      "result": {
+        "score": -4,
+        "level": "Draw"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975030,
+      "style": "screen",
+      "actions": 130,
+      "entries": 16,
+      "result": {
+        "score": 13,
+        "level": "U.S. Marginal Victory"
+      }
+    },
+    {
+      "side": "US",
+      "seed": 975031,
+      "style": "blockade",
+      "actions": 79,
+      "entries": 21,
+      "result": {
+        "score": 23,
+        "level": "U.S. Victory"
+      }
+    },
+    {
+      "side": "BR",
+      "seed": 975031,
+      "style": "blockade",
+      "actions": 86,
+      "entries": 21,
+      "result": {
+        "score": 114,
+        "level": "U.S. Decisive Victory"
+      }
+    }
+  ],
+  "assertions": 32286,
+  "passed": true
+}

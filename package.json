@@ -1,11 +1,11 @@
 {
   "name": "a-glorious-chance-solo-companion",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "description": "Offline solo companion app for A Glorious Chance (Legion Wargames): runs the AI, bookkeeping and dice for the U.S. and British Solo Campaigns.",
   "scripts": {
     "build": "node tools/build.js",
-    "test": "node tests/unit.js && node tests/scenario.js && node tests/regression.js && node tests/regression_v029_turn.js && node tests/regression_v029_combat.js && node tests/regression_v029_preview.js && node tests/regression_v029_deploy.js && node tests/regression_v029_combat_followup.js && node tests/regression_v029_coastal.js && node tests/regression_v0210_deploy.js && node tests/regression_v0210_combat.js && node tests/regression_v0210_coastal.js && node tests/regression_v0212.js && node tests/sim.js 100",
-    "test:ui": "node tests/browser/ui_v029.js . --require-fixed && node tests/browser/persistence_v029.js . --require-fixed && node tests/browser/ui_followup_v029.js . --require-fixed && node tests/browser/persistence_followup_v029.js . --require-fixed && node tests/browser/tabletop_v0210.js . && node tests/browser/phone_v0210.js dist/index.html && node tests/browser/persistence_v0210.js . --require-fixed && node tests/browser/fixes_v0212.js && node tests/browser/fixes_v0213.js && node tests/browser/map_v0214.js && node tests/browser/fixes_v0215.js"
+    "test": "node tests/unit.js && node tests/scenario.js && node tests/regression.js && node tests/regression_v029_turn.js && node tests/regression_v029_combat.js && node tests/regression_v029_preview.js && node tests/regression_v029_deploy.js && node tests/regression_v029_combat_followup.js && node tests/regression_v029_coastal.js && node tests/regression_v0210_deploy.js && node tests/regression_v0210_combat.js && node tests/regression_v0210_coastal.js && node tests/regression_v0212.js && node tests/sim.js 100 && node tests/physical_events.js",
+    "test:ui": "node tests/browser/ui_v029.js . --require-fixed && node tests/browser/persistence_v029.js . --require-fixed && node tests/browser/ui_followup_v029.js . --require-fixed && node tests/browser/persistence_followup_v029.js . --require-fixed && node tests/browser/tabletop_v0210.js . && node tests/browser/phone_v0210.js dist/index.html && node tests/browser/persistence_v0210.js . --require-fixed && node tests/browser/fixes_v0212.js && node tests/browser/fixes_v0213.js && node tests/browser/map_v0214.js && node tests/browser/fixes_v0215.js && node tests/browser/physical_events.js"
   },
   "license": "UNLICENSED",
   "private": true

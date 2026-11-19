@@ -1,10 +1,11 @@
+const legacyEventFixture = require('./legacy_events');
 /* Claude v0.2.8 M6/M7/L12 follow-up, actual shipped HTML in jsdom.
    node tests/browser/persistence_followup_v029.js [repo] [--require-fixed]
 */
 const fs=require('fs'),path=require('path'),assert=require('assert');
 const {JSDOM,VirtualConsole}=require('jsdom');
 const repo=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
-const html=fs.readFileSync(path.join(repo,'dist/index.html'),'utf8'),strict=process.argv.includes('--require-fixed');
+const html=legacyEventFixture(fs.readFileSync(path.join(repo,'dist/index.html'),'utf8')),strict=process.argv.includes('--require-fixed');
 const results=[],fixture=n=>fs.readFileSync(path.join(__dirname,'fixtures',n),'utf8');
 function check(name,ok,detail){results.push({name,pass:!!ok,detail});}
 async function launch(saved){

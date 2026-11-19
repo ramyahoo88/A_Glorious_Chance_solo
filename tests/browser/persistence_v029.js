@@ -1,3 +1,4 @@
+const legacyEventFixture = require('./legacy_events');
 /* Current-game persistence and adjustment regressions, against shipped HTML.
    Requires jsdom, supplied through NODE_PATH. This checks DOM handlers, not layout.
    node tests/browser/persistence_v029.js [repo] [--require-fixed]
@@ -6,7 +7,7 @@ const fs = require('fs'), path = require('path'), assert = require('assert');
 const { JSDOM, VirtualConsole } = require('jsdom');
 const repo = path.resolve(process.argv[2] || path.join(__dirname, '../..'));
 const strict = process.argv.includes('--require-fixed');
-const html = fs.readFileSync(path.join(repo, 'dist/index.html'), 'utf8');
+const html = legacyEventFixture(fs.readFileSync(path.join(repo, 'dist/index.html'), 'utf8'));
 const results = [];
 function check(name, ok, detail) { results.push({ name, pass: !!ok, detail }); }
 async function launch(saved) {
