@@ -95,3 +95,9 @@ These are the places where the rules are silent or ambiguous, or where the compo
 68. **Struck Colors under Pursuit (project ruling, 18 Nov 2026):** when Pursuit cancels a DW withdrawal, the Encounter that just ended settles its Struck Colors ships at once, before the new Encounter draws its Event, as if the DW withdrawal had happened: the pursued (Defending) side's struck ships are Captured, the Attacker's are Rescued, and if the Attacker withdrew too (AW/DW) each one rolls 1d6 as in LC5.3. LC5.3 does not name this ending; the ruling keeps Pursuit from ever making a capture less likely, and nothing that happens in the new Encounter can change those fates.
 69. **Aborted coastal missions:** the A.I.'s unlaunched Troops now wait for F7 like yours (note 23), instead of going straight back to its Available box. Board → Tracks shows how many Troops of each side are due back at F7.
 70. **Saves made by 0.2.3 at the Rake choice:** on loading (file, pasted text, autosave or Undo) the random ship is rolled from the saved dice – the same ship 0.2.3 would have picked – and named on the button before you choose.
+
+## Added in 0.2.6 (audit of 0.2.5)
+71. **Saves made by 0.2.4 inside the two old windows are upgraded once on loading** (file, pasted text, autosave or Undo), and only on clear evidence in the current turn's log:
+    * an A.I. withdrawal that put its Troops straight back in the Available box (L01): the markers move to the F7 queue. If the A.I. has already sailed or landed with Troops since, nothing is changed and a message asks for a save from before the withdrawal;
+    * a ship that Struck Colors before a Pursuit and is still undecided (L02): it is settled at once by note 68, the pursued side taken from the last Gunnery Round before the Pursuit. Ships that struck in the new Encounter are left alone.
+    A message on the screen says what was changed. Upgraded saves are marked so this happens only once.

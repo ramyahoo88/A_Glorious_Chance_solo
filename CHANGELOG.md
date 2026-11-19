@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.6 – 2026-11-18
+Save upgrades from the audit of 0.2.5 (RULES_NOTES 71).
+* A save made by 0.2.4 after an A.I. withdrawal had put its Troops back in Available too early now moves them to the F7 queue on loading; if the A.I. already sailed with them, the app says so and asks for an earlier save.
+* A save made by 0.2.4 after Pursuit with a surrender still undecided now settles it on loading (rules note 68), so a later command cannot change the owner.
+* 11 new regression checks (paired with controls).
+
 ## 0.2.5 – 2026-11-18
 Fixes from the audit of 0.2.4 (RULES_NOTES 23, 68–70).
 * Troops on a withdrawn (aborted) A.I. coastal mission wait for F7 instead of becoming Available at once, so they can no longer embark on a second Force the same turn.

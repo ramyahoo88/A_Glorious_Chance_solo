@@ -46,7 +46,7 @@ function doAct(answer) {
   autosave(); render();
   const p = $('proc'); if (p) p.scrollTop = 0;
 }
-function undo() { if (!UNDO.length) return; G_STATE = upgradeLegacyPrompt(JSON.parse(UNDO.pop())); UI.err = ''; UI.local = null; autosave(); render(); }
+function undo() { if (!UNDO.length) return; const notes = []; G_STATE = upgradeLegacy(JSON.parse(UNDO.pop()), notes); UI.err = notes.join(' '); UI.local = null; autosave(); render(); }
 function startGame(human, seed, opts) {
   G_STATE = newGame(human, seed, opts);
   UNDO = [];
@@ -112,7 +112,8 @@ function checkSaveState(st) {
       Object.keys(e.ships).forEach(id => { const sd = e.side[id] || st.ships[id].owner; if (st.flagship[sd] === id) e.flagIn[sd] = true; });
     }
   }
-  return upgradeLegacyPrompt(st);
+  UI.loadNotes = [];
+  return upgradeLegacy(st, UI.loadNotes);
 }
 // Replace the current game with a checked save; if it cannot be shown, put the old game back.
 function commitLoaded(st, undo) {
@@ -120,7 +121,7 @@ function commitLoaded(st, undo) {
   const loadedUndo = Array.isArray(undo) ? undo.filter(u => typeof u === 'string') : [];
   // keep the previous game reachable: one Undo after loading returns to it (and its own Undo history)
   const keep = prevS ? prevU.concat([JSON.stringify(prevS)]) : [];
-  G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.err = '';
+  G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.err = (UI.loadNotes || []).join(' '); UI.loadNotes = [];
   try { render(); }
   catch (e) {
     G_STATE = prevS; UNDO = prevU;

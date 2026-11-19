@@ -565,6 +565,57 @@ function upgradeLegacyPrompt(s) {
   if (o) o.label = `Random ship: ${shipName(s, f.L.rakeRandom)}`;
   return s;
 }
+// Saves from earlier versions caught in a window that the fixed rules no longer reach (audits of 0.2.4 and 0.2.5).
+// Each repair runs once (s.migrated) and only on clear evidence in the current turn's log; anything it cannot
+// rebuild safely is reported in notes instead of guessed.
+function upgradeLegacy(s, notes) {
+  notes = notes || [];
+  if (!s || !s.calls) return s;
+  upgradeLegacyPrompt(s);
+  const done = s.migrated || {};
+  const turnLog = (s.log || []).map((l, i) => ({ l, i })).filter(x => x.l.turn === s.turn);
+  // L01 – before 0.2.5 a withdrawn A.I. coastal mission put its Troops straight back in the A.I. Available box
+  if (!done.aiTroopsF7 && ['lake', 'enemy', 'breakout', 'coastal'].indexOf(s.phase) >= 0) {
+    const re = new RegExp('^' + SIDE_SHORT[s.ai].replace(/\./g, '\\.') + ' Coastal mission aborted – (\\d+) Troops marker\\(s\\) remain available for future use\\.');
+    const hits = turnLog.filter(x => re.test(x.l.text));
+    if (hits.length) {
+      s.migrated = Object.assign(done, { aiTroopsF7: true });
+      const n = hits.reduce((a, x) => a + Number(re.exec(x.l.text)[1]), 0);
+      const first = hits[0].i;
+      const sailed = turnLog.some(x => x.i > first && (/AI Deploys to .*Carrying \d+ Troops/.test(x.l.text) || x.l.text.indexOf(SIDE_SHORT[s.ai] + ' Troops launched') === 0));
+      const inBox = s.aiTroops.box.filter(m => m.revealed && m.troops).length;
+      if (sailed || inBox < n) {
+        notes.push(`This save comes from an earlier version that returned ${n} withdrawn A.I. Troops marker(s) too early this turn, and the A.I. may already have sailed with them. That can't be undone safely here: to replay this turn by the rules, load a save from before the withdrawal.`);
+      } else {
+        for (let k = 0; k < n; k++) s.aiTroops.box.splice(s.aiTroops.box.findIndex(m => m.revealed && m.troops), 1);
+        s.troopsReturning = s.troopsReturning || { US: 0, BR: 0 };
+        s.troopsReturning[s.ai] = (s.troopsReturning[s.ai] || 0) + n;
+        const t = `Older save upgraded: the A.I.'s ${n} withdrawn Troops marker(s) were back in its Available box too early – they now return at F7.`;
+        log(s, t, 'info'); notes.push(t);
+      }
+    }
+  }
+  // L02 – before 0.2.5 a ship that Struck Colors before Pursuit stayed undecided into the new Encounter
+  const e = s.encounter;
+  if (e && e.ships) {
+    const pIdx = turnLog.filter(x => /^Pursuit! The withdrawal is cancelled and a new Encounter begins/.test(x.l.text)).map(x => x.i).pop();
+    if (pIdx !== undefined) {
+      const later = turnLog.filter(x => x.i > pIdx && /STRIKES COLORS/.test(x.l.text)).map(x => x.l.text);
+      const old = Object.keys(e.ships).filter(id => e.ships[id] === 'struck' && !later.some(t => t.indexOf(shipName(s, id)) === 0 || t.indexOf(def(s.ships[id]).name + ' ') === 0));
+      if (old.length) {
+        const gr = turnLog.filter(x => x.i < pIdx && /^Gunnery Round [12]: (U\.S\.|British) .* vs (U\.S\.|British) /.test(x.l.text)).pop();
+        let pursued = null;
+        if (gr) { const m = /^Gunnery Round [12]: (U\.S\.|British) .* vs (U\.S\.|British) /.exec(gr.l.text); pursued = m[2] === 'U.S.' ? 'US' : 'BR'; }
+        else if (s.combat && s.combat.def) pursued = s.combat.def;
+        const lines = [];
+        settleStruck(s, lines, pursued, old);
+        lines.forEach(l => log(s, l, 'combat'));
+        notes.push(`Older save upgraded: the surrender${old.length > 1 ? 's' : ''} from before the Pursuit ${old.length > 1 ? 'are' : 'is'} settled now (rules note 68): ${lines.join(' ')}`);
+      }
+    }
+  }
+  return s;
+}
 // Attacker Rake is single-use: once its hits are allocated the card goes back to its deck (Playbook p.19)
 function spendRake(s, c) {
   const t = c.tac.att;

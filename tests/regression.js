@@ -472,5 +472,56 @@ eq('W03 … the same ship every time it is loaded', X('again'), X('upLabel'));
 eq('W03 … and the hits land on it', X('upHit'), `Rake: all hits on ${X('named').replace('Random ship: ', '')}.`);
 eq('W03 control: a current save is left as it is', X(`(function(){ const c = JSON.parse(JSON.stringify(s)); const r0 = c.rng; upgradeLegacyPrompt(c); return [c.rng === r0, c.prompt.options[2].label]; })()`), [true, X('named')]);
 
+// ===== v0.2.6: audit of v0.2.5 (L01, L02) – saves made by v0.2.4 inside the two windows =====
+// The v0.2.4 behaviour is recreated by swapping in its code for one step, then the save goes through checkSaveState.
+X(`
+var v025abort = abortCoastalMission, v025settle = settleStruck;
+function v024abort(s, fr) { if (!fr) return; if (fr.troops) { if (fr.side === s.ai) returnAiTroops(s, fr.troops); else s.troopsReturning[fr.side] += fr.troops;
+  log(s, SIDE_SHORT[fr.side] + ' Coastal mission aborted – ' + fr.troops + ' Troops marker(s) remain available for future use.', 'info'); fr.troops = 0; } fr.aborted = true; }
+function asV024(fn) { abortCoastalMission = v024abort; settleStruck = function (s, lines, pursued, only) { if (pursued === undefined || only) return v025settle(s, lines, pursued, only); };
+  try { fn(); } finally { abortCoastalMission = v025abort; settleStruck = v025settle; } }
+function legacyL01() { const s = markerBoard(); asV024(() => act(s, 'ok')); return JSON.parse(JSON.stringify(s)); }
+`);
+X(`var l01 = legacyL01(); var l01raw = [aiTroopsInBox(l01), l01.troopsReturning.US];
+   var up = checkSaveState(JSON.parse(JSON.stringify(l01))); var l01notes = (UI.loadNotes || []).slice(); var l01up = [aiTroopsInBox(up), up.troopsReturning.US];
+   var t0 = up.turn; playUntil(up, q => q.prompt && /^Tally/.test(q.prompt.title));
+   var l01play = [up.log.some(l => /Troops launched in Kingston/.test(l.text)), up.supply.BR, gameScore(up)];
+   var again = checkSaveState(JSON.parse(JSON.stringify(checkSaveState(JSON.parse(JSON.stringify(l01))))));`);
+eq('L01 the recreated v0.2.4 save has the marker back in Available', X('l01raw'), [1, 0]);
+eq('L01 loading it moves the marker to the F7 queue', X('l01up'), [0, 1]);
+ok('L01 … and says so', X(`l01notes.length === 1 && /return at F7/.test(l01notes[0])`), X('l01notes.join(" | ")'));
+eq('L01 … so B20 deploys nothing: no Kingston landing, supply 1, score 0', X('l01play'), [false, 1, 0]);
+eq('L01 loading the upgraded save again changes nothing', X('[aiTroopsInBox(again), again.troopsReturning.US, (UI.loadNotes || []).length]'), [0, 1, 0]);
+X(`var sail = legacyL01(); delete sail.migrated; playUntil(sail, q => q.log.some(l => /AI Deploys to .*Carrying/.test(l.text)));
+   var sailed = sail.log.some(l => /AI Deploys to .*Carrying/.test(l.text)); var b0 = JSON.stringify([sail.aiTroops, sail.troopsReturning, sail.forces]);
+   var sup = checkSaveState(JSON.parse(JSON.stringify(sail))); var sailNotes = (UI.loadNotes || []).slice();`);
+ok('L01 control: once the A.I. has sailed with the marker, the load only warns', X(`sailed && sailNotes.length === 1 && /load a save from before the withdrawal/.test(sailNotes[0]) && JSON.stringify([sup.aiTroops, sup.troopsReturning, sup.forces]) === b0`), X('sailNotes.join(" | ")'));
+X(`var pre = markerBoard(); var preUp = checkSaveState(JSON.parse(JSON.stringify(pre)));`);
+eq('L01 control: a save from before the withdrawal is left alone', X('[(UI.loadNotes || []).length, aiTroopsInBox(preUp), preUp.troopsReturning.US]'), [0, 0, 0]);
+
+X(`
+function w02Board() {
+  const s = fresh('US', 182304); stageCombat(s, 'NOR', ['oneida'], ['moira']);
+  s.combat.tac.att = { id: 'A_pursuit', used: false, negated: false }; s.deck.tacA = s.deck.tacA.filter(id => id !== 'A_pursuit'); s.tacPlayed = ['A_pursuit'];
+  addShipToForce(s, 'beres', s.encounter.aiForce); encAdd(s, 'beres', 'struck'); s.ships.beres.steps = 0; s.encounter.struckBy.beres = 'US';
+  waitAt(s, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(s); s.calls.unshift({ proc: 'turn', pc: 'B2done', A: {}, L: { pe: 1 } });
+  s.pe = [{ num: 1, idx: 0, zone: 'NOR', forceId: s.encounter.humanForce, status: 'encounter' }]; s.encounter.peNum = 1; s.rng = 15; return s;
+}
+var l02 = w02Board(); asV024(() => { act(l02, 'ok'); act(l02, 'ok'); }); l02 = JSON.parse(JSON.stringify(l02));
+`);
+eq('L02 the recreated v0.2.4 save still holds Beresford Struck in the new Encounter', X('[l02.encounter.ships.beres, l02.ships.beres.owner]'), ['struck', 'BR']);
+X(`var outs = ['pass', 'attack'].map(order => { const b = checkSaveState(JSON.parse(JSON.stringify(l02))); const n0 = (UI.loadNotes || []).slice(); let n = 0;
+     for (let i = 0; i < 80 && b.encounter && b.prompt; i++) { const p = b.prompt; let a = 'ok';
+       if (p.kind === 'choice' && p.options.some(o => o.id === 'attack') && p.options.some(o => o.id === 'pass')) { n++; a = n === 1 ? 'pass' : order; }
+       else if (p.kind === 'choice') a = (p.options.find(o => o.primary) || p.options[0]).id; else if (p.kind === 'select') a = []; else if (p.kind === 'lineup') a = { attackers: p.candidates, tows: p.defaultTows || {} };
+       act(b, a); }
+     return [n0.length, b.ships.beres.owner, b.log.filter(l => /Beresford is CAPTURED/.test(l.text)).length]; });`);
+eq('L02 loading it settles Beresford first (Captured); Pass or Attack later gives the same owner, once', X('outs'), [[1, 'US', 1], [1, 'US', 1]]);
+X(`var fresh2 = w02Board(); act(fresh2, 'ok'); act(fresh2, 'ok'); var f2 = checkSaveState(JSON.parse(JSON.stringify(fresh2)));`);
+eq('L02 control: a v0.2.5 save after Pursuit is left alone', X('[(UI.loadNotes || []).length, f2.log.filter(l => /Beresford is CAPTURED/.test(l.text)).length]'), [0, 1]);
+X(`var nw = JSON.parse(JSON.stringify(l02)); nw.encounter.ships.moira = 'struck'; nw.log.push({ turn: nw.turn, phase: nw.phase, text: 'Earl of Moira (A) Strike Check 5 – STRIKES COLORS.', kind: 'combat' });
+   var nwUp = checkSaveState(nw);`);
+eq('L02 control: a ship that struck in the new Encounter stays undecided', X('[nwUp.encounter.ships.moira, nwUp.encounter.ships.beres]'), ['struck', 'done']);
+
 console.log(`regression tests: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
