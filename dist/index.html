@@ -5825,9 +5825,13 @@ function appendTableReport(container, s) {
 ;
 /* ---- main.js ---- */
 /* Boot */
-// Capture the complete static page before render() adds a game or any dialogs.
-// This also works from a local file with no fetch, service worker or network.
-const APP_DOWNLOAD_HTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+// Copy only the app's static head and this inline script, before rendering.
+// Browsers/extensions may insert overlays elsewhere in the document; never
+// export those, a live game or a dialog. No fetch or network is needed.
+const APP_DOWNLOAD_HTML = '<!DOCTYPE html>\n<html lang="en">\n<head>\n' +
+  ['meta[charset]', 'meta[name="viewport"]', 'title', 'style'].map(selector => document.head.querySelector(selector).outerHTML).join('\n') +
+  '\n</head>\n<body>\n<div id="hdr"></div>\n<div id="app"></div>\n<div id="modal"></div>\n' +
+  document.currentScript.outerHTML + '\n</body>\n</html>\n';
 installResume();
 document.addEventListener('keydown', (e) => {
   if (modalKeydown(e) || e.defaultPrevented || e.repeat) return;

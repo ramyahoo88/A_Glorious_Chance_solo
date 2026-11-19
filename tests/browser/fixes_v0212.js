@@ -97,12 +97,13 @@ async function page(source=html){
     p.w.close();
   }
   {
-    const p=await page();let blob,filename;
+    const p=await page(html.replace('<div id="hdr"></div>', '<div id="browser-overlay">BROWSER_ONLY_MARKER</div><div id="hdr"></div>'));let blob,filename;
     p.w.URL.createObjectURL=b=>{blob=b;return'blob:test';};p.w.URL.revokeObjectURL=()=>{};
     p.w.HTMLAnchorElement.prototype.click=function(){filename=this.download;};
     p.click('Download app (.html)');
     check('App download filename carries release',filename,'A_Glorious_Chance_Solo_v0.2.12.html');
     const text=await new Promise((res,rej)=>{const r=new p.w.FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsText(blob);});
+    check('Download excludes browser overlays and exactly reproduces shipped HTML',text,html);
     const re=await page(text);check('Downloaded HTML boots to clean setup',!!re.d.querySelector('.setup')&&re.state()===null,true);
     check('Downloaded HTML has no external script or stylesheet dependencies',re.d.querySelectorAll('script[src],link[rel=stylesheet]').length,0);
     p.load(fixture('command'));const before=p.snap();p.click('Reference');

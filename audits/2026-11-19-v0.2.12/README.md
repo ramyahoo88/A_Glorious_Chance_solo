@@ -17,11 +17,11 @@ Q01 and Q02 are **project rulings**, recorded in RULES_NOTES 97–98 and the in-
 ## Validation
 
 * `npm test`: **861 assertions**, all passed, followed by **200 complete smoke campaigns**, no failures.
-* `npm run test:ui`: all **eight DOM/control suites** passed, including **117 new UI assertions**. These are DOM emulation checks, not a claim of visual browser coverage.
+* `npm run test:ui`: all **eight DOM/control suites** passed, including **118 new UI assertions**. These are DOM emulation checks, not a claim of visual browser coverage.
 * **1,600 matched campaigns** (seeds 920000–920159, both campaigns, five purposeful policies): 203,567 decisions; no failures. Includes 7,344 checked save continuations and 100 separately instantiated full save-to-end continuations.
 * **128 option-grid campaigns** (seeds 943000–943063, both campaigns): all 64 combinations of the six tested settings per side; 16,698 decisions; no failures. Includes 599 checked save continuations and eight full save-to-end continuations.
 * Original natural positions are replayed in `evidence/natural-replays.json`. Engine regression coverage is in `tests/regression_v0212.js` (67 assertions).
-* Independent Python assembly of the source files exactly reproduced the shipped HTML: **375,938 bytes**, SHA-256 **`01e2a45f80d5ca8ff67a12a2007ecd929469223ae79cb9e322a5c135127f5c25`**.
+* Independent Python assembly of the source files exactly reproduced the shipped HTML: **376,291 bytes**, SHA-256 **`d2ab3fa85b39cc6bb6d5a9c338edc8f0e7387d9ab578114e3ca61dc5049200bf`**.
 
 The matched correction run changes 209 final scores and 45 victory tiers out of 1,600. Corrected casualty checks and omitted zero-gun rolls change later seeded dice, so these counts are a regression comparison, not an estimate of the isolated balance effect.
 
