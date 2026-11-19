@@ -130,12 +130,11 @@ PROCS.tally = {
     // F7: ships return
     Object.values(s.ships).forEach(sh => {
       if (sh.box === 'lake' || sh.box === 'escortBox') {
-        const fr = s.forces[sh.forceId];
         sh.forceId = null; sh.zone = null;
-        if (sh.flags.heatedShot) { delete sh.flags.heatedShot; sh.box = 'ordinary'; sh.flags.damaged = true; sh.port = sh.isolated ? 'temp' : 'home'; return; }
-        if (sh.flags.requisition) { delete sh.flags.requisition; sh.box = 'requisitioned'; sh.flags.reqUntil = s.turn + 2; return; }
         sh.port = sh.isolated ? 'temp' : 'home';
-        sh.box = isFull(sh) ? 'deployable' : 'transit';
+        if (sh.flags.heatedShot) { delete sh.flags.heatedShot; sh.box = 'ordinary'; sh.flags.damaged = true; return; }
+        if (sh.flags.requisition) { delete sh.flags.requisition; sh.box = 'requisitioned'; sh.flags.reqUntil = s.turn + 2; }
+        else sh.box = isFull(sh) ? 'deployable' : 'transit';
       }
       if (sh.box === 'transit' && isFull(sh)) sh.box = 'deployable';
       if (sh.box !== 'sunk' && sh.box !== 'outOfPlay') discardStepMarkers(sh);

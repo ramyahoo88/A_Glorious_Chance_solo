@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.2.9 – 2026-11-18
+Fresh-game rules, persistence and usability fixes from the comprehensive audit (RULES_NOTES 74–88).
+* British ships completing repairs can upgrade immediately in A2 (7.2); ordinary refits still take a turn.
+* Rake targets expire before the next Gunnery Round, preventing a sunk ship from being hit and scored again.
+* Escape adds its withdrawal even when the combat result is END.
+* Later A.I. attacks use the ships and tows selected by the rechecked attack conditions. Command odds preview that actual selection and explicitly say when the A.I. would Pass.
+* A10 correctly counts and explains an extra homeport Target Card required by a Blockade.
+* Adjust refuses invalid ship steps before changing the position, history or autosave. An unfinished save with no pending procedure is refused. Load and Settings show autosave failures immediately.
+* Dialogs keep keyboard focus, support Escape and block game shortcuts behind them. Ship and Tactic choices are keyboard buttons; the header shows the app version.
+* The Log can show every entry. Save filenames include the seed and checkpoint; starting over protects an existing autosave with a replacement confirmation.
+* Intelligence reminders explicitly state that the event applies next turn only.
+* Missed Signal now affects A.I. attack odds and is spent on the first eligible round even if the player omits its ship. Flag transfers are offered after Close Action and before a new attacking sequence. Later rounds keep their surviving original tow pairs.
+* Each eligible Possible Encounter recipient is selectable; impossible Army Support deployments make no upgrade roll. OA1 explains the actual recalculated column; its existing interpretation is retained.
+* Requisitioned ships discard step markers, retain their appropriate port and return through repair when Reduced. Harbor battles apply pending Haze and Missed Signal; a lone absent participant skips only the first round.
+* Rainy Squalls previews Close Action. Manual Land Battles name the final printed column; empty British harbor forces do not generate a battle prompt.
+* Setup imports retain the saved campaign for Undo. Steps-only corrections leave ships on the lake, and VP adjustments enter the ledger and update completed results.
+* New prompts reveal themselves when offscreen, Troops inputs display actual zero, manual Auto-fill selects the minimum legal subset without consuming dice, and dialog fields occupy separate rows.
+* Adds 191 focused engine assertions and 101 DOM checks. Existing regression assertions remain intact; one synthetic save fixture now includes its required pending procedure.
+* Historical-save migration behavior is unchanged; this audit prioritizes new games and saves made during current play.
+
 ## 0.2.8 – 2026-11-18
 Save-recovery fixes from the audit of 0.2.7 (RULES_NOTES 73).
 * Saves already changed by 0.2.6's faulty repair (an early capture such as Wolfe's, a wrongly rescued Asp, Troops queued after the A.I. used them) are now recognised and flagged with a notice to load an earlier save; the game is left as saved.

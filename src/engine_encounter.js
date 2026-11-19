@@ -260,6 +260,18 @@ PROCS.encounter = {
   __ret(s, f) { return R({}); },
 };
 
+// Rainy Squalls changes a Patrol Segment's first Round to Close Action. Rule 12
+// Harbor Encounters instead have their own explicit two-Gunnery-Round limit.
+function rainySquallsActive(s) {
+  const e = s.encounter;
+  return !!(e && e.kind !== 'harbor' && e.segment === 'patrol' && s.zones[e.zone].flags.rainy);
+}
+function closeActionPreviewText(s, attackers, defenders, aiAttacking) {
+  const describe = ids => ids.map(id => `${shipName(s, id)} CA ${combatVals(s, s.ships[id])[2]}`).join(', ') || 'none';
+  const pairs = closeActionMatchups(s, attackers, defenders, aiAttacking);
+  const matchups = pairs.map(([a, d]) => `${shipName(s, a)} vs ${shipName(s, d)}`).join('; ');
+  return `Attackers: ${describe(attackers)}. Defenders: ${describe(defenders)}. ${pairs.length ? `Close Action matchups: ${matchups}` : 'No eligible Close Action matchup at 2:1 or better'}.`;
+}
 function encSummary(s) {
   const e = s.encounter;
   const side = sd => encIds(s, sd).map(id => { const sh = s.ships[id]; return `${shipName(s, id)}${isReduced(sh) ? ' (Reduced)' : ''}`; }).join(', ') || '—';
@@ -269,11 +281,22 @@ function encSummary(s) {
   const notMs = id => id !== ms;
   const hAtt = encIds(s, h).filter(id => isFull(s.ships[id])).filter(notMs);
   const odds = (att, attIds, defIds) => { const a = sideStrength(s, attIds, att, noLG), d = sideStrength(s, defIds, att, noLG); return `${fmt(a)} vs ${fmt(d)} = ${d ? fmt(a / d) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(d ? a / d : 99)]})`; };
-  let aiAtt = encIds(s, ai).filter(id => isFull(s.ships[id])); if (ai === 'BR') aiAtt = aiAtt.filter(id => !isCLS(s.ships[id]));
-  aiAtt = aiAtt.filter(notMs);
+  // Use the same selected ships as the A.I. decision: it can omit untowed
+  // schooners to satisfy its attack threshold. This query spends no dice.
+  const aiPlan = aiAttackDecision(s, e.kind === 'breakout' && e.firstAttack && e.wg === ai);
+  const aiAtt = aiPlan.ships.filter(notMs);
+  if (rainySquallsActive(s)) {
+    const hFull = encIds(s, h).filter(id => isFull(s.ships[id]));
+    const preview = (att, ids, tows) => closeActionPreviewText(s,
+      buildColumn(s, ids, tows, att).filter(notMs), buildColumn(s, defendingIds(s, OTHER[att]), {}, OTHER[att]).filter(notMs), att === ai);
+    return `${ZONE_NAME[e.zone]} – U.S.: ${side('US')}\nBritish: ${side('BR')}\nRainy Squalls: no Gunnery — straight to Close Action.\n` +
+      `If you attack with all full-strength ships: ${preview(h, hFull, defaultTows(s, hFull))}\n` +
+      `If the A.I. attacks: ${aiPlan.ships.length ? preview(ai, aiPlan.ships, aiPlan.tows) : 'the A.I. would Pass (attack preconditions not met).'}` +
+      `${ms ? `\nMissed Signal: ${shipName(s, ms)} sits out the first Round.` : ''}`;
+  }
   return `${ZONE_NAME[e.zone]} – U.S.: ${side('US')}\nBritish: ${side('BR')}\n` +
     `Odds if you attack with all full-strength ships: ${hAtt.length ? odds(h, hAtt, defendingIds(s, ai).filter(notMs)) : 'no full-strength ships'}.\n` +
-    `Odds if the A.I. attacks: ${aiAtt.length ? odds(ai, aiAtt, defendingIds(s, h).filter(notMs)) : 'no full-strength ships'}.` +
+    `Odds if the A.I. attacks: ${aiPlan.ships.length ? odds(ai, aiAtt, defendingIds(s, h).filter(notMs)) : 'the A.I. would Pass (attack preconditions not met)'}.` +
     `${ms ? `\nBoth are first-Round odds: ${shipName(s, ms)} missed the signal and sits out the first Round.` : ''}${noLG ? ' (Haze: no Long Guns in the first Gunnery Round 1 here.)' : ''}`;
 }
 

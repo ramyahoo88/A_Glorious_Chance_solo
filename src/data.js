@@ -227,7 +227,7 @@ const EVENT_TEXT = {
   heatedShot: () => `Army Support only: a random ship of the Force is Damaged – it adds no Long Gun Strength to the Land Battle and goes to its Homeport's In Ordinary box in F7 (eligible for Repair).`,
   explosion: () => `Army Support only: a random ship of the Force is destroyed (defending side scores VPs). If the Flagship explodes, the Leader is killed.`,
   requisition: () => `Army Support only: the attacking Force's ship with the fewest guns (random among ties) is requisitioned – off the map and out of play next turn.`,
-  intelligence: () => `For the next Encounter involving the enemy Flagship, all of the drawing side's Reaction Checks get +1 DRM and no negative DRMs. Void if no such Encounter by the end of next turn.`,
+  intelligence: () => `Next turn only: in the first Encounter involving the enemy Flagship, all of the drawing side's Reaction Checks get +1 DRM and no negative DRMs. That Encounter uses up Intelligence even if no Reaction Checks occur; unused Intelligence expires at the end of that turn.`,
   suddenStorm: () => `Raid: no supplies; VPs: 1 VP for a 2-VP target, otherwise none. Army Support: an Attacker Major Success becomes a Success.`,
   moreDefenders: () => `Army Support only: −2 column shift on the attacker's Land Battle against this Coastal target.`,
 };

@@ -50,14 +50,15 @@ PROCS.turn = {
         if (sh.id === 'pike' && sh.owner === 'US') { s.flagship.US = 'pike'; msgs.push('USS Gen. Pike becomes the U.S. Flagship [LC5.1]'); }
       }
       if (sh.box === 'requisitioned' && sh.flags.reqUntil != null && s.turn >= sh.flags.reqUntil) {
-        sh.box = 'deployable'; delete sh.flags.reqUntil; msgs.push(`${shipName(s, sh.id)} returns from Army requisition`);
+        sh.box = isFull(sh) ? 'deployable' : 'transit'; delete sh.flags.reqUntil;
+        msgs.push(`${shipName(s, sh.id)} returns from Army requisition to ${isFull(sh) ? 'Deployable' : 'In Transit for repair'}`);
       }
     });
     msgs.forEach(m => log(s, m, 'ship'));
     if (s.human === 'BR') return G('A2up');
     return G('A3');
   },
-  // British Solo 7.1: roll for the maximum number of "A" ships that may go to Make Ready to upgrade
+  // British Solo 7.1/7.2: one upgrade limit, including ships completing their repairs now.
   A2up(s, f) {
     const cand = sideShips(s, 'BR').filter(sh => sh.ver === 'A' && !sh.isolated && (sh.box === 'deployable' || (sh.box === 'repairing' && !sh.delay)));
     const strip = sideShips(s, 'BR').filter(sh => sh.box === 'transit' && isCLS(sh));
@@ -65,13 +66,22 @@ PROCS.turn = {
     const r = d10r(s);
     let n = upgradeLimit(r) + strip.length;
     f.L.upN = n;
-    log(s, `Upgrade roll 1d10 = ${r} → up to ${upgradeLimit(r)} “A” ships${strip.length ? ` +${strip.length} for stripped captured Laker Schooners` : ''} may go to Make Ready.`, 'roll');
+    log(s, `Upgrade roll 1d10 = ${r} → up to ${upgradeLimit(r)} “A” ships${strip.length ? ` +${strip.length} for stripped captured Laker Schooners` : ''} may upgrade.`, 'roll');
     if (!n) return G('A3');
-    return P({ kind: 'select', title: 'A2 British Ship Upgrades', text: `Rolled ${r}: you may place up to ${n} “A” version ship(s) in Make Ready. They return next turn as their upgraded “B” version (7.1). Ships in Make Ready are not Deployable this turn.`,
-      items: cand.map(sh => ({ id: sh.id, label: shipName(s, sh.id) + (sh.box === 'repairing' ? ' (finishing repairs)' : '') })), min: 0, max: n }, 'A2up2');
+    return P({ kind: 'select', title: 'A2 British Ship Upgrades', text: `Rolled ${r}: you may upgrade up to ${n} “A” version ship(s). A ship finishing repairs becomes its “B” version and is Deployable this turn (7.2). Other selected ships spend this turn in Make Ready and return next turn as their “B” version (7.1).`,
+      items: cand.map(sh => ({ id: sh.id, label: shipName(s, sh.id) + (sh.box === 'repairing' ? ' (finishing repairs — Deployable this turn)' : ' (Make Ready — returns next turn)') })), min: 0, max: n }, 'A2up2');
   },
   A2up2(s, f) {
-    (f.answer || []).forEach(id => { const sh = s.ships[id]; sh.box = 'makeReady'; sh.steps = def(sh).full[4]; sh.flags.upgrading = true; log(s, `${shipName(s, id)} goes to Make Ready for upgrade.`, 'player'); });
+    (f.answer || []).forEach(id => {
+      const sh = s.ships[id];
+      if (sh.box === 'repairing' && !sh.delay) {
+        sh.ver = 'B'; sh.steps = def(sh).full[4]; sh.box = 'deployable'; delete sh.flags.upgrading;
+        log(s, `${shipName(s, id)} completes repair and upgrade together — Deployable this turn [7.2].`, 'player');
+      } else {
+        sh.box = 'makeReady'; sh.steps = def(sh).full[4]; sh.flags.upgrading = true;
+        log(s, `${shipName(s, id)} goes to Make Ready for upgrade.`, 'player');
+      }
+    });
     return G('A3');
   },
 
@@ -221,42 +231,39 @@ PROCS.turn = {
       row = hzCards.concat(row.filter(k => TARGET_CARDS[k].zone !== hz));
     }
     s.targetRow = row.map(id => ({ id, revealed: false, removed: false, enc: false }));
-    log(s, `Drew ${n} Target Cards${removed.length ? ' (removed ' + removed.join(', ') + ')' : ''}. Row backs (left→right): ${s.targetRow.map(c => ZONE_NAME[TARGET_CARDS[c.id].zone]).join(' · ')}.`, 'ai');
-    return aiPause(s, 'A10 Target Cards drawn', `Lay out ${n} Target Cards face down, left to right, showing these zones:\n${s.targetRow.map((c, i) => `${i + 1}. ${ZONE_NAME[TARGET_CARDS[c.id].zone]}`).join('\n')}`, 'B1');
+    const extra = row.length > n ? ` Added one ${ZONE_NAME[homeZone(s.ai)]} card for the Blockade because none was drawn [A10].` : '';
+    log(s, `Drew ${n} Target Cards${removed.length ? ' (removed ' + removed.join(', ') + ')' : ''}.${extra} Row backs (left→right): ${s.targetRow.map(c => ZONE_NAME[TARGET_CARDS[c.id].zone]).join(' · ')}.`, 'ai');
+    return aiPause(s, 'A10 Target Cards drawn', `Lay out ${row.length} Target Cards face down, left to right.${extra}\n${s.targetRow.map((c, i) => `${i + 1}. ${ZONE_NAME[TARGET_CARDS[c.id].zone]}`).join('\n')}`, 'B1');
   },
 
   /* B Lake Action ---------------------------------------------------------------------- */
   B1(s, f) {
     s.phase = 'lake'; s.stepLabel = 'B1 Possible Encounters';
     // Number Possible Encounters by row order
-    f.L.zoneCounters = {};
     f.L.pending = [];
     s.targetRow.forEach((c, idx) => {
       const z = TARGET_CARDS[c.id].zone;
       if (forcesInZone(s, z, s.human).length) f.L.pending.push({ idx, zone: z });
     });
-    f.L.zonesNeedingChoice = [...new Set(f.L.pending.map(p => p.zone))].filter(z => forcesInZone(s, z, s.human).length > 1);
-    f.L.firstForce = {};
     return G('B1choose');
   },
   B1choose(s, f) {
-    const z = f.L.zonesNeedingChoice.shift();
-    if (!z) return G('B1place');
-    f.L.curZone = z;
-    const fs = forcesInZone(s, z, s.human);
-    return P(choice(`B1 Possible Encounters in ${ZONE_NAME[z]}`, `${f.L.pending.filter(p => p.zone === z).length} Possible Encounter marker(s) fall in ${ZONE_NAME[z]}, where you have ${fs.length} Forces. Choose the Force that receives the first marker; further markers rotate evenly through your other Forces there [10.1.2].`,
-      fs.map(x => ({ id: x.id, label: forceLabel(s, x) }))), 'B1choose2');
+    const p = f.L.pending[0];
+    if (!p) return G('B1place');
+    const fs = forcesInZone(s, p.zone, s.human);
+    const count = id => s.pe.filter(pe => pe.zone === p.zone && pe.forceId === id).length;
+    const min = Math.min(...fs.map(fr => count(fr.id)));
+    const eligible = fs.filter(fr => count(fr.id) === min);
+    if (eligible.length === 1) { f.answer = eligible[0].id; return G('B1choose2'); }
+    return P(choice(`B1 Possible Encounter ${s.peNext} in ${ZONE_NAME[p.zone]}`, `Choose which Force receives PE${s.peNext}. Each Force must receive one marker before any receives a second; continue distributing markers as evenly as possible [10.1.2].`,
+      eligible.map(fr => ({ id: fr.id, label: `${forceLabel(s, fr)} — ${count(fr.id)} marker(s) so far` }))), 'B1choose2');
   },
-  B1choose2(s, f) { f.L.firstForce[f.L.curZone] = f.answer; return G('B1choose'); },
+  B1choose2(s, f) {
+    const p = f.L.pending.shift();
+    s.pe.push({ num: s.peNext++, zone: p.zone, forceId: f.answer, idx: p.idx, status: 'possible' });
+    return G('B1choose');
+  },
   B1place(s, f) {
-    const rot = {};
-    f.L.pending.forEach(p => {
-      let fs = forcesInZone(s, p.zone, s.human);
-      if (f.L.firstForce[p.zone]) { const i = fs.findIndex(x => x.id === f.L.firstForce[p.zone]); fs = fs.slice(i).concat(fs.slice(0, i)); }
-      rot[p.zone] = rot[p.zone] || 0;
-      const force = fs[rot[p.zone] % fs.length]; rot[p.zone]++;
-      s.pe.push({ num: s.peNext++, zone: p.zone, forceId: force.id, idx: p.idx, status: 'possible' });
-    });
     if (!s.pe.length) { log(s, 'B1: no Possible Encounters this turn.', 'ai'); return G('C1'); }
     log(s, `B1: Possible Encounters – ${s.pe.map(p => `PE${p.num} ${ZONE_NAME[p.zone]} (card ${p.idx + 1})`).join(', ')}.`, 'ai');
     return aiPause(s, 'B1 Possible Encounters', `Place Possible Encounter markers:\n${s.pe.map(p => `PE${p.num} on your ${forceLabel(s, s.forces[p.forceId])} in ${ZONE_NAME[p.zone]}`).join('\n')}`, 'B2');
@@ -273,8 +280,14 @@ PROCS.turn = {
     let force = s.forces[pe.forceId];
     if (!force || force.zone !== pe.zone || !force.ships.length || force.side !== s.human) {
       // 11.1.3: transfer the marker to another of your Forces still in the zone, if any
-      const other = forcesInZone(s, pe.zone, s.human)[0];
-      if (!other) { pe.status = 'discarded'; log(s, `PE${pe.num}: you have no Force left in ${ZONE_NAME[pe.zone]} – marker discarded.`, 'ai'); return G('B2'); }
+      const eligible = forcesInZone(s, pe.zone, s.human);
+      if (!eligible.length) { pe.status = 'discarded'; log(s, `PE${pe.num}: you have no Force left in ${ZONE_NAME[pe.zone]} – marker discarded.`, 'ai'); return G('B2'); }
+      if (eligible.length > 1) {
+        f.L.transferPe = pe.num;
+        return P(choice(`Transfer Possible Encounter ${pe.num}`, `The original Force is no longer in ${ZONE_NAME[pe.zone]}. Choose another of your Forces still there to receive PE${pe.num} [11.1.3].`,
+          eligible.map(fr => ({ id: fr.id, label: forceLabel(s, fr) }))), 'B2transfer');
+      }
+      const other = eligible[0];
       pe.forceId = other.id; force = other;
       log(s, `PE${pe.num} transferred to your ${forceLabel(s, other)}.`, 'ai');
     }
@@ -289,6 +302,13 @@ PROCS.turn = {
     log(s, `PE${pe.num} ${ZONE_NAME[pe.zone]}: Event #${ev.id} shows the spyglass – ENCOUNTER ${pe.num}! Target Card ${s.targetRow[pe.idx].id} revealed.`, 'event');
     f.L.pe = pe.num;
     return C('aiDeploy', { cardIdx: pe.idx, zone: pe.zone, phase: 'lake', encounter: true, humanForceId: pe.forceId, peNum: pe.num }, 'B2after');
+  },
+  B2transfer(s, f) {
+    const pe = s.pe.find(p => p.num === f.L.transferPe);
+    pe.forceId = f.answer;
+    log(s, `PE${pe.num} transferred to your ${forceLabel(s, s.forces[f.answer])}.`, 'player');
+    delete f.L.transferPe;
+    return G('B2');
   },
   B2after(s, f) {
     const pe = s.pe.find(p => p.num === f.L.pe);

@@ -113,7 +113,7 @@ PROCS.coastal = {
     log(s, `${SIDE_SHORT[side]} Troops launched in ${ZONE_NAME[item.z]}: ${troops}.`, 'coastal');
     const port = homeportOfZone(s, other, item.z);
     if (port) {
-      const defenders = sideShips(s, other).filter(sh => (sh.box === 'deployable' || sh.box === 'transit') && sh.port === port);
+      const defenders = harborDefendingShips(s, other, port);
       if (defenders.length) return C('harbor', { zone: item.z, att: side, forces: item.forces, port }, 'asBattle');
     }
     return G('asBattle');
@@ -154,14 +154,14 @@ PROCS.coastal = {
     lines.push(`Land Battle vs ${target === 'NIA' ? 'the Niagara Front' : (other === 'US' ? HOMEPORT_NAME.US : HOMEPORT_NAME.BR)}: ${f.L.troops} Troops marker(s), supporting Long Gun Strength ${lgTot}${shift ? `, column shift ${shift}` : ''}. Dice (red/blue) 11-66: ${r.v}.`);
     lines.forEach(l => log(s, l, 'coastal'));
     f.L.lbLines = lines;
+    const lk = lbLookup(lgTot, f.L.troops, shift, r.v);
+    const lkTxt = `Land Battle Table: column “${lk.colLabel}”${lk.band !== lk.band0 ? ` (shifted from ${LB_BANDS[lk.band0]})` : ''}${f.L.troops > 3 ? ' (3 Troops is the highest column)' : ''}, roll ${r.v}.`;
+    f.L.lbLines.push(lkTxt); log(s, lkTxt, 'roll');
     if (!s.options.manualLandBattle) {
-      const lk = lbLookup(lgTot, f.L.troops, shift, r.v);
-      const lkTxt = `Land Battle Table: column “${lk.colLabel}”${lk.band !== lk.band0 ? ` (shifted from ${LB_BANDS[lk.band0]})` : ''}${f.L.troops > 3 ? ' (3 Troops is the highest column)' : ''}, roll ${r.v}.`;
-      f.L.lbLines.push(lkTxt); log(s, lkTxt, 'roll');
       f.answer = lk.result;
       return G('asResult');
     }
-    return P(choice(`Land Battle – read Player Aid VII`, lines.join('\n') + `\n\nOn the Land Battle Table (Player Aid VII) use the column for ${lgTot} Long Gun Strength with ${f.L.troops} Troops marker(s)${shift ? `, shifted ${shift} column(s) left` : ''}, row ${r.v}. Select the result:`,
+    return P(choice(`Land Battle – read Player Aid VII`, lines.join('\n') + `\n\nOn Player Aid VII, use column “${lk.colLabel}” with ${Math.min(f.L.troops, 3)} Troops marker(s), row ${r.v}. Select the result:`,
       LB_RESULTS.map(x => ({ id: x.id, label: x.label })), { landBattle: f.L.lb }), 'asResult');
   },
   asResult(s, f) {
@@ -179,17 +179,21 @@ PROCS.coastal = {
 function grantIntelligence(s, side, cardId, lines) {
   s.intelligence[side] = { card: cardId, until: s.turn + 1 };
   s.deck.event = s.deck.event.filter(x => x !== cardId);
-  lines.push(`Intelligence: the ${SIDE_PL[side]} get +1 DRM on Reaction Checks (and no negative DRMs) in the next Encounter involving the enemy Flagship (until the end of next turn).`);
+  lines.push(`Intelligence: next turn only, the ${SIDE_PL[side]} get +1 DRM on Reaction Checks (and no negative DRMs) in the first Encounter involving the enemy Flagship. That Encounter uses up Intelligence even if no Reaction Checks occur; unused Intelligence expires at the end of that turn.`);
 }
 
 /* Harbor Encounter (12): up to two Gunnery Rounds, no Weather Gage / Tactics,
    −1 column shift, no Disengagement or Withdrawal. */
+function harborDefendingShips(s, side, port) {
+  return sideShips(s, side).filter(sh => (sh.box === 'deployable' || sh.box === 'transit') && sh.port === port &&
+    !(side === 'BR' && s.ai === 'BR' && isCLS(sh)));
+}
 PROCS.harbor = {
   start(s, f) {
     const A = f.A, att = A.att, dfs = OTHER[att];
     s.encounter = { zone: A.zone, kind: 'harbor', segment: 'patrol', ships: {}, side: {}, struckBy: {}, withdrawn: { US: false, BR: false }, harborDefender: dfs, wgCard: null, leaderFate: {} };
     const attShips = A.forces.reduce((a, fid) => a.concat(s.forces[fid] ? s.forces[fid].ships : []), []);
-    const defShips = sideShips(s, dfs).filter(sh => (sh.box === 'deployable' || sh.box === 'transit') && sh.port === A.port).map(sh => sh.id);
+    const defShips = harborDefendingShips(s, dfs, A.port).map(sh => sh.id);
     attShips.forEach(id => encAdd(s, id)); defShips.forEach(id => encAdd(s, id));
     s.combat = { att, def: dfs, seq: att === 'US' ? 'A' : 'B', pos: 0, col: { US: [], BR: [] }, tows: {}, tac: { att: null, def: null }, gr: 0 };
     let atts = attShips.filter(id => isFull(s.ships[id]));
@@ -207,11 +211,29 @@ PROCS.harbor = {
   round(s, f) {
     const c = s.combat, e = s.encounter;
     tidyColumns(s);
-    const atts = colShips(c, c.att).filter(id => isFull(s.ships[id]));
-    const defs = colShips(c, c.def);
+    let atts = colShips(c, c.att).filter(id => isFull(s.ships[id]));
+    let defs = colShips(c, c.def);
     if (f.L.round >= 2 || !atts.length || !defs.length) return G('end');
     f.L.round++;
-    const aStr = sideStrength(s, atts, c.att, false), dStr = sideStrength(s, defs, c.att, false);
+    const eventLines = [], zf = zoneFlags(s);
+    // Rule 12 changes the sequence, not the scope of pending Lake Zone Events.
+    // Missed Signal applies to the first Round the selected ship could join;
+    // retain the original columns so the ship can return for Round 2.
+    const ms = f.L.round === 1 ? missedSignalShip(s) : null;
+    const sitsOut = ms && (atts.indexOf(ms) >= 0 || defs.indexOf(ms) >= 0) ? ms : null;
+    if (sitsOut) {
+      zf.missedSignalUsed = true;
+      atts = atts.filter(id => id !== sitsOut); defs = defs.filter(id => id !== sitsOut);
+      eventLines.push(`Missed Signal: ${shipName(s, sitsOut)} sits out Harbor Gunnery Round 1.`);
+    }
+    if (!atts.length || !defs.length) {
+      eventLines.push('No opposing eligible ships remain in this Round — skip Gunnery Round 1. The ship returns for Round 2.');
+      eventLines.forEach(l => log(s, l, 'combat'));
+      return P(info('Harbor Encounter', eventLines.join('\n'), { combatView: true }), 'round');
+    }
+    const noLG = f.L.round === 1 && hazeActive(s);
+    if (noLG) { zf.hazeUsed = true; eventLines.push('Haze: no Long Guns in Harbor Gunnery Round 1; the Haze now burns off.'); }
+    const aStr = sideStrength(s, atts, c.att, noLG), dStr = sideStrength(s, defs, c.att, noLG);
     const ratio = dStr <= 0 ? 99 : aStr / dStr;
     let col = Math.max(0, crtColumnForRatio(ratio) - 1);
     let drm = 0; const drms = [];
@@ -219,10 +241,10 @@ PROCS.harbor = {
     const r = d10(s), m = Math.max(0, Math.min(9, r + drm));
     const code = CRT[m][col];
     const res = parseCrt(code);
-    const lines = [`Harbor Gunnery Round ${f.L.round}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${fmt(dStr)} = ${dStr <= 0 ? '∞' : fmt(ratio)}:1, −1 shore batteries → ${CRT_COLS[col]}; d10 ${r}${drm ? '+' + drm : ''} → ${code}${drms.length ? ' [' + drms.join(', ') + ']' : ''}. (W results ignored.)`];
+    const lines = eventLines.concat(`Harbor Gunnery Round ${f.L.round}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${fmt(dStr)} = ${dStr <= 0 ? '∞' : fmt(ratio)}:1, −1 shore batteries → ${CRT_COLS[col]}; d10 ${r}${drm ? '+' + drm : ''} → ${code}${drms.length ? ' [' + drms.join(', ') + ']' : ''}. (W results ignored.)`);
     const dMap = {}, aMap = {};
-    if (res.dHits) distributeHits(s, c.col[c.def], res.dHits, dMap, lines, { side: c.def });
-    if (res.aHits) distributeHits(s, c.col[c.att], res.aHits, aMap, lines, { side: c.att });
+    if (res.dHits) distributeHits(s, defs, res.dHits, dMap, lines, { side: c.def });
+    if (res.aHits) distributeHits(s, c.col[c.att].filter(id => id !== sitsOut), res.aHits, aMap, lines, { side: c.att });
     applyHits(s, c.def, dMap, { round: 'GR' }, lines);
     applyHits(s, c.att, aMap, { round: 'GR' }, lines);
     lines.forEach(l => log(s, l, 'combat'));

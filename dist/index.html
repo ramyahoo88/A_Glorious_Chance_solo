@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Glorious Chance – Solo Companion v0.2.8</title>
+<title>A Glorious Chance – Solo Companion v0.2.9</title>
 <style>
 :root {
   --bg: #f3efe6; --panel: #fffdf8; --ink: #1f2a33; --muted: #6b7680; --line: #d9d1c2;
@@ -21,12 +21,14 @@ button.primary { background: #234a73; border-color: #234a73; color: #fff; }
 button.primary:hover { background: #1b3a5b; }
 button:disabled { opacity: .45; cursor: not-allowed; }
 button.small { padding: 3px 8px; font-size: .82rem; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 .muted { color: var(--muted); }
 .us { color: var(--us); } .br { color: var(--br); }
 
 /* Header */
 #hdr { position: sticky; top: 0; z-index: 20; background: #1f2f3e; color: #f4efe2; padding: 6px 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
 #hdr h1 { font-size: 1.05rem; margin: 0; letter-spacing: .5px; font-variant: small-caps; white-space: nowrap; }
+.app-version { font-size: .75rem; color: #b8c4cf; }
 #hdr .stat { display: flex; flex-direction: column; line-height: 1.15; font-size: .8rem; }
 #hdr .stat b { font-size: 1rem; }
 #hdr .btns { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
@@ -50,6 +52,8 @@ button.small { padding: 3px 8px; font-size: .82rem; }
 #proc .opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 #proc .err { color: var(--bad); font-size: .88rem; margin-top: 6px; min-height: 1.2em; }
 .optcard { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin: 6px 0; cursor: pointer; background: #fff; }
+button.optcard { display: block; width: 100%; text-align: left; }
+.optcard .t, .optcard .d { display: block; }
 .optcard:hover { border-color: #234a73; background: #f4f8fc; }
 .optcard .t { font-weight: bold; }
 .optcard .d { font-size: .85rem; color: #3d4852; margin-top: 2px; }
@@ -157,6 +161,7 @@ button.small { padding: 3px 8px; font-size: .82rem; }
 #modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: center; justify-content: center; z-index: 50; }
 #modal.open { display: flex; }
 #modal .inner { background: var(--panel); border-radius: 10px; max-width: 900px; width: 94vw; max-height: 88vh; overflow: auto; padding: 16px; }
+#modal label { display: block; margin: 8px 0; }
 .ref table { border-collapse: collapse; font-size: .82rem; margin: 6px 0 12px; }
 .ref td, .ref th { border: 1px solid #c9c0ae; padding: 2px 6px; text-align: center; }
 .ref th { background: #efe9dc; }
@@ -462,7 +467,7 @@ const EVENT_TEXT = {
   heatedShot: () => `Army Support only: a random ship of the Force is Damaged – it adds no Long Gun Strength to the Land Battle and goes to its Homeport's In Ordinary box in F7 (eligible for Repair).`,
   explosion: () => `Army Support only: a random ship of the Force is destroyed (defending side scores VPs). If the Flagship explodes, the Leader is killed.`,
   requisition: () => `Army Support only: the attacking Force's ship with the fewest guns (random among ties) is requisitioned – off the map and out of play next turn.`,
-  intelligence: () => `For the next Encounter involving the enemy Flagship, all of the drawing side's Reaction Checks get +1 DRM and no negative DRMs. Void if no such Encounter by the end of next turn.`,
+  intelligence: () => `Next turn only: in the first Encounter involving the enemy Flagship, all of the drawing side's Reaction Checks get +1 DRM and no negative DRMs. That Encounter uses up Intelligence even if no Reaction Checks occur; unused Intelligence expires at the end of that turn.`,
   suddenStorm: () => `Raid: no supplies; VPs: 1 VP for a 2-VP target, otherwise none. Army Support: an Attacker Major Success becomes a Success.`,
   moreDefenders: () => `Army Support only: −2 column shift on the attacker's Land Battle against this Coastal target.`,
 };
@@ -637,7 +642,7 @@ function lbLookup(lgTotal, troops, shift, d66v) {
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.8';
+const APP_VERSION = '0.2.9';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -1020,14 +1025,15 @@ PROCS.turn = {
         if (sh.id === 'pike' && sh.owner === 'US') { s.flagship.US = 'pike'; msgs.push('USS Gen. Pike becomes the U.S. Flagship [LC5.1]'); }
       }
       if (sh.box === 'requisitioned' && sh.flags.reqUntil != null && s.turn >= sh.flags.reqUntil) {
-        sh.box = 'deployable'; delete sh.flags.reqUntil; msgs.push(`${shipName(s, sh.id)} returns from Army requisition`);
+        sh.box = isFull(sh) ? 'deployable' : 'transit'; delete sh.flags.reqUntil;
+        msgs.push(`${shipName(s, sh.id)} returns from Army requisition to ${isFull(sh) ? 'Deployable' : 'In Transit for repair'}`);
       }
     });
     msgs.forEach(m => log(s, m, 'ship'));
     if (s.human === 'BR') return G('A2up');
     return G('A3');
   },
-  // British Solo 7.1: roll for the maximum number of "A" ships that may go to Make Ready to upgrade
+  // British Solo 7.1/7.2: one upgrade limit, including ships completing their repairs now.
   A2up(s, f) {
     const cand = sideShips(s, 'BR').filter(sh => sh.ver === 'A' && !sh.isolated && (sh.box === 'deployable' || (sh.box === 'repairing' && !sh.delay)));
     const strip = sideShips(s, 'BR').filter(sh => sh.box === 'transit' && isCLS(sh));
@@ -1035,13 +1041,22 @@ PROCS.turn = {
     const r = d10r(s);
     let n = upgradeLimit(r) + strip.length;
     f.L.upN = n;
-    log(s, `Upgrade roll 1d10 = ${r} → up to ${upgradeLimit(r)} “A” ships${strip.length ? ` +${strip.length} for stripped captured Laker Schooners` : ''} may go to Make Ready.`, 'roll');
+    log(s, `Upgrade roll 1d10 = ${r} → up to ${upgradeLimit(r)} “A” ships${strip.length ? ` +${strip.length} for stripped captured Laker Schooners` : ''} may upgrade.`, 'roll');
     if (!n) return G('A3');
-    return P({ kind: 'select', title: 'A2 British Ship Upgrades', text: `Rolled ${r}: you may place up to ${n} “A” version ship(s) in Make Ready. They return next turn as their upgraded “B” version (7.1). Ships in Make Ready are not Deployable this turn.`,
-      items: cand.map(sh => ({ id: sh.id, label: shipName(s, sh.id) + (sh.box === 'repairing' ? ' (finishing repairs)' : '') })), min: 0, max: n }, 'A2up2');
+    return P({ kind: 'select', title: 'A2 British Ship Upgrades', text: `Rolled ${r}: you may upgrade up to ${n} “A” version ship(s). A ship finishing repairs becomes its “B” version and is Deployable this turn (7.2). Other selected ships spend this turn in Make Ready and return next turn as their “B” version (7.1).`,
+      items: cand.map(sh => ({ id: sh.id, label: shipName(s, sh.id) + (sh.box === 'repairing' ? ' (finishing repairs — Deployable this turn)' : ' (Make Ready — returns next turn)') })), min: 0, max: n }, 'A2up2');
   },
   A2up2(s, f) {
-    (f.answer || []).forEach(id => { const sh = s.ships[id]; sh.box = 'makeReady'; sh.steps = def(sh).full[4]; sh.flags.upgrading = true; log(s, `${shipName(s, id)} goes to Make Ready for upgrade.`, 'player'); });
+    (f.answer || []).forEach(id => {
+      const sh = s.ships[id];
+      if (sh.box === 'repairing' && !sh.delay) {
+        sh.ver = 'B'; sh.steps = def(sh).full[4]; sh.box = 'deployable'; delete sh.flags.upgrading;
+        log(s, `${shipName(s, id)} completes repair and upgrade together — Deployable this turn [7.2].`, 'player');
+      } else {
+        sh.box = 'makeReady'; sh.steps = def(sh).full[4]; sh.flags.upgrading = true;
+        log(s, `${shipName(s, id)} goes to Make Ready for upgrade.`, 'player');
+      }
+    });
     return G('A3');
   },
 
@@ -1191,42 +1206,39 @@ PROCS.turn = {
       row = hzCards.concat(row.filter(k => TARGET_CARDS[k].zone !== hz));
     }
     s.targetRow = row.map(id => ({ id, revealed: false, removed: false, enc: false }));
-    log(s, `Drew ${n} Target Cards${removed.length ? ' (removed ' + removed.join(', ') + ')' : ''}. Row backs (left→right): ${s.targetRow.map(c => ZONE_NAME[TARGET_CARDS[c.id].zone]).join(' · ')}.`, 'ai');
-    return aiPause(s, 'A10 Target Cards drawn', `Lay out ${n} Target Cards face down, left to right, showing these zones:\n${s.targetRow.map((c, i) => `${i + 1}. ${ZONE_NAME[TARGET_CARDS[c.id].zone]}`).join('\n')}`, 'B1');
+    const extra = row.length > n ? ` Added one ${ZONE_NAME[homeZone(s.ai)]} card for the Blockade because none was drawn [A10].` : '';
+    log(s, `Drew ${n} Target Cards${removed.length ? ' (removed ' + removed.join(', ') + ')' : ''}.${extra} Row backs (left→right): ${s.targetRow.map(c => ZONE_NAME[TARGET_CARDS[c.id].zone]).join(' · ')}.`, 'ai');
+    return aiPause(s, 'A10 Target Cards drawn', `Lay out ${row.length} Target Cards face down, left to right.${extra}\n${s.targetRow.map((c, i) => `${i + 1}. ${ZONE_NAME[TARGET_CARDS[c.id].zone]}`).join('\n')}`, 'B1');
   },
 
   /* B Lake Action ---------------------------------------------------------------------- */
   B1(s, f) {
     s.phase = 'lake'; s.stepLabel = 'B1 Possible Encounters';
     // Number Possible Encounters by row order
-    f.L.zoneCounters = {};
     f.L.pending = [];
     s.targetRow.forEach((c, idx) => {
       const z = TARGET_CARDS[c.id].zone;
       if (forcesInZone(s, z, s.human).length) f.L.pending.push({ idx, zone: z });
     });
-    f.L.zonesNeedingChoice = [...new Set(f.L.pending.map(p => p.zone))].filter(z => forcesInZone(s, z, s.human).length > 1);
-    f.L.firstForce = {};
     return G('B1choose');
   },
   B1choose(s, f) {
-    const z = f.L.zonesNeedingChoice.shift();
-    if (!z) return G('B1place');
-    f.L.curZone = z;
-    const fs = forcesInZone(s, z, s.human);
-    return P(choice(`B1 Possible Encounters in ${ZONE_NAME[z]}`, `${f.L.pending.filter(p => p.zone === z).length} Possible Encounter marker(s) fall in ${ZONE_NAME[z]}, where you have ${fs.length} Forces. Choose the Force that receives the first marker; further markers rotate evenly through your other Forces there [10.1.2].`,
-      fs.map(x => ({ id: x.id, label: forceLabel(s, x) }))), 'B1choose2');
+    const p = f.L.pending[0];
+    if (!p) return G('B1place');
+    const fs = forcesInZone(s, p.zone, s.human);
+    const count = id => s.pe.filter(pe => pe.zone === p.zone && pe.forceId === id).length;
+    const min = Math.min(...fs.map(fr => count(fr.id)));
+    const eligible = fs.filter(fr => count(fr.id) === min);
+    if (eligible.length === 1) { f.answer = eligible[0].id; return G('B1choose2'); }
+    return P(choice(`B1 Possible Encounter ${s.peNext} in ${ZONE_NAME[p.zone]}`, `Choose which Force receives PE${s.peNext}. Each Force must receive one marker before any receives a second; continue distributing markers as evenly as possible [10.1.2].`,
+      eligible.map(fr => ({ id: fr.id, label: `${forceLabel(s, fr)} — ${count(fr.id)} marker(s) so far` }))), 'B1choose2');
   },
-  B1choose2(s, f) { f.L.firstForce[f.L.curZone] = f.answer; return G('B1choose'); },
+  B1choose2(s, f) {
+    const p = f.L.pending.shift();
+    s.pe.push({ num: s.peNext++, zone: p.zone, forceId: f.answer, idx: p.idx, status: 'possible' });
+    return G('B1choose');
+  },
   B1place(s, f) {
-    const rot = {};
-    f.L.pending.forEach(p => {
-      let fs = forcesInZone(s, p.zone, s.human);
-      if (f.L.firstForce[p.zone]) { const i = fs.findIndex(x => x.id === f.L.firstForce[p.zone]); fs = fs.slice(i).concat(fs.slice(0, i)); }
-      rot[p.zone] = rot[p.zone] || 0;
-      const force = fs[rot[p.zone] % fs.length]; rot[p.zone]++;
-      s.pe.push({ num: s.peNext++, zone: p.zone, forceId: force.id, idx: p.idx, status: 'possible' });
-    });
     if (!s.pe.length) { log(s, 'B1: no Possible Encounters this turn.', 'ai'); return G('C1'); }
     log(s, `B1: Possible Encounters – ${s.pe.map(p => `PE${p.num} ${ZONE_NAME[p.zone]} (card ${p.idx + 1})`).join(', ')}.`, 'ai');
     return aiPause(s, 'B1 Possible Encounters', `Place Possible Encounter markers:\n${s.pe.map(p => `PE${p.num} on your ${forceLabel(s, s.forces[p.forceId])} in ${ZONE_NAME[p.zone]}`).join('\n')}`, 'B2');
@@ -1243,8 +1255,14 @@ PROCS.turn = {
     let force = s.forces[pe.forceId];
     if (!force || force.zone !== pe.zone || !force.ships.length || force.side !== s.human) {
       // 11.1.3: transfer the marker to another of your Forces still in the zone, if any
-      const other = forcesInZone(s, pe.zone, s.human)[0];
-      if (!other) { pe.status = 'discarded'; log(s, `PE${pe.num}: you have no Force left in ${ZONE_NAME[pe.zone]} – marker discarded.`, 'ai'); return G('B2'); }
+      const eligible = forcesInZone(s, pe.zone, s.human);
+      if (!eligible.length) { pe.status = 'discarded'; log(s, `PE${pe.num}: you have no Force left in ${ZONE_NAME[pe.zone]} – marker discarded.`, 'ai'); return G('B2'); }
+      if (eligible.length > 1) {
+        f.L.transferPe = pe.num;
+        return P(choice(`Transfer Possible Encounter ${pe.num}`, `The original Force is no longer in ${ZONE_NAME[pe.zone]}. Choose another of your Forces still there to receive PE${pe.num} [11.1.3].`,
+          eligible.map(fr => ({ id: fr.id, label: forceLabel(s, fr) }))), 'B2transfer');
+      }
+      const other = eligible[0];
       pe.forceId = other.id; force = other;
       log(s, `PE${pe.num} transferred to your ${forceLabel(s, other)}.`, 'ai');
     }
@@ -1259,6 +1277,13 @@ PROCS.turn = {
     log(s, `PE${pe.num} ${ZONE_NAME[pe.zone]}: Event #${ev.id} shows the spyglass – ENCOUNTER ${pe.num}! Target Card ${s.targetRow[pe.idx].id} revealed.`, 'event');
     f.L.pe = pe.num;
     return C('aiDeploy', { cardIdx: pe.idx, zone: pe.zone, phase: 'lake', encounter: true, humanForceId: pe.forceId, peNum: pe.num }, 'B2after');
+  },
+  B2transfer(s, f) {
+    const pe = s.pe.find(p => p.num === f.L.transferPe);
+    pe.forceId = f.answer;
+    log(s, `PE${pe.num} transferred to your ${forceLabel(s, s.forces[f.answer])}.`, 'player');
+    delete f.L.transferPe;
+    return G('B2');
   },
   B2after(s, f) {
     const pe = s.pe.find(p => p.num === f.L.pe);
@@ -1613,6 +1638,10 @@ function effectiveMission(s, card, phase) {
   return { mission: m, why };
 }
 
+function deploymentCellText(card, cell) {
+  return `Deployment table: Troops ${cell.row} row × Naval Balance “${NB_CARD_LABELS[cell.col]}” column → ${card.deck === 'A' ? (cell.v ? 'ship icon' : 'blank') : (cell.v ? 'Force Package #' + cell.v : 'blank')}.`;
+}
+
 PROCS.aiDeploy = {
   start(s, f) {
     const A = f.A, rowCard = s.targetRow[A.cardIdx], card = TARGET_CARDS[rowCard.id];
@@ -1623,7 +1652,7 @@ PROCS.aiDeploy = {
     const cell = cardCell(s, card);
     f.L.cell = cell;
     const head = `Target Card ${card.id}: ${ZONE_NAME[card.zone]} – ${MISSION_NAME[card.mission]}${card.secondary ? ' (' + MISSION_NAME[card.secondary] + ')' : ''}.`;
-    const cellTxt = `Deployment table: Troops ${cell.row} row × Naval Balance “${NB_CARD_LABELS[cell.col]}” column → ${card.deck === 'A' ? (cell.v ? 'ship icon' : 'blank') : (cell.v ? 'Force Package #' + cell.v : 'blank')}.`;
+    const cellTxt = deploymentCellText(card, cell);
     f.L.head = head; f.L.cellTxt = cellTxt;
     if (!em.mission) {
       log(s, `${head} No Deployment: ${em.why}.`, 'ai');
@@ -1646,6 +1675,12 @@ PROCS.aiDeploy = {
     if (card.deck === 'A') {
       // U.S. campaign: all British Deployable ships deploy as a single Force [5.3]
       f.L.ships = pool.map(sh => sh.id);
+      // 7.1 / OA1 apply only to a Force that can Deploy. EN1.1 excludes an
+      // Army Support Force unable to embark even one Troops marker.
+      if (f.L.mission === 'ArmySupport' && troopCapacity(s, f.L.ships) < 1) {
+        log(s, `${f.L.head} The Force cannot carry Troops (needs 4 Close Action per Troops marker) – no Deployment.`, 'ai');
+        return R({ none: true });
+      }
       return G('upgrade');
     }
     // British campaign: U.S. Force Package (Player Aid V)
@@ -1700,6 +1735,9 @@ PROCS.aiDeploy = {
             if (chosen.length) {
               s.nb = computeNavalBalance(s); s.nbBand = navalBalanceBand(s.nb);
               const cell = cardCell(s, TARGET_CARDS[f.L.card]);
+              f.L.cell = cell;
+              f.L.cellTxt = deploymentCellText(TARGET_CARDS[f.L.card], cell);
+              log(s, `OA1 recheck: Naval Balance now ${s.nb}. ${f.L.cellTxt}`, 'ai');
               if (!cell.v || !f.L.ships.length) { log(s, `Naval Balance now ${s.nb}: the card no longer Deploys ships.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }
             }
           }
@@ -2096,6 +2134,18 @@ PROCS.encounter = {
   __ret(s, f) { return R({}); },
 };
 
+// Rainy Squalls changes a Patrol Segment's first Round to Close Action. Rule 12
+// Harbor Encounters instead have their own explicit two-Gunnery-Round limit.
+function rainySquallsActive(s) {
+  const e = s.encounter;
+  return !!(e && e.kind !== 'harbor' && e.segment === 'patrol' && s.zones[e.zone].flags.rainy);
+}
+function closeActionPreviewText(s, attackers, defenders, aiAttacking) {
+  const describe = ids => ids.map(id => `${shipName(s, id)} CA ${combatVals(s, s.ships[id])[2]}`).join(', ') || 'none';
+  const pairs = closeActionMatchups(s, attackers, defenders, aiAttacking);
+  const matchups = pairs.map(([a, d]) => `${shipName(s, a)} vs ${shipName(s, d)}`).join('; ');
+  return `Attackers: ${describe(attackers)}. Defenders: ${describe(defenders)}. ${pairs.length ? `Close Action matchups: ${matchups}` : 'No eligible Close Action matchup at 2:1 or better'}.`;
+}
 function encSummary(s) {
   const e = s.encounter;
   const side = sd => encIds(s, sd).map(id => { const sh = s.ships[id]; return `${shipName(s, id)}${isReduced(sh) ? ' (Reduced)' : ''}`; }).join(', ') || '—';
@@ -2105,11 +2155,22 @@ function encSummary(s) {
   const notMs = id => id !== ms;
   const hAtt = encIds(s, h).filter(id => isFull(s.ships[id])).filter(notMs);
   const odds = (att, attIds, defIds) => { const a = sideStrength(s, attIds, att, noLG), d = sideStrength(s, defIds, att, noLG); return `${fmt(a)} vs ${fmt(d)} = ${d ? fmt(a / d) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(d ? a / d : 99)]})`; };
-  let aiAtt = encIds(s, ai).filter(id => isFull(s.ships[id])); if (ai === 'BR') aiAtt = aiAtt.filter(id => !isCLS(s.ships[id]));
-  aiAtt = aiAtt.filter(notMs);
+  // Use the same selected ships as the A.I. decision: it can omit untowed
+  // schooners to satisfy its attack threshold. This query spends no dice.
+  const aiPlan = aiAttackDecision(s, e.kind === 'breakout' && e.firstAttack && e.wg === ai);
+  const aiAtt = aiPlan.ships.filter(notMs);
+  if (rainySquallsActive(s)) {
+    const hFull = encIds(s, h).filter(id => isFull(s.ships[id]));
+    const preview = (att, ids, tows) => closeActionPreviewText(s,
+      buildColumn(s, ids, tows, att).filter(notMs), buildColumn(s, defendingIds(s, OTHER[att]), {}, OTHER[att]).filter(notMs), att === ai);
+    return `${ZONE_NAME[e.zone]} – U.S.: ${side('US')}\nBritish: ${side('BR')}\nRainy Squalls: no Gunnery — straight to Close Action.\n` +
+      `If you attack with all full-strength ships: ${preview(h, hFull, defaultTows(s, hFull))}\n` +
+      `If the A.I. attacks: ${aiPlan.ships.length ? preview(ai, aiPlan.ships, aiPlan.tows) : 'the A.I. would Pass (attack preconditions not met).'}` +
+      `${ms ? `\nMissed Signal: ${shipName(s, ms)} sits out the first Round.` : ''}`;
+  }
   return `${ZONE_NAME[e.zone]} – U.S.: ${side('US')}\nBritish: ${side('BR')}\n` +
     `Odds if you attack with all full-strength ships: ${hAtt.length ? odds(h, hAtt, defendingIds(s, ai).filter(notMs)) : 'no full-strength ships'}.\n` +
-    `Odds if the A.I. attacks: ${aiAtt.length ? odds(ai, aiAtt, defendingIds(s, h).filter(notMs)) : 'no full-strength ships'}.` +
+    `Odds if the A.I. attacks: ${aiPlan.ships.length ? odds(ai, aiAtt, defendingIds(s, h).filter(notMs)) : 'the A.I. would Pass (attack preconditions not met)'}.` +
     `${ms ? `\nBoth are first-Round odds: ${shipName(s, ms)} missed the signal and sits out the first Round.` : ''}${noLG ? ' (Haze: no Long Guns in the first Gunnery Round 1 here.)' : ''}`;
 }
 
@@ -2382,24 +2443,40 @@ function aiAttackDecision(s, waive) {
   const plan = aiPlanFor(s, ai, cands, defenders, waive);
   return plan;
 }
-function aiPlanFor(s, ai, cands, defenders, waive) {
+function aiPlanFor(s, ai, cands, defenders, waive, existingTows) {
   const noLG = hazeActive(s);
   const basis = ai === 'BR' ? 'car' : (s.options.usAiPrecondition === 'carronade' ? 'car' : 'lg');
   const printed = ids => sumBy(ids.map(id => s.ships[id]), sh => (basis === 'car' ? car(sh) : lg(sh)) + dfn(sh));
-  const odds = ids => { const d = sideStrength(s, defenders, ai, noLG); const a = sideStrength(s, ids, ai, noLG); return d <= 0 ? 99 : a / d; };
+  // Missed Signal removes a ship from the first Round's combat strengths, not
+  // from LC1's separate comparison of the Forces' printed weapon + Defense.
+  const missed = missedSignalShip(s);
+  const participating = ids => ids.filter(id => id !== missed);
+  const odds = ids => { const d = sideStrength(s, participating(defenders), ai, noLG); const a = sideStrength(s, participating(ids), ai, noLG); return d <= 0 ? 99 : a / d; };
   const out = { ships: [], tows: {}, why: '' };
   if (!cands.length) { out.why = 'no full-strength ships able to attack'; return out; }
+  if (!participating(cands).length) { out.why = 'Missed Signal leaves no ships able to attack this Round'; return out; }
   if (!defenders.length) { out.why = 'no defenders'; return out; }
   let tows = {};
   if (ai === 'US') {
-    const towers = cands.filter(id => canTow(s.ships[id]) && !isCLS(s.ships[id]));
-    const cls = cands.filter(id => isCLS(s.ships[id])).sort((a, b) => lg(s.ships[b]) - lg(s.ships[a]));
-    towers.forEach((t, i) => { if (cls[i]) tows[t] = cls[i]; });
+    const active = participating(cands);
+    if (existingTows) {
+      // LC6 advances the existing column. Retain its surviving tow pairs;
+      // silently reassigning a schooner would violate LC2's adjacent placement.
+      Object.keys(existingTows).forEach(t => {
+        const ship = existingTows[t];
+        if (active.indexOf(t) >= 0 && active.indexOf(ship) >= 0 && canTow(s.ships[t])) tows[t] = ship;
+      });
+    } else {
+      const towers = active.filter(id => canTow(s.ships[id]) && !isCLS(s.ships[id]));
+      const cls = active.filter(id => isCLS(s.ships[id])).sort((a, b) => lg(s.ships[b]) - lg(s.ships[a]));
+      towers.forEach((t, i) => { if (cls[i]) tows[t] = cls[i]; });
+    }
   }
   const towed = Object.values(tows);
   const tryCfg = ids => {
-    const untowed = ids.filter(id => isCLS(s.ships[id]) && towed.indexOf(id) < 0);
-    const allCLS = ids.every(id => isCLS(s.ships[id]));
+    const active = participating(ids);
+    const untowed = active.filter(id => isCLS(s.ships[id]) && towed.indexOf(id) < 0);
+    const allCLS = active.every(id => isCLS(s.ships[id]));
     const thr = ai === 'US' ? (allCLS ? 2 : untowed.length ? 1.5 : 1) : 1;
     const o = odds(ids), pa = printed(ids), pd = printed(defenders);
     return { ok: waive || (o >= thr && pa > pd), o, thr, pa, pd };
@@ -2408,7 +2485,7 @@ function aiPlanFor(s, ai, cands, defenders, waive) {
   let r = tryCfg(cands);
   if (r.ok) { out.ships = cands; out.tows = tows; out.why = `A.I. preconditions met: ${label} ${r.pa} vs ${r.pd}; odds ${fmt(r.o)}:1 (needs ${r.thr}:1).`; return out; }
   if (ai === 'US') {
-    const reduced = cands.filter(id => !isCLS(s.ships[id]) || towed.indexOf(id) >= 0);
+    const reduced = cands.filter(id => id === missed || !isCLS(s.ships[id]) || towed.indexOf(id) >= 0);
     if (reduced.length && reduced.length < cands.length) {
       const r2 = tryCfg(reduced);
       if (r2.ok) { out.ships = reduced; out.tows = tows; out.why = `A.I. attacks without its untowed Laker Schooners: ${label} ${r2.pa} vs ${r2.pd}; odds ${fmt(r2.o)}:1.`; return out; }
@@ -2454,9 +2531,35 @@ PROCS.combat = {
   start(s, f) {
     const A = f.A, e = s.encounter;
     const att = A.attacker;
-    s.combat = { att, def: OTHER[att], seq: att === 'US' ? 'A' : 'B', pos: 0, segment: A.segment, col: { US: [], BR: [] },
+    f.L.nextCombat = { att, def: OTHER[att], seq: att === 'US' ? 'A' : 'B', pos: 0, segment: A.segment, col: { US: [], BR: [] },
       tows: {}, tac: { att: null, def: null }, gr: 0, newSeq: false, plan: A.aiPlan || null, roundAttackers: [], log: [], openGaps: false, rainy: false };
-    log(s, `LAKE COMBAT in ${ZONE_NAME[e.zone]} – ${SIDE_PL[att]} attack (Combat Sequence ${s.combat.seq}).`, 'combat');
+    log(s, `LAKE COMBAT in ${ZONE_NAME[e.zone]} – ${SIDE_PL[att]} attack (Combat Sequence ${f.L.nextCombat.seq}).`, 'combat');
+    return G('sequenceTransfer');
+  },
+  sequenceTransfer(s, f) {
+    // A reduced defending Flagship can become the attacker on the next
+    // Sequence/Reaction. Offer the transfer before replacing the old column,
+    // while LC5.1's adjacent ships are still known.
+    const side = f.L.nextCombat.att, opts = flagTransferOptions(s, side);
+    if (opts.length && side === s.human) {
+      return P(choice('Transfer the flag?', `Before the new Combat Sequence, ${leaderName(s, side)} may leave the Reduced ${shipName(s, s.flagship[side])} for an adjacent full-strength ship. A Leader Casualty Check is required.`,
+        [{ id: 'stay', label: 'Stay aboard', primary: true }].concat(opts.map(id => ({ id, label: `Transfer to ${shipName(s, id)}` })))), 'sequenceTransfer2');
+    }
+    if (opts.length && side === s.ai && commandDRMAvailable(s, side)) {
+      const lines = []; tryFlagTransfer(s, side, opts[0], lines); logLines(s, lines);
+      return P(info('Flag transfer', lines.join('\n')), 'sequenceBegin');
+    }
+    return G('sequenceBegin');
+  },
+  sequenceTransfer2(s, f) {
+    if (f.answer !== 'stay') {
+      const lines = []; tryFlagTransfer(s, s.human, f.answer, lines); logLines(s, lines);
+      return P(info('Flag transfer', lines.join('\n')), 'sequenceBegin');
+    }
+    return G('sequenceBegin');
+  },
+  sequenceBegin(s, f) {
+    s.combat = f.L.nextCombat; f.L.nextCombat = null;
     return G('assemble');
   },
   assemble(s, f) {
@@ -2465,7 +2568,7 @@ PROCS.combat = {
       const cands = encIds(s, c.att).filter(id => isFull(s.ships[id]));
       if (!cands.length) return R({ outcome: 'segmentEnd' });
       return P({ kind: 'lineup', title: `Lake Combat – choose your attacking ships`, side: c.att,
-        text: `Only full-strength ships may attack. ${c.att === 'US' ? 'Each ship with a “T” may tow one Converted Laker Schooner (towing avoids the untowed-schooner DRM penalty; untowed schooners in a U.S. attack risk −1/−2 DRM).' : ''}\nDefending: ${defendingIds(s, c.def).map(id => shipName(s, id)).join(', ')}.`,
+        text: `Only full-strength ships may attack. ${c.att === 'US' && !(c.segment === 'patrol' && zoneFlags(s).rainy) ? 'Each ship with a “T” may tow one Converted Laker Schooner (towing avoids the untowed-schooner DRM penalty; untowed schooners in a U.S. attack risk −1/−2 DRM).' : ''}\nDefending: ${defendingIds(s, c.def).map(id => shipName(s, id)).join(', ')}.`,
         candidates: cands, defenders: defendingIds(s, c.def), defaultTows: defaultTows(s, cands) }, 'assemble2');
     }
     return G('assemble2');
@@ -2486,7 +2589,15 @@ PROCS.combat = {
     const ms = missedSignalShip(s);
     if (ms) {
       ['US', 'BR'].forEach(sd => { if (c.col[sd].indexOf(ms) >= 0) { c.sitting = { id: ms, side: sd }; c.col[sd] = c.col[sd].filter(x => x !== ms); } });
-      if (c.sitting) { zf.missedSignalUsed = true; log(s, `Missed Signal: ${shipName(s, c.sitting.id)} sits out this Round.`, 'event'); }
+      // The Event is spent at the first Round the ship was otherwise eligible
+      // to join, even if the human elected to leave it out of the attack.
+      const sh = s.ships[ms], eligible = sh.owner === c.def ? defendingIds(s, c.def).indexOf(ms) >= 0 :
+        isFull(sh) && !(sh.owner === 'BR' && s.ai === 'BR' && isCLS(sh));
+      if (eligible) {
+        zf.missedSignalUsed = true;
+        log(s, c.sitting ? `Missed Signal: ${shipName(s, ms)} sits out this Round.` :
+          `Missed Signal is used: ${shipName(s, ms)} was eligible for this Round but was left out of the attack.`, 'event');
+      }
     }
     log(s, `Line of battle – ${SIDE_SHORT[c.att]} (attacking): ${c.col[c.att].map((id, i) => (i + 1) + '.' + shipName(s, id)).join(' ')}${Object.keys(tows).length ? ' [towing: ' + Object.keys(tows).map(t => def(s.ships[t]).name + '→' + def(s.ships[tows[t]]).name).join(', ') + ']' : ''}; ${SIDE_SHORT[c.def]} (defending): ${c.col[c.def].map((id, i) => (i + 1) + '.' + shipName(s, id)).join(' ')}.`, 'combat');
     if (!c.col[c.att].length) return R({ outcome: 'segmentEnd' });
@@ -2556,14 +2667,19 @@ PROCS.combat = {
     const c = cmb(s);
     const st = SEQ_STEPS[c.seq][c.pos];
     f.L.st = st;
+    f.L.roundPlan = null;
     const attackers = colShips(c, c.att).filter(id => isFull(s.ships[id]) && s.encounter.ships[id] === 'in');
     if (!attackers.length) { log(s, `${SIDE_SHORT[c.att]} has no full-strength ships left to attack – the Segment ends.`, 'combat'); return R({ outcome: 'segmentEnd' }); }
     const needDecision = st === 'GR2' || c.newSeq;
     c.newSeq = false;
     if (needDecision) {
       if (c.att === s.ai) {
-        const plan = aiPlanFor(s, s.ai, attackers.filter(id => !(s.ai === 'BR' && isCLS(s.ships[id]))), colShips(c, c.def), false);
+        const plan = aiPlanFor(s, s.ai, attackers.filter(id => !(s.ai === 'BR' && isCLS(s.ships[id]))), colShips(c, c.def), false, c.tows);
         if (!plan.ships.length) { log(s, `A.I. passes: ${plan.why}`, 'ai'); s.encounter.lastEnd = 'pass'; return P(info('The A.I. breaks off', `${plan.why}\nThe current Segment ends.`), '__segEnd'); }
+        // The plan may omit untowed schooners to meet LC1's lower 1:1 threshold.
+        // Keep those ships Engaged, but do not fire or distribute return hits to
+        // them in this Round. A later Weather Gage switch can use them to defend.
+        f.L.roundPlan = plan;
       } else {
         return P(choice(`${st === 'GR2' ? 'Gunnery Round 2' : 'New Combat Sequence'} – attack or pass?`, `${combatSummary(s)}\nYou hold the Weather Gage. Attack again, or Pass (the current Segment ends)?`,
           [{ id: 'attack', label: 'Attack', primary: true }, { id: 'pass', label: 'Pass' }], { combatPreview: true }), 'grDecide');
@@ -2605,11 +2721,22 @@ PROCS.combat = {
   },
   grRoll(s, f) {
     const c = cmb(s), e = s.encounter, zf = zoneFlags(s), st = f.L.st;
+    // A06 applies to one Defender Hit result only. Frame locals survive later rounds
+    // and Weather Gage switches, so never carry its target into a new roll.
+    delete f.L.rakeTarget;
+    delete f.L.rakeRandom;
     c.gr++;
     const isGR1 = st === 'GR1';
     const noLG = isGR1 && hazeActive(s);
     if (noLG) zf.hazeUsed = true;
-    const attackers = colShips(c, c.att).filter(id => isFull(s.ships[id]));
+    let attackers = colShips(c, c.att).filter(id => isFull(s.ships[id]));
+    if (f.L.roundPlan) {
+      const omitted = attackers.filter(id => f.L.roundPlan.ships.indexOf(id) < 0);
+      attackers = attackers.filter(id => f.L.roundPlan.ships.indexOf(id) >= 0);
+      c.tows = f.L.roundPlan.tows || {};
+      log(s, f.L.roundPlan.why, 'ai');
+      if (omitted.length) log(s, `A.I. ships sitting out this Gunnery Round (still Engaged): ${omitted.map(id => shipName(s, id)).join(', ')}. Attacking: ${attackers.map(id => shipName(s, id)).join(', ')}.`, 'ai');
+    }
     c.roundAttackers = attackers.slice();
     const defenders = f.L.subgroup || colShips(c, c.def);
     const aStr = sideStrength(s, attackers, c.att, noLG), dStr = sideStrength(s, defenders, c.att, noLG);
@@ -2681,8 +2808,15 @@ PROCS.combat = {
   },
   grApply(s, f) {
     const c = cmb(s), res = f.L.res;
+    f.L.closeResult = false;
     const lines = [f.L.txt];
-    if (res.end) { lines.push('END – the current Segment ends immediately.'); log(s, 'END – the current Segment ends immediately.', 'combat'); f.L.outcome = 'segmentEnd'; return P(info('Gunnery result', lines.join('\n'), { combatView: true }), 'finishRound'); }
+    if (res.end) {
+      const ending = res.aW || res.dW ? 'END – the current Segment ends after applying the Tactic withdrawal.' : 'END – the current Segment ends immediately.';
+      lines.push(ending); log(s, ending, 'combat'); f.L.outcome = 'segmentEnd';
+      // Escape adds DW to the next result, including END. Apply that withdrawal
+      // before ending the Segment; the human can still decline a W normally.
+      if (!res.aW && !res.dW) return P(info('Gunnery result', lines.join('\n'), { combatView: true }), 'finishRound');
+    }
     // distribute hits
     const dMap = {}, aMap = {};
     if (res.dHits) {
@@ -2753,14 +2887,16 @@ PROCS.combat = {
     // AI: transfer automatically if it keeps the Command bonus for an attack
     const ai = s.ai, aopt = flagTransferOptions(s, ai);
     if (aopt.length && c.att === ai && commandDRMAvailable(s, ai)) { tryFlagTransfer(s, ai, aopt[0], f.L.lines); }
-    logLines(s, f.L.lines.slice(1));
-    return P(info('Gunnery Round results', f.L.lines.join('\n'), { combatView: true }), 'finishRound');
+    return G('roundResults');
   },
   flagTransfer2(s, f) {
     if (f.answer !== 'stay') tryFlagTransfer(s, s.human, f.answer, f.L.lines);
     f.L.askedFlag = false;
-    logLines(s, f.L.lines.slice(1));
-    return P(info('Gunnery Round results', f.L.lines.join('\n'), { combatView: true }), 'finishRound');
+    return G('roundResults');
+  },
+  roundResults(s, f) {
+    logLines(s, f.L.closeResult ? f.L.lines : f.L.lines.slice(1));
+    return P(info(f.L.closeResult ? 'Close Action Round' : 'Gunnery Round results', f.L.lines.join('\n'), { combatView: true }), f.L.closeResult ? 'caDone' : 'finishRound');
   },
   finishRound(s, f) {
     const c = cmb(s), e = s.encounter;
@@ -2804,16 +2940,16 @@ PROCS.combat = {
     if (newAtt === s.ai) {
       const dec = aiAttackDecision(s, false);
       if (!dec.ships.length) { log(s, `A.I. passes: ${dec.why}`, 'ai'); e.lastEnd = 'pass'; return P(info('The A.I. does not attack', dec.why + '\nThe current Segment ends.'), '__segEnd'); }
-      s.combat = { att: newAtt, def: OTHER[newAtt], seq: newAtt === 'US' ? 'A' : 'B', pos: 0, segment: s.combat.segment, col: { US: [], BR: [] }, tows: {}, tac: { att: null, def: null }, gr: 0, newSeq: false, plan: dec, roundAttackers: [], openGaps: false };
-      return G('assemble');
+      f.L.nextCombat = { att: newAtt, def: OTHER[newAtt], seq: newAtt === 'US' ? 'A' : 'B', pos: 0, segment: s.combat.segment, col: { US: [], BR: [] }, tows: {}, tac: { att: null, def: null }, gr: 0, newSeq: false, plan: dec, roundAttackers: [], openGaps: false };
+      return G('sequenceTransfer');
     }
     return P(choice('You gain the Weather Gage', `${combatSummary(s)}\nStart Combat Sequence ${newAtt === 'US' ? 'A' : 'B'} as the attacker, or Pass (the current Segment ends)?`, [{ id: 'attack', label: 'Attack', primary: true }, { id: 'pass', label: 'Pass' }], { combatPreview: true }), 'wgSwitch2');
   },
   wgSwitch2(s, f) {
     if (f.answer === 'pass') { s.encounter.lastEnd = 'pass'; log(s, 'You Pass.', 'player'); return R({ outcome: 'segmentEnd' }); }
     const newAtt = s.human;
-    s.combat = { att: newAtt, def: OTHER[newAtt], seq: newAtt === 'US' ? 'A' : 'B', pos: 0, segment: s.combat.segment, col: { US: [], BR: [] }, tows: {}, tac: { att: null, def: null }, gr: 0, newSeq: false, plan: null, roundAttackers: [], openGaps: false };
-    return G('assemble');
+    f.L.nextCombat = { att: newAtt, def: OTHER[newAtt], seq: newAtt === 'US' ? 'A' : 'B', pos: 0, segment: s.combat.segment, col: { US: [], BR: [] }, tows: {}, tac: { att: null, def: null }, gr: 0, newSeq: false, plan: null, roundAttackers: [], openGaps: false };
+    return G('sequenceTransfer');
   },
 
   /* LC7 Close Action Round -------------------------------------------------------------- */
@@ -2824,8 +2960,12 @@ PROCS.combat = {
     if (!attackers.length) { log(s, 'No full-strength attackers for Close Action – the Segment ends.', 'combat'); return R({ outcome: 'segmentEnd' }); }
     if (!c.rainy) {
       if (c.att === s.ai) {
-        const plan = aiPlanFor(s, s.ai, attackers, colShips(c, c.def), false);
+        const plan = aiPlanFor(s, s.ai, attackers, colShips(c, c.def), false, c.tows);
         if (!plan.ships.length) { log(s, `A.I. passes before Close Action: ${plan.why}`, 'ai'); return P(info('The A.I. breaks off', plan.why + '\nThe Segment ends.'), '__segEnd'); }
+        const omitted = attackers.filter(id => plan.ships.indexOf(id) < 0);
+        attackers = plan.ships;
+        c.tows = plan.tows || {};
+        if (omitted.length) log(s, `A.I. ships sitting out Close Action (still Engaged): ${omitted.map(id => shipName(s, id)).join(', ')}.`, 'ai');
       } else if (!f.L.caAsked) {
         f.L.caAsked = true;
         f.L.caAtt = attackers;
@@ -2889,10 +3029,9 @@ PROCS.combat = {
       e.ships[loser] = 'cap';
       captureShip(s, loser, wSide, 'Melee', false, lfate);
     });
-    lines.forEach(l => log(s, l, 'combat'));
     c.pos++;
-    f.L.lines = lines;
-    return P(info('Close Action Round', lines.join('\n'), { combatView: true }), 'caDone');
+    f.L.lines = lines; f.L.closeResult = true;
+    return G('flagTransfer');
   },
   caDone(s, f) {
     tidyColumns(s);
@@ -3420,7 +3559,7 @@ PROCS.coastal = {
     log(s, `${SIDE_SHORT[side]} Troops launched in ${ZONE_NAME[item.z]}: ${troops}.`, 'coastal');
     const port = homeportOfZone(s, other, item.z);
     if (port) {
-      const defenders = sideShips(s, other).filter(sh => (sh.box === 'deployable' || sh.box === 'transit') && sh.port === port);
+      const defenders = harborDefendingShips(s, other, port);
       if (defenders.length) return C('harbor', { zone: item.z, att: side, forces: item.forces, port }, 'asBattle');
     }
     return G('asBattle');
@@ -3461,14 +3600,14 @@ PROCS.coastal = {
     lines.push(`Land Battle vs ${target === 'NIA' ? 'the Niagara Front' : (other === 'US' ? HOMEPORT_NAME.US : HOMEPORT_NAME.BR)}: ${f.L.troops} Troops marker(s), supporting Long Gun Strength ${lgTot}${shift ? `, column shift ${shift}` : ''}. Dice (red/blue) 11-66: ${r.v}.`);
     lines.forEach(l => log(s, l, 'coastal'));
     f.L.lbLines = lines;
+    const lk = lbLookup(lgTot, f.L.troops, shift, r.v);
+    const lkTxt = `Land Battle Table: column “${lk.colLabel}”${lk.band !== lk.band0 ? ` (shifted from ${LB_BANDS[lk.band0]})` : ''}${f.L.troops > 3 ? ' (3 Troops is the highest column)' : ''}, roll ${r.v}.`;
+    f.L.lbLines.push(lkTxt); log(s, lkTxt, 'roll');
     if (!s.options.manualLandBattle) {
-      const lk = lbLookup(lgTot, f.L.troops, shift, r.v);
-      const lkTxt = `Land Battle Table: column “${lk.colLabel}”${lk.band !== lk.band0 ? ` (shifted from ${LB_BANDS[lk.band0]})` : ''}${f.L.troops > 3 ? ' (3 Troops is the highest column)' : ''}, roll ${r.v}.`;
-      f.L.lbLines.push(lkTxt); log(s, lkTxt, 'roll');
       f.answer = lk.result;
       return G('asResult');
     }
-    return P(choice(`Land Battle – read Player Aid VII`, lines.join('\n') + `\n\nOn the Land Battle Table (Player Aid VII) use the column for ${lgTot} Long Gun Strength with ${f.L.troops} Troops marker(s)${shift ? `, shifted ${shift} column(s) left` : ''}, row ${r.v}. Select the result:`,
+    return P(choice(`Land Battle – read Player Aid VII`, lines.join('\n') + `\n\nOn Player Aid VII, use column “${lk.colLabel}” with ${Math.min(f.L.troops, 3)} Troops marker(s), row ${r.v}. Select the result:`,
       LB_RESULTS.map(x => ({ id: x.id, label: x.label })), { landBattle: f.L.lb }), 'asResult');
   },
   asResult(s, f) {
@@ -3486,17 +3625,21 @@ PROCS.coastal = {
 function grantIntelligence(s, side, cardId, lines) {
   s.intelligence[side] = { card: cardId, until: s.turn + 1 };
   s.deck.event = s.deck.event.filter(x => x !== cardId);
-  lines.push(`Intelligence: the ${SIDE_PL[side]} get +1 DRM on Reaction Checks (and no negative DRMs) in the next Encounter involving the enemy Flagship (until the end of next turn).`);
+  lines.push(`Intelligence: next turn only, the ${SIDE_PL[side]} get +1 DRM on Reaction Checks (and no negative DRMs) in the first Encounter involving the enemy Flagship. That Encounter uses up Intelligence even if no Reaction Checks occur; unused Intelligence expires at the end of that turn.`);
 }
 
 /* Harbor Encounter (12): up to two Gunnery Rounds, no Weather Gage / Tactics,
    −1 column shift, no Disengagement or Withdrawal. */
+function harborDefendingShips(s, side, port) {
+  return sideShips(s, side).filter(sh => (sh.box === 'deployable' || sh.box === 'transit') && sh.port === port &&
+    !(side === 'BR' && s.ai === 'BR' && isCLS(sh)));
+}
 PROCS.harbor = {
   start(s, f) {
     const A = f.A, att = A.att, dfs = OTHER[att];
     s.encounter = { zone: A.zone, kind: 'harbor', segment: 'patrol', ships: {}, side: {}, struckBy: {}, withdrawn: { US: false, BR: false }, harborDefender: dfs, wgCard: null, leaderFate: {} };
     const attShips = A.forces.reduce((a, fid) => a.concat(s.forces[fid] ? s.forces[fid].ships : []), []);
-    const defShips = sideShips(s, dfs).filter(sh => (sh.box === 'deployable' || sh.box === 'transit') && sh.port === A.port).map(sh => sh.id);
+    const defShips = harborDefendingShips(s, dfs, A.port).map(sh => sh.id);
     attShips.forEach(id => encAdd(s, id)); defShips.forEach(id => encAdd(s, id));
     s.combat = { att, def: dfs, seq: att === 'US' ? 'A' : 'B', pos: 0, col: { US: [], BR: [] }, tows: {}, tac: { att: null, def: null }, gr: 0 };
     let atts = attShips.filter(id => isFull(s.ships[id]));
@@ -3514,11 +3657,29 @@ PROCS.harbor = {
   round(s, f) {
     const c = s.combat, e = s.encounter;
     tidyColumns(s);
-    const atts = colShips(c, c.att).filter(id => isFull(s.ships[id]));
-    const defs = colShips(c, c.def);
+    let atts = colShips(c, c.att).filter(id => isFull(s.ships[id]));
+    let defs = colShips(c, c.def);
     if (f.L.round >= 2 || !atts.length || !defs.length) return G('end');
     f.L.round++;
-    const aStr = sideStrength(s, atts, c.att, false), dStr = sideStrength(s, defs, c.att, false);
+    const eventLines = [], zf = zoneFlags(s);
+    // Rule 12 changes the sequence, not the scope of pending Lake Zone Events.
+    // Missed Signal applies to the first Round the selected ship could join;
+    // retain the original columns so the ship can return for Round 2.
+    const ms = f.L.round === 1 ? missedSignalShip(s) : null;
+    const sitsOut = ms && (atts.indexOf(ms) >= 0 || defs.indexOf(ms) >= 0) ? ms : null;
+    if (sitsOut) {
+      zf.missedSignalUsed = true;
+      atts = atts.filter(id => id !== sitsOut); defs = defs.filter(id => id !== sitsOut);
+      eventLines.push(`Missed Signal: ${shipName(s, sitsOut)} sits out Harbor Gunnery Round 1.`);
+    }
+    if (!atts.length || !defs.length) {
+      eventLines.push('No opposing eligible ships remain in this Round — skip Gunnery Round 1. The ship returns for Round 2.');
+      eventLines.forEach(l => log(s, l, 'combat'));
+      return P(info('Harbor Encounter', eventLines.join('\n'), { combatView: true }), 'round');
+    }
+    const noLG = f.L.round === 1 && hazeActive(s);
+    if (noLG) { zf.hazeUsed = true; eventLines.push('Haze: no Long Guns in Harbor Gunnery Round 1; the Haze now burns off.'); }
+    const aStr = sideStrength(s, atts, c.att, noLG), dStr = sideStrength(s, defs, c.att, noLG);
     const ratio = dStr <= 0 ? 99 : aStr / dStr;
     let col = Math.max(0, crtColumnForRatio(ratio) - 1);
     let drm = 0; const drms = [];
@@ -3526,10 +3687,10 @@ PROCS.harbor = {
     const r = d10(s), m = Math.max(0, Math.min(9, r + drm));
     const code = CRT[m][col];
     const res = parseCrt(code);
-    const lines = [`Harbor Gunnery Round ${f.L.round}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${fmt(dStr)} = ${dStr <= 0 ? '∞' : fmt(ratio)}:1, −1 shore batteries → ${CRT_COLS[col]}; d10 ${r}${drm ? '+' + drm : ''} → ${code}${drms.length ? ' [' + drms.join(', ') + ']' : ''}. (W results ignored.)`];
+    const lines = eventLines.concat(`Harbor Gunnery Round ${f.L.round}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${fmt(dStr)} = ${dStr <= 0 ? '∞' : fmt(ratio)}:1, −1 shore batteries → ${CRT_COLS[col]}; d10 ${r}${drm ? '+' + drm : ''} → ${code}${drms.length ? ' [' + drms.join(', ') + ']' : ''}. (W results ignored.)`);
     const dMap = {}, aMap = {};
-    if (res.dHits) distributeHits(s, c.col[c.def], res.dHits, dMap, lines, { side: c.def });
-    if (res.aHits) distributeHits(s, c.col[c.att], res.aHits, aMap, lines, { side: c.att });
+    if (res.dHits) distributeHits(s, defs, res.dHits, dMap, lines, { side: c.def });
+    if (res.aHits) distributeHits(s, c.col[c.att].filter(id => id !== sitsOut), res.aHits, aMap, lines, { side: c.att });
     applyHits(s, c.def, dMap, { round: 'GR' }, lines);
     applyHits(s, c.att, aMap, { round: 'GR' }, lines);
     lines.forEach(l => log(s, l, 'combat'));
@@ -3687,12 +3848,11 @@ PROCS.tally = {
     // F7: ships return
     Object.values(s.ships).forEach(sh => {
       if (sh.box === 'lake' || sh.box === 'escortBox') {
-        const fr = s.forces[sh.forceId];
         sh.forceId = null; sh.zone = null;
-        if (sh.flags.heatedShot) { delete sh.flags.heatedShot; sh.box = 'ordinary'; sh.flags.damaged = true; sh.port = sh.isolated ? 'temp' : 'home'; return; }
-        if (sh.flags.requisition) { delete sh.flags.requisition; sh.box = 'requisitioned'; sh.flags.reqUntil = s.turn + 2; return; }
         sh.port = sh.isolated ? 'temp' : 'home';
-        sh.box = isFull(sh) ? 'deployable' : 'transit';
+        if (sh.flags.heatedShot) { delete sh.flags.heatedShot; sh.box = 'ordinary'; sh.flags.damaged = true; return; }
+        if (sh.flags.requisition) { delete sh.flags.requisition; sh.box = 'requisitioned'; sh.flags.reqUntil = s.turn + 2; }
+        else sh.box = isFull(sh) ? 'deployable' : 'transit';
       }
       if (sh.box === 'transit' && isFull(sh)) sh.box = 'deployable';
       if (sh.box !== 'sunk' && sh.box !== 'outOfPlay') discardStepMarkers(sh);
@@ -3932,7 +4092,20 @@ function doAct(answer) {
     console.error(e);
   }
   autosave(); render();
-  const p = $('proc'); if (p) p.scrollTop = 0;
+  revealPromptStart();
+}
+function revealPromptStart() {
+  const p = $('proc'); if (!p) return;
+  p.scrollTop = 0;
+  const title = p.querySelector('.ptitle') || p, bounds = title.getBoundingClientRect();
+  const header = $('hdr'), headerPosition = header && getComputedStyle(header).position;
+  const top = header && (headerPosition === 'sticky' || headerPosition === 'fixed') ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+  // On phones the document scrolls, rather than the procedure panel. Reveal a
+  // new prompt only when its title is outside the unobscured viewport.
+  if ((bounds.top < top || bounds.bottom > window.innerHeight) && typeof p.scrollIntoView === 'function') {
+    p.style.scrollMarginTop = `${top + 8}px`;
+    p.scrollIntoView({ block: 'start', inline: 'nearest' });
+  }
 }
 function undo() {
   if (!UNDO.length) return;
@@ -4004,7 +4177,7 @@ function checkSaveState(st) {
     if (!fr || typeof fr !== 'object' || !PROCS[fr.proc] || typeof fr.pc !== 'string' || typeof PROCS[fr.proc][fr.pc] !== 'function') bad('procedure stack');
     if (fr.L != null && typeof fr.L !== 'object') bad('procedure stack');
   });
-  if (!st.over && st.calls.length && (!st.prompt || typeof st.prompt.kind !== 'string' || ['info', 'choice', 'select', 'assign', 'lineup'].indexOf(st.prompt.kind) < 0)) bad('pending decision');
+  if (!st.over && (!st.calls.length || !st.prompt || typeof st.prompt.kind !== 'string' || ['info', 'choice', 'select', 'assign', 'lineup'].indexOf(st.prompt.kind) < 0)) bad('pending decision');
   if (st.over && !st.result) bad('final result');
   if (st.encounter) {
     const e = st.encounter;
@@ -4021,11 +4194,13 @@ function checkSaveState(st) {
   return st;
 }
 // Replace the current game with a checked save; if it cannot be shown, put the old game back.
-function commitLoaded(st, undo) {
+function commitLoaded(st, undo, retained) {
   const prevS = G_STATE, prevU = UNDO;
   const loadedUndo = Array.isArray(undo) ? undo.filter(u => typeof u === 'string') : [];
   // keep the previous game reachable: one Undo after loading returns to it (and its own Undo history)
-  const keep = prevS ? prevU.concat([JSON.stringify(prevS)]) : [];
+  const prior = prevS || (retained && retained.state);
+  const priorUndo = prevS ? prevU : retained && Array.isArray(retained.undo) ? retained.undo.filter(u => typeof u === 'string') : [];
+  const keep = prior ? priorUndo.concat([JSON.stringify(prior)]) : [];
   G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.loadNotes = UI.loadNotes || [];
   UI.err = UI.loadNotes.filter(n => !(st.recovery || []).includes(n)).join(' '); UI.loadNotes = [];   // unresolved notices show in their own panel
   try { render(); }
@@ -4035,12 +4210,21 @@ function commitLoaded(st, undo) {
     throw new Error(`this save could not be displayed (${e.message}). Your current game was not changed.`);
   }
   autosave();
+  renderHeader(G_STATE);   // autosave can change the storage-warning status after the first render
 }
 function loadFromText(txt) {
   let d;
   try { d = JSON.parse(txt); } catch (e) { throw new Error('this is not complete save text (it may have been cut off). Your current game was not changed.'); }
   const st = checkSaveState(d && typeof d === 'object' && d.state ? d.state : d);
-  commitLoaded(st, []);
+  let retained = null;
+  if (!G_STATE) {
+    const saved = loadSaved(), notes = UI.loadNotes;
+    // A setup-screen import must be undoable too. Checking the stored copy does not write to storage.
+    try { if (saved && saved.state) retained = { state: checkSaveState(saved.state), undo: saved.undo }; }
+    catch (e) { /* an unreadable retained game cannot supply a usable Undo position */ }
+    finally { UI.loadNotes = notes; }
+  }
+  commitLoaded(st, [], retained);
   closeModal();
 }
 function exportSave() {
@@ -4052,7 +4236,7 @@ function exportSave() {
     el('button', { class: 'primary', onclick: () => {
       try {
         const blob = new Blob([saveText()], { type: 'application/json' });
-        const a = el('a', { href: URL.createObjectURL(blob), download: `agc-${G_STATE.human}-${TURN_NAMES[Math.min(G_STATE.turn, 7)].replace(' ', '')}.json` });
+        const a = el('a', { href: URL.createObjectURL(blob), download: `agc-${G_STATE.human}-${TURN_NAMES[Math.min(G_STATE.turn, 7)].replace(' ', '')}-seed${G_STATE.seed}-step${G_STATE.promptSeq || 0}.json` });
         document.body.appendChild(a); a.click(); a.remove();
         msg.textContent = 'Download started (if nothing happens, your viewer blocks downloads – use Copy instead).';
       } catch (e) { msg.textContent = 'Download is not available here – use Copy instead.'; }
@@ -4122,6 +4306,7 @@ function trackRow(s, side) {
 function renderHeader(s) {
   const h = $('hdr'); h.innerHTML = '';
   h.appendChild(el('h1', null, 'A Glorious Chance · Solo Companion'));
+  h.appendChild(el('span', { class: 'app-version' }, `v${APP_VERSION}`));
   if (!s) {
     h.appendChild(el('div', { class: 'btns' }, el('button', { onclick: importSave }, 'Load game'), el('button', { onclick: () => openRef() }, 'Reference')));
     return;
@@ -4176,7 +4361,7 @@ function renderProc(s) {
 function renderChoice(s, pr) {
   if (pr.tactic) {
     const box = el('div');
-    pr.options.forEach(o => box.appendChild(el('div', { class: `optcard tac-${o.color || 'white'}`, onclick: () => doAct(o.id) }, el('div', { class: 't' }, o.label), el('div', { class: 'd' }, o.desc || ''))));
+    pr.options.forEach(o => box.appendChild(el('button', { type: 'button', class: `optcard tac-${o.color || 'white'}`, disabled: o.disabled, onclick: () => doAct(o.id) }, el('span', { class: 't' }, o.label), el('span', { class: 'd' }, o.desc || ''))));
     return box;
   }
   const box = el('div', { class: 'opts' });
@@ -4236,20 +4421,28 @@ function renderLineup(s, pr) {
   wrap.appendChild(list);
   const ans = { attackers: L.att.slice(), tows: Object.assign({}, L.tows) };
   const err = validateAnswer(s, pr, ans);
-  if (pr.side === 'US') {
+  const rainy = rainySquallsActive(s);
+  if (pr.side === 'US' && !rainy) {
     const towed = Object.values(L.tows);
     const unt = L.att.filter(id => isCLS(s.ships[id]) && towed.indexOf(id) < 0).length;
     wrap.appendChild(el('div', { class: 'muted', style: { marginTop: '4px' } }, unt ? `${unt} untowed Laker Schooner(s): roll 1d6 – ≤ ${unt / 2} gives −2 DRM, ≤ ${unt} gives −1.` : 'No untowed Laker Schooners – no DRM penalty.'));
   }
-  // Preview the first Round exactly as it will be fought: same defenders, Missed Signal and Haze
+  // Preview the Round actually fought, including Rainy Squalls, Missed Signal
+  // and the selected towing/column order. These helpers never roll dice.
   const ms = missedSignalShip(s);
   const attNow = L.att.filter(id => id !== ms);
   const def_ = defendingIds(s, OTHER[pr.side]).filter(id => id !== ms);
-  const str = sideStrength(s, attNow, pr.side, hazeActive(s)), dstr = sideStrength(s, def_, pr.side, hazeActive(s));
   const notes = [];
   if (ms) notes.push(`Missed Signal: ${shipName(s, ms)} sits out the first Round`);
-  if (hazeActive(s)) notes.push('Haze: no Long Guns in Gunnery Round 1');
-  wrap.appendChild(el('div', { class: 'muted' }, `First-Round Gunnery strength ${fmt(str)} vs ${fmt(dstr)} → ${dstr ? fmt(str / dstr) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(dstr ? str / dstr : 99)]})${notes.length ? ' – ' + notes.join('; ') : ''}.`));
+  if (rainy) {
+    const attackers = buildColumn(s, L.att, L.tows, pr.side).filter(id => id !== ms);
+    const defenders = buildColumn(s, defendingIds(s, OTHER[pr.side]), {}, OTHER[pr.side]).filter(id => id !== ms);
+    wrap.appendChild(el('div', { class: 'muted ptext' }, 'Rainy Squalls: no Gunnery — straight to Close Action.\n' + closeActionPreviewText(s, attackers, defenders, false) + (notes.length ? '\n' + notes.join('; ') + '.' : '')));
+  } else {
+    const str = sideStrength(s, attNow, pr.side, hazeActive(s)), dstr = sideStrength(s, def_, pr.side, hazeActive(s));
+    if (hazeActive(s)) notes.push('Haze: no Long Guns in Gunnery Round 1');
+    wrap.appendChild(el('div', { class: 'muted' }, `First-Round Gunnery strength ${fmt(str)} vs ${fmt(dstr)} → ${dstr ? fmt(str / dstr) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(dstr ? str / dstr : 99)]})${notes.length ? ' – ' + notes.join('; ') : ''}.`));
+  }
   wrap.appendChild(el('div', { class: 'opts' }, el('button', { class: 'primary', disabled: !!err, onclick: () => doAct(ans) }, 'Attack with these ships')));
   if (err) wrap.appendChild(el('div', { class: 'err' }, err));
   return wrap;
@@ -4261,19 +4454,13 @@ function pkgMemory() { try { return JSON.parse(localStorage.getItem(PKG_KEY) || 
 function savePkgMemory(m) { try { localStorage.setItem(PKG_KEY, JSON.stringify(m)); } catch (e) { } }
 function pkgAutoFill(s, pool, rule) {
   const ships = pool.map(id => s.ships[id]);
-  const rnd = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
-  const mains = rnd(ships.filter(isMain)), secs = rnd(ships.filter(sh => !isMain(sh)));
-  const out = [];
-  if (rule.type === 'ships') {
-    mains.concat(secs).slice(0, rule.n).forEach(sh => out.push(sh.id));
-    return out.length === rule.n ? out : [];
-  }
-  const key = rule.type === 'lg' ? lg : rule.type === 'ca' ? ca : car;
-  // Main Ships first (largest value first = fewest ships), then Secondary Ships drawn at random [5.3.1]
-  let tot = 0;
-  mains.sort((a, b) => key(b) - key(a)).forEach(sh => { if (tot < rule.n && key(sh) > 0) { out.push(sh.id); tot += key(sh); } });
-  secs.forEach(sh => { if (tot < rule.n && key(sh) > 0) { out.push(sh.id); tot += key(sh); } });
-  return tot >= rule.n ? out : [];
+  const values = { lg, ca, car, ships: () => 1 }, value = values[rule.type];
+  if (!value || !Number.isFinite(rule.n) || rule.n <= 0 || (rule.type === 'ships' && !Number.isInteger(rule.n))) return [];
+  // Use the same minimum-size selection as automatic packages. A preview uses
+  // a copy of the RNG cursor, so repeated clicks reproduce the choice without
+  // changing any later die roll, save or Undo state.
+  const chosen = mainsFirst({ rng: s.rng }, ships, value, rule.n);
+  return chosen ? chosen.map(sh => sh.id) : [];
 }
 function packageHelper(s, pr, L) {
   const box = el('div', { class: 'banner' });
@@ -4296,7 +4483,7 @@ function packageHelper(s, pr, L) {
   box.appendChild(el('div', { style: { marginTop: '4px' } }, `Auto-fill Package #${pr.pkg}: `, tSel, ' ', nIn, ' ', el('button', { class: 'small', onclick: apply }, 'Auto-fill'), ' ', el('label', { style: { display: 'inline' } }, remember, ' remember for this package')));
   if (mem[pr.pkg] && !L.autoDone) { L.autoDone = true; setTimeout(apply, 0); }
   if (L.msg) box.appendChild(el('div', null, el('b', null, L.msg)));
-  box.appendChild(el('div', { class: 'muted', style: { fontSize: '.8rem' } }, 'Reads Main ships first (fewest ships), then Secondary ships at random, as in 5.3.1. Adjust the ticks by hand if Player Aid V asks for something more specific.'));
+  box.appendChild(el('div', { class: 'muted', style: { fontSize: '.8rem' } }, 'Main Ships first, then the fewest Secondary ships needed [5.3.1]. Ties use a repeatable preview; Auto-fill does not roll the game dice. Adjust the ticks by hand if Player Aid V asks for something more specific.'));
   return box;
 }
 
@@ -4327,7 +4514,7 @@ function renderAssign(s, pr) {
     const row = el('div', { class: 'row' }, el('b', null, `Force ${i + 1}`), mSel, zSel);
     if (f.mission === 'ArmySupport') {
       const cap = troopCapacity(s, f.ships);
-      const tIn = el('input', { type: 'number', min: 1, max: pr.troops, step: 1, inputmode: 'numeric', value: f.troops || 1, style: { width: '52px' } });
+      const tIn = el('input', { type: 'number', min: 1, max: pr.troops, step: 1, inputmode: 'numeric', value: f.troops, style: { width: '52px' } });
       tIn.addEventListener('change', () => { const v = Number(tIn.value); f.troops = Number.isFinite(v) ? Math.max(0, v) : 0; renderProc(s); });
       row.appendChild(el('span', null, ' Troops ', tIn, ` (capacity ${cap})`));
     }
@@ -4337,8 +4524,9 @@ function renderAssign(s, pr) {
     pr.ships.forEach(id => {
       const mine = f.ships.indexOf(id) >= 0; const taken = used[id] && !mine;
       const d = def(s.ships[id]);
-      ships.appendChild(el('span', { class: `asg-ship ${mine ? 'on' : ''} ${taken ? 'taken' : ''}`, title: `LG ${lg(s.ships[id])} Car ${car(s.ships[id])} CA ${ca(s.ships[id])} Def ${dfn(s.ships[id])}`,
-        onclick: () => { if (taken) return; if (mine) f.ships = f.ships.filter(x => x !== id); else f.ships.push(id); renderProc(s); } }, d.name + (d.ver ? ' ' + d.ver : '') + (s.ships[id].port === 'temp' ? ' (Isolated)' : '')));
+      const controlId = `asg-${i}-${id}`;
+      ships.appendChild(el('button', { type: 'button', id: controlId, class: `asg-ship ${mine ? 'on' : ''} ${taken ? 'taken' : ''}`, disabled: !!taken, 'aria-pressed': String(mine), title: `LG ${lg(s.ships[id])} Car ${car(s.ships[id])} CA ${ca(s.ships[id])} Def ${dfn(s.ships[id])}`,
+        onclick: () => { if (taken) return; if (mine) f.ships = f.ships.filter(x => x !== id); else f.ships.push(id); renderProc(s); const control = $(controlId); if (control) control.focus(); } }, d.name + (d.ver ? ' ' + d.ver : '') + (s.ships[id].port === 'temp' ? ' (Isolated)' : '')));
     });
     box.appendChild(ships);
     const fShips = f.ships.map(id => s.ships[id]);
@@ -4460,12 +4648,16 @@ function renderBoard(s) {
   b.appendChild(pw);
   // Log
   const lg_ = el('div', { class: 'panel' });
-  const filt = el('select', null, ...['all', 'combat', 'ai', 'roll', 'vp', 'player'].map(k => el('option', { value: k, selected: UI.logFilter === k ? true : null }, k)));
-  filt.addEventListener('change', () => { UI.logFilter = filt.value; renderBoard(s); });
+  const logLabels = { all: 'All entries', combat: 'Combat and events', ai: 'A.I. moves', roll: 'Dice rolls', vp: 'Scoring', player: 'Your decisions' };
+  const filt = el('select', { id: 'log-filter', 'aria-label': 'Filter the game log' }, ...Object.keys(logLabels).map(k => el('option', { value: k, selected: UI.logFilter === k ? true : null }, logLabels[k])));
+  filt.addEventListener('change', () => { UI.logFilter = filt.value; renderBoard(s); $('log-filter').focus(); });
   lg_.appendChild(el('h2', null, 'Log ', filt));
   const logBox = el('div', { id: 'log' });
   const entries = s.log.filter(l => UI.logFilter === 'all' || l.kind === UI.logFilter || (UI.logFilter === 'combat' && (l.kind === 'roll' || l.kind === 'event')));
-  entries.slice(-400).reverse().forEach(l => logBox.appendChild(el('div', { class: l.kind }, `${TURN_NAMES[Math.min(l.turn, 7)].replace('September', 'Sep')} · ${l.text}`)));
+  const shown = UI.showLogAll ? entries.slice() : entries.slice(-400);
+  lg_.appendChild(el('div', { class: 'muted', id: 'log-count' }, `Showing ${shown.length} of ${entries.length} matching entries (newest first).`));
+  if (entries.length > 400) lg_.appendChild(el('button', { id: 'log-toggle', class: 'small', 'aria-pressed': String(UI.showLogAll), onclick: () => { UI.showLogAll = !UI.showLogAll; renderBoard(s); $('log-toggle').focus(); } }, UI.showLogAll ? 'Show recent 400' : 'Show full log'));
+  shown.reverse().forEach(l => logBox.appendChild(el('div', { class: l.kind }, `${TURN_NAMES[Math.min(l.turn, 7)].replace('September', 'Sep')} · ${l.text}`)));
   lg_.appendChild(logBox);
   b.appendChild(lg_);
 }
@@ -4564,7 +4756,11 @@ function renderSetup() {
   const seedIn = el('input', { type: 'number', value: st.seed, style: { width: '140px' } });
   seedIn.onchange = () => { st.seed = +seedIn.value || 1; };
   box.appendChild(el('label', null, 'Random seed: ', seedIn, el('span', { class: 'muted' }, ' (same seed + same choices = same game)')));
-  box.appendChild(el('div', { class: 'opts', style: { marginTop: '12px' } }, el('button', { class: 'primary', onclick: () => startGame(st.human, st.seed, st.opts) }, 'Start campaign'), el('button', { onclick: importSave }, 'Load a saved game')));
+  const begin = () => startGame(st.human, st.seed, st.opts);
+  box.appendChild(el('div', { class: 'opts', style: { marginTop: '12px' } }, el('button', { class: 'primary', onclick: () => {
+    if (saved && saved.state) confirmBox('Replace saved game?', 'Starting a new campaign replaces the game saved in this browser. Cancel and open that game first if you want to save a copy.', 'Start new campaign', begin);
+    else begin();
+  } }, 'Start campaign'), el('button', { onclick: importSave }, 'Load a saved game')));
   box.appendChild(el('h3', null, 'Physical setup reminders'));
   box.appendChild(el('ul', null,
     el('li', null, 'Set up the map, Homeport Displays and markers per the rulebook 3.1 / Player Aid II or IV. The app has already shuffled the decks, hidden the A.I. Convoy and A.I. Troops markers, and rolled your Troops markers onto your Convoy Supply Track (see the log).'),
@@ -4575,12 +4771,39 @@ function renderSetup() {
 
 /* ---------- modals ---------- */
 function openModal(content) {
-  const m = $('modal'); m.innerHTML = '';
-  const inner = el('div', { class: 'inner' }, el('div', { style: { textAlign: 'right' } }, el('button', { onclick: closeModal }, 'Close')), content);
+  const m = $('modal');
+  if (!m.classList.contains('open')) UI.modalReturnFocus = document.activeElement;
+  m.innerHTML = '';
+  const title = content.querySelector('h2');
+  if (title) title.id = 'modal-title';
+  const close = el('button', { type: 'button', onclick: closeModal }, 'Close');
+  const inner = el('div', { class: 'inner', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': title ? title.id : null, 'aria-label': title ? null : 'Game dialog', tabindex: -1 }, el('div', { style: { textAlign: 'right' } }, close), content);
   m.appendChild(inner); m.classList.add('open');
+  $('hdr').setAttribute('inert', ''); $('app').setAttribute('inert', '');
   m.onclick = (e) => { if (e.target === m) closeModal(); };
+  close.focus();
 }
-function closeModal() { $('modal').classList.remove('open'); }
+function closeModal() {
+  $('modal').classList.remove('open');
+  $('hdr').removeAttribute('inert'); $('app').removeAttribute('inert');
+  const target = UI.modalReturnFocus;
+  UI.modalReturnFocus = null;
+  if (target && target.isConnected && typeof target.focus === 'function') target.focus();
+}
+function modalKeydown(e) {
+  const m = $('modal');
+  if (!m || !m.classList.contains('open')) return false;
+  if (e.key === 'Escape') { e.preventDefault(); closeModal(); return true; }
+  if (e.key === 'Tab') {
+    const controls = [...m.querySelectorAll('button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex="0"]')]
+      .filter(x => !x.closest('[hidden]') && getComputedStyle(x).display !== 'none' && getComputedStyle(x).visibility !== 'hidden');
+    const first = controls[0], last = controls[controls.length - 1];
+    if (!first) { e.preventDefault(); m.querySelector('.inner').focus(); }
+    else if (e.shiftKey && (document.activeElement === first || !m.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (document.activeElement === last || !m.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+  }
+  return true;
+}
 function openRef() {
   const r = el('div', { class: 'ref' });
   r.appendChild(el('h2', null, 'Lake Combat Table'));
@@ -4622,10 +4845,11 @@ function openSettings() {
   const s = G_STATE; if (!s) return;
   const box = el('div');
   box.appendChild(el('h2', null, 'Settings'));
+  const saveSettings = () => { autosave(); renderHeader(s); };
   const cb = el('input', { type: 'checkbox', checked: s.options.confirmAiSteps ? true : null });
-  cb.onchange = () => { s.options.confirmAiSteps = cb.checked; autosave(); };
+  cb.onchange = () => { s.options.confirmAiSteps = cb.checked; saveSettings(); };
   box.appendChild(el('label', null, cb, ' Pause after each A.I. move'));
-  const tog = (k, label) => { const c = el('input', { type: 'checkbox', checked: s.options[k] ? true : null }); c.onchange = () => { s.options[k] = c.checked; autosave(); }; return el('label', null, c, ' ', label); };
+  const tog = (k, label) => { const c = el('input', { type: 'checkbox', checked: s.options[k] ? true : null }); c.onchange = () => { s.options[k] = c.checked; saveSettings(); }; return el('label', null, c, ' ', label); };
   box.appendChild(tog('manualPackages', 'Pick American Force Package ships myself (British campaign)'));
   box.appendChild(tog('manualLandBattle', 'Read the Land Battle Table myself'));
   box.appendChild(el('p', { class: 'muted' }, `Seed ${s.seed} · Cutting-Out ${s.options.cuttingOut ? 'on' : 'off'} · OA1 ${s.options.oa1Upgrades ? 'on' : 'off'} · U.S. A.I. precondition: ${s.options.usAiPrecondition}. App version ${APP_VERSION}.`));
@@ -4636,15 +4860,20 @@ function openAdjust() {
   const box = el('div');
   box.appendChild(el('h2', null, 'Adjust (manual corrections)'));
   box.appendChild(el('p', { class: 'muted' }, 'Use this to match the app to your table if something went differently. Every change is logged and can be undone.'));
+  const msg = el('div', { class: 'err', role: 'status' });
   const num = (label, get, set) => {
     const inp = el('input', { type: 'number', step: 1, value: get(), style: { width: '70px' } });
     return el('label', null, label + ' ', inp, ' ', el('button', { class: 'small', onclick: () => {
       const v = Number(inp.value);
-      if (inp.value === '' || !Number.isInteger(v)) { inp.value = get(); return; }   // whole numbers only
+      if (inp.value === '' || !Number.isInteger(v)) { msg.textContent = `${label}: enter a whole number.`; return; }
       UNDO.push(JSON.stringify(s)); set(v); log(s, `Manual adjustment: ${label} = ${v}`, 'player'); autosave(); render(); openAdjust(); } }, 'Set'));
   };
-  box.appendChild(num('U.S. VP', () => s.vp.US, v => { s.vp.US = v; }));
-  box.appendChild(num('British VP', () => s.vp.BR, v => { s.vp.BR = v; }));
+  const setVP = (side, v) => {
+    addVP(s, side, v - s.vp[side], 'Manual adjustment');
+    if (s.over && s.result) { s.result.score = gameScore(s); if (!s.result.forced) s.result.level = victoryLevel(s.result.score); }
+  };
+  box.appendChild(num('U.S. VP', () => s.vp.US, v => setVP('US', v)));
+  box.appendChild(num('British VP', () => s.vp.BR, v => setVP('BR', v)));
   box.appendChild(num('U.S. Convoy Supply', () => s.supply.US, v => { s.supply.US = clampSupply(v); }));
   box.appendChild(num('British Convoy Supply', () => s.supply.BR, v => { s.supply.BR = clampSupply(v); }));
   box.appendChild(num('U.S. Construction Delay', () => s.cd.US, v => { s.cd.US = Math.max(0, v); }));
@@ -4653,19 +4882,31 @@ function openAdjust() {
   box.appendChild(num('Your Available Troops', () => s.troops[s.human].available, v => { s.troops[s.human].available = Math.max(0, v); }));
   box.appendChild(el('h3', null, 'Ships'));
   const sel = el('select', null); Object.keys(s.ships).forEach(id => sel.appendChild(el('option', { value: id }, `${shipName(s, id)} – ${BOX_NAME[s.ships[id].box]}`)));
-  const boxSel = el('select', null); ['deployable', 'makeReady', 'repairing', 'construction', 'ordinary', 'transit', 'sunk', 'outOfPlay'].forEach(b => boxSel.appendChild(el('option', { value: b }, BOX_NAME[b])));
-  const stepIn = el('input', { type: 'number', min: 0, max: 3, style: { width: '50px' } });
+  const boxSel = el('select', null, el('option', { value: '' }, 'Keep current box')); ['deployable', 'makeReady', 'repairing', 'construction', 'ordinary', 'transit', 'sunk', 'outOfPlay'].forEach(b => boxSel.appendChild(el('option', { value: b }, BOX_NAME[b])));
+  const stepIn = el('input', { type: 'number', min: 0, step: 1, style: { width: '50px' } });
   const ownSel = el('select', null, el('option', { value: 'US' }, 'U.S.'), el('option', { value: 'BR' }, 'British'));
-  const sync = () => { const sh = s.ships[sel.value]; boxSel.value = sh.box === 'lake' ? 'deployable' : sh.box; stepIn.value = sh.steps; ownSel.value = sh.owner; };
+  const sync = () => { const sh = s.ships[sel.value]; boxSel.options[0].textContent = `Keep current box (${BOX_NAME[sh.box]})`; boxSel.value = ''; stepIn.max = def(sh).full[4]; stepIn.value = sh.steps; ownSel.value = sh.owner; };
   sel.onchange = sync; sync();
   box.appendChild(el('div', null, sel, ' box ', boxSel, ' steps ', stepIn, ' owner ', ownSel, ' ', el('button', { class: 'small', onclick: () => {
-    UNDO.push(JSON.stringify(s));
     const sh = s.ships[sel.value];
-    if (sh.forceId) removeShipFromForce(s, sh.id);
-    sh.box = boxSel.value; sh.zone = null; sh.owner = ownSel.value; sh.steps = Math.max(0, Math.min(def(sh).full[4], +stepIn.value));
+    const steps = Number(stepIn.value), maxSteps = def(sh).full[4];
+    if (stepIn.value === '' || !Number.isInteger(steps) || steps < 0 || steps > maxSteps) {
+      msg.textContent = `Ship steps: enter a whole number from 0 to ${maxSteps}.`; return;
+    }
+    const destination = boxSel.value || sh.box;
+    if (ownSel.value !== sh.owner && destination === sh.box && (sh.forceId || sh.box === 'lake' || sh.box === 'escortBox')) {
+      msg.textContent = 'To change a deployed ship\'s owner, choose a destination box off the lake.'; return;
+    }
+    UNDO.push(JSON.stringify(s));
+    if (destination !== sh.box) {
+      if (sh.forceId) removeShipFromForce(s, sh.id);
+      sh.box = destination; sh.zone = null;
+    }
+    sh.owner = ownSel.value; sh.steps = steps;
     log(s, `Manual adjustment: ${shipName(s, sh.id)} → ${BOX_NAME[sh.box]}, ${sh.steps} steps, ${SIDE_SHORT[sh.owner]}.`, 'player');
     autosave(); render(); openAdjust();
   } }, 'Apply')));
+  box.appendChild(msg);
   box.appendChild(el('p', { class: 'muted' }, 'Ship changes take effect from the next step; a ship moved off the lake leaves its Force.'));
   openModal(box);
 }
@@ -4686,10 +4927,16 @@ function render() {
 /* Boot */
 installResume();
 document.addEventListener('keydown', (e) => {
+  if (modalKeydown(e) || e.defaultPrevented || e.repeat) return;
   if (!G_STATE || !G_STATE.prompt) return;
-  if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA')) return;
+  // Text editors keep their own Undo. Game Undo also works when a button has
+  // focus, but Enter and Space must activate that button rather than advance play.
+  const target = e.target && e.target.closest ? e.target : null;
+  if (target && target.closest('input, select, textarea, [contenteditable="true"]')) return;
+  if ((e.key === 'z' || e.key === 'Z') && (e.ctrlKey || e.metaKey)) { e.preventDefault(); undo(); return; }
+  if (target && target.closest('button, a[href], [role="button"]')) return;
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
   if ((e.key === 'Enter' || e.key === ' ') && G_STATE.prompt.kind === 'info') { e.preventDefault(); doAct('ok'); }
-  if ((e.key === 'z' || e.key === 'Z') && (e.ctrlKey || e.metaKey)) { e.preventDefault(); undo(); }
 });
 window.addEventListener('load', () => { G_STATE = null; render(); });
 

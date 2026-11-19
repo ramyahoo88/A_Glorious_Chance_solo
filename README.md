@@ -7,7 +7,7 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.8: `dist/index.html`, 308,978 bytes, SHA-256 `386ef169acf1f508e1fe4eca3fff028f55d6ca86089170c1bd51601268ee9793`). On a phone, open it once and use the browser's Add to Home Screen; your game stays in that browser.
+**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.9: `dist/index.html`, 324,911 bytes, SHA-256 `ffa43b5dd90a5540c2757cb6701d8742e8a1eff8beba51a6ec27d4b1f7c815c4`). On a phone, open it once and use the browser's Add to Home Screen; your game stays in that browser.
 
 You still play on your physical map with your counters. The app tells you what to move, and it draws and reads every card for you.
 
@@ -17,7 +17,7 @@ You still play on your physical map with your counters. The app tells you what t
 |---|---|
 | Setup | Shuffles all decks, hides the A.I. Convoy markers (one real per month) and the 8 “AI Troops?” markers (3 Troops / 5 dummies), and rolls your 3 Troops markers onto your Convoy Supply Track using the 8-ship column of the Hit Distribution Table. |
 | Preparation (A1–A10) | Convoy scheduling prompt, Make Ready → Deployable, repairs with delay markers, In Ordinary and the 30-point limit (your choice, A.I. automatic), construction and Construction Delay (A.I. buy-downs automatic), Naval Balance, Flagships (Pike auto-flag), the A7 assignment editor with every mission/zone/troop-capacity rule enforced, A.I. Troops reveal, Target Card removal symbols (final turn, hourglass) and the draw, including the Blockade left-shift. |
-| Lake Action (B) | Possible Encounter numbering from the card row (you choose which Force gets the first marker when you have several in a zone), Encounter Checks (spyglass, Gale redraw), revealing the Target Card, the deployment-table lookup (Naval Balance × A.I. Troops), mission conditions and secondary missions, U.S.-campaign Upgrade Checks (7.1 or optional OA1), A.I. Troops embarkation, and Convoy encounters (Escort / Attack Convoy, Convoy Scatter Table). |
+| Lake Action (B) | Possible Encounter numbering from the card row (you choose each recipient among the eligible Forces when you have several in a zone), Encounter Checks (spyglass, Gale redraw), revealing the Target Card, the deployment-table lookup (Naval Balance × A.I. Troops), mission conditions and secondary missions, U.S.-campaign Upgrade Checks (7.1 or optional OA1), A.I. Troops embarkation, and Convoy encounters (Escort / Attack Convoy, Convoy Scatter Table). |
 | Encounters | Lake Zone Events, all 25 event effects (Gale, Separated Ships, Missed Signal, Haze, Rainy Squalls, Sickness, Minor Damage, Commanding Breeze, winds, Construction/Convoy Delay, Extra Men), the Weather Gage, Command Decision (Confront/Bypass, Attack/Pass), A.I. attack preconditions with towing logic for the A.I. Americans, and Reaction Segments (your declarations with DRMs pre-computed; A.I. Forces and Homeport pool rolled automatically). |
 | Lake Combat | Force assembly and towing, all 20 Tactic cards (draw 4/5, dummies, side-only cards, Weather Gage symbol invalidation, color-bar cancellation, Repel vs Grapple, Mutual Support), gunnery formulas, odds column, column shifts and DRMs, the Lake Combat Table, First Shot re-rolls, Hit Distribution Table, Minor Damage, Leader Casualty Checks, flag transfer, Disengagement (Fast ships, Escape), Strike Checks, withdrawals (optional for you), Pursuit, Rake, Outmaneuver gaps and subgroups, Open Range, Weather Gage rechecks and sequence switches, Close Action matchups (A.I. target priority), Melee and the Pike exception, and Struck Colors capture/rescue at the end. |
 | Enemy Operations (C) | Row editing, revealing the cards, A.I. deployments, Attack Convoy, and the British-campaign “fewer than two ships” stop. |
@@ -25,7 +25,7 @@ You still play on your physical map with your counters. The app tells you what t
 | Coastal (E) | Cutting-Out (optional), Raids and Coastal Events, troop launches, Harbor Encounters (two Gunnery Rounds, shore batteries, no disengagement/withdrawal), and Land Battles (Player Aid VII) with every Coastal Event effect. |
 | Tally (F) | Ship VPs, Lake Control, Blockade removal and placement, Isolated ships, Shipyard Damage, Niagara Front, Army Victory, the untransported-Troops penalty, Raid VPs, Convoy Supply (delays, arrivals, scatter/destroy/capture, raids, Fall Offensive bonus), the reset, sudden death, and final victory with Construction Delay deducted. |
 
-Every die roll and table lookup is written to the **Log**. **Undo** restores the state before your last click, dice included. **Adjust** lets you correct any track or ship by hand. **Reference** shows the Lake Combat Table, the Convoy Scatter Table, the ship roster and the key checks.
+Every die roll and table lookup is written to the **Log**. Use **Show full log** to review entries older than the latest 400; filters name the kinds of entries shown. **Undo** restores the state before your last click, dice included. **Adjust** lets you correct any track or ship by hand. **Reference** shows the Lake Combat Table, the Convoy Scatter Table, the ship roster and the key checks. Ship and Tactic choices work with Tab and Enter/Space. Dialogs support Escape and keep game shortcuts from advancing play behind them. Export filenames identify the seed and decision checkpoint.
 
 ## Player Aids V and VII
 
@@ -57,12 +57,20 @@ Build and test:
 
 ```
 node tools/build.js          # writes dist/index.html
+npm test                    # all engine assertions and 200 random complete games
 node tests/unit.js           # data + arithmetic tests
 node tests/scenario.js       # tally, blockade and convoy scenarios
 node tests/regression.js     # rules fixes from the 0.2.0 audit
 node tests/sim.js 200        # 400 random complete games (both campaigns) with invariant checks
 node tests/trace.js BR 42    # print the log of one simulated British-campaign game
 python3 tests/browser/smoke.py US 400   # headless browser click-through (needs Playwright + Chrome)
+```
+
+The focused DOM checks need jsdom 26.1.0 (test-only; the app has no dependencies):
+
+```
+npm install --prefix /tmp/agc-test-runtime jsdom@26.1.0
+NODE_PATH=/tmp/agc-test-runtime/node_modules npm run test:ui
 ```
 
 This is an unofficial fan aid for owners of the game. All game content belongs to Legion Wargames.

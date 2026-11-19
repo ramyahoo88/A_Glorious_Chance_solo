@@ -217,7 +217,9 @@ eq('R02a Intelligence used by the pursued Encounter; Breeze ended; new Encounter
 // R02b – an Encounter saved by 0.2.1 (no flagIn record) still uses Intelligence up
 X(`var s=newGame('US',1); s.turn=2; ${base} s.intelligence.US={card:29,until:2};
    newForce(s,'US','NOR','Patrol',['oneida']); newForce(s,'BR','NOR','Patrol',['wolfe']); ${enc('NOR', ['oneida', 'wolfe'])}
-   delete s.encounter.flagIn; var old=JSON.parse(JSON.stringify(s)); old.calls=[]; old.prompt=null; checkSaveState(old); var mig=old.encounter.flagIn;
+   delete s.encounter.flagIn; var old=JSON.parse(JSON.stringify(s));
+   old.calls=[{proc:'encounter',pc:'end',A:{},L:{}}]; old.prompt=info('Finish this Encounter','Continue.');
+   checkSaveState(old); var mig=old.encounter.flagIn;
    resolveEncounterEnd(s);`);
 eq('R02b old save: flag record rebuilt on load, and Intelligence used at the end', X(`[mig && mig.BR, s.intelligence.US]`), [true, null]);
 // R02c – drawn this turn (Coastal Action Phase): neither applies to nor is used by an Encounter until next turn

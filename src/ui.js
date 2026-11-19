@@ -44,7 +44,20 @@ function doAct(answer) {
     console.error(e);
   }
   autosave(); render();
-  const p = $('proc'); if (p) p.scrollTop = 0;
+  revealPromptStart();
+}
+function revealPromptStart() {
+  const p = $('proc'); if (!p) return;
+  p.scrollTop = 0;
+  const title = p.querySelector('.ptitle') || p, bounds = title.getBoundingClientRect();
+  const header = $('hdr'), headerPosition = header && getComputedStyle(header).position;
+  const top = header && (headerPosition === 'sticky' || headerPosition === 'fixed') ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+  // On phones the document scrolls, rather than the procedure panel. Reveal a
+  // new prompt only when its title is outside the unobscured viewport.
+  if ((bounds.top < top || bounds.bottom > window.innerHeight) && typeof p.scrollIntoView === 'function') {
+    p.style.scrollMarginTop = `${top + 8}px`;
+    p.scrollIntoView({ block: 'start', inline: 'nearest' });
+  }
 }
 function undo() {
   if (!UNDO.length) return;
@@ -116,7 +129,7 @@ function checkSaveState(st) {
     if (!fr || typeof fr !== 'object' || !PROCS[fr.proc] || typeof fr.pc !== 'string' || typeof PROCS[fr.proc][fr.pc] !== 'function') bad('procedure stack');
     if (fr.L != null && typeof fr.L !== 'object') bad('procedure stack');
   });
-  if (!st.over && st.calls.length && (!st.prompt || typeof st.prompt.kind !== 'string' || ['info', 'choice', 'select', 'assign', 'lineup'].indexOf(st.prompt.kind) < 0)) bad('pending decision');
+  if (!st.over && (!st.calls.length || !st.prompt || typeof st.prompt.kind !== 'string' || ['info', 'choice', 'select', 'assign', 'lineup'].indexOf(st.prompt.kind) < 0)) bad('pending decision');
   if (st.over && !st.result) bad('final result');
   if (st.encounter) {
     const e = st.encounter;
@@ -133,11 +146,13 @@ function checkSaveState(st) {
   return st;
 }
 // Replace the current game with a checked save; if it cannot be shown, put the old game back.
-function commitLoaded(st, undo) {
+function commitLoaded(st, undo, retained) {
   const prevS = G_STATE, prevU = UNDO;
   const loadedUndo = Array.isArray(undo) ? undo.filter(u => typeof u === 'string') : [];
   // keep the previous game reachable: one Undo after loading returns to it (and its own Undo history)
-  const keep = prevS ? prevU.concat([JSON.stringify(prevS)]) : [];
+  const prior = prevS || (retained && retained.state);
+  const priorUndo = prevS ? prevU : retained && Array.isArray(retained.undo) ? retained.undo.filter(u => typeof u === 'string') : [];
+  const keep = prior ? priorUndo.concat([JSON.stringify(prior)]) : [];
   G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.loadNotes = UI.loadNotes || [];
   UI.err = UI.loadNotes.filter(n => !(st.recovery || []).includes(n)).join(' '); UI.loadNotes = [];   // unresolved notices show in their own panel
   try { render(); }
@@ -147,12 +162,21 @@ function commitLoaded(st, undo) {
     throw new Error(`this save could not be displayed (${e.message}). Your current game was not changed.`);
   }
   autosave();
+  renderHeader(G_STATE);   // autosave can change the storage-warning status after the first render
 }
 function loadFromText(txt) {
   let d;
   try { d = JSON.parse(txt); } catch (e) { throw new Error('this is not complete save text (it may have been cut off). Your current game was not changed.'); }
   const st = checkSaveState(d && typeof d === 'object' && d.state ? d.state : d);
-  commitLoaded(st, []);
+  let retained = null;
+  if (!G_STATE) {
+    const saved = loadSaved(), notes = UI.loadNotes;
+    // A setup-screen import must be undoable too. Checking the stored copy does not write to storage.
+    try { if (saved && saved.state) retained = { state: checkSaveState(saved.state), undo: saved.undo }; }
+    catch (e) { /* an unreadable retained game cannot supply a usable Undo position */ }
+    finally { UI.loadNotes = notes; }
+  }
+  commitLoaded(st, [], retained);
   closeModal();
 }
 function exportSave() {
@@ -164,7 +188,7 @@ function exportSave() {
     el('button', { class: 'primary', onclick: () => {
       try {
         const blob = new Blob([saveText()], { type: 'application/json' });
-        const a = el('a', { href: URL.createObjectURL(blob), download: `agc-${G_STATE.human}-${TURN_NAMES[Math.min(G_STATE.turn, 7)].replace(' ', '')}.json` });
+        const a = el('a', { href: URL.createObjectURL(blob), download: `agc-${G_STATE.human}-${TURN_NAMES[Math.min(G_STATE.turn, 7)].replace(' ', '')}-seed${G_STATE.seed}-step${G_STATE.promptSeq || 0}.json` });
         document.body.appendChild(a); a.click(); a.remove();
         msg.textContent = 'Download started (if nothing happens, your viewer blocks downloads – use Copy instead).';
       } catch (e) { msg.textContent = 'Download is not available here – use Copy instead.'; }
@@ -234,6 +258,7 @@ function trackRow(s, side) {
 function renderHeader(s) {
   const h = $('hdr'); h.innerHTML = '';
   h.appendChild(el('h1', null, 'A Glorious Chance · Solo Companion'));
+  h.appendChild(el('span', { class: 'app-version' }, `v${APP_VERSION}`));
   if (!s) {
     h.appendChild(el('div', { class: 'btns' }, el('button', { onclick: importSave }, 'Load game'), el('button', { onclick: () => openRef() }, 'Reference')));
     return;
@@ -288,7 +313,7 @@ function renderProc(s) {
 function renderChoice(s, pr) {
   if (pr.tactic) {
     const box = el('div');
-    pr.options.forEach(o => box.appendChild(el('div', { class: `optcard tac-${o.color || 'white'}`, onclick: () => doAct(o.id) }, el('div', { class: 't' }, o.label), el('div', { class: 'd' }, o.desc || ''))));
+    pr.options.forEach(o => box.appendChild(el('button', { type: 'button', class: `optcard tac-${o.color || 'white'}`, disabled: o.disabled, onclick: () => doAct(o.id) }, el('span', { class: 't' }, o.label), el('span', { class: 'd' }, o.desc || ''))));
     return box;
   }
   const box = el('div', { class: 'opts' });
@@ -348,20 +373,28 @@ function renderLineup(s, pr) {
   wrap.appendChild(list);
   const ans = { attackers: L.att.slice(), tows: Object.assign({}, L.tows) };
   const err = validateAnswer(s, pr, ans);
-  if (pr.side === 'US') {
+  const rainy = rainySquallsActive(s);
+  if (pr.side === 'US' && !rainy) {
     const towed = Object.values(L.tows);
     const unt = L.att.filter(id => isCLS(s.ships[id]) && towed.indexOf(id) < 0).length;
     wrap.appendChild(el('div', { class: 'muted', style: { marginTop: '4px' } }, unt ? `${unt} untowed Laker Schooner(s): roll 1d6 – ≤ ${unt / 2} gives −2 DRM, ≤ ${unt} gives −1.` : 'No untowed Laker Schooners – no DRM penalty.'));
   }
-  // Preview the first Round exactly as it will be fought: same defenders, Missed Signal and Haze
+  // Preview the Round actually fought, including Rainy Squalls, Missed Signal
+  // and the selected towing/column order. These helpers never roll dice.
   const ms = missedSignalShip(s);
   const attNow = L.att.filter(id => id !== ms);
   const def_ = defendingIds(s, OTHER[pr.side]).filter(id => id !== ms);
-  const str = sideStrength(s, attNow, pr.side, hazeActive(s)), dstr = sideStrength(s, def_, pr.side, hazeActive(s));
   const notes = [];
   if (ms) notes.push(`Missed Signal: ${shipName(s, ms)} sits out the first Round`);
-  if (hazeActive(s)) notes.push('Haze: no Long Guns in Gunnery Round 1');
-  wrap.appendChild(el('div', { class: 'muted' }, `First-Round Gunnery strength ${fmt(str)} vs ${fmt(dstr)} → ${dstr ? fmt(str / dstr) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(dstr ? str / dstr : 99)]})${notes.length ? ' – ' + notes.join('; ') : ''}.`));
+  if (rainy) {
+    const attackers = buildColumn(s, L.att, L.tows, pr.side).filter(id => id !== ms);
+    const defenders = buildColumn(s, defendingIds(s, OTHER[pr.side]), {}, OTHER[pr.side]).filter(id => id !== ms);
+    wrap.appendChild(el('div', { class: 'muted ptext' }, 'Rainy Squalls: no Gunnery — straight to Close Action.\n' + closeActionPreviewText(s, attackers, defenders, false) + (notes.length ? '\n' + notes.join('; ') + '.' : '')));
+  } else {
+    const str = sideStrength(s, attNow, pr.side, hazeActive(s)), dstr = sideStrength(s, def_, pr.side, hazeActive(s));
+    if (hazeActive(s)) notes.push('Haze: no Long Guns in Gunnery Round 1');
+    wrap.appendChild(el('div', { class: 'muted' }, `First-Round Gunnery strength ${fmt(str)} vs ${fmt(dstr)} → ${dstr ? fmt(str / dstr) : '∞'}:1 (${CRT_COLS[crtColumnForRatio(dstr ? str / dstr : 99)]})${notes.length ? ' – ' + notes.join('; ') : ''}.`));
+  }
   wrap.appendChild(el('div', { class: 'opts' }, el('button', { class: 'primary', disabled: !!err, onclick: () => doAct(ans) }, 'Attack with these ships')));
   if (err) wrap.appendChild(el('div', { class: 'err' }, err));
   return wrap;
@@ -373,19 +406,13 @@ function pkgMemory() { try { return JSON.parse(localStorage.getItem(PKG_KEY) || 
 function savePkgMemory(m) { try { localStorage.setItem(PKG_KEY, JSON.stringify(m)); } catch (e) { } }
 function pkgAutoFill(s, pool, rule) {
   const ships = pool.map(id => s.ships[id]);
-  const rnd = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
-  const mains = rnd(ships.filter(isMain)), secs = rnd(ships.filter(sh => !isMain(sh)));
-  const out = [];
-  if (rule.type === 'ships') {
-    mains.concat(secs).slice(0, rule.n).forEach(sh => out.push(sh.id));
-    return out.length === rule.n ? out : [];
-  }
-  const key = rule.type === 'lg' ? lg : rule.type === 'ca' ? ca : car;
-  // Main Ships first (largest value first = fewest ships), then Secondary Ships drawn at random [5.3.1]
-  let tot = 0;
-  mains.sort((a, b) => key(b) - key(a)).forEach(sh => { if (tot < rule.n && key(sh) > 0) { out.push(sh.id); tot += key(sh); } });
-  secs.forEach(sh => { if (tot < rule.n && key(sh) > 0) { out.push(sh.id); tot += key(sh); } });
-  return tot >= rule.n ? out : [];
+  const values = { lg, ca, car, ships: () => 1 }, value = values[rule.type];
+  if (!value || !Number.isFinite(rule.n) || rule.n <= 0 || (rule.type === 'ships' && !Number.isInteger(rule.n))) return [];
+  // Use the same minimum-size selection as automatic packages. A preview uses
+  // a copy of the RNG cursor, so repeated clicks reproduce the choice without
+  // changing any later die roll, save or Undo state.
+  const chosen = mainsFirst({ rng: s.rng }, ships, value, rule.n);
+  return chosen ? chosen.map(sh => sh.id) : [];
 }
 function packageHelper(s, pr, L) {
   const box = el('div', { class: 'banner' });
@@ -408,7 +435,7 @@ function packageHelper(s, pr, L) {
   box.appendChild(el('div', { style: { marginTop: '4px' } }, `Auto-fill Package #${pr.pkg}: `, tSel, ' ', nIn, ' ', el('button', { class: 'small', onclick: apply }, 'Auto-fill'), ' ', el('label', { style: { display: 'inline' } }, remember, ' remember for this package')));
   if (mem[pr.pkg] && !L.autoDone) { L.autoDone = true; setTimeout(apply, 0); }
   if (L.msg) box.appendChild(el('div', null, el('b', null, L.msg)));
-  box.appendChild(el('div', { class: 'muted', style: { fontSize: '.8rem' } }, 'Reads Main ships first (fewest ships), then Secondary ships at random, as in 5.3.1. Adjust the ticks by hand if Player Aid V asks for something more specific.'));
+  box.appendChild(el('div', { class: 'muted', style: { fontSize: '.8rem' } }, 'Main Ships first, then the fewest Secondary ships needed [5.3.1]. Ties use a repeatable preview; Auto-fill does not roll the game dice. Adjust the ticks by hand if Player Aid V asks for something more specific.'));
   return box;
 }
 
@@ -439,7 +466,7 @@ function renderAssign(s, pr) {
     const row = el('div', { class: 'row' }, el('b', null, `Force ${i + 1}`), mSel, zSel);
     if (f.mission === 'ArmySupport') {
       const cap = troopCapacity(s, f.ships);
-      const tIn = el('input', { type: 'number', min: 1, max: pr.troops, step: 1, inputmode: 'numeric', value: f.troops || 1, style: { width: '52px' } });
+      const tIn = el('input', { type: 'number', min: 1, max: pr.troops, step: 1, inputmode: 'numeric', value: f.troops, style: { width: '52px' } });
       tIn.addEventListener('change', () => { const v = Number(tIn.value); f.troops = Number.isFinite(v) ? Math.max(0, v) : 0; renderProc(s); });
       row.appendChild(el('span', null, ' Troops ', tIn, ` (capacity ${cap})`));
     }
@@ -449,8 +476,9 @@ function renderAssign(s, pr) {
     pr.ships.forEach(id => {
       const mine = f.ships.indexOf(id) >= 0; const taken = used[id] && !mine;
       const d = def(s.ships[id]);
-      ships.appendChild(el('span', { class: `asg-ship ${mine ? 'on' : ''} ${taken ? 'taken' : ''}`, title: `LG ${lg(s.ships[id])} Car ${car(s.ships[id])} CA ${ca(s.ships[id])} Def ${dfn(s.ships[id])}`,
-        onclick: () => { if (taken) return; if (mine) f.ships = f.ships.filter(x => x !== id); else f.ships.push(id); renderProc(s); } }, d.name + (d.ver ? ' ' + d.ver : '') + (s.ships[id].port === 'temp' ? ' (Isolated)' : '')));
+      const controlId = `asg-${i}-${id}`;
+      ships.appendChild(el('button', { type: 'button', id: controlId, class: `asg-ship ${mine ? 'on' : ''} ${taken ? 'taken' : ''}`, disabled: !!taken, 'aria-pressed': String(mine), title: `LG ${lg(s.ships[id])} Car ${car(s.ships[id])} CA ${ca(s.ships[id])} Def ${dfn(s.ships[id])}`,
+        onclick: () => { if (taken) return; if (mine) f.ships = f.ships.filter(x => x !== id); else f.ships.push(id); renderProc(s); const control = $(controlId); if (control) control.focus(); } }, d.name + (d.ver ? ' ' + d.ver : '') + (s.ships[id].port === 'temp' ? ' (Isolated)' : '')));
     });
     box.appendChild(ships);
     const fShips = f.ships.map(id => s.ships[id]);
@@ -572,12 +600,16 @@ function renderBoard(s) {
   b.appendChild(pw);
   // Log
   const lg_ = el('div', { class: 'panel' });
-  const filt = el('select', null, ...['all', 'combat', 'ai', 'roll', 'vp', 'player'].map(k => el('option', { value: k, selected: UI.logFilter === k ? true : null }, k)));
-  filt.addEventListener('change', () => { UI.logFilter = filt.value; renderBoard(s); });
+  const logLabels = { all: 'All entries', combat: 'Combat and events', ai: 'A.I. moves', roll: 'Dice rolls', vp: 'Scoring', player: 'Your decisions' };
+  const filt = el('select', { id: 'log-filter', 'aria-label': 'Filter the game log' }, ...Object.keys(logLabels).map(k => el('option', { value: k, selected: UI.logFilter === k ? true : null }, logLabels[k])));
+  filt.addEventListener('change', () => { UI.logFilter = filt.value; renderBoard(s); $('log-filter').focus(); });
   lg_.appendChild(el('h2', null, 'Log ', filt));
   const logBox = el('div', { id: 'log' });
   const entries = s.log.filter(l => UI.logFilter === 'all' || l.kind === UI.logFilter || (UI.logFilter === 'combat' && (l.kind === 'roll' || l.kind === 'event')));
-  entries.slice(-400).reverse().forEach(l => logBox.appendChild(el('div', { class: l.kind }, `${TURN_NAMES[Math.min(l.turn, 7)].replace('September', 'Sep')} · ${l.text}`)));
+  const shown = UI.showLogAll ? entries.slice() : entries.slice(-400);
+  lg_.appendChild(el('div', { class: 'muted', id: 'log-count' }, `Showing ${shown.length} of ${entries.length} matching entries (newest first).`));
+  if (entries.length > 400) lg_.appendChild(el('button', { id: 'log-toggle', class: 'small', 'aria-pressed': String(UI.showLogAll), onclick: () => { UI.showLogAll = !UI.showLogAll; renderBoard(s); $('log-toggle').focus(); } }, UI.showLogAll ? 'Show recent 400' : 'Show full log'));
+  shown.reverse().forEach(l => logBox.appendChild(el('div', { class: l.kind }, `${TURN_NAMES[Math.min(l.turn, 7)].replace('September', 'Sep')} · ${l.text}`)));
   lg_.appendChild(logBox);
   b.appendChild(lg_);
 }
@@ -676,7 +708,11 @@ function renderSetup() {
   const seedIn = el('input', { type: 'number', value: st.seed, style: { width: '140px' } });
   seedIn.onchange = () => { st.seed = +seedIn.value || 1; };
   box.appendChild(el('label', null, 'Random seed: ', seedIn, el('span', { class: 'muted' }, ' (same seed + same choices = same game)')));
-  box.appendChild(el('div', { class: 'opts', style: { marginTop: '12px' } }, el('button', { class: 'primary', onclick: () => startGame(st.human, st.seed, st.opts) }, 'Start campaign'), el('button', { onclick: importSave }, 'Load a saved game')));
+  const begin = () => startGame(st.human, st.seed, st.opts);
+  box.appendChild(el('div', { class: 'opts', style: { marginTop: '12px' } }, el('button', { class: 'primary', onclick: () => {
+    if (saved && saved.state) confirmBox('Replace saved game?', 'Starting a new campaign replaces the game saved in this browser. Cancel and open that game first if you want to save a copy.', 'Start new campaign', begin);
+    else begin();
+  } }, 'Start campaign'), el('button', { onclick: importSave }, 'Load a saved game')));
   box.appendChild(el('h3', null, 'Physical setup reminders'));
   box.appendChild(el('ul', null,
     el('li', null, 'Set up the map, Homeport Displays and markers per the rulebook 3.1 / Player Aid II or IV. The app has already shuffled the decks, hidden the A.I. Convoy and A.I. Troops markers, and rolled your Troops markers onto your Convoy Supply Track (see the log).'),
@@ -687,12 +723,39 @@ function renderSetup() {
 
 /* ---------- modals ---------- */
 function openModal(content) {
-  const m = $('modal'); m.innerHTML = '';
-  const inner = el('div', { class: 'inner' }, el('div', { style: { textAlign: 'right' } }, el('button', { onclick: closeModal }, 'Close')), content);
+  const m = $('modal');
+  if (!m.classList.contains('open')) UI.modalReturnFocus = document.activeElement;
+  m.innerHTML = '';
+  const title = content.querySelector('h2');
+  if (title) title.id = 'modal-title';
+  const close = el('button', { type: 'button', onclick: closeModal }, 'Close');
+  const inner = el('div', { class: 'inner', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': title ? title.id : null, 'aria-label': title ? null : 'Game dialog', tabindex: -1 }, el('div', { style: { textAlign: 'right' } }, close), content);
   m.appendChild(inner); m.classList.add('open');
+  $('hdr').setAttribute('inert', ''); $('app').setAttribute('inert', '');
   m.onclick = (e) => { if (e.target === m) closeModal(); };
+  close.focus();
 }
-function closeModal() { $('modal').classList.remove('open'); }
+function closeModal() {
+  $('modal').classList.remove('open');
+  $('hdr').removeAttribute('inert'); $('app').removeAttribute('inert');
+  const target = UI.modalReturnFocus;
+  UI.modalReturnFocus = null;
+  if (target && target.isConnected && typeof target.focus === 'function') target.focus();
+}
+function modalKeydown(e) {
+  const m = $('modal');
+  if (!m || !m.classList.contains('open')) return false;
+  if (e.key === 'Escape') { e.preventDefault(); closeModal(); return true; }
+  if (e.key === 'Tab') {
+    const controls = [...m.querySelectorAll('button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex="0"]')]
+      .filter(x => !x.closest('[hidden]') && getComputedStyle(x).display !== 'none' && getComputedStyle(x).visibility !== 'hidden');
+    const first = controls[0], last = controls[controls.length - 1];
+    if (!first) { e.preventDefault(); m.querySelector('.inner').focus(); }
+    else if (e.shiftKey && (document.activeElement === first || !m.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (document.activeElement === last || !m.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+  }
+  return true;
+}
 function openRef() {
   const r = el('div', { class: 'ref' });
   r.appendChild(el('h2', null, 'Lake Combat Table'));
@@ -734,10 +797,11 @@ function openSettings() {
   const s = G_STATE; if (!s) return;
   const box = el('div');
   box.appendChild(el('h2', null, 'Settings'));
+  const saveSettings = () => { autosave(); renderHeader(s); };
   const cb = el('input', { type: 'checkbox', checked: s.options.confirmAiSteps ? true : null });
-  cb.onchange = () => { s.options.confirmAiSteps = cb.checked; autosave(); };
+  cb.onchange = () => { s.options.confirmAiSteps = cb.checked; saveSettings(); };
   box.appendChild(el('label', null, cb, ' Pause after each A.I. move'));
-  const tog = (k, label) => { const c = el('input', { type: 'checkbox', checked: s.options[k] ? true : null }); c.onchange = () => { s.options[k] = c.checked; autosave(); }; return el('label', null, c, ' ', label); };
+  const tog = (k, label) => { const c = el('input', { type: 'checkbox', checked: s.options[k] ? true : null }); c.onchange = () => { s.options[k] = c.checked; saveSettings(); }; return el('label', null, c, ' ', label); };
   box.appendChild(tog('manualPackages', 'Pick American Force Package ships myself (British campaign)'));
   box.appendChild(tog('manualLandBattle', 'Read the Land Battle Table myself'));
   box.appendChild(el('p', { class: 'muted' }, `Seed ${s.seed} · Cutting-Out ${s.options.cuttingOut ? 'on' : 'off'} · OA1 ${s.options.oa1Upgrades ? 'on' : 'off'} · U.S. A.I. precondition: ${s.options.usAiPrecondition}. App version ${APP_VERSION}.`));
@@ -748,15 +812,20 @@ function openAdjust() {
   const box = el('div');
   box.appendChild(el('h2', null, 'Adjust (manual corrections)'));
   box.appendChild(el('p', { class: 'muted' }, 'Use this to match the app to your table if something went differently. Every change is logged and can be undone.'));
+  const msg = el('div', { class: 'err', role: 'status' });
   const num = (label, get, set) => {
     const inp = el('input', { type: 'number', step: 1, value: get(), style: { width: '70px' } });
     return el('label', null, label + ' ', inp, ' ', el('button', { class: 'small', onclick: () => {
       const v = Number(inp.value);
-      if (inp.value === '' || !Number.isInteger(v)) { inp.value = get(); return; }   // whole numbers only
+      if (inp.value === '' || !Number.isInteger(v)) { msg.textContent = `${label}: enter a whole number.`; return; }
       UNDO.push(JSON.stringify(s)); set(v); log(s, `Manual adjustment: ${label} = ${v}`, 'player'); autosave(); render(); openAdjust(); } }, 'Set'));
   };
-  box.appendChild(num('U.S. VP', () => s.vp.US, v => { s.vp.US = v; }));
-  box.appendChild(num('British VP', () => s.vp.BR, v => { s.vp.BR = v; }));
+  const setVP = (side, v) => {
+    addVP(s, side, v - s.vp[side], 'Manual adjustment');
+    if (s.over && s.result) { s.result.score = gameScore(s); if (!s.result.forced) s.result.level = victoryLevel(s.result.score); }
+  };
+  box.appendChild(num('U.S. VP', () => s.vp.US, v => setVP('US', v)));
+  box.appendChild(num('British VP', () => s.vp.BR, v => setVP('BR', v)));
   box.appendChild(num('U.S. Convoy Supply', () => s.supply.US, v => { s.supply.US = clampSupply(v); }));
   box.appendChild(num('British Convoy Supply', () => s.supply.BR, v => { s.supply.BR = clampSupply(v); }));
   box.appendChild(num('U.S. Construction Delay', () => s.cd.US, v => { s.cd.US = Math.max(0, v); }));
@@ -765,19 +834,31 @@ function openAdjust() {
   box.appendChild(num('Your Available Troops', () => s.troops[s.human].available, v => { s.troops[s.human].available = Math.max(0, v); }));
   box.appendChild(el('h3', null, 'Ships'));
   const sel = el('select', null); Object.keys(s.ships).forEach(id => sel.appendChild(el('option', { value: id }, `${shipName(s, id)} – ${BOX_NAME[s.ships[id].box]}`)));
-  const boxSel = el('select', null); ['deployable', 'makeReady', 'repairing', 'construction', 'ordinary', 'transit', 'sunk', 'outOfPlay'].forEach(b => boxSel.appendChild(el('option', { value: b }, BOX_NAME[b])));
-  const stepIn = el('input', { type: 'number', min: 0, max: 3, style: { width: '50px' } });
+  const boxSel = el('select', null, el('option', { value: '' }, 'Keep current box')); ['deployable', 'makeReady', 'repairing', 'construction', 'ordinary', 'transit', 'sunk', 'outOfPlay'].forEach(b => boxSel.appendChild(el('option', { value: b }, BOX_NAME[b])));
+  const stepIn = el('input', { type: 'number', min: 0, step: 1, style: { width: '50px' } });
   const ownSel = el('select', null, el('option', { value: 'US' }, 'U.S.'), el('option', { value: 'BR' }, 'British'));
-  const sync = () => { const sh = s.ships[sel.value]; boxSel.value = sh.box === 'lake' ? 'deployable' : sh.box; stepIn.value = sh.steps; ownSel.value = sh.owner; };
+  const sync = () => { const sh = s.ships[sel.value]; boxSel.options[0].textContent = `Keep current box (${BOX_NAME[sh.box]})`; boxSel.value = ''; stepIn.max = def(sh).full[4]; stepIn.value = sh.steps; ownSel.value = sh.owner; };
   sel.onchange = sync; sync();
   box.appendChild(el('div', null, sel, ' box ', boxSel, ' steps ', stepIn, ' owner ', ownSel, ' ', el('button', { class: 'small', onclick: () => {
-    UNDO.push(JSON.stringify(s));
     const sh = s.ships[sel.value];
-    if (sh.forceId) removeShipFromForce(s, sh.id);
-    sh.box = boxSel.value; sh.zone = null; sh.owner = ownSel.value; sh.steps = Math.max(0, Math.min(def(sh).full[4], +stepIn.value));
+    const steps = Number(stepIn.value), maxSteps = def(sh).full[4];
+    if (stepIn.value === '' || !Number.isInteger(steps) || steps < 0 || steps > maxSteps) {
+      msg.textContent = `Ship steps: enter a whole number from 0 to ${maxSteps}.`; return;
+    }
+    const destination = boxSel.value || sh.box;
+    if (ownSel.value !== sh.owner && destination === sh.box && (sh.forceId || sh.box === 'lake' || sh.box === 'escortBox')) {
+      msg.textContent = 'To change a deployed ship\'s owner, choose a destination box off the lake.'; return;
+    }
+    UNDO.push(JSON.stringify(s));
+    if (destination !== sh.box) {
+      if (sh.forceId) removeShipFromForce(s, sh.id);
+      sh.box = destination; sh.zone = null;
+    }
+    sh.owner = ownSel.value; sh.steps = steps;
     log(s, `Manual adjustment: ${shipName(s, sh.id)} → ${BOX_NAME[sh.box]}, ${sh.steps} steps, ${SIDE_SHORT[sh.owner]}.`, 'player');
     autosave(); render(); openAdjust();
   } }, 'Apply')));
+  box.appendChild(msg);
   box.appendChild(el('p', { class: 'muted' }, 'Ship changes take effect from the next step; a ship moved off the lake leaves its Force.'));
   openModal(box);
 }

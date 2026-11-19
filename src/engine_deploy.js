@@ -155,6 +155,10 @@ function effectiveMission(s, card, phase) {
   return { mission: m, why };
 }
 
+function deploymentCellText(card, cell) {
+  return `Deployment table: Troops ${cell.row} row × Naval Balance “${NB_CARD_LABELS[cell.col]}” column → ${card.deck === 'A' ? (cell.v ? 'ship icon' : 'blank') : (cell.v ? 'Force Package #' + cell.v : 'blank')}.`;
+}
+
 PROCS.aiDeploy = {
   start(s, f) {
     const A = f.A, rowCard = s.targetRow[A.cardIdx], card = TARGET_CARDS[rowCard.id];
@@ -165,7 +169,7 @@ PROCS.aiDeploy = {
     const cell = cardCell(s, card);
     f.L.cell = cell;
     const head = `Target Card ${card.id}: ${ZONE_NAME[card.zone]} – ${MISSION_NAME[card.mission]}${card.secondary ? ' (' + MISSION_NAME[card.secondary] + ')' : ''}.`;
-    const cellTxt = `Deployment table: Troops ${cell.row} row × Naval Balance “${NB_CARD_LABELS[cell.col]}” column → ${card.deck === 'A' ? (cell.v ? 'ship icon' : 'blank') : (cell.v ? 'Force Package #' + cell.v : 'blank')}.`;
+    const cellTxt = deploymentCellText(card, cell);
     f.L.head = head; f.L.cellTxt = cellTxt;
     if (!em.mission) {
       log(s, `${head} No Deployment: ${em.why}.`, 'ai');
@@ -188,6 +192,12 @@ PROCS.aiDeploy = {
     if (card.deck === 'A') {
       // U.S. campaign: all British Deployable ships deploy as a single Force [5.3]
       f.L.ships = pool.map(sh => sh.id);
+      // 7.1 / OA1 apply only to a Force that can Deploy. EN1.1 excludes an
+      // Army Support Force unable to embark even one Troops marker.
+      if (f.L.mission === 'ArmySupport' && troopCapacity(s, f.L.ships) < 1) {
+        log(s, `${f.L.head} The Force cannot carry Troops (needs 4 Close Action per Troops marker) – no Deployment.`, 'ai');
+        return R({ none: true });
+      }
       return G('upgrade');
     }
     // British campaign: U.S. Force Package (Player Aid V)
@@ -242,6 +252,9 @@ PROCS.aiDeploy = {
             if (chosen.length) {
               s.nb = computeNavalBalance(s); s.nbBand = navalBalanceBand(s.nb);
               const cell = cardCell(s, TARGET_CARDS[f.L.card]);
+              f.L.cell = cell;
+              f.L.cellTxt = deploymentCellText(TARGET_CARDS[f.L.card], cell);
+              log(s, `OA1 recheck: Naval Balance now ${s.nb}. ${f.L.cellTxt}`, 'ai');
               if (!cell.v || !f.L.ships.length) { log(s, `Naval Balance now ${s.nb}: the card no longer Deploys ships.`, 'ai'); if (f.L.convoyEscort) return G('convoyUnescorted'); return R({ none: true }); }
             }
           }
