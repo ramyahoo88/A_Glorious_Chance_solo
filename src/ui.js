@@ -46,7 +46,7 @@ function doAct(answer) {
   autosave(); render();
   const p = $('proc'); if (p) p.scrollTop = 0;
 }
-function undo() { if (!UNDO.length) return; G_STATE = JSON.parse(UNDO.pop()); UI.err = ''; UI.local = null; autosave(); render(); }
+function undo() { if (!UNDO.length) return; G_STATE = upgradeLegacyPrompt(JSON.parse(UNDO.pop())); UI.err = ''; UI.local = null; autosave(); render(); }
 function startGame(human, seed, opts) {
   G_STATE = newGame(human, seed, opts);
   UNDO = [];
@@ -112,7 +112,7 @@ function checkSaveState(st) {
       Object.keys(e.ships).forEach(id => { const sd = e.side[id] || st.ships[id].owner; if (st.flagship[sd] === id) e.flagIn[sd] = true; });
     }
   }
-  return st;
+  return upgradeLegacyPrompt(st);
 }
 // Replace the current game with a checked save; if it cannot be shown, put the old game back.
 function commitLoaded(st, undo) {
@@ -518,7 +518,8 @@ function renderBoard(s) {
   tracks.appendChild(el('div', null, el('b', null, 'Niagara Front '), nf));
   const h = s.human;
   const convTxt = [0, 1, 2, 3].map(m => { const a = s.convoys[h][m * 2], b2 = s.convoys[h][m * 2 + 1]; return `${MONTHS[m].slice(0, 3)}: ${a && a.real ? 'I' : b2 && b2.real ? 'II' : '?'}`; }).join(' · ');
-  tracks.appendChild(el('div', null, el('b', null, 'Troops '), `You: ${s.troops[h].available} available${s.troops[h].track.length ? ', on track at ' + s.troops[h].track.join(', ') : ''}. A.I.: ${aiTroopsInBox(s)} available, ${s.aiTroops.box.filter(m => !m.revealed).length} unrevealed, ${s.aiTroops.track.length} on track.`));
+  const due = sd => (s.troopsReturning && s.troopsReturning[sd]) || 0;
+  tracks.appendChild(el('div', null, el('b', null, 'Troops '), `You: ${s.troops[h].available} available${due(h) ? `, ${due(h)} due back at F7` : ''}${s.troops[h].track.length ? ', on track at ' + s.troops[h].track.join(', ') : ''}. A.I.: ${aiTroopsInBox(s)} available${due(s.ai) ? `, ${due(s.ai)} due back at F7` : ''}, ${s.aiTroops.box.filter(m => !m.revealed).length} unrevealed, ${s.aiTroops.track.length} on track.`));
   tracks.appendChild(el('div', null, el('b', null, 'Your Convoys '), convTxt));
   tracks.appendChild(el('div', null, el('b', null, 'Flagships '), `U.S.: ${shipName(s, s.flagship.US)} · Br.: ${shipName(s, s.flagship.BR)}`));
   tr.appendChild(tracks);

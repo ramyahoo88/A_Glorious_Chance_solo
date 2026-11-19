@@ -397,5 +397,80 @@ for (const missed of [true, false]) {
   ok(`N09 ${missed ? 'Missed Signal' : 'control: no Missed Signal'} – Command Decision matches the first Round`, X(`preview.includes('ships: ' + fmt(str) + ' vs 8')`), X('preview'));
 }
 
+// ===== v0.2.5: audit of v0.2.4 (W01–W03) =====
+// W01 – Troops on an aborted coastal mission wait for F7: they cannot embark again the same turn
+X(`
+function markerBoard() {
+  const s = fresh('BR', 185301); stageCombat(s, 'NIA', ['madison'], ['wolfe'], 'BR');
+  const fr = s.forces[s.encounter.aiForce]; fr.mission = 'ArmySupport'; fr.troops = 1;
+  s.aiTroops.box = []; s.aiTroops.track = [{ space: 7, troops: true }, { space: 8, troops: true }];
+  s.nb = 0; s.nbBand = 3;
+  s.targetRow = [{ id: 'B16', enc: true, removed: false, revealed: true }, { id: 'B20', enc: false, removed: false, revealed: false }];
+  waitAt(s, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(s);
+  s.calls.unshift({ proc: 'turn', pc: 'B2done', A: {}, L: { pe: 1 } });
+  s.pe = [{ num: 1, idx: 0, zone: 'NIA', forceId: s.encounter.humanForce, status: 'encounter' }];
+  s.encounter.peNum = 1; s.rng = 1; return s;
+}
+var s = markerBoard(); act(s, 'ok'); var w01round = s.prompt.text, w01 = [aiTroopsInBox(s), s.troopsReturning.US];
+playUntil(s, q => q.prompt && /^Tally/.test(q.prompt.title));
+var w01launch = s.log.some(l => /Troops launched in Kingston/.test(l.text)), w01tally = [s.supply.BR, gameScore(s)];
+playUntil(s, q => q.prompt && /^Reset/.test(q.prompt.title)); var w01reset = [aiTroopsInBox(s), s.troopsReturning.US];`);
+ok('W01 Madison withdraws from Niagara (D1W, passes Disengagement)', X(`/D1W/.test(w01round) && s.ships.madison.box !== 'lake'`), X('w01round').split('\n')[0]);
+eq('W01 the withdrawn marker is not Available – it waits for F7', X('w01'), [0, 1]);
+eq('W01 … so B20 deploys no second Troops force: no Kingston landing', X('w01launch'), false);
+eq('W01 … British supply 1, score 0', X('w01tally'), [1, 0]);
+eq('W01 the marker comes back once at F7', X('w01reset'), [1, 0]);
+X(`var s = markerBoard(); s.forces[s.encounter.aiForce].mission = 'Patrol'; s.forces[s.encounter.aiForce].troops = 0; s.aiTroops.box = [{ troops: true, revealed: true }]; act(s, 'ok');`);
+eq('W01 control: a marker already in the box stays Available', X('[aiTroopsInBox(s), s.troopsReturning.US]'), [1, 0]);
+
+// W02 – Pursuit settles the old Encounter's Struck Colors ships before the new Encounter (ruling: as if DW happened)
+for (const pursue of [true, false]) {
+  X(`var s = fresh('US', 182304); stageCombat(s, 'NOR', ['oneida'], ['moira']);
+     if (${pursue}) { s.combat.tac.att = { id: 'A_pursuit', used: false, negated: false }; s.deck.tacA = s.deck.tacA.filter(id => id !== 'A_pursuit'); s.tacPlayed = ['A_pursuit']; }
+     addShipToForce(s, 'beres', s.encounter.aiForce); encAdd(s, 'beres', 'struck'); s.ships.beres.steps = 0; s.encounter.struckBy.beres = 'US';
+     waitAt(s, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(s); s.calls.unshift({ proc: 'turn', pc: 'B2done', A: {}, L: { pe: 1 } });
+     s.pe = [{ num: 1, idx: 0, zone: 'NOR', forceId: s.encounter.humanForce, status: 'encounter' }]; s.encounter.peNum = 1; s.rng = 15;
+     act(s, 'ok'); var w02round = s.prompt.text; act(s, 'ok');
+     var w02 = { pending: s.encounter ? s.encounter.ships.beres : null, owner: s.ships.beres.owner, title: s.prompt.title };`);
+  ok(`W02 ${pursue ? 'Pursuit' : 'control: ordinary withdrawal'} – the round is D1W`, X(`/→ D1W/.test(w02round)`), X('w02round').split('\n')[0]);
+  if (pursue) {
+    eq('W02 Pursuit: Beresford is settled before the new Encounter draws its Event – Captured', X(`[w02.pending, w02.owner, /^Pursuit/.test(w02.title)]`), ['done', 'US', true]);
+    // the auditor's two endings: Pass the first command, no Reactions, then Pass or Attack the second command
+    X(`var outs = ['pass', 'attack'].map(order => { const b = JSON.parse(JSON.stringify(s)); let n = 0, seen = [];
+       for (let i = 0; i < 80 && b.encounter && b.prompt; i++) { const p = b.prompt; let a = 'ok';
+         if (p.kind === 'choice' && p.options.some(o => o.id === 'attack') && p.options.some(o => o.id === 'pass')) { n++; a = n === 1 ? 'pass' : order; seen.push(a); }
+         else if (p.kind === 'choice') a = (p.options.find(o => o.primary) || p.options[0]).id;
+         else if (p.kind === 'select') a = [];
+         else if (p.kind === 'lineup') a = { attackers: p.candidates, tows: p.defaultTows || {} };
+         act(b, a); }
+       return [seen.join('/'), b.ships.beres.owner]; });`);
+    eq('W02 … and the second command (Pass or Attack) cannot change his owner', X('outs'), [['pass/pass', 'US'], ['pass/attack', 'US']]);
+  } else {
+    eq('W02 control: ordinary DW captures him at the end of the Encounter', X(`w02.owner`), 'US');
+  }
+}
+
+// W03 – a v0.2.3 save waiting at the Rake choice is upgraded: the random ship is rolled from the saved dice and named
+X(`var s = fresh('US', 182307); stageCombat(s, 'NOR', ['madison', 'oneida'], ['wolfe', 'rg', 'moira']);
+   s.combat.tac.att = { id: 'A_rake', negated: false, used: false }; s.deck.tacA = s.deck.tacA.filter(id => id !== 'A_rake'); s.tacPlayed = ['A_rake'];
+   s.rng = 42; waitAt(s, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(s); act(s, 'ok');
+   var named = s.prompt.options[2].label;
+   // what v0.2.3 saved at this moment: no rolled ship, anonymous button, dice not yet used for it
+   var legacy = JSON.parse(JSON.stringify(s)); var lf = legacy.calls[legacy.calls.length - 1]; delete lf.L.rakeRandom;
+   legacy.prompt.options[2].label = 'A random ship'; legacy.rng = s.__rngBefore !== undefined ? s.__rngBefore : legacy.rng;`);
+X(`var s0 = fresh('US', 182307); stageCombat(s0, 'NOR', ['madison', 'oneida'], ['wolfe', 'rg', 'moira']);
+   s0.combat.tac.att = { id: 'A_rake', negated: false, used: false }; s0.deck.tacA = s0.deck.tacA.filter(id => id !== 'A_rake'); s0.tacPlayed = ['A_rake'];
+   s0.rng = 42; waitAt(s0, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(s0);
+   var colD0 = null; var origPick = pick; var rngBeforePick = null;
+   pick = function (st, arr) { if (rngBeforePick === null && st === s0) rngBeforePick = st.rng; return origPick(st, arr); };
+   act(s0, 'ok'); pick = origPick; legacy.rng = rngBeforePick;
+   var up = checkSaveState(JSON.parse(JSON.stringify(legacy))); var upLabel = up.prompt.options[2].label;
+   var again = checkSaveState(JSON.parse(JSON.stringify(legacy))).prompt.options[2].label;
+   act(up, 'random'); var upHit = up.log.map(l => l.text).find(t => /^Rake:/.test(t));`);
+eq('W03 an older save at the Rake choice now names the random ship', X('upLabel'), X('named'));
+eq('W03 … the same ship every time it is loaded', X('again'), X('upLabel'));
+eq('W03 … and the hits land on it', X('upHit'), `Rake: all hits on ${X('named').replace('Random ship: ', '')}.`);
+eq('W03 control: a current save is left as it is', X(`(function(){ const c = JSON.parse(JSON.stringify(s)); const r0 = c.rng; upgradeLegacyPrompt(c); return [c.rng === r0, c.prompt.options[2].label]; })()`), [true, X('named')]);
+
 console.log(`regression tests: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

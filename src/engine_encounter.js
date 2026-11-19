@@ -142,13 +142,18 @@ PROCS.encounter = {
     if (r.outcome === 'pursuit') {
       log(s, 'Pursuit! The withdrawal is cancelled and a new Encounter begins between the same forces.', 'combat');
       endEncounterEffects(s);   // the Encounter that just ended uses up its one-Encounter effects
+      // That Encounter's surrenders are settled now, as if the DW withdrawal had happened (project ruling, note 68)
+      const lines = [];
+      settleStruck(s, lines, r.pursued || (s.combat ? s.combat.def : null));
+      lines.forEach(l => log(s, l, 'combat'));
       // Disengaged ships were eligible to withdraw: their withdrawal is cancelled and they fight on (damage kept)
       const back = Object.keys(e.ships).filter(id => e.ships[id] === 'dis');
       back.forEach(id => { e.ships[id] = 'in'; });
-      if (back.length) log(s, `Back in the new Encounter: ${back.map(id => shipName(s, id)).join(', ')}.`, 'combat');
+      if (back.length) { const t = `Back in the new Encounter: ${back.map(id => shipName(s, id)).join(', ')}.`; log(s, t, 'combat'); lines.push(t); }
       e.flagIn = {};
       Object.keys(e.ships).forEach(id => { const sd = e.side[id]; if ((e.ships[id] === 'in' || e.ships[id] === 'dis') && s.flagship[sd] === id) e.flagIn[sd] = true; });
       e.segment = 'patrol';
+      if (lines.some(l => /CAPTURED|rescued/.test(l))) return P(info('Pursuit – a new Encounter', `The Encounter that just ended settles its Struck Colors ships first:\n${lines.join('\n')}`), 'event');
       return G('event');
     }
     if (r.outcome === 'encounterEnd') return G(e.kind === 'convoy' ? 'convoyCheck' : 'end');
@@ -459,8 +464,10 @@ function leaderCasualty(s, side, how) {
 function abortCoastalMission(s, fr) {
   if (!fr) return;
   if (fr.troops) {
-    if (fr.side === s.ai) returnAiTroops(s, fr.troops); else s.troopsReturning[fr.side] += fr.troops;
-    log(s, `${SIDE_SHORT[fr.side]} Coastal mission aborted – ${fr.troops} Troops marker(s) remain available for future use.`, 'info');
+    // Unlaunched: they go back at F7 (both sides), so they cannot embark again this turn [LC5 W; F7]
+    s.troopsReturning = s.troopsReturning || { US: 0, BR: 0 };
+    s.troopsReturning[fr.side] = (s.troopsReturning[fr.side] || 0) + fr.troops;
+    log(s, `${SIDE_SHORT[fr.side]} Coastal mission aborted – ${fr.troops} Troops marker(s) cannot land this turn and return at F7.`, 'info');
     fr.troops = 0;
   }
   fr.aborted = true;
@@ -471,13 +478,25 @@ function resolveEncounterEnd(s) {
   const e = s.encounter, lines = [];
   if (!e) return lines;
   endEncounterEffects(s);
+  settleStruck(s, lines);
+  Object.keys(e.ships).forEach(id => { if (e.ships[id] === 'dis') e.ships[id] = 'in'; });
+  // mark forces as having had their Encounter
+  Object.keys(e.ships).forEach(id => { const sh = s.ships[id]; if (sh && sh.forceId && s.forces[sh.forceId]) s.forces[sh.forceId].ended = true; });
+  lines.forEach(l => log(s, l, 'combat'));
+  return lines;
+}
+// Capture or Rescue of every ship that Struck Colors in the Encounter that is ending [LC5.3].
+// pursued: the side whose DW withdrawal Pursuit cancelled – it counts as having withdrawn (project ruling).
+function settleStruck(s, lines, pursued) {
+  const e = s.encounter;
   const gone = side => !encIds(s, side, ['in', 'dis']).length;
+  const out = side => gone(side) || e.withdrawn[side] || side === pursued;
   const struck = Object.keys(e.ships).filter(id => e.ships[id] === 'struck');
   struck.forEach(id => {
     const own = e.side[id], other = OTHER[own];
     let fate;
-    if ((gone(own) || e.withdrawn[own]) && !(gone(other) || e.withdrawn[other])) fate = 'captured';
-    else if ((gone(other) || e.withdrawn[other]) && !(gone(own) || e.withdrawn[own])) fate = 'rescued';
+    if (out(own) && !out(other)) fate = 'captured';
+    else if (out(other) && !out(own)) fate = 'rescued';
     else { const r = d6(s); fate = r <= 3 ? 'captured' : 'rescued'; lines.push(`${shipName(s, id)} Struck Colors – 1d6 ${r}`); }
     if (fate === 'captured') {
       captureShip(s, id, other, 'Struck Colors', false, (e.leaderFate || {})[id] || null);
@@ -489,9 +508,4 @@ function resolveEncounterEnd(s) {
     }
     e.ships[id] = 'done';
   });
-  Object.keys(e.ships).forEach(id => { if (e.ships[id] === 'dis') e.ships[id] = 'in'; });
-  // mark forces as having had their Encounter
-  Object.keys(e.ships).forEach(id => { const sh = s.ships[id]; if (sh && sh.forceId && s.forces[sh.forceId]) s.forces[sh.forceId].ended = true; });
-  lines.forEach(l => log(s, l, 'combat'));
-  return lines;
 }

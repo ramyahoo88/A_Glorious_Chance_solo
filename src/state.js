@@ -1,7 +1,7 @@
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.4';
+const APP_VERSION = '0.2.5';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)

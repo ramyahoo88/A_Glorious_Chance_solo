@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.5 – 2026-11-18
+Fixes from the audit of 0.2.4 (RULES_NOTES 23, 68–70).
+* Troops on a withdrawn (aborted) A.I. coastal mission wait for F7 instead of becoming Available at once, so they can no longer embark on a second Force the same turn.
+* Pursuit now settles the ended Encounter's Struck Colors ships before the new Encounter begins – as if the DW withdrawal had happened (project ruling) – so a later command cannot change who owns them.
+* A save made by 0.2.3 while choosing a Rake target now names the random ship before you choose (also after Undo).
+* Board → Tracks shows the Troops due back at F7 for each side.
+* 15 new regression checks (paired with controls).
+
 ## 0.2.4 – 2026-11-18
 Fixes from the follow-up audit of 0.2.3 (RULES_NOTES 4, 57–67).
 * Troops on a Force lost to a Gale, sinking or capture are no longer lost: unlaunched Troops come back at F7, and the Reset screen says how many.

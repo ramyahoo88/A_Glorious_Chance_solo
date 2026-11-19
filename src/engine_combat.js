@@ -415,7 +415,7 @@ PROCS.combat = {
     tidyColumns(s);
     if (c.sitting) { const sd = c.sitting.side; if (e.ships[c.sitting.id] === 'in') c.col[sd].push(c.sitting.id); c.sitting = null; }
     const oc = f.L.outcome; f.L.outcome = null;
-    if (oc === 'pursuit') return R({ outcome: 'pursuit' });
+    if (oc === 'pursuit') return R({ outcome: 'pursuit', pursued: c.def });
     if (oc === 'segmentEnd') return R({ outcome: 'segmentEnd' });
     if (!encIds(s, 'US').length || !encIds(s, 'BR').length) return R({ outcome: 'encounterEnd' });
     if (!colShips(c, c.def).length) return R({ outcome: 'encounterEnd' });
@@ -552,6 +552,19 @@ PROCS.combat = {
 };
 
 /* ---------- Tactic helpers ---------------------------------------------------------------- */
+// A save from before 0.2.4 can be waiting at the Rake choice without a rolled random ship: roll it now from the
+// saved dice (the same ship the older version would have picked) and name it on the button (card A06)
+function upgradeLegacyPrompt(s) {
+  const f = s && s.calls && topFrame(s), p = s && s.prompt;
+  if (!f || f.proc !== 'combat' || f.pc !== 'grRake' || !p || p.kind !== 'choice' || !s.combat) return s;
+  f.L = f.L || {};
+  const colD = colShips(s.combat, s.combat.def);
+  if (!colD.length) return s;
+  if (!f.L.rakeRandom || colD.indexOf(f.L.rakeRandom) < 0) f.L.rakeRandom = pick(s, colD);
+  const o = (p.options || []).find(x => x.id === 'random');
+  if (o) o.label = `Random ship: ${shipName(s, f.L.rakeRandom)}`;
+  return s;
+}
 // Attacker Rake is single-use: once its hits are allocated the card goes back to its deck (Playbook p.19)
 function spendRake(s, c) {
   const t = c.tac.att;
