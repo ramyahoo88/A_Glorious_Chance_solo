@@ -1,0 +1,9 @@
+{
+  "restoredExact": true,
+  "restoredUndo": "Undo the last action, including its dice. 60 Undo steps available.",
+  "consoleSample": {
+    "entries": 20,
+    "appErrors": 0,
+    "note": "Returned entries were browser-extension metadata errors, not application errors; this is a bounded sample, not an exhaustive console assertion."
+  }
+}

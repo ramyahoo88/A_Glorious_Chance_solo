@@ -1,0 +1,96 @@
+{
+  "setups": 256,
+  "automaticSelections": 5632,
+  "successful": 3042,
+  "unmet": 2590,
+  "distinctTiedSelections": {
+    "pool0-pkg3": {
+      "legal": 4,
+      "observed": 4
+    },
+    "pool0-pkg5": {
+      "legal": 4,
+      "observed": 4
+    },
+    "pool0-pkg8": {
+      "legal": 11,
+      "observed": 11
+    },
+    "pool0-pkg10": {
+      "legal": 36,
+      "observed": 24
+    },
+    "pool0-pkg11": {
+      "legal": 182,
+      "observed": 50
+    },
+    "pool1-pkg3": {
+      "legal": 11,
+      "observed": 11
+    },
+    "pool1-pkg6": {
+      "legal": 7,
+      "observed": 7
+    },
+    "pool1-pkg8": {
+      "legal": 11,
+      "observed": 10
+    },
+    "pool1-pkg10": {
+      "legal": 36,
+      "observed": 24
+    },
+    "pool1-pkg11": {
+      "legal": 182,
+      "observed": 50
+    },
+    "pool2-pkg3": {
+      "legal": 4,
+      "observed": 4
+    },
+    "pool2-pkg5": {
+      "legal": 4,
+      "observed": 4
+    },
+    "pool2-pkg8": {
+      "legal": 11,
+      "observed": 11
+    },
+    "pool2-pkg9": {
+      "legal": 4,
+      "observed": 4
+    },
+    "pool2-pkg10": {
+      "legal": 28,
+      "observed": 26
+    },
+    "pool2-pkg11": {
+      "legal": 91,
+      "observed": 40
+    },
+    "pool3-pkg9": {
+      "legal": 3,
+      "observed": 3
+    },
+    "pool3-pkg10": {
+      "legal": 15,
+      "observed": 14
+    },
+    "pool3-pkg11": {
+      "legal": 6,
+      "observed": 6
+    },
+    "pool4-pkg2": {
+      "legal": 2,
+      "observed": 2
+    },
+    "pool4-pkg3": {
+      "legal": 3,
+      "observed": 3
+    },
+    "pool4-pkg5": {
+      "legal": 3,
+      "observed": 3
+    }
+  }
+}

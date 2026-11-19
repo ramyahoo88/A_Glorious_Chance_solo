@@ -1,0 +1,1453 @@
+{
+  "count": {
+    "games": 160,
+    "individual": 21849,
+    "grouped": 13686,
+    "groupedNotices": 8163,
+    "forcedTactics": 144,
+    "comparisons": 13686,
+    "turns": 1280
+  },
+  "samples": [
+    {
+      "human": "US",
+      "seed": 963000,
+      "style": "coast",
+      "actions": 141,
+      "clicks": 97,
+      "score": -47,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963000,
+      "style": "coast",
+      "actions": 178,
+      "clicks": 120,
+      "score": -16,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963001,
+      "style": "screen",
+      "actions": 91,
+      "clicks": 47,
+      "score": -6,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963001,
+      "style": "screen",
+      "actions": 122,
+      "clicks": 68,
+      "score": 72,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963002,
+      "style": "blockade",
+      "actions": 99,
+      "clicks": 57,
+      "score": -58,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963002,
+      "style": "blockade",
+      "actions": 120,
+      "clicks": 64,
+      "score": -16,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963003,
+      "style": "coast",
+      "actions": 148,
+      "clicks": 106,
+      "score": -5,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963003,
+      "style": "coast",
+      "actions": 151,
+      "clicks": 96,
+      "score": 66,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963004,
+      "style": "screen",
+      "actions": 123,
+      "clicks": 67,
+      "score": -77,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963004,
+      "style": "screen",
+      "actions": 148,
+      "clicks": 89,
+      "score": 52,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963005,
+      "style": "blockade",
+      "actions": 90,
+      "clicks": 42,
+      "score": -28,
+      "level": "British Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963005,
+      "style": "blockade",
+      "actions": 143,
+      "clicks": 96,
+      "score": 35,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963006,
+      "style": "coast",
+      "actions": 134,
+      "clicks": 83,
+      "score": -64,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963006,
+      "style": "coast",
+      "actions": 175,
+      "clicks": 117,
+      "score": 34,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963007,
+      "style": "screen",
+      "actions": 120,
+      "clicks": 73,
+      "score": -17,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963007,
+      "style": "screen",
+      "actions": 148,
+      "clicks": 98,
+      "score": 45,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963008,
+      "style": "blockade",
+      "actions": 92,
+      "clicks": 46,
+      "score": -8,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963008,
+      "style": "blockade",
+      "actions": 160,
+      "clicks": 98,
+      "score": 70,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963009,
+      "style": "coast",
+      "actions": 127,
+      "clicks": 80,
+      "score": -14,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963009,
+      "style": "coast",
+      "actions": 201,
+      "clicks": 146,
+      "score": 21,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963010,
+      "style": "screen",
+      "actions": 148,
+      "clicks": 104,
+      "score": -62,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963010,
+      "style": "screen",
+      "actions": 122,
+      "clicks": 71,
+      "score": 113,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963011,
+      "style": "blockade",
+      "actions": 98,
+      "clicks": 53,
+      "score": -14,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963011,
+      "style": "blockade",
+      "actions": 148,
+      "clicks": 95,
+      "score": 12,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963012,
+      "style": "coast",
+      "actions": 132,
+      "clicks": 91,
+      "score": -12,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963012,
+      "style": "coast",
+      "actions": 180,
+      "clicks": 120,
+      "score": -25,
+      "level": "British Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963013,
+      "style": "screen",
+      "actions": 117,
+      "clicks": 66,
+      "score": -60,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963013,
+      "style": "screen",
+      "actions": 166,
+      "clicks": 108,
+      "score": 67,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963014,
+      "style": "blockade",
+      "actions": 92,
+      "clicks": 47,
+      "score": -25,
+      "level": "British Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963014,
+      "style": "blockade",
+      "actions": 157,
+      "clicks": 105,
+      "score": 17,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963015,
+      "style": "coast",
+      "actions": 107,
+      "clicks": 59,
+      "score": 23,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963015,
+      "style": "coast",
+      "actions": 174,
+      "clicks": 117,
+      "score": 39,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963016,
+      "style": "screen",
+      "actions": 138,
+      "clicks": 89,
+      "score": -64,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963016,
+      "style": "screen",
+      "actions": 121,
+      "clicks": 62,
+      "score": 92,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963017,
+      "style": "blockade",
+      "actions": 100,
+      "clicks": 48,
+      "score": -8,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963017,
+      "style": "blockade",
+      "actions": 149,
+      "clicks": 92,
+      "score": 122,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963018,
+      "style": "coast",
+      "actions": 128,
+      "clicks": 82,
+      "score": 57,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963018,
+      "style": "coast",
+      "actions": 170,
+      "clicks": 113,
+      "score": 71,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963019,
+      "style": "screen",
+      "actions": 117,
+      "clicks": 65,
+      "score": -70,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963019,
+      "style": "screen",
+      "actions": 154,
+      "clicks": 95,
+      "score": 7,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963020,
+      "style": "blockade",
+      "actions": 91,
+      "clicks": 42,
+      "score": -18,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963020,
+      "style": "blockade",
+      "actions": 145,
+      "clicks": 94,
+      "score": 29,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963021,
+      "style": "coast",
+      "actions": 123,
+      "clicks": 80,
+      "score": -3,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963021,
+      "style": "coast",
+      "actions": 154,
+      "clicks": 95,
+      "score": 2,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963022,
+      "style": "screen",
+      "actions": 119,
+      "clicks": 66,
+      "score": -20,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963022,
+      "style": "screen",
+      "actions": 137,
+      "clicks": 79,
+      "score": 79,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963023,
+      "style": "blockade",
+      "actions": 122,
+      "clicks": 72,
+      "score": -18,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963023,
+      "style": "blockade",
+      "actions": 138,
+      "clicks": 95,
+      "score": -11,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963024,
+      "style": "coast",
+      "actions": 134,
+      "clicks": 91,
+      "score": 11,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963024,
+      "style": "coast",
+      "actions": 151,
+      "clicks": 93,
+      "score": 17,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963025,
+      "style": "screen",
+      "actions": 112,
+      "clicks": 64,
+      "score": -29,
+      "level": "British Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963025,
+      "style": "screen",
+      "actions": 121,
+      "clicks": 70,
+      "score": 68,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963026,
+      "style": "blockade",
+      "actions": 100,
+      "clicks": 54,
+      "score": -14,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963026,
+      "style": "blockade",
+      "actions": 155,
+      "clicks": 103,
+      "score": -25,
+      "level": "British Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963027,
+      "style": "coast",
+      "actions": 125,
+      "clicks": 81,
+      "score": -6,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963027,
+      "style": "coast",
+      "actions": 149,
+      "clicks": 93,
+      "score": -4,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963028,
+      "style": "screen",
+      "actions": 132,
+      "clicks": 88,
+      "score": -77,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963028,
+      "style": "screen",
+      "actions": 148,
+      "clicks": 100,
+      "score": 107,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963029,
+      "style": "blockade",
+      "actions": 106,
+      "clicks": 62,
+      "score": -56,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963029,
+      "style": "blockade",
+      "actions": 132,
+      "clicks": 78,
+      "score": 130,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963030,
+      "style": "coast",
+      "actions": 122,
+      "clicks": 84,
+      "score": -15,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963030,
+      "style": "coast",
+      "actions": 183,
+      "clicks": 130,
+      "score": 4,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963031,
+      "style": "screen",
+      "actions": 151,
+      "clicks": 111,
+      "score": -57,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963031,
+      "style": "screen",
+      "actions": 182,
+      "clicks": 133,
+      "score": 18,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963032,
+      "style": "blockade",
+      "actions": 103,
+      "clicks": 62,
+      "score": 38,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963032,
+      "style": "blockade",
+      "actions": 131,
+      "clicks": 77,
+      "score": 30,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963033,
+      "style": "coast",
+      "actions": 136,
+      "clicks": 84,
+      "score": -31,
+      "level": "British Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963033,
+      "style": "coast",
+      "actions": 176,
+      "clicks": 109,
+      "score": -6,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963034,
+      "style": "screen",
+      "actions": 138,
+      "clicks": 86,
+      "score": -48,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963034,
+      "style": "screen",
+      "actions": 124,
+      "clicks": 68,
+      "score": 32,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963035,
+      "style": "blockade",
+      "actions": 102,
+      "clicks": 53,
+      "score": -84,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963035,
+      "style": "blockade",
+      "actions": 126,
+      "clicks": 79,
+      "score": 4,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963036,
+      "style": "coast",
+      "actions": 128,
+      "clicks": 85,
+      "score": -8,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963036,
+      "style": "coast",
+      "actions": 162,
+      "clicks": 109,
+      "score": 23,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963037,
+      "style": "screen",
+      "actions": 139,
+      "clicks": 93,
+      "score": -168,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963037,
+      "style": "screen",
+      "actions": 158,
+      "clicks": 101,
+      "score": 38,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963038,
+      "style": "blockade",
+      "actions": 107,
+      "clicks": 59,
+      "score": -8,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963038,
+      "style": "blockade",
+      "actions": 144,
+      "clicks": 87,
+      "score": -1,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963039,
+      "style": "coast",
+      "actions": 133,
+      "clicks": 89,
+      "score": -5,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963039,
+      "style": "coast",
+      "actions": 166,
+      "clicks": 108,
+      "score": 59,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963040,
+      "style": "screen",
+      "actions": 123,
+      "clicks": 79,
+      "score": -73,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963040,
+      "style": "screen",
+      "actions": 150,
+      "clicks": 88,
+      "score": 6,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963041,
+      "style": "blockade",
+      "actions": 110,
+      "clicks": 67,
+      "score": 17,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963041,
+      "style": "blockade",
+      "actions": 146,
+      "clicks": 98,
+      "score": 53,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963042,
+      "style": "coast",
+      "actions": 152,
+      "clicks": 109,
+      "score": -12,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963042,
+      "style": "coast",
+      "actions": 176,
+      "clicks": 118,
+      "score": 34,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963043,
+      "style": "screen",
+      "actions": 106,
+      "clicks": 56,
+      "score": -62,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963043,
+      "style": "screen",
+      "actions": 145,
+      "clicks": 93,
+      "score": 52,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963044,
+      "style": "blockade",
+      "actions": 133,
+      "clicks": 89,
+      "score": -142,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963044,
+      "style": "blockade",
+      "actions": 148,
+      "clicks": 93,
+      "score": 110,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963045,
+      "style": "coast",
+      "actions": 118,
+      "clicks": 69,
+      "score": 28,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963045,
+      "style": "coast",
+      "actions": 163,
+      "clicks": 106,
+      "score": 1,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963046,
+      "style": "screen",
+      "actions": 127,
+      "clicks": 75,
+      "score": -36,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963046,
+      "style": "screen",
+      "actions": 153,
+      "clicks": 98,
+      "score": 45,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963047,
+      "style": "blockade",
+      "actions": 90,
+      "clicks": 45,
+      "score": -26,
+      "level": "British Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963047,
+      "style": "blockade",
+      "actions": 162,
+      "clicks": 101,
+      "score": 49,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963048,
+      "style": "coast",
+      "actions": 131,
+      "clicks": 81,
+      "score": -7,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963048,
+      "style": "coast",
+      "actions": 138,
+      "clicks": 75,
+      "score": -18,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963049,
+      "style": "screen",
+      "actions": 135,
+      "clicks": 84,
+      "score": -91,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963049,
+      "style": "screen",
+      "actions": 137,
+      "clicks": 82,
+      "score": 37,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963050,
+      "style": "blockade",
+      "actions": 103,
+      "clicks": 56,
+      "score": -70,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963050,
+      "style": "blockade",
+      "actions": 141,
+      "clicks": 86,
+      "score": 9,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963051,
+      "style": "coast",
+      "actions": 146,
+      "clicks": 95,
+      "score": 12,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963051,
+      "style": "coast",
+      "actions": 181,
+      "clicks": 123,
+      "score": 26,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963052,
+      "style": "screen",
+      "actions": 148,
+      "clicks": 102,
+      "score": -103,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963052,
+      "style": "screen",
+      "actions": 133,
+      "clicks": 78,
+      "score": 74,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963053,
+      "style": "blockade",
+      "actions": 103,
+      "clicks": 53,
+      "score": -64,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963053,
+      "style": "blockade",
+      "actions": 130,
+      "clicks": 75,
+      "score": 27,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963054,
+      "style": "coast",
+      "actions": 168,
+      "clicks": 123,
+      "score": -51,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963054,
+      "style": "coast",
+      "actions": 167,
+      "clicks": 112,
+      "score": 16,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963055,
+      "style": "screen",
+      "actions": 110,
+      "clicks": 63,
+      "score": -39,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963055,
+      "style": "screen",
+      "actions": 145,
+      "clicks": 87,
+      "score": 94,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963056,
+      "style": "blockade",
+      "actions": 121,
+      "clicks": 72,
+      "score": -20,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963056,
+      "style": "blockade",
+      "actions": 131,
+      "clicks": 84,
+      "score": 21,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963057,
+      "style": "coast",
+      "actions": 141,
+      "clicks": 91,
+      "score": -5,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963057,
+      "style": "coast",
+      "actions": 176,
+      "clicks": 119,
+      "score": -10,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963058,
+      "style": "screen",
+      "actions": 117,
+      "clicks": 71,
+      "score": -20,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963058,
+      "style": "screen",
+      "actions": 152,
+      "clicks": 98,
+      "score": 47,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963059,
+      "style": "blockade",
+      "actions": 88,
+      "clicks": 36,
+      "score": -52,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963059,
+      "style": "blockade",
+      "actions": 127,
+      "clicks": 76,
+      "score": -26,
+      "level": "British Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963060,
+      "style": "coast",
+      "actions": 137,
+      "clicks": 96,
+      "score": -53,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963060,
+      "style": "coast",
+      "actions": 163,
+      "clicks": 105,
+      "score": 43,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963061,
+      "style": "screen",
+      "actions": 116,
+      "clicks": 68,
+      "score": -13,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963061,
+      "style": "screen",
+      "actions": 190,
+      "clicks": 134,
+      "score": 23,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963062,
+      "style": "blockade",
+      "actions": 110,
+      "clicks": 60,
+      "score": -98,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963062,
+      "style": "blockade",
+      "actions": 154,
+      "clicks": 101,
+      "score": 31,
+      "level": "U.S. Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963063,
+      "style": "coast",
+      "actions": 124,
+      "clicks": 74,
+      "score": -30,
+      "level": "British Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963063,
+      "style": "coast",
+      "actions": 168,
+      "clicks": 111,
+      "score": 20,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963064,
+      "style": "screen",
+      "actions": 124,
+      "clicks": 75,
+      "score": -31,
+      "level": "British Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963064,
+      "style": "screen",
+      "actions": 167,
+      "clicks": 115,
+      "score": 44,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963065,
+      "style": "blockade",
+      "actions": 113,
+      "clicks": 65,
+      "score": -41,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963065,
+      "style": "blockade",
+      "actions": 130,
+      "clicks": 81,
+      "score": 113,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963066,
+      "style": "coast",
+      "actions": 144,
+      "clicks": 100,
+      "score": 3,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963066,
+      "style": "coast",
+      "actions": 176,
+      "clicks": 123,
+      "score": 19,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963067,
+      "style": "screen",
+      "actions": 130,
+      "clicks": 81,
+      "score": -131,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963067,
+      "style": "screen",
+      "actions": 139,
+      "clicks": 89,
+      "score": 77,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963068,
+      "style": "blockade",
+      "actions": 105,
+      "clicks": 58,
+      "score": -12,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963068,
+      "style": "blockade",
+      "actions": 159,
+      "clicks": 97,
+      "score": 47,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963069,
+      "style": "coast",
+      "actions": 126,
+      "clicks": 78,
+      "score": 8,
+      "level": "Draw"
+    },
+    {
+      "human": "BR",
+      "seed": 963069,
+      "style": "coast",
+      "actions": 148,
+      "clicks": 93,
+      "score": -6,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963070,
+      "style": "screen",
+      "actions": 132,
+      "clicks": 77,
+      "score": -31,
+      "level": "British Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963070,
+      "style": "screen",
+      "actions": 149,
+      "clicks": 93,
+      "score": 115,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963071,
+      "style": "blockade",
+      "actions": 100,
+      "clicks": 45,
+      "score": -53,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963071,
+      "style": "blockade",
+      "actions": 153,
+      "clicks": 103,
+      "score": 54,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963072,
+      "style": "coast",
+      "actions": 155,
+      "clicks": 106,
+      "score": 52,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963072,
+      "style": "coast",
+      "actions": 134,
+      "clicks": 82,
+      "score": 98,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963073,
+      "style": "screen",
+      "actions": 134,
+      "clicks": 90,
+      "score": -59,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963073,
+      "style": "screen",
+      "actions": 132,
+      "clicks": 76,
+      "score": 50,
+      "level": "U.S. Decisive Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963074,
+      "style": "blockade",
+      "actions": 95,
+      "clicks": 42,
+      "score": -14,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963074,
+      "style": "blockade",
+      "actions": 149,
+      "clicks": 100,
+      "score": 3,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963075,
+      "style": "coast",
+      "actions": 129,
+      "clicks": 77,
+      "score": 13,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963075,
+      "style": "coast",
+      "actions": 154,
+      "clicks": 103,
+      "score": -19,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963076,
+      "style": "screen",
+      "actions": 119,
+      "clicks": 71,
+      "score": -41,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963076,
+      "style": "screen",
+      "actions": 156,
+      "clicks": 113,
+      "score": 17,
+      "level": "U.S. Marginal Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963077,
+      "style": "blockade",
+      "actions": 109,
+      "clicks": 62,
+      "score": -19,
+      "level": "British Marginal Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963077,
+      "style": "blockade",
+      "actions": 125,
+      "clicks": 72,
+      "score": -10,
+      "level": "Draw"
+    },
+    {
+      "human": "US",
+      "seed": 963078,
+      "style": "coast",
+      "actions": 141,
+      "clicks": 93,
+      "score": -33,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963078,
+      "style": "coast",
+      "actions": 175,
+      "clicks": 113,
+      "score": -29,
+      "level": "British Victory"
+    },
+    {
+      "human": "US",
+      "seed": 963079,
+      "style": "screen",
+      "actions": 132,
+      "clicks": 89,
+      "score": -84,
+      "level": "British Decisive Victory"
+    },
+    {
+      "human": "BR",
+      "seed": 963079,
+      "style": "screen",
+      "actions": 148,
+      "clicks": 90,
+      "score": 30,
+      "level": "U.S. Victory"
+    }
+  ]
+}

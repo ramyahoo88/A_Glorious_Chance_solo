@@ -1,0 +1,1864 @@
+{
+  "side": "BR",
+  "seed": 965119,
+  "style": "coast",
+  "options": {
+    "cuttingOut": false,
+    "oa1Upgrades": false,
+    "usAiPrecondition": "longgun",
+    "confirmAiSteps": true,
+    "groupUpdates": true,
+    "manualPackages": false,
+    "manualLandBattle": false
+  },
+  "totals": {
+    "choice": 19,
+    "select": 13,
+    "assign": 8,
+    "info": 74,
+    "lineup": 4
+  },
+  "steps": [
+    {
+      "step": "June I · A1 Schedule Convoy",
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "June I (this turn)"
+        }
+      ]
+    },
+    {
+      "step": "June I · A2 New Ships Ready",
+      "title": "A2 British Ship Upgrades",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "checkbox",
+          "label": "Wolfe (A) (Make Ready — returns next turn)"
+        },
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "June I · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "June I · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Sir Sidney Smith"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 1,
+          "label": "South Lake"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Lord Beresford A"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Sacket's"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Royal George A"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "June I · B2 Encounter Checks",
+      "title": "Encounter 2: enemy sighted",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · Encounter 2 – Lake Zone Event & Weather Gage",
+      "title": "Encounter 2 in South Lake",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · Encounter – Command Decision (patrol segment)",
+      "title": "Command Decision – you hold the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "June I · Encounter – Command Decision (patrol segment)",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ]
+    },
+    {
+      "step": "June I · Encounter – Command Decision (patrol segment)",
+      "title": "LC3 Tactics – you are the Attacker",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "tactic",
+          "label": "First Shot"
+        }
+      ]
+    },
+    {
+      "step": "June I · Encounter – Command Decision (patrol segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · C Enemy Operations",
+      "title": "Your Convoy is attacked!",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · E Coastal Action Phase",
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · E Coastal Action Phase",
+      "title": "British Raid on South Lake",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · A2 New Ships Ready",
+      "title": "A2 British Ship Upgrades",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "checkbox",
+          "label": "Royal George (A) (Make Ready — returns next turn)"
+        },
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "June II · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "June II · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Sir Sidney Smith"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 1,
+          "label": "Sacket's"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Wolfe B"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "June II · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Sir Sidney Smith) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "June II · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 3 in Sacket's",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Sir Sidney Smith) — 1 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "June II · B2 Encounter Checks",
+      "title": "Encounter 2 – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · B2 Encounter Checks",
+      "title": "Encounter 3: enemy sighted",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · Encounter 3 – Lake Zone Event & Weather Gage",
+      "title": "Encounter 3 in Sacket's",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · Encounter – Command Decision (patrol segment)",
+      "title": "Command Decision – the A.I. holds the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Bypass"
+        }
+      ]
+    },
+    {
+      "step": "June II · Encounter – Command Decision (patrol segment)",
+      "title": "The A.I. declines battle",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · Encounter – Command Decision (patrol segment)",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · E Coastal Action Phase",
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · A1 Schedule Convoy",
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "July I (this turn)"
+        }
+      ]
+    },
+    {
+      "step": "July I · A2 New Ships Ready",
+      "title": "A2 British Ship Upgrades",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "checkbox",
+          "label": "Earl of Moira (A) (Make Ready — returns next turn)"
+        },
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "July I · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "July I · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Army Support"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 1,
+          "label": "Sacket's"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Wolfe B (Isolated)"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "July I · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · D Breakout Attacks",
+      "title": "D Breakout Attack?",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Breakout Attack"
+        }
+      ]
+    },
+    {
+      "step": "July I · Encounter  – Lake Zone Event & Weather Gage",
+      "title": "Encounter  in Kingston",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · Encounter – Command Decision (patrol segment)",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ]
+    },
+    {
+      "step": "July I · Encounter – Command Decision (patrol segment)",
+      "title": "LC3 Tactics – you are the Attacker",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "tactic",
+          "label": "Rake"
+        }
+      ]
+    },
+    {
+      "step": "July I · Encounter – Command Decision (patrol segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Rake – where do the hits go?",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Lead ship: Scourge"
+        }
+      ]
+    },
+    {
+      "step": "July I · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E3.3 A.I. Land Battles",
+      "title": "Land Battle result",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E Harbor Encounter",
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E Harbor Encounter",
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E Harbor Encounter",
+      "title": "Harbor Encounter ends",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E6.3 Your Land Battles",
+      "title": "Land Battle result",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · A2 New Ships Ready",
+      "title": "A2 British Ship Upgrades",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "checkbox",
+          "label": "Lord Beresford (A) (Make Ready — returns next turn)"
+        },
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "July II · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "July II · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Sir Sidney Smith"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Army Support"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Royal George B"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "July II · B2 Encounter Checks",
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · E Coastal Action Phase",
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · E6.3 Your Land Battles",
+      "title": "Land Battle result",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · A1 Schedule Convoy",
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "August I (this turn)"
+        }
+      ]
+    },
+    {
+      "step": "August I · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "August I · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Lord Melville"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 1,
+          "label": "South Lake"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Sir Sidney Smith"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Sacket's"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Wolfe B"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Royal George B"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Earl of Moira B"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "August I · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 3 in Sacket's",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Lord Melville) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "August I · B2 Encounter Checks",
+      "title": "Encounter 1: enemy sighted",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter 1 – Lake Zone Event & Weather Gage",
+      "title": "Encounter 1 in South Lake",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Command Decision (patrol segment)",
+      "title": "Command Decision – you hold the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Command Decision (patrol segment)",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ],
+      "resultLog": [
+        "Sir Sidney Smith vs Julia: d10 9 > 4 – MELEE 5+4=9 vs 1+0=1 – Julia is CAPTURED!"
+      ]
+    },
+    {
+      "step": "August I · Lake Combat – Sequence B: Close Action Round",
+      "title": "Close Action Round",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Reaction Segment",
+      "title": "Reaction Segment – declare Reaction Checks",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "checkbox",
+          "label": "Lord Beresford (B) – Kingston Harbour (Deployable) (DRM -3)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Wolfe (B) – Patrol Force (Wolfe (B), Royal George (B), Earl of Moira (B)) in Sacket's (DRM -1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Royal George (B) – Patrol Force (Wolfe (B), Royal George (B), Earl of Moira (B)) in Sacket's (DRM -1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Earl of Moira (B) – Patrol Force (Wolfe (B), Royal George (B), Earl of Moira (B)) in Sacket's (DRM -1)"
+        },
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Reaction Segment",
+      "title": "Reaction Segment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Command Decision (reaction segment)",
+      "title": "The A.I. attacks!",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Command Decision (reaction segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · B2 Encounter Checks",
+      "title": "Encounter 3 – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · C Enemy Operations",
+      "title": "Your Convoy is attacked!",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · E Coastal Action Phase",
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "August II · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Lord Melville"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 1,
+          "label": "South Lake"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Lord Beresford B"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Sacket's"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Wolfe B"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Royal George B"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "August II · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Lord Melville) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "August II · B2 Encounter Checks",
+      "title": "Encounter 1 – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · B2 Encounter Checks",
+      "title": "Encounter 3: enemy sighted",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · Encounter 3 – Lake Zone Event & Weather Gage",
+      "title": "Encounter 3 in South Lake",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · Encounter – Command Decision (patrol segment)",
+      "title": "Command Decision – the A.I. holds the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Bypass"
+        }
+      ]
+    },
+    {
+      "step": "August II · Encounter – Command Decision (patrol segment)",
+      "title": "The A.I. attacks!",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · Encounter – Command Decision (patrol segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ],
+      "resultLog": [
+        "Lord Beresford is CAPTURED by the Americans."
+      ]
+    },
+    {
+      "step": "August II · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · E Coastal Action Phase",
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · A1 Schedule Convoy",
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "September I (this turn)"
+        }
+      ]
+    },
+    {
+      "step": "September I · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "September I · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Lord Melville"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 1,
+          "label": "South Lake"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Earl of Moira B"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Sacket's"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Wolfe B"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "September I · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 2 in Sacket's",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Lord Melville) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "September I · B2 Encounter Checks",
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · B2 Encounter Checks",
+      "title": "Encounter 3: enemy sighted",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter 3 – Lake Zone Event & Weather Gage",
+      "title": "Encounter 3 in South Lake",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter – Command Decision (patrol segment)",
+      "title": "Command Decision – you hold the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter – Command Decision (patrol segment)",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter – Command Decision (patrol segment)",
+      "title": "LC3 Tactics – you are the Attacker",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "tactic",
+          "label": "Pursuit"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter – Command Decision (patrol segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · E Coastal Action Phase",
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · E Coastal Action Phase",
+      "title": "British Raid on South Lake",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "September II · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Lord Melville"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Army Support"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Wolfe B"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "September II · B2 Encounter Checks",
+      "title": "Encounter 3 – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · C Enemy Operations",
+      "title": "AI Deployment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · E Coastal Action Phase",
+      "title": "American Raid on York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · E Harbor Encounter",
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · E Harbor Encounter",
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · E Harbor Encounter",
+      "title": "Harbor Encounter ends",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · E3.3 A.I. Land Battles",
+      "title": "Land Battle result",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · E3.3 A.I. Land Battles",
+      "title": "British Raid on Sacket's",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · E6.3 Your Land Battles",
+      "title": "Land Battle result",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    }
+  ],
+  "final": {
+    "turn": 8,
+    "result": {
+      "score": 7,
+      "level": "Draw"
+    },
+    "vp": {
+      "US": 39,
+      "BR": 32
+    },
+    "ledger": [
+      {
+        "turn": 0,
+        "side": "US",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 0,
+        "side": "BR",
+        "n": 1,
+        "why": "Lake Control (1 zone)"
+      },
+      {
+        "turn": 0,
+        "side": "BR",
+        "n": 2,
+        "why": "Raid on the Sacket's coastline"
+      },
+      {
+        "turn": 1,
+        "side": "US",
+        "n": 3,
+        "why": "Lake Control (3 zones)"
+      },
+      {
+        "turn": 1,
+        "side": "BR",
+        "n": 2,
+        "why": "Raid on the Sacket's coastline"
+      },
+      {
+        "turn": 2,
+        "side": "BR",
+        "n": 2,
+        "why": "Scourge destroyed (Lake Combat)"
+      },
+      {
+        "turn": 2,
+        "side": "BR",
+        "n": 2,
+        "why": "Growler destroyed (Lake Combat)"
+      },
+      {
+        "turn": 2,
+        "side": "US",
+        "n": 3,
+        "why": "Lake Control (3 zones)"
+      },
+      {
+        "turn": 2,
+        "side": "BR",
+        "n": 1,
+        "why": "Lake Control (1 zone)"
+      },
+      {
+        "turn": 3,
+        "side": "US",
+        "n": 3,
+        "why": "Lake Control (3 zones)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 1,
+        "why": "Lake Control (1 zone)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 2,
+        "why": "Raid on the Sacket's coastline"
+      },
+      {
+        "turn": 4,
+        "side": "BR",
+        "n": 4,
+        "why": "Julia captured (Melee)"
+      },
+      {
+        "turn": 4,
+        "side": "US",
+        "n": 5,
+        "why": "Sir Sidney Smith destroyed (Lake Combat)"
+      },
+      {
+        "turn": 4,
+        "side": "US",
+        "n": 3,
+        "why": "Lake Control (3 zones)"
+      },
+      {
+        "turn": 4,
+        "side": "BR",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 4,
+        "side": "BR",
+        "n": 2,
+        "why": "Raid on the Sacket's coastline"
+      },
+      {
+        "turn": 5,
+        "side": "US",
+        "n": 10,
+        "why": "Lord Beresford captured (Struck Colors)"
+      },
+      {
+        "turn": 5,
+        "side": "US",
+        "n": 3,
+        "why": "Lake Control (3 zones)"
+      },
+      {
+        "turn": 5,
+        "side": "BR",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 5,
+        "side": "BR",
+        "n": 2,
+        "why": "Raid on the Sacket's coastline"
+      },
+      {
+        "turn": 6,
+        "side": "US",
+        "n": 3,
+        "why": "Lake Control (3 zones)"
+      },
+      {
+        "turn": 6,
+        "side": "BR",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 6,
+        "side": "BR",
+        "n": 2,
+        "why": "Raid on the Sacket's coastline"
+      },
+      {
+        "turn": 7,
+        "side": "US",
+        "n": 4,
+        "why": "Lake Control (4 zones)"
+      },
+      {
+        "turn": 7,
+        "side": "BR",
+        "n": 1,
+        "why": "Lake Control (1 zone)"
+      },
+      {
+        "turn": 7,
+        "side": "BR",
+        "n": 2,
+        "why": "Raid on the Sacket's coastline"
+      }
+    ]
+  }
+}

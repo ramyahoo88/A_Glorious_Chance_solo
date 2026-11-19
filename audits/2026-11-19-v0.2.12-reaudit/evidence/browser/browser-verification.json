@@ -1,0 +1,23 @@
+{
+  "side": "BR",
+  "seed": 965119,
+  "prompts": 118,
+  "exactStateIncludingLogAndRng": true,
+  "vp": {
+    "US": 39,
+    "BR": 32
+  },
+  "result": {
+    "score": 7,
+    "level": "Draw"
+  },
+  "independentLedger": 7,
+  "reloadExact": true,
+  "downloadBytes": 376291,
+  "downloadSha256": "d2ab3fa85b39cc6bb6d5a9c338edc8f0e7387d9ab578114e3ca61dc5049200bf",
+  "downloadMatchesShipped": true,
+  "liveReproductions": [
+    "Missed Signal towing preview: 7 displayed; 8 used in combat",
+    "Missing frame L save accepted; A1 action errors; Undo restores prior game"
+  ]
+}

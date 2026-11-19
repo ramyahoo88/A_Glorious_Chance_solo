@@ -1,0 +1,16 @@
+{
+  "candidate": "zero-precondition",
+  "kind": "breakout",
+  "firstAttack": true,
+  "waiveApplies": true,
+  "actualPlan": {
+    "ships": [
+      "julia"
+    ],
+    "tows": {},
+    "why": "A.I. preconditions waived for this attack: Long Gun + Defense 2 vs 3; odds ∞:1 (normally needs 2:1)."
+  },
+  "nextPrompt": "Close Action",
+  "nextText": "No attacker can be matched at 2:1 Close Action strength or better – the Segment ends.",
+  "disposition": "Not a confirmed finding: this actual first Breakout attack waives the precondition. The diagnostic false argument did not represent the actual decision."
+}

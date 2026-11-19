@@ -1,0 +1,60 @@
+{
+  "auditedMain": "567e1b02cdb93dbfe979a35b04f17010816467e7",
+  "version": "0.2.12",
+  "checkedAt": "2026-11-19",
+  "publicApp": "https://ramyahoo88.github.io/A_Glorious_Chance_solo/",
+  "publisherSupportChecked": "https://www.legionwargames.com/legion_AGC_GS.html",
+  "rulesReuseNote": "Publisher support page still lists the same dated Living Rules, Playbook and errata; retained publisher PDFs from the earlier audit were used for page references. No new physical component transcription was performed.",
+  "rules": [
+    {
+      "name": "AGC_Living_Rulebook_British_Solo_as_of_7aug2024.pdf",
+      "url": "https://www.legionwargames.com/docs/AGC_Living_Rulebook_British_Solo_as_of_7aug2024.pdf",
+      "bytes": 24111116,
+      "sha256": "ef0746ab71cb2424fd996a88254d1bcc60f930cc91e740913385af31a2e4f452"
+    },
+    {
+      "name": "AGC_Living_Rulebook_US_Solo_as_of_13apr2024.pdf",
+      "url": "https://www.legionwargames.com/docs/AGC_Living_Rulebook_US_Solo_as_of_13apr2024.pdf",
+      "bytes": 25896280,
+      "sha256": "278cd7579905e518b4fe7bca122e86d3f94469590a8f519a3e37548c13b8293e"
+    },
+    {
+      "name": "AGC_Living_Playbook_as_of_6Aug2024.pdf",
+      "url": "https://www.legionwargames.com/docs/AGC_Living_Playbook_as_of_6Aug2024.pdf",
+      "bytes": 4420290,
+      "sha256": "7383005e969eda114961a9099de21b31fe99c469ea845b885ed0b468d31ff002"
+    },
+    {
+      "name": "AGC_errata_and_clarifications_rev_13Apr2024.pdf",
+      "url": "https://www.legionwargames.com/docs/AGC_errata_and_clarifications_rev_13Apr2024.pdf",
+      "bytes": 1089321,
+      "sha256": "ed170899e1ef7a61741b2125252db08d376969ab6df83cb04a54ae96a6a3a39a"
+    }
+  ],
+  "release": {
+    "independentRebuildMatches": true,
+    "version": "0.2.12",
+    "bytes": 376291,
+    "sha256": "d2ab3fa85b39cc6bb6d5a9c338edc8f0e7387d9ab578114e3ca61dc5049200bf"
+  },
+  "sources": {
+    "src/assign.js": "7a1d3a93d8ff514f8de33f2e9064af461207edb60268e7694ddb3f90d8b83014",
+    "src/data.js": "764489d789f5f420912ff941d6b25b1c3fd2c3ce1713eade94be47550b483931",
+    "src/data_aids.js": "1366e543b4a891fb7041b4442e0c3ca0af92b3ff65c556646def8f7578571823",
+    "src/data_targets.js": "d7d0389271e16ca410a840dede5cb0a9bbbe6ae1636c1cc6c75c3939793f64a2",
+    "src/engine_coastal.js": "33102a9a1ac320f794db7736db904573c8b38186e53c3c257a1526ba6dd04152",
+    "src/engine_combat.js": "564c6a8d0f83f313c59feed43f2bb485c480a6ee688196aba47f60c2d5807048",
+    "src/engine_core.js": "80d19e663aac3aeb518b9a799d7a0c7a6036b37c956a3a19d62a1b60f43ea3d9",
+    "src/engine_deploy.js": "36e38a0d716f18905bf0fbcca3432e1b3bb6f1ca555640bb45a8087b7fdd70c8",
+    "src/engine_encounter.js": "a84286bd8aa7473623342c76dfc450596eadc3bb3c3875d806a637379f7ce1cc",
+    "src/engine_tally.js": "c69bc7e3ad66c055577c91b3b1f5da7d18c02bd82ab46e596c121fc9de2984d4",
+    "src/engine_turn.js": "8afc1d1d9a2dd19eec35b013a4bd0d4104b41d6cc82dc38c1fe5f82cd652d6ec",
+    "src/main.js": "d93c2a7a229a5458f2a072a185d75fbbd83970be4dd5021fb0cc3b3939d79ff0",
+    "src/rng.js": "c6428685b5a7304b00cf1128e0987c7f8e597db2c8698ad0cf0fb19fef23d225",
+    "src/state.js": "49ed094327d0c77a8f9032a4d988ec3d545c8a55515fa4784710fd5772b8123f",
+    "src/style.css": "c1ffc6ba26df4ca52a1d34f2499da6fd2972487e096bd97ed6ffa6b38e350ac2",
+    "src/ui.js": "ca6d2cf0c597ac17f9b182834aa229b215ce8d6ec246336dccfb5130e2e24b6a",
+    "src/ui_reference.js": "6e6918fe59b5c861093f43046dc515a3ea856bbf201948f367ba0f76cb29c700",
+    "src/ui_table.js": "e30686c5d3994ae11c12f37923e82fcce107236b03693786969745caa69eefd8"
+  }
+}

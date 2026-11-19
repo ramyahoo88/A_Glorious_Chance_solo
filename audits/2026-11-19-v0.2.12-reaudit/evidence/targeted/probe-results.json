@@ -1,0 +1,118 @@
+{
+  "games": 2268,
+  "decisions": 323880,
+  "found": {
+    "zero-strength-chip": {
+      "file": "zero-strength-chip.json",
+      "human": "BR",
+      "seed": 961000,
+      "turn": 3,
+      "style": "coast",
+      "prompt": "Gunnery Round results",
+      "answer": "ok",
+      "ships": [
+        "sss"
+      ],
+      "printed": [
+        [
+          0,
+          1,
+          2,
+          0
+        ]
+      ],
+      "effective": [
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "tow-preview": {
+      "file": "tow-preview.json",
+      "human": "US",
+      "seed": 961019,
+      "turn": 1,
+      "style": "fleet",
+      "prompt": "Lake Combat – choose your attacking ships",
+      "answer": {
+        "attackers": [
+          "madison",
+          "tompkins",
+          "fairam",
+          "conquest",
+          "asp",
+          "growler",
+          "hamilton",
+          "julia",
+          "lady",
+          "ontario",
+          "pert",
+          "raven"
+        ],
+        "tows": {
+          "madison": "tompkins"
+        }
+      },
+      "missed": "growler",
+      "tows": {
+        "madison": "tompkins"
+      },
+      "displayed": 9,
+      "actual": 8
+    },
+    "zero-precondition": {
+      "file": "zero-precondition.json",
+      "human": "BR",
+      "seed": 961041,
+      "turn": 6,
+      "style": "screen",
+      "prompt": "Encounter  in Sacket's",
+      "answer": "ok",
+      "zero": [
+        "rg"
+      ],
+      "plan": {
+        "ships": [],
+        "tows": {},
+        "why": "A.I. preconditions not met: Long Gun + Defense 2 vs 3 (fails: must be greater); odds ∞:1 (passes: needs 2:1)."
+      },
+      "zeroAwarePrinted": [
+        2,
+        0
+      ]
+    },
+    "missed-tower": {
+      "file": "missed-tower.json",
+      "human": "US",
+      "seed": 961377,
+      "turn": 3,
+      "style": "fleet",
+      "prompt": "Lake Combat – choose your attacking ships",
+      "answer": {
+        "attackers": [
+          "oneida",
+          "madison",
+          "tompkins",
+          "fairam",
+          "conquest",
+          "asp",
+          "hamilton",
+          "julia",
+          "lady",
+          "pert",
+          "raven"
+        ],
+        "tows": {
+          "madison": "tompkins"
+        }
+      },
+      "missed": "madison",
+      "tows": {
+        "madison": "tompkins"
+      }
+    }
+  }
+}

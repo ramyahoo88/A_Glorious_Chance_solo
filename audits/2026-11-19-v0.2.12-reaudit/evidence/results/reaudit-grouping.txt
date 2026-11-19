@@ -1,0 +1,1 @@
+{"games":160,"individual":21849,"grouped":13686,"groupedNotices":8163,"forcedTactics":144,"comparisons":13686,"turns":1280}

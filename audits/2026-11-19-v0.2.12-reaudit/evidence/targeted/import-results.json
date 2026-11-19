@@ -1,0 +1,38 @@
+[
+  {
+    "name": "missing-frame-locals",
+    "accepted": true,
+    "importError": "",
+    "actionError": "Cannot set properties of undefined (setting 'upN')",
+    "preservedOnFailedAction": true,
+    "rejectedImportPreserved": false,
+    "errors": []
+  },
+  {
+    "name": "null-frame-locals",
+    "accepted": true,
+    "importError": "",
+    "actionError": "Cannot set properties of null (setting 'upN')",
+    "preservedOnFailedAction": true,
+    "rejectedImportPreserved": false,
+    "errors": []
+  },
+  {
+    "name": "unknown-event",
+    "accepted": false,
+    "importError": "Could not read that text: this save is damaged or incomplete (deck.event[0]: unknown Event card). Your current game was not changed.",
+    "actionError": "",
+    "preservedOnFailedAction": null,
+    "rejectedImportPreserved": true,
+    "errors": []
+  },
+  {
+    "name": "valid-control",
+    "accepted": true,
+    "importError": "",
+    "actionError": "",
+    "preservedOnFailedAction": false,
+    "rejectedImportPreserved": false,
+    "errors": []
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "name": "missed-tower",
+    "details": {
+      "line": "7 untowed Laker Schooner(s): roll 1d6 – ≤ 3.5 gives −2 DRM, ≤ 7 gives −1.",
+      "reference": {
+        "ms": "madison",
+        "actual": 8
+      }
+    }
+  },
+  {
+    "name": "tow-preview",
+    "details": {
+      "line": "9 untowed Laker Schooner(s): roll 1d6 – ≤ 4.5 gives −2 DRM, ≤ 9 gives −1.",
+      "reference": {
+        "ms": "growler",
+        "actual": 8
+      }
+    }
+  },
+  {
+    "name": "zero-strength-chip",
+    "details": {
+      "ships": [
+        "sss"
+      ],
+      "display": "July II · Lake Combat – Sequence A: Gunnery Round 1Gunnery Round resultsGunnery Round 1: U.S. 35.5 vs British 2 = 17.75:1 → column 3:1+. d10 1-2=0 D2 [9 untowed Laker Schooners: d6 1, DRM -2] → D2 (Escape: Defender withdraws; hit Defenders automatically pass Disengagement).\nBritish hit distribution (1-ship column): 43→#1 Sir Sidney Smith, 66→#1 Sir Sidney Smith.\nSir Sidney Smith takes 2 hit(s) and loses her last Step.\nSir Sidney Smith Strike Check 2 – FIGHT ON! She refuses to strike (strengths now 0).Sacket's · Patrol Segment · Weather Gage: American · Combat Sequence AAmerican – attacking1★ Madison2·4·5·6 ●●● M T2Gov. Tompkins4·0·2·0 ●● M CLS3Oneida1·3·3·2 ●● M4Lord Beresford A0·2·3·1 ●● M5Fair American3·0·1·0 ● M CLS6Conquest3·0·1·0 ● M CLS7Hamilton1·0·1·0 ● CLS8Growler2·0·0·0 ● CLS9Julia2·0·0·0 ● CLS10Ontario1·0·0·0 ● CLS11Pert1·0·0·0 ● CLS12Raven1·0·0·0 ● CLS13Scourge1·0·0·0 ● CLSTactic: First Shot (used)This Gunnery Round only: the Attacker re-rolls once if the result included AW, or an A# calling for more hits than the D#.British – defending1Sir Sidney Smith0·1·2·0 ○○ MTactic: Escape (used)Add a \"W\" for the Defender to the next Lake Combat Table result; Defender ships hit in that round automatically pass their Disengagement Checks.Continue"
+    }
+  },
+  {
+    "name": "zero-precondition",
+    "details": {
+      "ships": [
+        "rg"
+      ],
+      "display": "September I · Encounter  – Lake Zone Event & Weather GageEncounter  in Sacket'sEvent #14 · Separated Ships (British)🔭 EncounterIf the British Force in this Encounter has more than one ship, randomly select half its ships (round down) and displace them one Lake Zone counterclockwise as a new Force with a Patrol mission. The displaced Force can try to return in the Reaction Segment.⦸ ♥ ◆Weather Gage American (A)Coastal: NoneEvent Card #14.\n(Sacket's already has its Lake Zone Event for this turn – Rainy Squalls.)\nBreakout: the Americans start with the Weather Gage [14.3].Continue"
+    }
+  }
+]
