@@ -101,7 +101,7 @@ async function page(source=html){
     p.w.URL.createObjectURL=b=>{blob=b;return'blob:test';};p.w.URL.revokeObjectURL=()=>{};
     p.w.HTMLAnchorElement.prototype.click=function(){filename=this.download;};
     p.click('Download app (.html)');
-    check('App download filename carries release',filename,'A_Glorious_Chance_Solo_v0.2.12.html');
+    check('App download filename carries release',filename,`A_Glorious_Chance_Solo_v${JSON.parse(fs.readFileSync(path.join(root,'package.json'))).version}.html`);
     const text=await new Promise((res,rej)=>{const r=new p.w.FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsText(blob);});
     check('Download excludes browser overlays and exactly reproduces shipped HTML',text,html);
     const re=await page(text);check('Downloaded HTML boots to clean setup',!!re.d.querySelector('.setup')&&re.state()===null,true);

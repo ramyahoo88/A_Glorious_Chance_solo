@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.13 – 2026-11-19
+
+* Correct the untowed-schooner preview when Missed Signal removes a tower or schooner from the first Round. Count only participating ships with actual adjacent tows, matching combat resolution.
+* Reject saved procedure frames with missing, null, array or primitive locals before replacing the open campaign, Undo history or autosave. Valid empty and populated locals remain supported.
+* Mark an Engaged zero-step ship with **No Steps – combat strengths 0**, including its accessible name. Retain its printed Reduced strengths for reference.
+* Give Adjust's ship, destination box, steps and owner fields explicit accessible names. Existing Encounter locks and undoable corrections remain in place.
+* Add 69 focused DOM/control checks using the audit's original positions; verify all prior regression/UI suites and 128 option-grid campaigns with save continuations.
+
 ## 0.2.12 – 2026-11-19
 
 * Lock participant ship corrections throughout an active Encounter, with an explanation in Adjust before editing. This prevents ships moved off the lake from remaining in cached combat lineups.

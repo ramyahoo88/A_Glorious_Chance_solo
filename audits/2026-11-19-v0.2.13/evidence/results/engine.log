@@ -1,0 +1,117 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> a-glorious-chance-solo-companion@0.2.13 test
+> node tests/unit.js && node tests/scenario.js && node tests/regression.js && node tests/regression_v029_turn.js && node tests/regression_v029_combat.js && node tests/regression_v029_preview.js && node tests/regression_v029_deploy.js && node tests/regression_v029_combat_followup.js && node tests/regression_v029_coastal.js && node tests/regression_v0210_deploy.js && node tests/regression_v0210_combat.js && node tests/regression_v0210_coastal.js && node tests/regression_v0212.js && node tests/sim.js 100
+
+unit tests: 65 passed, 0 failed
+scenario tests: 14 passed, 0 failed
+  F7 sample: 188 hits, 90 stayed Engaged (all Meleed), 98 Disengaged
+regression tests: 153 passed, 0 failed
+PASS wolfe is offered within the rolled quota
+PASS wolfe completes repair and upgrade this turn
+PASS wolfe remains eligible for A7 assignment
+PASS rg is offered within the rolled quota
+PASS rg completes repair and upgrade this turn
+PASS rg remains eligible for A7 assignment
+PASS moira is offered within the rolled quota
+PASS moira completes repair and upgrade this turn
+PASS moira remains eligible for A7 assignment
+PASS beres is offered within the rolled quota
+PASS beres completes repair and upgrade this turn
+PASS beres remains eligible for A7 assignment
+PASS Declining upgrade completes ordinary repairs as A
+PASS An undamaged Deployable A ship still needs a turn in Make Ready
+PASS That ordinary refit finishes next turn
+PASS A repair with a delay remaining cannot be upgraded this turn
+PASS Delayed repair waits while removing one delay
+PASS Isolated ships cannot upgrade
+PASS Isolated repair still completes without upgrade
+PASS A mixed selection uses the same roll for repair/refit and ordinary refit
+PASS Over-quota mixed selection is refused
+PASS Blockade adds a missing homeport card
+PASS A10 instructs the player to lay out all nine cards
+PASS A10 explains the extra card in prompt and log
+PASS Added homeport card is first
+PASS Existing homeport card is moved first without an extra card
+PASS Existing homeport card does not claim an extra draw
+PASS No blockade keeps ordinary eight-card draw
+PASS Ordinary draw instruction agrees with row
+29 passed, 0 failed
+v0.2.9 combat regression: 21 passed, 0 failed
+22 preview regressions passed; 0 failed.
+PASS L1 7.1 cannot upgrade a CA3 Army Support non-deployment
+PASS L1 7.1 failed capacity consumes no dice
+PASS L1 7.1 failed capacity embarks no Troops
+PASS L1 7.1 explains the unmet capacity
+PASS L1 OA1 cannot upgrade a CA3 Army Support non-deployment
+PASS L1 OA1 failed capacity consumes no dice
+PASS L1 OA1 failed capacity embarks no Troops
+PASS L1 OA1 explains the unmet capacity
+PASS L1 CA4 control makes ordinary Upgrade Check and deploys
+PASS L1 CA4 control spends OA1 and sends chosen ship for refit
+PASS L1 Patrol control does not require transport capacity
+PASS M4 seed3 retains literal A6 result pending an OA1 ruling
+PASS M4 seed3 deployment says its actual recalculated column
+PASS M4 stored lookup matches applied OA1 lookup
+PASS M4 subsequent log identifies the same new column
+PASS M4 ordinary-upgrade control keeps the A6 column
+PASS M4 ordinary-upgrade description still matches
+PASS L2 BR legal marker order 123
+PASS L2 BR 123 consumes no dice
+PASS L2 BR legal marker order 132
+PASS L2 BR 132 consumes no dice
+PASS L2 BR legal marker order 213
+PASS L2 BR 213 consumes no dice
+PASS L2 BR legal marker order 231
+PASS L2 BR 231 consumes no dice
+PASS L2 BR legal marker order 312
+PASS L2 BR 312 consumes no dice
+PASS L2 BR legal marker order 321
+PASS L2 BR 321 consumes no dice
+PASS L2 US legal marker order 123
+PASS L2 US 123 consumes no dice
+PASS L2 US legal marker order 132
+PASS L2 US 132 consumes no dice
+PASS L2 US legal marker order 213
+PASS L2 US 213 consumes no dice
+PASS L2 US legal marker order 231
+PASS L2 US 231 consumes no dice
+PASS L2 US legal marker order 312
+PASS L2 US 312 consumes no dice
+PASS L2 US legal marker order 321
+PASS L2 US 321 consumes no dice
+PASS L2 PE2 permits either still-unmarked Force
+PASS L2 already-marked Force is rejected for PE2
+PASS L2 all three Forces may receive PE4 after one complete cycle
+PASS L2 PE5 excludes the Force that just received its second marker
+PASS L2 current placement prompt and options survive checked save round-trip
+PASS L2 original and restored placement continue identically
+PASS L2 single-Force control automatically receives every marker
+PASS L2 transfer offers either remaining Force, including an already-marked one
+PASS L2 transfer choice does not draw an Event or roll dice first
+PASS L2 transferred encounter reaches the chosen second recipient
+PASS L2 transfer resumes with the same next Event
+PASS L2 transfer save round-trip continues identically
+PASS L2 one-recipient transfer is automatic and preserves the next Event
+PASS L2 no-recipient control discards markers without drawing Events
+55 passed, 0 failed
+v0.2.9 combat follow-up: 28 passed, 0 failed
+36 coastal follow-up regressions passed; 0 failed.
+302 passed, 0 failed
+v0.2.10 encounter/combat: 43 passed, 0 failed.
+26 coastal/tally assertions passed, 0 failed.
+v0.2.12 combat/convoy: 67 assertions passed.
+US: 100 games, avg score -42.5, avg prompts 96 {
+  'British Victory': 17,
+  'British Decisive Victory': 62,
+  Draw: 6,
+  'British Marginal Victory': 15
+}
+BR: 100 games, avg score 38.9, avg prompts 119 {
+  'U.S. Marginal Victory': 13,
+  'U.S. Decisive Victory': 57,
+  'U.S. Victory': 23,
+  'British Marginal Victory': 1,
+  Draw: 6
+}
+failures: 0

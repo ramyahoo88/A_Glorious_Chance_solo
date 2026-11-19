@@ -79,6 +79,7 @@ button.optcard { display: block; width: 100%; text-align: left; }
 .ship.red { background: repeating-linear-gradient(45deg, #fff, #fff 4px, #f1f1f1 4px, #f1f1f1 8px); border-style: dashed; }
 .ship .nm { font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ship .st { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .68rem; color: #333; }
+.ship .no-steps { color: #702015; background: #fff3cd; border-radius: 3px; padding: 2px; margin-top: 2px; font-weight: bold; }
 .ship .fl { color: var(--gold); }
 .ship.flag { box-shadow: 0 0 0 2px var(--gold); }
 .ship.sel { box-shadow: 0 0 0 3px #234a73; }

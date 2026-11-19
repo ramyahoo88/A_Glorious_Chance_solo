@@ -1,0 +1,18 @@
+{
+  "campaign/load.js": "fb8043ffc9815f16252ac3048d1d22700cfeec6c4257a2b4a6a1717c2274e4e5",
+  "campaign/observations.js": "2f166353753cf5c813ceb8c2b52548dbc7615a7f26b715a77486192736387e2d",
+  "campaign/options-defender-outmaneuver.json": "c52783931c7e7a6a05435294b34fd1b902f29ec5cda2182752a19f6ac3dc8600",
+  "campaign/options-displaced-react.json": "1f41b32573ef88d83bbae42e96918ba1f6f01a7ede5bf76633e867ce8218584b",
+  "campaign/options-displaced-returned.json": "9e457d1a89e72236d5aa7ce29ca61a13744f0682fbb97db4f613311a18a3ecdd",
+  "campaign/options-manual-package8-first.json": "46addabafeb18e50eae4c3d2a93b22a43b4988bd978bebab093a936f9e68f3e9",
+  "campaign/options-manual-package8-second.json": "47ab3735d20fd2fb5a9ea0fa80331d0fc0a0897f80bd7230d096ae80cba36689",
+  "campaign/options-trace.json": "72a8477975ff9ad0c0270c4e8f9f67035d87f3a182a2bf4dc7d13df5b0011e86",
+  "campaign/options.json": "11e40a25b6fa9f6bfc76561238d5660222e3115fa37b78bb547a5b49e94d069e",
+  "campaign/policy.js": "3f8ed4149fe133ba3e0273432d4e5ee7a1416717eb830dc80b88fa930dedf58c",
+  "campaign/sweep.js": "2a7da9959d524f35afe507e06a1dd12ef9be3609467380691f63617a88047395",
+  "results/engine.log": "371629360eb0ed2f842c281a7031a7de35c09441be715e2590d7490ee3d34e6d",
+  "results/independent-build.json": "dbea2e55e2e65a6edda63dc678697750d9b57d9b7a249be7fd4b2c54917e4313",
+  "results/options.log": "c57055981d9950777b7808a9f813e7d054dabbaed6f094c79b1feebe57b79278",
+  "results/ui.log": "f154be2b6b1f68dd63b1a72833df379b858218a57f06fdbb03dcdc471c433928",
+  "verify_release.py": "1720e83d683f68e90df74717671dd4759c725997eb0ca4c5f82e741363011660"
+}

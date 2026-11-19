@@ -7,9 +7,9 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.12, `dist/index.html`, 376,291 bytes, SHA-256 `d2ab3fa85b39cc6bb6d5a9c338edc8f0e7387d9ab578114e3ca61dc5049200bf`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
+**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.13, `dist/index.html`, 376,755 bytes, SHA-256 `60403a5fa01557db61b64ef0de3b52d01103fa92a8f7783e40a10814bdafd412`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
 
-**Latest corrections.** [v0.2.12 response and verification](audits/2026-11-19-v0.2.12/) implements all three findings, the two recommended project rulings and both usability improvements from the [19 November v0.2.11 audit](audits/2026-11-19-v0.2.11/). [Previous release audit](audits/2026-11-18-v0.2.11/).
+**Latest corrections.** [v0.2.13 response and verification](audits/2026-11-19-v0.2.13/) implements both Low findings and both usability recommendations from the [v0.2.12 comprehensive re-audit](audits/2026-11-19-v0.2.12-reaudit/). [Previous release corrections](audits/2026-11-19-v0.2.12/).
 
 You play on your physical map with your counters. Open **board changes** after an action to see which pieces moved. **Settings → Group routine updates** collects automatic reports before the next decision. The default pace displays them individually. Select a ship to inspect its counter, or open **Reference** for the hit-distribution lookup and the cards already revealed.
 
