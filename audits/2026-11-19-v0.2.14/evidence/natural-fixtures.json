@@ -1,0 +1,140 @@
+{
+  "games": 18,
+  "cases": {
+    "ai-deploy": {
+      "side": "US",
+      "seed": 968000,
+      "steps": 5,
+      "answer": "F3",
+      "title": "B1 Possible Encounter 2 in Kingston",
+      "moves": [
+        {
+          "from": {
+            "place": "HOME_BR",
+            "label": "Kingston Harbour · Deployable",
+            "box": "deployable",
+            "owner": "BR",
+            "mission": ""
+          },
+          "to": {
+            "place": "KIN",
+            "label": "Kingston",
+            "box": "lake",
+            "owner": "BR",
+            "mission": "Patrol"
+          },
+          "side": "BR",
+          "mission": "Patrol",
+          "captured": false,
+          "ships": [
+            "wolfe",
+            "rg",
+            "moira",
+            "beres",
+            "sss"
+          ]
+        }
+      ]
+    },
+    "return": {
+      "side": "US",
+      "seed": 968000,
+      "steps": 50,
+      "answer": "withdraw",
+      "title": "Withdrawal result against you",
+      "moves": [
+        {
+          "from": {
+            "place": "NIA",
+            "label": "Niagara",
+            "box": "lake",
+            "owner": "US",
+            "mission": "ArmySupport"
+          },
+          "to": {
+            "place": "HOME_US",
+            "label": "Sacket's Harbor · In Transit",
+            "box": "transit",
+            "owner": "US",
+            "mission": ""
+          },
+          "side": "US",
+          "mission": "ArmySupport",
+          "captured": false,
+          "ships": [
+            "oneida",
+            "madison",
+            "tompkins",
+            "fairam",
+            "conquest"
+          ]
+        }
+      ]
+    },
+    "capture": {
+      "side": "BR",
+      "seed": 968000,
+      "steps": 13,
+      "answer": "ok",
+      "title": "Gunnery Round results",
+      "moves": [
+        {
+          "from": {
+            "place": "SOU",
+            "label": "South Lake",
+            "box": "lake",
+            "owner": "US",
+            "mission": "Patrol"
+          },
+          "to": {
+            "place": "HOME_BR",
+            "label": "Kingston Harbour · In Transit",
+            "box": "transit",
+            "owner": "BR",
+            "mission": ""
+          },
+          "side": "BR",
+          "mission": "Patrol",
+          "captured": true,
+          "ships": [
+            "ontario"
+          ]
+        }
+      ]
+    },
+    "zone-move": {
+      "side": "US",
+      "seed": 968003,
+      "steps": 37,
+      "answer": "ok",
+      "title": "Encounter 2: enemy sighted",
+      "moves": [
+        {
+          "from": {
+            "place": "KIN",
+            "label": "Kingston",
+            "box": "lake",
+            "owner": "US",
+            "mission": "Patrol"
+          },
+          "to": {
+            "place": "SAC",
+            "label": "Sacket's",
+            "box": "lake",
+            "owner": "US",
+            "mission": "Patrol"
+          },
+          "side": "US",
+          "mission": "Patrol",
+          "captured": false,
+          "ships": [
+            "tompkins",
+            "fairam",
+            "julia",
+            "ontario"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.14 – 2026-11-19
+
+* Add a schematic Lake Ontario campaign map with public U.S./British ship groups, A.I. labels, missions, homeports, temporary ports and Escort boxes. Tap a fleet or port to inspect its ships.
+* Draw numbered movement arrows for the latest action and highlight its origin and destination. **Show last action** opens the map with ship names, missions and the written board-change report. Grouped updates retain intermediate moves.
+* Add **Map** to the campaign toolbar. Keep the full zone lists under **All zone details**, and keep the written turn instructions beside the map.
+* Save the movement report with the campaign so reload and Undo restore it. Older saves start recording from their next action. Hidden cards, future orders and unrevealed markers do not enter the map.
+* Add 59 map/control assertions and compare 48 complete campaigns against direct engine play, including 497 save round trips; all game state, log, dice and results match.
+
 ## 0.2.13 – 2026-11-19
 
 * Correct the untowed-schooner preview when Missed Signal removes a tower or schooner from the first Round. Count only participating ships with actual adjacent tows, matching combat resolution.

@@ -80,11 +80,46 @@ function routineAnswer(s) {
   return routine ? { answer: 'ok', title: p.title, text: p.text } : null;
 }
 
+// Public ship positions, independent of cards, hidden markers and future orders.
+// Port boxes stay explicit: In Transit does not mean the ship is Deployable.
+function mapShipPosition(s, sh) {
+  const mission = s.forces[sh.forceId]?.mission || '';
+  let place = null, label = BOX_NAME[sh.box] || sh.box;
+  if ((sh.box === 'lake' || sh.box === 'coast') && ZONES.includes(sh.zone)) {
+    place = sh.zone; label = ZONE_NAME[sh.zone] + (sh.box === 'coast' ? ' · Beached' : '');
+  } else if (sh.box === 'escortBox') {
+    place = 'ESC_' + sh.owner; label = SIDE_SHORT[sh.owner] + ' Escort Convoy box';
+  } else if (['deployable', 'makeReady', 'repairing', 'construction', 'ordinary', 'transit'].includes(sh.box)) {
+    const temp = sh.port === 'temp' && ['deployable', 'transit'].includes(sh.box);
+    place = (temp ? 'TEMP_' : 'HOME_') + sh.owner;
+    label = (temp ? TEMP_HOMEPORT_NAME[sh.owner] : HOMEPORT_NAME[sh.owner]) + ' · ' + BOX_NAME[sh.box];
+  }
+  return { place, label, box: sh.box, owner: sh.owner, mission };
+}
+function mapShipSnapshot(s) {
+  return Object.fromEntries(Object.values(s.ships).map(sh => [sh.id, mapShipPosition(s, sh)]));
+}
+function mapShipChanges(before, s) {
+  const groups = new Map();
+  for (const sh of Object.values(s.ships)) {
+    const from = before[sh.id], to = mapShipPosition(s, sh);
+    if (!from || (from.place === to.place && from.box === to.box && from.owner === to.owner && from.mission === to.mission)) continue;
+    const mission = to.mission || from.mission;
+    const key = JSON.stringify([from, to, mission]);
+    if (!groups.has(key)) groups.set(key, { from, to, side: to.owner, mission, captured: from.owner !== to.owner, ships: [] });
+    groups.get(key).ships.push(sh.id);
+  }
+  return [...groups.values()];
+}
+
 function playTableAction(s, answer) {
   let before = publicBoard(s);
-  const notices = [], changes = [];
+  const notices = [], changes = [], moves = [];
+  const map = { title: s.prompt?.title || 'Action', turn: s.turn, phase: s.phase, moves };
   function advance(value) {
+    const positions = mapShipSnapshot(s);
     act(s, value);
+    moves.push(...mapShipChanges(positions, s));
     const after = publicBoard(s);
     for (const key of new Set([...before.keys(), ...after.keys()])) {
       if (before.get(key) !== after.get(key))
@@ -100,7 +135,9 @@ function playTableAction(s, answer) {
     notices.push({ title: next.title, text: next.text });
     advance(next.answer);
   }
-  if (changes.length || notices.length) s.tableReport = { changes, notices };
+  // Every action replaces the recap, including an action with no movement.
+  // Grouped steps retain each transition rather than only the net displacement.
+  s.tableReport = { changes, notices, map };
 }
 
 function appendTableReport(container, s) {

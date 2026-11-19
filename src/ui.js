@@ -473,6 +473,7 @@ function renderHeader(s) {
     el('button', { onclick: undo, disabled: !UNDO.length, title: `Undo the last action, including its dice. ${UNDO.length} Undo steps available.` }, '↶ Undo'),
     el('button', { onclick: exportSave }, 'Save'),
     el('button', { onclick: importSave }, 'Load'),
+    el('button', { onclick: () => openCampaignMap(s) }, 'Map'),
     el('button', { onclick: () => openRef() }, 'Reference'),
     el('button', { onclick: () => openAdjust() }, 'Adjust'),
     el('button', { onclick: () => openSettings() }, 'Settings'),
@@ -828,13 +829,14 @@ function renderBoard(s) {
   tracks.appendChild(el('div', null, el('b', null, 'Your Convoys '), convTxt));
   tracks.appendChild(el('div', null, el('b', null, 'Flagships '), `U.S.: ${shipName(s, s.flagship.US)} · Br.: ${shipName(s, s.flagship.BR)}`));
   tr.appendChild(tracks);
-  b.appendChild(tr);
   // Lake
   const lp = el('div', { class: 'panel' });
   lp.appendChild(el('h2', null, 'Lake Ontario'));
+  lp.appendChild(campaignMap(s));
+  const zoneDetails = el('details', { class: 'map-zone-list' }, el('summary', null, 'All zone details'));
   const lake = el('div', { id: 'lake' });
   ['YOR', 'NOR', 'KIN', 'NIA', 'SOU', 'SAC'].forEach(z => lake.appendChild(zoneView(s, z)));
-  lp.appendChild(lake);
+  zoneDetails.appendChild(lake); lp.appendChild(zoneDetails);
   // Target row
   if (s.targetRow && s.targetRow.length) {
     lp.appendChild(el('h3', null, 'Target Card row'));
@@ -854,6 +856,7 @@ function renderBoard(s) {
     lp.appendChild(row);
   }
   b.appendChild(lp);
+  b.appendChild(tr);
   // Ports
   const pp = el('div', { class: 'ports' });
   ['US', 'BR'].forEach(side => pp.appendChild(portView(s, side)));

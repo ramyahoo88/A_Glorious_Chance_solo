@@ -7,9 +7,11 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.13, `dist/index.html`, 376,755 bytes, SHA-256 `60403a5fa01557db61b64ef0de3b52d01103fa92a8f7783e40a10814bdafd412`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
+**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.14, `dist/index.html`, 393,345 bytes, SHA-256 `db68717460b572426639d7a656d3f206eb8f2d459f59c3cc3d4b312fdf40e8d9`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
 
-**Latest corrections.** [v0.2.13 response and verification](audits/2026-11-19-v0.2.13/) implements both Low findings and both usability recommendations from the [v0.2.12 comprehensive re-audit](audits/2026-11-19-v0.2.12-reaudit/). [Previous release corrections](audits/2026-11-19-v0.2.12/).
+**Campaign map.** v0.2.14 shows public fleets and missions on Lake Ontario, with numbered movement arrows and a **Show last action** report. Open **Map** from the toolbar at any point, or tap a fleet or port to inspect its ships. [Map verification](audits/2026-11-19-v0.2.14/).
+
+**Latest corrections.** [v0.2.13 response and verification](audits/2026-11-19-v0.2.13/) implements both Low findings and both usability recommendations from the [v0.2.12 comprehensive re-audit](audits/2026-11-19-v0.2.12-reaudit/).
 
 You play on your physical map with your counters. Open **board changes** after an action to see which pieces moved. **Settings → Group routine updates** collects automatic reports before the next decision. The default pace displays them individually. Select a ship to inspect its counter, or open **Reference** for the hit-distribution lookup and the cards already revealed.
 

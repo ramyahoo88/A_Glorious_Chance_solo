@@ -1,0 +1,17 @@
+{
+  "count": {
+    "games": 48,
+    "actions": 5226,
+    "transitions": 3582,
+    "roundTrips": 497,
+    "groupedNotices": 1231
+  },
+  "passed": true,
+  "seeds": "969000–969023, both campaigns",
+  "policies": [
+    "fleet",
+    "coast",
+    "screen",
+    "blockade"
+  ]
+}
