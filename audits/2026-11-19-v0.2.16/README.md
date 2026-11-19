@@ -60,3 +60,9 @@ node audits/2026-11-19-v0.2.16/evidence/browser/focused.js .
 ```
 
 Run evidence-generating commands on a copy to retain the recorded bytes. Set `AGC_URL` on the focused browser run to check the published page in an isolated context.
+
+## Live publication
+
+Release `3711963c1de4b64eb3e1b64dc01804cac87234bc` is on `main`; `gh-pages` is `7e46fb865c85b7d0dfd0b6947302d2522efa78dd`. [GitHub Pages deployment 44622181678](https://github.com/ramyahoo88/A_Glorious_Chance_solo/actions/runs/44622181678) completed successfully.
+
+The bare [public URL](https://ramyahoo88.github.io/A_Glorious_Chance_solo/) serves exactly the tested release. The focused Chromium run against the public page passed physical-entry enforcement, rejection of 39, Gale discard/redraw, pending-entry reload, Enter submission, exact Undo/replay and the 320/390/1024/1440 px checks, with no page errors. The actual live app download is also byte-identical to the independently rebuilt 413,864-byte release. `evidence/browser/live-focused.json` and `evidence/results/live-build.json` contain the results; the browser context was isolated from existing user storage.

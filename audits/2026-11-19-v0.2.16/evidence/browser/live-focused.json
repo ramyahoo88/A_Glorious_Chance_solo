@@ -1,0 +1,32 @@
+{
+  "url": "https://ramyahoo88.github.io/A_Glorious_Chance_solo/",
+  "browser": "153.0.8010.0",
+  "physicalCardsRequired": true,
+  "invalidRejected": true,
+  "galeRedrawSaved": true,
+  "enterSubmits": true,
+  "undoAndReplay": true,
+  "widths": [
+    {
+      "width": 320,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "overflow": false
+    }
+  ],
+  "download": {
+    "bytes": 413864,
+    "sha256": "eef9136a8220b8733f17403fce7f0c95aa3db83275fbd425d3bc5c4b7e8044e2"
+  },
+  "errors": []
+}
