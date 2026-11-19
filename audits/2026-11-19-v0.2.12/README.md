@@ -25,6 +25,15 @@ Q01 and Q02 are **project rulings**, recorded in RULES_NOTES 97–98 and the in-
 
 The matched correction run changes 209 final scores and 45 victory tiers out of 1,600. Corrected casualty checks and omitted zero-gun rolls change later seeded dice, so these counts are a regression comparison, not an estimate of the isolated balance effect.
 
+## Live publication and browser verification
+
+The final app is on GitHub `main` at `06925b04469f879e6b57ce5d57c5ff2b0c69bbbf` and on `gh-pages` at `a817fcf092ca7fa9f628bef0187a4b8ea9faa7a5`. [GitHub Pages deployment 44558862127](https://github.com/ramyahoo88/A_Glorious_Chance_solo/actions/runs/44558862127) completed successfully. The [public app](https://ramyahoo88.github.io/A_Glorious_Chance_solo/), independent rebuild and actual Chrome app download are byte-identical to the final `dist/index.html` hash above.
+
+* **Complete live Chrome campaign:** U.S. seed 951119, grouped updates, 89 decision prompts, final score **+24, U.S. Victory** (35 U.S. VP minus 11 British VP). The complete exported state, log and dice match the control-handler run exactly; the score was also recomputed from the ledger. The separate British seed 951120 control-handler run completed 168 prompts at **−28, British Victory**; that second run used DOM emulation.
+* **Live fixes:** Oneida's off-lake correction at Command Decision is refused, with the original position unchanged. Importing the original unknown-Event save is refused with `deck.event[0]` named, preserving the open position. Combat Undo and reload both restore the exact exported state. Case-insensitive search returns all 14 Oneida log entries in the completed game.
+* **Download follow-up:** Chrome's first export exposed an injected browser overlay in the document snapshot. The final exporter copies only the app's own head, empty roots and inline script. A regression test injects an overlay and verifies that the export exactly reproduces the shipped file; all 118 focused UI checks pass. The actual Chrome download is also byte-identical, not merely equivalent on script contents.
+* The browser's pre-existing campaign and all 60 available Undo steps were restored after testing. Screenshots and test exports are in `evidence/browser/`; the pre-existing campaign is not included in the public evidence.
+
 ## Reproduce
 
 ```sh

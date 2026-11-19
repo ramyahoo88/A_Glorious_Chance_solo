@@ -1,0 +1,9 @@
+{
+  "warning": "This ship belongs to the active Encounter. Ship corrections are locked until it ends. Use Undo to return to before the Encounter if a correction is needed.",
+  "guardMessage": "The active Encounter uses this ship’s position, owner and strength. Finish the Encounter, or use Undo and make the correction before it opens.",
+  "guardPreservesState": true,
+  "importMessage": "Could not read that text: this save is damaged or incomplete (deck.event[0]: unknown Event card). Your current game was not changed.",
+  "invalidImportPreservesState": true,
+  "undoExact": true,
+  "reloadExact": true
+}
