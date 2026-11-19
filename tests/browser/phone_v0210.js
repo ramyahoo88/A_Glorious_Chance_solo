@@ -111,6 +111,22 @@ async function test(name, fn, setup) {
     return { reserve: 'Madison', fighting: 'Wolfe' };
   });
 
+  await test('A changed Weather Gage labels the completed formation and a retained Gage keeps the active roles', async a => {
+    a.ev(`G_STATE.encounter={zone:'KIN',segment:'reaction',kind:'lake',wg:'US',ships:{madison:'in',wolfe:'in'},side:{madison:'US',wolfe:'BR'}};
+      G_STATE.combat={att:'BR',def:'US',seq:'B',col:{US:['madison'],BR:['wolfe']}};
+      G_STATE.prompt={id:12344,kind:'info',title:'Weather Gage changes!',options:[{id:'ok'}],combatView:true};renderProc(G_STATE);`);
+    assert.match(a.q('#proc').textContent, /Weather Gage: American · Previous formation \(Sequence B\)/);
+    assert.equal(a.q('#proc .colm.US > b').textContent, 'American – previous defender');
+    assert.equal(a.q('#proc .colm.BR > b').textContent, 'British – previous attacker');
+    a.ev("G_STATE.encounter.wg='BR';renderProc(G_STATE)");
+    assert.match(a.q('#proc').textContent, /Weather Gage: British · Combat Sequence B/);
+    assert.equal(a.q('#proc .colm.BR > b').textContent, 'British – attacking');
+    assert.equal(a.q('#proc .colm.US > b').textContent, 'American – defending');
+    a.ev("G_STATE.encounter.kind='harbor';G_STATE.encounter.wg=null;renderProc(G_STATE)");
+    assert.doesNotMatch(a.q('#proc').textContent, /Previous formation|Combat Sequence/);
+    return { previous: 'B', newGage: 'American', retainedGage: 'British', harbor: true };
+  });
+
   // Read down the original printed columns of British Living Rules p. 32,
   // counting cells for positions 1, 2, ... . With one ship the result is automatic.
   const byColumn = [

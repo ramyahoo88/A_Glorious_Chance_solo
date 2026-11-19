@@ -706,11 +706,22 @@ function combatView(s) {
   const e = s.encounter, c = s.combat;
   if (!e) return null;
   const wrap = el('div');
-  const head = el('div', { class: 'muted' }, `${ZONE_NAME[e.zone]} · ${e.kind === 'harbor' ? 'Harbor Encounter' : (e.segment === 'patrol' ? 'Patrol Segment' : 'Reaction Segment')} · Weather Gage: ${e.wg ? SIDE_NAME[e.wg] : '—'}${c && c.seq && e.kind !== 'harbor' ? ` · Combat Sequence ${c.seq}` : ''}`);
-  wrap.appendChild(head);
+  const previous = c && e.kind !== 'harbor' && e.wg && e.wg !== c.att;
+  const segment = e.kind === 'harbor' ? 'Harbor Encounter' : e.segment === 'patrol' ? 'Patrol Segment' : 'Reaction Segment';
+  const context = [ZONE_NAME[e.zone], segment, 'Weather Gage: ' + (e.wg ? SIDE_NAME[e.wg] : '—')];
+  if (c && c.seq && e.kind !== 'harbor') {
+    context.push(previous ? `Previous formation (Sequence ${c.seq})` : `Combat Sequence ${c.seq}`);
+  }
+  wrap.appendChild(el('div', { class: 'muted' }, context.join(' · ')));
   const grid = el('div', { class: 'combat' });
   ['US', 'BR'].forEach(side => {
-    const col = el('div', { class: `colm ${side}` }, el('b', null, `${SIDE_NAME[side]}${c ? (c.att === side ? ' – attacking' : ' – defending') : ''}`));
+    let label = SIDE_NAME[side];
+    if (c) {
+      const attacking = c.att === side;
+      if (previous) label += attacking ? ' – previous attacker' : ' – previous defender';
+      else label += attacking ? ' – attacking' : ' – defending';
+    }
+    const col = el('div', { class: `colm ${side}` }, el('b', null, label));
     const ids = c ? c.col[side] : encIds(s, side);
     ids.forEach((id, i) => {
       if (!id) { col.appendChild(el('div', { class: 'pos gap' }, el('b', null, String(i + 1)), '(gap)')); return; }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.11 – 2026-11-18
+
+* When a Weather Gage change hands the next combat decision to the other side, the combat display identifies the previous formation, attacker and defender until the new formation is chosen.
+
 ## 0.2.10 – 2026-11-18
 
 * Apply Gale only in Lake Action. Split a single eligible Force on Separated Ships and let the displaced Patrol react.
