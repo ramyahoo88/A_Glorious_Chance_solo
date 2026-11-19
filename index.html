@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Glorious Chance – Solo Companion v0.2.12</title>
+<title>A Glorious Chance – Solo Companion v0.2.13</title>
 <style>
 :root {
   --bg: #f3efe6; --panel: #fffdf8; --ink: #1f2a33; --muted: #52606b; --line: #d9d1c2;
@@ -86,6 +86,7 @@ button.optcard { display: block; width: 100%; text-align: left; }
 .ship.red { background: repeating-linear-gradient(45deg, #fff, #fff 4px, #f1f1f1 4px, #f1f1f1 8px); border-style: dashed; }
 .ship .nm { font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ship .st { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .68rem; color: #333; }
+.ship .no-steps { color: #702015; background: #fff3cd; border-radius: 3px; padding: 2px; margin-top: 2px; font-weight: bold; }
 .ship .fl { color: var(--gold); }
 .ship.flag { box-shadow: 0 0 0 2px var(--gold); }
 .ship.sel { box-shadow: 0 0 0 3px #234a73; }
@@ -670,7 +671,7 @@ function lbLookup(lgTotal, troops, shift, d66v) {
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.12';
+const APP_VERSION = '0.2.13';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -4593,7 +4594,7 @@ function checkSaveState(st) {
   if (!Number.isInteger(st.nbBand) || st.nbBand < 0 || st.nbBand >= NB_LABELS.length) bad('Naval Balance');
   st.calls.forEach(fr => {
     if (!fr || typeof fr !== 'object' || !PROCS[fr.proc] || typeof fr.pc !== 'string' || typeof PROCS[fr.proc][fr.pc] !== 'function') bad('procedure stack');
-    if (fr.L != null && typeof fr.L !== 'object') bad('procedure stack');
+    if (!fr.L || typeof fr.L !== 'object' || Array.isArray(fr.L)) bad('procedure locals');
   });
   if (!st.over && (!st.calls.length || !st.prompt || typeof st.prompt.kind !== 'string' || ['info', 'choice', 'select', 'assign', 'lineup'].indexOf(st.prompt.kind) < 0)) bad('pending decision');
   if (!st.over) {
@@ -4767,16 +4768,19 @@ function dots(sh) {
 }
 function shipChip(s, id, inspectable = true) {
   const sh = s.ships[id]; const d = def(sh); const v = curVals(sh);
+  const noSteps = sh.steps === 0 && s.encounter && s.encounter.ships[id] === 'in';
+  const noStepsText = 'No Steps – combat strengths 0';
   const isFlag = s.flagship[sh.owner] === id;
   const flags = [d.main ? 'M' : '', d.T && isFull(sh) ? 'T' : '', d.F && isFull(sh) ? 'F' : '', d.cls ? 'CLS' : ''].filter(Boolean).join(' ');
   const title = `${shipName(s, id)} – ${d.type}, ${d.guns} guns${d.main ? ', Main ship' : ', Secondary'}${d.T ? ', can tow at full strength' : ''}${d.F ? ', Fast at full strength' : ''}\n` +
     `Full: LG ${d.full[0]} Car ${d.full[1]} CA ${d.full[2]} Def ${d.full[3]} (${d.full[4]} steps)\nReduced: LG ${d.red[0]} Car ${d.red[1]} CA ${d.red[2]} Def ${d.red[3]}\nVP if destroyed/captured: ${d.vp[0]}/${d.vp[1]}`;
   const attrs = { class: `ship ${sh.owner} ${isReduced(sh) ? 'red' : ''} ${isFlag ? 'flag' : ''}`, title };
-  if (inspectable) Object.assign(attrs, { type: 'button', 'aria-label': 'Inspect ' + shipName(s, id),
+  if (inspectable) Object.assign(attrs, { type: 'button', 'aria-label': 'Inspect ' + shipName(s, id) + (noSteps ? ' – ' + noStepsText : ''),
     'aria-haspopup': 'dialog', onclick: () => openShipDetails(s, id) });
   return el(inspectable ? 'button' : 'span', attrs,
     el('span', { class: 'nm' }, (isFlag ? '★ ' : '') + d.name + (d.ver ? ' ' + d.ver : '')),
-    el('span', { class: 'st' }, `${v[0]}·${v[1]}·${v[2]}·${v[3]} `, el('span', { class: 'dots' }, dots(sh)), flags ? ' ' + flags : ''));
+    el('span', { class: 'st' }, `${v[0]}·${v[1]}·${v[2]}·${v[3]} `, el('span', { class: 'dots' }, dots(sh)), flags ? ' ' + flags : ''),
+    noSteps && el('span', { class: 'no-steps' }, noStepsText));
 }
 function trackRow(s, side) {
   const wrap = el('div', { class: 'trk' });
@@ -4928,15 +4932,15 @@ function renderLineup(s, pr) {
   const ans = { attackers: L.att.slice(), tows: Object.assign({}, L.tows) };
   const err = validateAnswer(s, pr, ans);
   const rainy = rainySquallsActive(s);
-  if (pr.side === 'US' && !rainy) {
-    const towed = Object.values(L.tows);
-    const unt = L.att.filter(id => isCLS(s.ships[id]) && towed.indexOf(id) < 0).length;
-    wrap.appendChild(el('div', { class: 'muted', style: { marginTop: '4px' } }, unt ? `${unt} untowed Laker Schooner(s): roll 1d6 – ≤ ${unt / 2} gives −2 DRM, ≤ ${unt} gives −1.` : 'No untowed Laker Schooners – no DRM penalty.'));
-  }
   // Preview the Round actually fought, including Rainy Squalls, Missed Signal
   // and the selected towing/column order. These helpers never roll dice.
   const ms = missedSignalShip(s);
-  const attNow = L.att.filter(id => id !== ms);
+  const attNow = buildColumn(s, L.att, L.tows, pr.side).filter(id => id !== ms);
+  if (pr.side === 'US' && !rainy) {
+    const towed = towedInRound({ tows: L.tows }, attNow);
+    const unt = attNow.filter(id => isCLS(s.ships[id]) && !towed.includes(id)).length;
+    wrap.appendChild(el('div', { class: 'muted', style: { marginTop: '4px' } }, unt ? `${unt} untowed Laker Schooner(s): roll 1d6 – ≤ ${unt / 2} gives −2 DRM, ≤ ${unt} gives −1.` : 'No untowed Laker Schooners – no DRM penalty.'));
+  }
   const defendersAtStart = defendingIds(s, OTHER[pr.side]);
   const def_ = defendersAtStart.filter(id => id !== ms);
   const emptyRound = missedRoundPreview(s, L.att, pr.defenders || defendersAtStart);
@@ -4945,9 +4949,8 @@ function renderLineup(s, pr) {
   if (emptyRound) {
     wrap.appendChild(el('div', { class: 'muted ptext' }, emptyRound + '.'));
   } else if (rainy) {
-    const attackers = buildColumn(s, L.att, L.tows, pr.side).filter(id => id !== ms);
     const defenders = buildColumn(s, defendersAtStart, {}, OTHER[pr.side]).filter(id => id !== ms);
-    wrap.appendChild(el('div', { class: 'muted ptext' }, 'Rainy Squalls: no Gunnery — straight to Close Action.\n' + closeActionPreviewText(s, attackers, defenders, false) + (notes.length ? '\n' + notes.join('; ') + '.' : '')));
+    wrap.appendChild(el('div', { class: 'muted ptext' }, 'Rainy Squalls: no Gunnery — straight to Close Action.\n' + closeActionPreviewText(s, attNow, defenders, false) + (notes.length ? '\n' + notes.join('; ') + '.' : '')));
   } else {
     const str = sideStrength(s, attNow, pr.side, hazeActive(s)), dstr = sideStrength(s, def_, pr.side, hazeActive(s));
     if (hazeActive(s)) notes.push('Haze: no Long Guns in Gunnery Round 1');
@@ -5466,10 +5469,10 @@ function openAdjust() {
   box.appendChild(num('British Construction Delay', () => s.cd.BR, v => { s.cd.BR = v; }, 0));
   box.appendChild(num('Niagara Front (0 Burlington … 6 Fort George)', () => s.niagara, v => { s.niagara = v; }, 0, 6));
   box.appendChild(el('h3', null, 'Ships'));
-  const sel = el('select', null); Object.keys(s.ships).forEach(id => sel.appendChild(el('option', { value: id }, `${shipName(s, id)} – ${BOX_NAME[s.ships[id].box]}`)));
-  const boxSel = el('select', null, el('option', { value: '' }, 'Keep current box')); ['deployable', 'makeReady', 'repairing', 'construction', 'ordinary', 'transit', 'sunk', 'outOfPlay'].forEach(b => boxSel.appendChild(el('option', { value: b }, BOX_NAME[b])));
-  const stepIn = el('input', { type: 'number', min: 0, step: 1, style: { width: '50px' } });
-  const ownSel = el('select', null, el('option', { value: 'US' }, 'U.S.'), el('option', { value: 'BR' }, 'British'));
+  const sel = el('select', { 'aria-label': 'Ship to correct' }); Object.keys(s.ships).forEach(id => sel.appendChild(el('option', { value: id }, `${shipName(s, id)} – ${BOX_NAME[s.ships[id].box]}`)));
+  const boxSel = el('select', { 'aria-label': 'Destination box' }, el('option', { value: '' }, 'Keep current box')); ['deployable', 'makeReady', 'repairing', 'construction', 'ordinary', 'transit', 'sunk', 'outOfPlay'].forEach(b => boxSel.appendChild(el('option', { value: b }, BOX_NAME[b])));
+  const stepIn = el('input', { type: 'number', min: 0, step: 1, 'aria-label': 'Ship steps', style: { width: '50px' } });
+  const ownSel = el('select', { 'aria-label': 'Ship owner' }, el('option', { value: 'US' }, 'U.S.'), el('option', { value: 'BR' }, 'British'));
   const shipNotice = el('p', { class: 'muted', role: 'status', id: 'ship-correction-notice' });
   const sync = () => {
     const sh = s.ships[sel.value];
