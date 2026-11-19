@@ -27,15 +27,21 @@ function entry(ids,allowGale=false){
  const s=entry([1,2,30]);const stable=JSON.stringify(s);
  for(const n of ['',null,0,39,1.1,Infinity,'1'])check(!!physical.validateAnswer(s,s.prompt,n),true,'reject invalid number');
  check(JSON.stringify(s),stable,'validation is read-only');
- const saved=physical.checkSaveState(plain(s));check(plain(saved),plain(s),'pending entry saves exactly');
- for(const mutate of [x=>delete x.calls[0].A,x=>x.calls[0].A.allowGale='yes',x=>x.prompt.purpose='wrong',x=>x.prompt.remaining=2,x=>x.deck.event.push(1)]){
-  const bad=plain(s);mutate(bad);assert.throws(()=>physical.checkSaveState(bad));checks++;
+ // A child without a real caller is a valid isolated engine probe, but must
+ // never be accepted as a resumable campaign save.
+ assert.throws(()=>physical.checkSaveState(plain(s)));checks++;
+ const fixture=JSON.parse(fs.readFileSync(path.join(root,'audits/2026-11-19-v0.2.16-reaudit/evidence/turn-B2event.json'))).state;
+ const pending=physical.checkSaveState(fixture);
+ check(plain(physical.checkSaveState(plain(pending))),plain(pending),'real pending entry saves exactly');
+ for(const mutate of [x=>delete x.calls.at(-1).A,x=>x.calls.at(-1).A.allowGale='yes',x=>x.prompt.purpose='wrong',x=>x.prompt.remaining=2,x=>x.deck.event.push(1)]){
+  const bad=plain(pending);mutate(bad);assert.throws(()=>physical.checkSaveState(bad));checks++;
  }
  physical.act(s,1);check(Array.from(s.deck.event),[2,30],'only entered card leaves the pile');
  const repeat=entry([2,30]);check(!!physical.validateAnswer(repeat,repeat.prompt,1),true,'a used card cannot be entered again');
  const held=entry([1,2]);held.intelligence.US={card:1,until:1};check(!!physical.validateAnswer(held,held.prompt,1),true,'held Intelligence card is refused');
  const gale=entry([30,1]);physical.act(gale,30);check(gale.prompt.kind,'event','Gale asks for a separate card');check(gale.deck.event.includes(30),false,'Gale was actually consumed');check(gale.prompt.text.includes('Discard Event #30'),true,'redraw explains the physical action');
- const galeSaved=physical.checkSaveState(plain(gale));physical.act(gale,1);physical.act(galeSaved,1);check(plain(galeSaved),plain(gale),'Gale continuation saves without replay');
+ const realGale=plain(pending);realGale.deck.event=[30,1];realGale.prompt.remaining=2;physical.act(realGale,30);
+ const galeSaved=physical.checkSaveState(plain(realGale));physical.act(realGale,1);physical.act(galeSaved,1);check(plain(galeSaved),plain(realGale),'Gale continuation saves without replay');
  const allowed=entry([30],true);physical.act(allowed,30);check(allowed.calls.length,0,'legal Lake Action Gale returns to its parent');
  const empty=entry([30]);empty.intelligence.US={card:1,until:1};physical.act(empty,30);check(empty.prompt.remaining,37,'exhaustion excludes held Intelligence');check(empty.prompt.text.includes('Prepare and shuffle'),true,'exhaustion requests physical reshuffle');
 }

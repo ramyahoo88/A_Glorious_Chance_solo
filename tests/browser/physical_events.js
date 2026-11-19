@@ -29,7 +29,7 @@ async function page(saved){
  check(p.state().deck.event.includes(30),false,'Gale leaves the pile');p.type('30');check(p.d.querySelector('.event-entry button').disabled,true,'same Gale cannot be entered twice');
  const pending=p.state(),disk=p.w.localStorage.getItem(key),r=await page(disk);r.click('Continue it');check(r.state(),pending,'reload keeps pending redraw and procedure stack');r.w.close();
  p.type('1');const before=p.state();p.click('Use Event card');const after=p.state();check(after.eventsDrawn.at(-1).id,1,'entered number determines the actual card');
- p.click('↶ Undo');check(p.state(),before,'Undo restores exact pre-entry state');check(p.d.querySelector('#proc').textContent.includes('Return the Event card'),true,'Undo explains physical pile repair');
+ p.click('↶ Undo');const restored=p.state();delete restored.eventRestore;check(restored,before,'Undo restores exact gameplay before entry');check(p.d.querySelector('#proc').textContent.includes('Return the Event card'),true,'Undo explains physical pile repair');
  p.type('1');p.click('Use Event card');check(p.state(),after,'re-entry resumes identically, including dice');
  // Inspecting the map while a number is typed must preserve the unfinished entry.
  p.load(pending);p.type('2');const stable=p.snap();p.click('Map');p.click('Close');check(p.snap(),stable,'map inspection preserves pending draft, RNG, Undo and disk');

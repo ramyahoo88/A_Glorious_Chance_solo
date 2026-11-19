@@ -9,11 +9,11 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.16, `dist/index.html`, 413,864 bytes, SHA-256 `eef9136a8220b8733f17403fce7f0c95aa3db83275fbd425d3bc5c4b7e8044e2`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
+**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.17, `dist/index.html`, 422,019 bytes, SHA-256 `8623b7a73cacdda6eb9095871be9b8ec8fde62113ba86bb2a2910ce3000f18e4`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
 
 **Campaign map.** v0.2.14 shows public fleets and missions on Lake Ontario, with numbered movement arrows and a **Show last action** report. Open **Map** from the toolbar at any point, or tap a fleet or port to inspect its ships. [Map verification](audits/2026-11-19-v0.2.14/).
 
-**Latest update.** [v0.2.16 verification](audits/2026-11-19-v0.2.16/) adds required physical Event-card number entry throughout play, including Gale redraws, deck preparation, save/reload and Undo. Old campaigns switch at their next Event draw. [Previous map corrections](audits/2026-11-19-v0.2.15/) remain in place.
+**Latest update.** [v0.2.17 verification](audits/2026-11-19-v0.2.17/) corrects Event-save validation and physical-card instructions, keeps Undo restoration reminders through reload and save transfer, and adds **Deck status** beside Event entry. It implements [the v0.2.16 re-audit](audits/2026-11-19-v0.2.16-reaudit/).
 
 You play on your physical map with your counters. Open **board changes** after an action to see which pieces moved. **Settings → Group routine updates** collects automatic reports before the next decision. The default pace displays them individually. Select a ship to inspect its counter, or open **Reference** for the hit-distribution lookup and the cards already revealed.
 
@@ -30,6 +30,8 @@ You play on your physical map with your counters. Open **board changes** after a
 | Breakout (D) | Your choice, and the A.I. decision (Carronade or Long Gun comparison) plus the Breakout Encounter (rerolls End results). |
 | Coastal (E) | Cutting-Out (optional), Raids and Coastal Events, troop launches, Harbor Encounters (two Gunnery Rounds, shore batteries, no disengagement/withdrawal), and Land Battles (Player Aid VII) with every Coastal Event effect. |
 | Tally (F) | Ship VPs, Lake Control, Blockade removal and placement, Isolated ships, Shipyard Damage, Niagara Front, Army Victory, the untransported-Troops penalty, Raid VPs, Convoy Supply (delays, arrivals, scatter/destroy/capture, raids, Fall Offensive bonus), the reset, sudden death, and final victory with Construction Delay deducted. |
+
+**Deck status** beside Event number entry lists the remaining and used card numbers, held Intelligence cards, and the last entered card and purpose. When Undo asks you to return physical cards, follow its top-first order; the reminder stays with the saved checkpoint. Used Intelligence cards return at the next Event-deck reshuffle.
 
 Every die roll and table lookup is written to the **Log**. Use **Show full log** to review entries older than the latest 400; search the full history by ship, card, turn or phase and combine that with a category filter. **Undo** restores the state before your last click, dice included. **Adjust** lets you correct tracks and ships by hand; participants are locked during an active Encounter, with other pending ship selections protected too. **Reference** shows the Lake Combat Table, the Convoy Scatter Table, the ship roster and the key checks. Ship and Tactic choices work with Tab and Enter/Space. Dialogs support Escape and keep game shortcuts from advancing play behind them. Export filenames identify the seed and decision checkpoint.
 

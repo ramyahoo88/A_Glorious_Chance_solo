@@ -45,6 +45,7 @@ function act(s, answer, onStep) {
   const err = validateAnswer(s, s.prompt, answer);
   if (err) throw new Error(err);
   delete s.tableReport;
+  delete s.eventRestore;   // physical-pile restoration is complete when play resumes
   const f = topFrame(s);
   f.answer = answer;
   s.prompt = null;
@@ -95,6 +96,14 @@ const SELECT_VALIDATORS = {};
 // Physical-card play uses a real saved procedure frame, so no game action is
 // replayed when the player enters a card. Automatic draws remain available to
 // engine-only regression/simulation callers; the app always enables physical draws.
+function eventDrawText(s, purpose, gale, restoring = false) {
+  const cards = s.deck.event.slice().sort((a, b) => a - b);
+  const keep = ['US', 'BR'].map(sd => s.intelligence[sd]?.card).filter(Boolean);
+  const setup = !s.eventCardsPrepared && !restoring ? (cards.length === 38 ? 'Shuffle your physical Event deck.' :
+    `Prepare and shuffle the physical draw pile using these ${cards.length} cards: ${cards.join(', ')}. Keep the other cards aside.`) : '';
+  return `${purpose}\n\n${gale ? 'Discard Event #30 (Gale) and draw another card for this check.\n\n' : ''}${setup}${setup ? '\n\n' : ''}Draw the top physical Event card and enter its printed number (1–38).` +
+    (keep.length ? `\nKeep Intelligence card${keep.length > 1 ? 's' : ''} #${keep.join(', #')} out of the draw pile.` : '');
+}
 PROCS.eventDraw = {
   start(s, f) {
     if (!s.deck.event.length) {
@@ -103,16 +112,10 @@ PROCS.eventDraw = {
       s.eventsDrawn = []; s.eventCardsPrepared = false;
       log(s, 'Event deck exhausted – reshuffle the physical Event cards, keeping Intelligence cards set aside.', 'info');
     }
-    const prepare = !s.eventCardsPrepared;
-    const cards = s.deck.event.slice().sort((a, b) => a - b);
-    const keep = ['US', 'BR'].map(sd => s.intelligence[sd]?.card).filter(Boolean);
-    const setup = prepare ? (cards.length === 38 ? 'Shuffle your physical Event deck.' :
-      `Prepare and shuffle the physical draw pile using these ${cards.length} cards: ${cards.join(', ')}. Keep the other cards aside.`) : '';
     return P({ kind: 'event', title: 'Draw an Event card',
       purpose: f.A.purpose, allowGale: !!f.A.allowGale,
-      text: `${f.A.purpose}\n\n${f.L.gale ? 'Discard Event #30 (Gale) and draw another card for this check.\n\n' : ''}${setup}${setup ? '\n\n' : ''}Draw the top physical Event card and enter its printed number (1–38).` +
-        (keep.length ? `\nKeep Intelligence card${keep.length > 1 ? 's' : ''} #${keep.join(', #')} out of the draw pile.` : ''),
-      remaining: cards.length }, 'number');
+      text: eventDrawText(s, f.A.purpose, f.L.gale),
+      remaining: s.deck.event.length }, 'number');
   },
   number(s, f) {
     const id = f.answer;

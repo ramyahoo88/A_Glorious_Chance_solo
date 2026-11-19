@@ -88,7 +88,7 @@ function doAct(answer) {
   try {
     playTableAction(G_STATE, answer);
     UNDO.push(snap); if (UNDO.length > 60) UNDO.shift();
-    UI.err = ''; UI.local = null; UI.physicalNote = '';
+    UI.err = ''; UI.local = null;
   } catch (e) {
     G_STATE = JSON.parse(snap);
     UI.err = e.message || String(e);
@@ -118,11 +118,7 @@ function undo() {
     const snapshot = UNDO.pop();
     try {
       G_STATE = checkSaveState(JSON.parse(snapshot));
-      if (G_STATE.prompt?.kind === 'event' && before?.seed === G_STATE.seed &&
-          before.log.length > G_STATE.log.length && G_STATE.log.every((r, i) => JSON.stringify(r) === JSON.stringify(before.log[i])) &&
-          before.log.slice(G_STATE.log.length).some(r => /^Physical Event card #/.test(r.text)))
-        UI.physicalNote = 'Return the Event card you just entered to the top of your physical draw pile. If this undid a reshuffle, restore the previous piles too.';
-      else UI.physicalNote = '';
+      recordEventUndo(before, G_STATE);
       UI.local = null;
       UI.err = UI.loadNotes.filter(n => !(G_STATE.recovery || []).includes(n)).join(' ');
       if (skipped) UI.err += ' An unreadable Undo position was skipped.';
@@ -148,7 +144,7 @@ function recoveryBanner(s) {
 function startGame(human, seed, opts) {
   G_STATE = newGame(human, seed, opts);
   enablePhysicalEvents(G_STATE);
-  UNDO = []; UI.local = null; UI.localFor = null; UI.err = ''; UI.physicalNote = '';
+  UNDO = []; UI.local = null; UI.localFor = null; UI.err = '';
   run(G_STATE);
   autosave(); render();
 }
@@ -199,6 +195,90 @@ function checkSavedCards(st, bad) {
       list(loc.hDrawn, 'pending Tactics', (id, field) => tactic(id, loc.hDeck, field));
     }
   }
+}
+// An Event child can return only to these six saved callers. Check their live
+// context before import commits anything; a well-shaped child alone is not enough.
+function checkPendingEvent(st, bad) {
+  const child = st.calls.at(-1), parent = st.calls.at(-2), p = st.prompt;
+  const obj = x => x && typeof x === 'object' && !Array.isArray(x);
+  const strings = xs => Array.isArray(xs) && xs.every(x => typeof x === 'string');
+  const force = (id, side, zone) => {
+    const fr = st.forces[id];
+    return obj(fr) && fr.id === id && fr.side === side && fr.zone === zone &&
+      ZONES.includes(zone) && Array.isArray(fr.ships) && fr.ships.every(id => st.ships[id]);
+  };
+  const encounter = () => {
+    const e = st.encounter;
+    return obj(e) && ZONES.includes(e.zone) && obj(e.ships) && obj(e.side) && obj(e.withdrawn) &&
+      ['patrol', 'reaction'].includes(e.segment) &&
+      Object.keys(e.ships).every(id => st.ships[id] && ['US', 'BR'].includes(e.side[id])) &&
+      ['US', 'BR'].every(sd => typeof e.withdrawn[sd] === 'boolean');
+  };
+  if (!child || child.proc !== 'eventDraw' || child.pc !== 'number' || !obj(child.A) ||
+      typeof child.A.purpose !== 'string' || typeof child.A.allowGale !== 'boolean' ||
+      (child.L.gale != null && typeof child.L.gale !== 'boolean') ||
+      p.purpose !== child.A.purpose || p.allowGale !== child.A.allowGale ||
+      !Array.isArray(st.deck.event) || !st.deck.event.length || p.remaining !== st.deck.event.length || !parent)
+    bad('pending physical Event draw');
+  let purpose, allowGale = false;
+  const loc = parent.L;
+  switch (parent.proc + '.' + parent.pc) {
+    case 'turn.B2event': {
+      if (!st.pe.every(pe => obj(pe))) bad('pending Event Encounter Check');
+      const pe = st.pe.find(pe => pe.status === 'possible');
+      if (!pe || !Number.isInteger(pe.num) || !Number.isInteger(pe.idx) || !st.targetRow[pe.idx] ||
+          !Object.hasOwn(TARGET_CARDS, st.targetRow[pe.idx].id) || TARGET_CARDS[st.targetRow[pe.idx].id].zone !== pe.zone ||
+          !force(pe.forceId, st.human, pe.zone) || !st.forces[pe.forceId].ships.length)
+        bad('pending Event Encounter Check');
+      purpose = `Encounter Check PE${pe.num}`;
+      break;
+    }
+    case 'encounter.eventEntered':
+    case 'encounter.reactionEvent': {
+      if (!encounter() || !obj(parent.A) || parent.A.zone !== st.encounter.zone) bad('pending Event Encounter');
+      const e = st.encounter;
+      if (parent.pc === 'reactionEvent') {
+        if (!strings(loc.reactionLines) || e.segment !== 'reaction') bad('pending Event Reaction results');
+        purpose = `Reaction Segment Weather Gage (${ZONE_NAME[e.zone]})`;
+      } else {
+        const fresh = !st.zones[e.zone].event;
+        purpose = `Encounter ${ZONE_NAME[e.zone]} (Weather Gage${fresh ? ' + Lake Zone Event' : ''})`;
+        allowGale = fresh && st.phase === 'lake';
+      }
+      break;
+    }
+    case 'combat.wgEvent': {
+      const c = st.combat;
+      const ids = xs => Array.isArray(xs) && xs.every(id => id === null || st.ships[id]);
+      if (!encounter() || !obj(c) || !['US', 'BR'].includes(c.att) || c.def !== OTHER[c.att] ||
+          !Object.hasOwn(SEQ_STEPS, c.seq) || !Number.isInteger(c.pos) || SEQ_STEPS[c.seq][c.pos] !== 'WG' ||
+          !obj(c.col) || !ids(c.col.US) || !ids(c.col.BR) || !obj(c.tows) || !obj(c.tac) ||
+          !['patrol', 'reaction'].includes(c.segment)) bad('pending Event combat Weather Gage');
+      purpose = 'Weather Gage recheck';
+      break;
+    }
+    case 'coastal.raidEvent':
+    case 'coastal.asBattleEvent': {
+      if (!['US', 'BR'].includes(loc.side) || !strings(loc.raids) || !strings(loc.as)) bad('pending Event coastal phase');
+      if (parent.pc === 'raidEvent') {
+        const fr = st.forces[loc.raidForce];
+        if (!fr || !force(loc.raidForce, loc.side, fr.zone) || !fr.ships.length || fr.mission !== 'Raid') bad('pending Event Raid force');
+        purpose = `${SIDE_SHORT[loc.side]} Raid on ${ZONE_NAME[fr.zone]} coastline`;
+      } else {
+        const cur = loc.cur;
+        if (!Array.isArray(loc.lz) || !obj(cur) || !ZONES.includes(cur.z) || !strings(cur.forces) || !cur.forces.length ||
+            new Set(cur.forces).size !== cur.forces.length || !Number.isInteger(cur.troops) || cur.troops < 0 ||
+            loc.troops !== cur.troops || cur.forces.some(fid => st.forces[fid] && !force(fid, loc.side, cur.z)))
+          bad('pending Event Land Battle');
+        // A Harbor Encounter can remove a supporting Force after its Troops
+        // launched. Those retained IDs are valid; their support is now zero.
+        purpose = `${SIDE_SHORT[loc.side]} Land Battle (${ZONE_NAME[cur.z]})`;
+      }
+      break;
+    }
+    default: bad('pending Event caller');
+  }
+  if (child.A.purpose !== purpose || child.A.allowGale !== allowGale) bad('pending Event context');
 }
 /* Check a loaded save before it replaces anything. Fields added by later versions are filled in from a
    fresh game; anything missing, mistyped or out of range is refused with a message. */
@@ -263,14 +343,12 @@ function checkSaveState(st) {
     if (!fr.L || typeof fr.L !== 'object' || Array.isArray(fr.L)) bad('procedure locals');
   });
   if (!st.over && (!st.calls.length || !st.prompt || typeof st.prompt.kind !== 'string' || ['info', 'choice', 'select', 'assign', 'lineup', 'event'].indexOf(st.prompt.kind) < 0)) bad('pending decision');
+  if (!st.over && st.calls.some(fr => fr.proc === 'eventDraw') && st.prompt.kind !== 'event') bad('pending physical Event draw');
   if (!st.over) {
     const p = st.prompt;
     const namedItems = items => Array.isArray(items) && items.every(item => item && (typeof item.id === 'string' || Number.isInteger(item.id)));
     if (p.kind === 'event') {
-      const frame = st.calls.at(-1);
-      if (frame.proc !== 'eventDraw' || frame.pc !== 'number' || !frame.A || typeof frame.A.purpose !== 'string' ||
-          typeof frame.A.allowGale !== 'boolean' || p.purpose !== frame.A.purpose || p.allowGale !== frame.A.allowGale ||
-          !st.deck.event.length || p.remaining !== st.deck.event.length) bad('pending physical Event draw');
+      checkPendingEvent(st, bad);
     } else if (p.kind === 'info' || p.kind === 'choice') {
       if (!namedItems(p.options) || !p.options.some(o => !o.disabled && (p.kind === 'choice' || o.id === 'ok'))) bad('no usable option for the pending decision');
     } else if (p.kind === 'select') {
@@ -297,6 +375,12 @@ function checkSaveState(st) {
     }
   }
   checkSavedCards(st, bad);
+  if (st.eventRestore != null) {
+    const note = st.eventRestore;
+    if (!note || typeof note !== 'object' || Array.isArray(note) || st.prompt?.kind !== 'event' ||
+        !Array.isArray(note.cards) || !note.cards.length || note.cards.some(id => !Number.isInteger(id) || !st.deck.event.includes(id)) ||
+        new Set(note.cards).size !== note.cards.length || typeof note.reshuffled !== 'boolean') bad('physical Event restoration');
+  }
   UI.loadNotes = [];
   upgradeLegacy(st, UI.loadNotes);
   st.build = APP_VERSION;   // checked and upgraded once: later loads of this game leave it alone
@@ -312,7 +396,6 @@ function commitLoaded(st, undo, retained) {
   const priorUndo = prevS ? prevU : retained && Array.isArray(retained.undo) ? retained.undo.filter(u => typeof u === 'string') : [];
   const keep = prior ? priorUndo.concat([JSON.stringify(prior)]) : [];
   G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.loadNotes = UI.loadNotes || [];
-  UI.physicalNote = '';
   UI.err = UI.loadNotes.filter(n => !(st.recovery || []).includes(n)).join(' '); UI.loadNotes = [];   // unresolved notices show in their own panel
   try { render(); }
   catch (e) {
@@ -500,7 +583,7 @@ function renderProc(s) {
   const p = $('proc'); p.innerHTML = '';
   p.appendChild(el('div', { class: 'step' }, `${TURN_NAMES[Math.min(s.turn, 7)]} · ${s.stepLabel || ''}`));
   const rb = recoveryBanner(s); if (rb) p.appendChild(rb);
-  if (UI.physicalNote) p.appendChild(el('div', { class: 'banner', role: 'status' }, UI.physicalNote));
+  if (s.eventRestore) p.appendChild(el('div', { class: 'banner', role: 'status' }, eventRestoreText(s)));
   if (s.over) {
     p.appendChild(el('div', { class: 'ptitle' }, 'Game Over'));
     p.appendChild(el('div', { class: 'ptext' }, `Final Game Score: ${sgn(s.result.score)}\n${s.result.level}\n\nU.S. VP ${sgn(s.vp.US)} · British VP ${sgn(-s.vp.BR)} (British VPs count negative).`));
@@ -515,7 +598,8 @@ function renderProc(s) {
   appendTableReport(p, s);
   if (pr.eventCard) p.appendChild(eventCardView(pr.eventCard));
   if (pr.targetCard) p.appendChild(targetCardView(s, pr.targetCard));
-  if (pr.text && pr.kind !== 'assign') p.appendChild(el('div', { class: 'ptext' }, pr.text));
+  if (pr.text && pr.kind !== 'assign') p.appendChild(el('div', { class: 'ptext' }, pr.kind === 'event' ?
+    eventDrawText(s, pr.purpose, topFrame(s).L.gale, !!s.eventRestore) : pr.text));
   if (pr.combatView || pr.combatPreview) { const cv = combatView(s); if (cv) p.appendChild(cv); }
   const body = el('div');
   if (pr.kind === 'event') body.appendChild(renderEventEntry(s, pr));
@@ -1327,7 +1411,49 @@ function renderEventEntry(s, pr) {
   const update = () => { UI.local.eventNumber = input.value; const err = error(); submit.disabled = !!err; message.textContent = input.value === '' ? '' : err || ''; };
   input.addEventListener('input', update); update();
   form.addEventListener('submit', e => { e.preventDefault(); if (!error()) doAct(Number(input.value)); });
-  form.append(el('label', { for: input.id }, 'Event card number'), input, el('div', { class: 'opts' }, submit), message,
+  form.append(el('label', { for: input.id }, 'Event card number'), input, el('div', { class: 'opts' }, submit,
+    el('button', { type: 'button', onclick: () => openEventDeckStatus(s) }, 'Deck status')), message,
     el('p', { class: 'muted' }, `${pr.remaining} card${pr.remaining === 1 ? '' : 's'} remaining in this draw pile. Use Undo if you entered the wrong card.`));
   return form;
+}
+
+// Saved presentation metadata: restoring a physical pile must not change the
+// game checkpoint, repeat dice or disappear when the player reloads/transfers it.
+function recordEventUndo(before, restored) {
+  if (restored.prompt?.kind !== 'event' || before?.seed !== restored.seed ||
+      !restored.log.every((r, i) => JSON.stringify(r) === JSON.stringify(before.log[i]))) return;
+  const extra = before.log.slice(restored.log.length);
+  const entered = extra.flatMap(r => { const m = /^Physical Event card #(\d+) entered for /.exec(r.text); return m ? [Number(m[1])] : []; });
+  if (!entered.length) return;
+  const cards = [...new Set(entered.concat(before.eventRestore?.cards || [], restored.eventRestore?.cards || []))]
+    .filter(id => restored.deck.event.includes(id));
+  restored.eventRestore = { cards, reshuffled: before.turn !== restored.turn ||
+    !!before.eventRestore?.reshuffled || !!restored.eventRestore?.reshuffled || extra.some(r => r.text.startsWith('Event deck exhausted')) };
+}
+function eventRestoreText(s) {
+  const { cards, reshuffled } = s.eventRestore;
+  const top = cards.map(id => '#' + id).join(', ');
+  const action = cards.length === 1 ? `Return the Event card ${top} to the top of your physical draw pile.` :
+    `Return the Event cards to the top of your physical draw pile in this order, top first: ${top}.`;
+  return action + (reshuffled ?
+    ' This Undo crossed a reshuffle. Restore the earlier draw and used piles using Deck status. If the earlier order was lost, shuffle the other remaining cards first, then put the returned cards on top. Keep held Intelligence cards aside.' :
+    ' Keep the other cards in their previous order. Do not shuffle.');
+}
+function openEventDeckStatus(s) {
+  const box = el('div', { class: 'event-deck-status' }, el('h2', null, 'Event deck status'),
+    el('p', null, 'Compare these numbers with your physical cards. The lists are in numerical order.'));
+  const available = s.deck.event.slice().sort((a, b) => a - b);
+  const held = ['US', 'BR'].filter(sd => s.intelligence[sd]);
+  const used = Object.keys(EVENTS).map(Number).filter(id => !available.includes(id) && !held.some(sd => s.intelligence[sd].card === id));
+  const list = (title, cards) => box.append(el('h3', null, `${title} (${cards.length})`),
+    el('p', { class: 'event-deck-numbers' }, cards.length ? cards.join(', ') : 'None.'));
+  if (s.eventRestore) box.appendChild(el('p', { class: 'banner' }, eventRestoreText(s)));
+  list('Remaining in draw pile', available);
+  list('Used cards', used);
+  box.appendChild(el('h3', null, `Held for Intelligence (${held.length})`));
+  box.appendChild(el('p', null, held.length ? held.map(sd => `#${s.intelligence[sd].card} – ${SIDE_NAME[sd]}`).join('; ') : 'None.'));
+  const last = s.log.slice().reverse().find(row => /^Physical Event card #\d+ entered for /.test(row.text));
+  box.append(el('h3', null, 'Last entered'), el('p', null, last ? last.text.replace('Physical Event card ', '') : 'No physical Event card entered yet.'),
+    el('p', { class: 'muted' }, 'Keep used cards aside until the next Event-deck reshuffle. Keep held Intelligence cards out of the draw pile.'));
+  openModal(box);
 }

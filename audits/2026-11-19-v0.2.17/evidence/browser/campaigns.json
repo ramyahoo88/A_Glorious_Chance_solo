@@ -1,0 +1,39 @@
+{
+  "games": [
+    {
+      "side": "US",
+      "seed": 982001,
+      "style": "fleet",
+      "width": 1440,
+      "group": false,
+      "actions": 166,
+      "entries": 28,
+      "reloads": 4,
+      "undos": 3,
+      "inspections": 4,
+      "result": {
+        "score": -62,
+        "level": "British Decisive Victory"
+      },
+      "errors": []
+    },
+    {
+      "side": "BR",
+      "seed": 982002,
+      "style": "coast",
+      "width": 390,
+      "group": true,
+      "actions": 159,
+      "entries": 49,
+      "reloads": 7,
+      "undos": 6,
+      "inspections": 6,
+      "result": {
+        "score": -48,
+        "level": "British Decisive Victory"
+      },
+      "errors": []
+    }
+  ],
+  "browser": "153.0.8010.0"
+}

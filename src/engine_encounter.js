@@ -31,7 +31,7 @@ function consumeIntelligence(s) {
     const it = s.intelligence[side];
     if (it && s.turn === it.until && flagshipInEncounter(s, OTHER[side])) {
       s.intelligence[side] = null;
-      log(s, `Intelligence (Event #${it.card}) has been used in this Encounter with the enemy Flagship – the card returns to the Event deck.`, 'event');
+      log(s, `Intelligence (Event #${it.card}) has been used in this Encounter with the enemy Flagship – remove its Intelligence marker and place the card with the used Event cards. Return it to the draw pile at the next Event-deck reshuffle.`, 'event');
     }
   });
 }

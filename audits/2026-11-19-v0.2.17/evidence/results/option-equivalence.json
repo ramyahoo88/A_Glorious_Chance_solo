@@ -1,0 +1,9 @@
+{
+  "games": 128,
+  "exactGameRecordsExcludingLogDependentFinalHash": true,
+  "exactCoverage": true,
+  "exactRuleObservations": true,
+  "allPhysicalEntryContinuationsChecked": true,
+  "finalStateHashesDiffer": 31,
+  "qualification": "Final hashes include the corrected Intelligence log message. This comparison excludes those hashes; raw values are retained."
+}

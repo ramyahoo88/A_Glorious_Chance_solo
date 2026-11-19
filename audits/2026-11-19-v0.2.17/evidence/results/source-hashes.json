@@ -1,0 +1,9 @@
+{
+  "src/engine_core.js": "95983fbf7ef272ddc5c7ed3e460a2e12248b412fe4b1e57caa78d24850a5e3eb",
+  "src/engine_encounter.js": "949a7e137c86598faec5ca79abf90f81c36509b0a5d14fc208a1d4ae84a62d5e",
+  "src/ui.js": "fba6ca1a098e7523b8323e3abfc16cd0b11d8125ccbe86bdd7ab34af4c4f1033",
+  "src/state.js": "6365a49db97baebf5ba29e0f3d8d86e8ebf988745002a02ac281c24c3a591f55",
+  "dist/index.html": "8623b7a73cacdda6eb9095871be9b8ec8fde62113ba86bb2a2910ce3000f18e4",
+  "tests/regression_v0217.js": "1e6922990c9da3b526d8cafc8efc4da93f0bc7adbe483bed55ca413fed9d7eca",
+  "tests/browser/fixes_v0217.js": "5b0efb30ddb055a8c9f5fd9b8c473ea28dd29017d33550d3ba5ec5f1bf9cec12"
+}

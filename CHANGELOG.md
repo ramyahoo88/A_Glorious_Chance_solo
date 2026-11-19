@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.17 - 2026-11-19
+
+* Refuse incomplete saves paused at physical Event entry before replacing the current campaign. Validate all six saved callers and their Encounter, Possible Encounter, combat, Raid, Reaction and Land Battle context. Preserve launched Troops when Harbor losses removed their supporting Force.
+* Correct used Intelligence instructions: place the card with used Event cards and return it at the next Event-deck reshuffle.
+* Save Undo's physical-card restoration instructions with the checkpoint. Name the returned cards in top-first order, suppress repeated deck preparation, and retain the instructions through reload and save transfer. Explain when Undo crosses a reshuffle.
+* Add **Deck status** beside Event number entry, with sorted remaining/used cards, held Intelligence cards and the last entered card and purpose. Inspection preserves the current input and campaign.
+* Add regression coverage using the original audit saves, all six Event callers, physical-pile restoration and Deck status controls.
+
 ## 0.2.16 - 2026-11-19
 
 * Require the physical Event deck in the app. At each Encounter Check, Lake Zone Event, Reaction Weather Gage, combat Weather Gage recheck, Raid and Land Battle, enter the printed Event number (1-38). Target and Tactic draws continue automatically.
