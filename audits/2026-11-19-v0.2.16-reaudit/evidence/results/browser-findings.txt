@@ -1,0 +1,38 @@
+{
+  "browser": "153.0.8010.0",
+  "damagedImports": [
+    {
+      "name": "coastal-raidEvent",
+      "accepted": true,
+      "error": "Cannot read properties of undefined (reading 'id')",
+      "entryRolledBack": true
+    },
+    {
+      "name": "encounter-reactionEvent",
+      "accepted": true,
+      "error": "Cannot read properties of undefined (reading 'push')",
+      "entryRolledBack": true
+    },
+    {
+      "name": "coastal-asBattleEvent",
+      "accepted": true,
+      "error": "Cannot read properties of undefined (reading 'forces')",
+      "entryRolledBack": true
+    }
+  ],
+  "firstEntryUndo": {
+    "returnToTopReminder": true,
+    "alsoSaysShuffle": true,
+    "reminderSurvivesReload": false,
+    "gameStateSurvivesReload": true
+  },
+  "intelligence": {
+    "card": 29,
+    "message": "Intelligence (Event #29) has been used in this Encounter with the enemy Flagship – the card returns to the Event deck.",
+    "inDrawPile": false,
+    "held": false,
+    "entryError": "Event #29 is not in the draw pile. Check the number or use Undo to correct the previous entry.",
+    "actualNextDrawRejects": true
+  },
+  "unhandledPageErrors": []
+}

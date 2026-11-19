@@ -1,0 +1,1887 @@
+{
+  "human": "US",
+  "seed": 977000,
+  "style": "coast",
+  "options": {
+    "cuttingOut": true,
+    "oa1Upgrades": true,
+    "usAiPrecondition": "longgun",
+    "confirmAiSteps": false,
+    "groupUpdates": false,
+    "manualPackages": true,
+    "manualLandBattle": true,
+    "physicalEvents": true
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "navalBalance": 0,
+      "shipsInPort": 14,
+      "troops": 0,
+      "assign": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "CuttingOut",
+            "zone": "KIN",
+            "ships": [
+              "oneida"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      },
+      "tally": {
+        "supply": {
+          "US": 2,
+          "BR": 2
+        },
+        "niagara": 3,
+        "gross": {
+          "US": 4,
+          "BR": 1
+        },
+        "score": 3,
+        "independentDelta": {
+          "US": 4,
+          "BR": 1
+        },
+        "awards": [
+          [
+            "US",
+            1,
+            "Lake Control (1 zone)"
+          ],
+          [
+            "BR",
+            1,
+            "Lake Control (1 zone)"
+          ],
+          [
+            "US",
+            2,
+            "Raid on the Kingston coastline"
+          ],
+          [
+            "US",
+            1,
+            "Raid on the York coastline"
+          ]
+        ],
+        "text": "F2.2: American control of Kingston.\nF2.2: British control of Sacket's.\nF2.5: American Lake Control 1 zone(s): +1 VP (U.S.).\nF2.5: British Lake Control 1 zone(s): −1 VP (British).\nF4: U.S. Raid on Kingston – +2 VP (U.S.).\nF4: U.S. Raid on York – +1 VP (U.S.).\nF5: the AI Convoy marker for June I is revealed – Convoy.\nF5: the British Convoy arrives – +2 Convoy Supply.\nF5: the U.S. Convoy arrives – +2 Convoy Supply.\nF5.3: Land Battle success vs the American Homeport – their Convoy Supply −2.\nF5.3: Raid on Kingston – 1d6 4: no supplies seized.\nF5.3: Raid on York – 1d6 6: supplies seized (U.S. +1, British −1).\nF6: American BLOCKADE placed in Kingston!\nIsolated British ships (use York): Wolfe (A), Royal George (A), Earl of Moira (A), Lord Beresford (A), Sir Sidney Smith.\nF6: British BLOCKADE placed in Sacket's!\nIsolated U.S. ships (use Charlotte): Oneida, Madison, Gov. Tompkins, Fair American, Conquest, Asp, Growler, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven.\n\nThis turn: U.S. +4 VP, British −1 VP. Game Score +3."
+      }
+    },
+    {
+      "turn": 2,
+      "navalBalance": 18,
+      "shipsInPort": 13,
+      "troops": 1,
+      "assign": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      },
+      "tally": {
+        "supply": {
+          "US": 2,
+          "BR": 2
+        },
+        "niagara": 2,
+        "gross": {
+          "US": 9,
+          "BR": 4
+        },
+        "score": 5,
+        "independentDelta": {
+          "US": 5,
+          "BR": 3
+        },
+        "awards": [
+          [
+            "US",
+            2,
+            "Lake Control (2 zones)"
+          ],
+          [
+            "BR",
+            2,
+            "Lake Control (2 zones)"
+          ],
+          [
+            "BR",
+            1,
+            "Raid on the South Lake coastline"
+          ],
+          [
+            "US",
+            2,
+            "Raid on the Kingston coastline"
+          ],
+          [
+            "US",
+            1,
+            "Raid on the York coastline"
+          ]
+        ],
+        "text": "F2.2: American control of Niagara.\nF2.2: British control of South Lake.\nF2.3: the American Blockade of Kingston is not maintained – removed.\nF2.3: the British Blockade of Sacket's is not maintained – removed.\nF2.5: American Lake Control 2 zone(s): +2 VP (U.S.).\nF2.5: British Lake Control 2 zone(s): −2 VP (British).\nF3.2: Niagara Front 12-mile Creek → 40-mile Creek.\nF4: British Raid on South Lake – −1 VP (British).\nF4: U.S. Raid on Kingston – +2 VP (U.S.).\nF4: U.S. Raid on York – +1 VP (U.S.).\nF5: the AI Convoy marker for June II is revealed – No Convoy.\nF5.3: Raid on South Lake – 1d6 6: supplies seized (British +1, U.S. −1).\nF5.3: Raid on Kingston – 1d6 3: no supplies seized.\nF5.3: Raid on York – 1d6 5: supplies seized (U.S. +1, British −1).\nF6: British BLOCKADE placed in South Lake!\n\nThis turn: U.S. +5 VP, British −3 VP. Game Score +5."
+      }
+    },
+    {
+      "turn": 3,
+      "navalBalance": 12,
+      "shipsInPort": 14,
+      "troops": 0,
+      "assign": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      },
+      "tally": {
+        "supply": {
+          "US": 5,
+          "BR": 1
+        },
+        "niagara": 2,
+        "gross": {
+          "US": 13,
+          "BR": 7
+        },
+        "score": 6,
+        "independentDelta": {
+          "US": 4,
+          "BR": 3
+        },
+        "awards": [
+          [
+            "US",
+            1,
+            "Lake Control (1 zone)"
+          ],
+          [
+            "BR",
+            3,
+            "Lake Control (3 zones)"
+          ],
+          [
+            "US",
+            2,
+            "Raid on the Kingston coastline"
+          ],
+          [
+            "US",
+            1,
+            "Raid on the York coastline"
+          ]
+        ],
+        "text": "F2.2: British control of Niagara.\nF2.3: the British Blockade of South Lake is not maintained – removed.\nF2.5: American Lake Control 1 zone(s): +1 VP (U.S.).\nF2.5: British Lake Control 3 zone(s): −3 VP (British).\nF4: U.S. Raid on Kingston – +2 VP (U.S.).\nF4: U.S. Raid on York – +1 VP (U.S.).\nF5: the U.S. Convoy arrives – +2 Convoy Supply.\nF5.3: Raid on Kingston – 1d6 6: supplies seized (U.S. +1, British −1).\nF5.3: Raid on York – 1d6 4: no supplies seized.\nF6: American BLOCKADE placed in Kingston!\nIsolated British ships (use York): Wolfe (A), Royal George (A), Earl of Moira (A), Lord Beresford (A), Sir Sidney Smith.\n\nThis turn: U.S. +4 VP, British −3 VP. Game Score +6."
+      }
+    },
+    {
+      "turn": 4,
+      "navalBalance": 12,
+      "shipsInPort": 14,
+      "troops": 1,
+      "assign": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      },
+      "tally": {
+        "supply": {
+          "US": 5,
+          "BR": 3
+        },
+        "niagara": 1,
+        "gross": {
+          "US": 16,
+          "BR": 10
+        },
+        "score": 6,
+        "independentDelta": {
+          "US": 3,
+          "BR": 3
+        },
+        "awards": [
+          [
+            "US",
+            2,
+            "Lake Control (2 zones)"
+          ],
+          [
+            "BR",
+            3,
+            "Lake Control (3 zones)"
+          ],
+          [
+            "US",
+            1,
+            "Raid on the Kingston coastline"
+          ]
+        ],
+        "text": "F2.2: British control of York.\nF2.2: American control of Niagara.\nF2.3: the American Blockade of Kingston is not maintained – removed.\nF2.5: American Lake Control 2 zone(s): +2 VP (U.S.).\nF2.5: British Lake Control 3 zone(s): −3 VP (British).\nF3.2: Niagara Front 40-mile Creek → Stoney Creek.\nF4: U.S. Raid on Kingston – +1 VP (U.S.).\nF5: the AI Convoy marker for July II is revealed – Convoy.\nF5: the British Convoy arrives – +2 Convoy Supply.\n\nThis turn: U.S. +3 VP, British −3 VP. Game Score +6."
+      }
+    },
+    {
+      "turn": 5,
+      "navalBalance": 44,
+      "shipsInPort": 13,
+      "troops": 0,
+      "assign": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "hamilton"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      },
+      "tally": {
+        "supply": {
+          "US": 8,
+          "BR": 2
+        },
+        "niagara": 1,
+        "gross": {
+          "US": 20,
+          "BR": 15
+        },
+        "score": 5,
+        "independentDelta": {
+          "US": 4,
+          "BR": 5
+        },
+        "awards": [
+          [
+            "BR",
+            2,
+            "Hamilton destroyed (Lake Combat)"
+          ],
+          [
+            "US",
+            2,
+            "Lake Control (2 zones)"
+          ],
+          [
+            "BR",
+            3,
+            "Lake Control (3 zones)"
+          ],
+          [
+            "US",
+            2,
+            "Raid on the Kingston coastline"
+          ]
+        ],
+        "text": "F1: Hamilton destroyed – −2 VP (British).\nF2.5: American Lake Control 2 zone(s): +2 VP (U.S.).\nF2.5: British Lake Control 3 zone(s): −3 VP (British).\nF4: U.S. Raid on Kingston – +2 VP (U.S.).\nF5: the AI Convoy marker for August I is revealed – No Convoy.\nF5: the U.S. Convoy arrives – +2 Convoy Supply.\nF5.3: Raid on Kingston – 1d6 6: supplies seized (U.S. +1, British −1).\nF6: American BLOCKADE placed in Kingston!\nIsolated British ships (use York): Wolfe (A), Earl of Moira (A), Sir Sidney Smith.\n\nThis turn: U.S. +4 VP, British −5 VP. Game Score +5."
+      }
+    },
+    {
+      "turn": 6,
+      "navalBalance": 86,
+      "shipsInPort": 14,
+      "troops": 1,
+      "assign": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      },
+      "tally": {
+        "supply": {
+          "US": 8,
+          "BR": 4
+        },
+        "niagara": 1,
+        "gross": {
+          "US": 25,
+          "BR": 18
+        },
+        "score": 7,
+        "independentDelta": {
+          "US": 5,
+          "BR": 3
+        },
+        "awards": [
+          [
+            "US",
+            2,
+            "Lake Control (2 zones)"
+          ],
+          [
+            "BR",
+            3,
+            "Lake Control (3 zones)"
+          ],
+          [
+            "US",
+            2,
+            "Raid on the Kingston coastline"
+          ],
+          [
+            "US",
+            1,
+            "Raid on the York coastline"
+          ]
+        ],
+        "text": "F2.3: the American Blockade of Kingston is not maintained – removed.\nF2.5: American Lake Control 2 zone(s): +2 VP (U.S.).\nF2.5: British Lake Control 3 zone(s): −3 VP (British).\nF4: U.S. Raid on Kingston – +2 VP (U.S.).\nF4: U.S. Raid on York – +1 VP (U.S.).\nF5: the AI Convoy marker for August II is revealed – Convoy.\nF5: the British Convoy arrives – +2 Convoy Supply.\nF5.3: Raid on Kingston – 1d6 3: no supplies seized.\nF5.3: Raid on York – 1d6 4: no supplies seized.\n\nThis turn: U.S. +5 VP, British −3 VP. Game Score +7."
+      }
+    },
+    {
+      "turn": 7,
+      "navalBalance": 76,
+      "shipsInPort": 15,
+      "troops": 0,
+      "assign": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge",
+              "sylph"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      },
+      "tally": {
+        "supply": {
+          "US": 11,
+          "BR": 3
+        },
+        "niagara": 1,
+        "gross": {
+          "US": 29,
+          "BR": 21
+        },
+        "score": 8,
+        "independentDelta": {
+          "US": 4,
+          "BR": 3
+        },
+        "awards": [
+          [
+            "US",
+            2,
+            "Lake Control (2 zones)"
+          ],
+          [
+            "BR",
+            3,
+            "Lake Control (3 zones)"
+          ],
+          [
+            "US",
+            1,
+            "Raid on the Kingston coastline"
+          ],
+          [
+            "US",
+            1,
+            "Raid on the York coastline"
+          ]
+        ],
+        "text": "F2.5: American Lake Control 2 zone(s): +2 VP (U.S.).\nF2.5: British Lake Control 3 zone(s): −3 VP (British).\nF4: U.S. Raid on Kingston – +1 VP (U.S.).\nF4: U.S. Raid on York – +1 VP (U.S.).\nF5: the U.S. Convoy arrives – +2 Convoy Supply.\nF5.3: Raid on York – 1d6 6: supplies seized (U.S. +1, British −1).\nF6: American BLOCKADE placed in Kingston!\n\nThis turn: U.S. +4 VP, British −3 VP. Game Score +8."
+      }
+    },
+    {
+      "turn": 8,
+      "navalBalance": 170,
+      "shipsInPort": 15,
+      "troops": 0,
+      "assign": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge",
+              "sylph"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      },
+      "tally": {
+        "supply": {
+          "US": 11,
+          "BR": 3
+        },
+        "niagara": 1,
+        "gross": {
+          "US": 33,
+          "BR": 21
+        },
+        "score": 12,
+        "independentDelta": {
+          "US": 4,
+          "BR": 0
+        },
+        "awards": [
+          [
+            "US",
+            2,
+            "Lake Control (2 zones)"
+          ],
+          [
+            "US",
+            2,
+            "Raid on the Kingston coastline"
+          ]
+        ],
+        "text": "F2.4: Blockaded British lose control of York.\nF2.4: Blockaded British lose control of South Lake.\nF2.4: Blockaded British lose control of Sacket's.\nF2.5: American Lake Control 2 zone(s): +2 VP (U.S.).\nF4: U.S. Raid on Kingston – +2 VP (U.S.).\nF4: U.S. Raid on York scores no VPs.\nF5: the AI Convoy marker for September II is revealed – Convoy.\nF5: the British Homeport is Blockaded – the Convoy receives a Convoy Delay marker.\nF5.3: Raid on Kingston – 1d6 2: no supplies seized.\n\nThis turn: U.S. +4 VP, British −0 VP. Game Score +12."
+      }
+    }
+  ],
+  "actions": [
+    {
+      "n": 1,
+      "turn": 1,
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 2,
+      "turn": 1,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 3,
+      "turn": 1,
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "CuttingOut",
+            "zone": "KIN",
+            "ships": [
+              "oneida"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      }
+    },
+    {
+      "n": 4,
+      "turn": 1,
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "answer": "F1"
+    },
+    {
+      "n": 5,
+      "turn": 1,
+      "title": "Draw an Event card",
+      "answer": 24
+    },
+    {
+      "n": 6,
+      "turn": 1,
+      "title": "Draw an Event card",
+      "answer": 25
+    },
+    {
+      "n": 7,
+      "turn": 1,
+      "title": "Harbor Encounter",
+      "answer": "ok"
+    },
+    {
+      "n": 8,
+      "turn": 1,
+      "title": "Harbor Encounter",
+      "answer": "ok"
+    },
+    {
+      "n": 9,
+      "turn": 1,
+      "title": "Harbor Encounter ends",
+      "answer": "ok"
+    },
+    {
+      "n": 10,
+      "turn": 1,
+      "title": "Draw an Event card",
+      "answer": 26
+    },
+    {
+      "n": 11,
+      "turn": 1,
+      "title": "Land Battle – read Player Aid VII",
+      "answer": "AS"
+    },
+    {
+      "n": 12,
+      "turn": 1,
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 13,
+      "turn": 1,
+      "title": "American Cutting-Out mission",
+      "answer": "ok"
+    },
+    {
+      "n": 14,
+      "turn": 1,
+      "title": "Draw an Event card",
+      "answer": 5
+    },
+    {
+      "n": 15,
+      "turn": 1,
+      "title": "American Raid on Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 16,
+      "turn": 1,
+      "title": "Draw an Event card",
+      "answer": 14
+    },
+    {
+      "n": 17,
+      "turn": 1,
+      "title": "American Raid on York",
+      "answer": "ok"
+    },
+    {
+      "n": 18,
+      "turn": 1,
+      "title": "Tally – June I",
+      "answer": "ok"
+    },
+    {
+      "n": 19,
+      "turn": 1,
+      "title": "Reset – end of June I",
+      "answer": "ok"
+    },
+    {
+      "n": 20,
+      "turn": 2,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 21,
+      "turn": 2,
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      }
+    },
+    {
+      "n": 22,
+      "turn": 2,
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "answer": "F6"
+    },
+    {
+      "n": 23,
+      "turn": 2,
+      "title": "Draw an Event card",
+      "answer": 22
+    },
+    {
+      "n": 24,
+      "turn": 2,
+      "title": "Draw an Event card",
+      "answer": 19
+    },
+    {
+      "n": 25,
+      "turn": 2,
+      "title": "Draw an Event card",
+      "answer": 37
+    },
+    {
+      "n": 26,
+      "turn": 2,
+      "title": "Draw an Event card",
+      "answer": 15
+    },
+    {
+      "n": 27,
+      "turn": 2,
+      "title": "British Raid on South Lake",
+      "answer": "ok"
+    },
+    {
+      "n": 28,
+      "turn": 2,
+      "title": "Draw an Event card",
+      "answer": 5
+    },
+    {
+      "n": 29,
+      "turn": 2,
+      "title": "American Raid on Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 30,
+      "turn": 2,
+      "title": "Draw an Event card",
+      "answer": 31
+    },
+    {
+      "n": 31,
+      "turn": 2,
+      "title": "American Raid on York",
+      "answer": "ok"
+    },
+    {
+      "n": 32,
+      "turn": 2,
+      "title": "Draw an Event card",
+      "answer": 36
+    },
+    {
+      "n": 33,
+      "turn": 2,
+      "title": "Land Battle – read Player Aid VII",
+      "answer": "AS"
+    },
+    {
+      "n": 34,
+      "turn": 2,
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 35,
+      "turn": 2,
+      "title": "Tally – June II",
+      "answer": "ok"
+    },
+    {
+      "n": 36,
+      "turn": 2,
+      "title": "Reset – end of June II",
+      "answer": "ok"
+    },
+    {
+      "n": 37,
+      "turn": 3,
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 38,
+      "turn": 3,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 39,
+      "turn": 3,
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      }
+    },
+    {
+      "n": 40,
+      "turn": 3,
+      "title": "B1 Possible Encounter 3 in Kingston",
+      "answer": "F11"
+    },
+    {
+      "n": 41,
+      "turn": 3,
+      "title": "Draw an Event card",
+      "answer": 13
+    },
+    {
+      "n": 42,
+      "turn": 3,
+      "title": "Draw an Event card",
+      "answer": 22
+    },
+    {
+      "n": 43,
+      "turn": 3,
+      "title": "Draw an Event card",
+      "answer": 32
+    },
+    {
+      "n": 44,
+      "turn": 3,
+      "title": "Draw an Event card",
+      "answer": 23
+    },
+    {
+      "n": 45,
+      "turn": 3,
+      "title": "American Raid on Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 46,
+      "turn": 3,
+      "title": "Draw an Event card",
+      "answer": 30
+    },
+    {
+      "n": 47,
+      "turn": 3,
+      "title": "Draw an Event card",
+      "answer": 37
+    },
+    {
+      "n": 48,
+      "turn": 3,
+      "title": "American Raid on York",
+      "answer": "ok"
+    },
+    {
+      "n": 49,
+      "turn": 3,
+      "title": "Tally – July I",
+      "answer": "ok"
+    },
+    {
+      "n": 50,
+      "turn": 3,
+      "title": "Reset – end of July I",
+      "answer": "ok"
+    },
+    {
+      "n": 51,
+      "turn": 4,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 52,
+      "turn": 4,
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      }
+    },
+    {
+      "n": 53,
+      "turn": 4,
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "answer": "F15"
+    },
+    {
+      "n": 54,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 29
+    },
+    {
+      "n": 55,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 36
+    },
+    {
+      "n": 56,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 30
+    },
+    {
+      "n": 57,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 9
+    },
+    {
+      "n": 58,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 4
+    },
+    {
+      "n": 59,
+      "turn": 4,
+      "title": "Encounter 3 in York",
+      "answer": "ok"
+    },
+    {
+      "n": 60,
+      "turn": 4,
+      "title": "Command Decision – you hold the Weather Gage",
+      "answer": "attack"
+    },
+    {
+      "n": 61,
+      "turn": 4,
+      "title": "Lake Combat – choose your attacking ships",
+      "answer": {
+        "attackers": [
+          "growler"
+        ],
+        "tows": {}
+      }
+    },
+    {
+      "n": 62,
+      "turn": 4,
+      "title": "LC3 Tactics – you are the Attacker",
+      "answer": "A_sweep"
+    },
+    {
+      "n": 63,
+      "turn": 4,
+      "title": "Tactics",
+      "answer": "ok"
+    },
+    {
+      "n": 64,
+      "turn": 4,
+      "title": "Gunnery Round results",
+      "answer": "ok"
+    },
+    {
+      "n": 65,
+      "turn": 4,
+      "title": "Gunnery Round 2 – attack or pass?",
+      "answer": "attack"
+    },
+    {
+      "n": 66,
+      "turn": 4,
+      "title": "Gunnery result",
+      "answer": "ok"
+    },
+    {
+      "n": 67,
+      "turn": 4,
+      "title": "Reaction Segment – declare Reaction Checks",
+      "answer": [
+        "scourge"
+      ]
+    },
+    {
+      "n": 68,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 11
+    },
+    {
+      "n": 69,
+      "turn": 4,
+      "title": "Reaction Segment",
+      "answer": "ok"
+    },
+    {
+      "n": 70,
+      "turn": 4,
+      "title": "Command Decision – you hold the Weather Gage",
+      "answer": "attack"
+    },
+    {
+      "n": 71,
+      "turn": 4,
+      "title": "Lake Combat – choose your attacking ships",
+      "answer": {
+        "attackers": [
+          "growler",
+          "scourge"
+        ],
+        "tows": {}
+      }
+    },
+    {
+      "n": 72,
+      "turn": 4,
+      "title": "LC3 Tactics – you are the Attacker",
+      "answer": "A_pursuit"
+    },
+    {
+      "n": 73,
+      "turn": 4,
+      "title": "Tactics",
+      "answer": "ok"
+    },
+    {
+      "n": 74,
+      "turn": 4,
+      "title": "Gunnery Round results",
+      "answer": "ok"
+    },
+    {
+      "n": 75,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 8
+    },
+    {
+      "n": 76,
+      "turn": 4,
+      "title": "Weather Gage recheck",
+      "answer": "ok"
+    },
+    {
+      "n": 77,
+      "turn": 4,
+      "title": "Encounter ended",
+      "answer": "ok"
+    },
+    {
+      "n": 78,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 32
+    },
+    {
+      "n": 79,
+      "turn": 4,
+      "title": "American Raid on Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 80,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 13
+    },
+    {
+      "n": 81,
+      "turn": 4,
+      "title": "American Raid on York",
+      "answer": "ok"
+    },
+    {
+      "n": 82,
+      "turn": 4,
+      "title": "Draw an Event card",
+      "answer": 7
+    },
+    {
+      "n": 83,
+      "turn": 4,
+      "title": "Land Battle – read Player Aid VII",
+      "answer": "AS"
+    },
+    {
+      "n": 84,
+      "turn": 4,
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 85,
+      "turn": 4,
+      "title": "Tally – July II",
+      "answer": "ok"
+    },
+    {
+      "n": 86,
+      "turn": 4,
+      "title": "Reset – end of July II",
+      "answer": "ok"
+    },
+    {
+      "n": 87,
+      "turn": 5,
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 88,
+      "turn": 5,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 89,
+      "turn": 5,
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "hamilton"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    {
+      "n": 90,
+      "turn": 5,
+      "title": "Draw an Event card",
+      "answer": 10
+    },
+    {
+      "n": 91,
+      "turn": 5,
+      "title": "Draw an Event card",
+      "answer": 32
+    },
+    {
+      "n": 92,
+      "turn": 5,
+      "title": "Encounter 1 in York",
+      "answer": "ok"
+    },
+    {
+      "n": 93,
+      "turn": 5,
+      "title": "Command Decision – the A.I. holds the Weather Gage",
+      "answer": "bypass"
+    },
+    {
+      "n": 94,
+      "turn": 5,
+      "title": "The A.I. attacks!",
+      "answer": "ok"
+    },
+    {
+      "n": 95,
+      "turn": 5,
+      "title": "LC3 Tactics – you are the Defender",
+      "answer": "D_rake"
+    },
+    {
+      "n": 96,
+      "turn": 5,
+      "title": "Tactics",
+      "answer": "ok"
+    },
+    {
+      "n": 97,
+      "turn": 5,
+      "title": "Gunnery Round results",
+      "answer": "ok"
+    },
+    {
+      "n": 98,
+      "turn": 5,
+      "title": "Encounter ended",
+      "answer": "ok"
+    },
+    {
+      "n": 99,
+      "turn": 5,
+      "title": "Draw an Event card",
+      "answer": 21
+    },
+    {
+      "n": 100,
+      "turn": 5,
+      "title": "American Raid on Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 101,
+      "turn": 5,
+      "title": "Tally – August I",
+      "answer": "ok"
+    },
+    {
+      "n": 102,
+      "turn": 5,
+      "title": "Reset – end of August I",
+      "answer": "ok"
+    },
+    {
+      "n": 103,
+      "turn": 6,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 104,
+      "turn": 6,
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    {
+      "n": 105,
+      "turn": 6,
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "answer": "F24"
+    },
+    {
+      "n": 106,
+      "turn": 6,
+      "title": "Draw an Event card",
+      "answer": 28
+    },
+    {
+      "n": 107,
+      "turn": 6,
+      "title": "Draw an Event card",
+      "answer": 6
+    },
+    {
+      "n": 108,
+      "turn": 6,
+      "title": "Draw an Event card",
+      "answer": 25
+    },
+    {
+      "n": 109,
+      "turn": 6,
+      "title": "American Raid on Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 110,
+      "turn": 6,
+      "title": "Draw an Event card",
+      "answer": 15
+    },
+    {
+      "n": 111,
+      "turn": 6,
+      "title": "American Raid on York",
+      "answer": "ok"
+    },
+    {
+      "n": 112,
+      "turn": 6,
+      "title": "Draw an Event card",
+      "answer": 13
+    },
+    {
+      "n": 113,
+      "turn": 6,
+      "title": "Land Battle – read Player Aid VII",
+      "answer": "DR"
+    },
+    {
+      "n": 114,
+      "turn": 6,
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 115,
+      "turn": 6,
+      "title": "Tally – August II",
+      "answer": "ok"
+    },
+    {
+      "n": 116,
+      "turn": 6,
+      "title": "Reset – end of August II",
+      "answer": "ok"
+    },
+    {
+      "n": 117,
+      "turn": 7,
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 118,
+      "turn": 7,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 119,
+      "turn": 7,
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge",
+              "sylph"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    {
+      "n": 120,
+      "turn": 7,
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "answer": "F28"
+    },
+    {
+      "n": 121,
+      "turn": 7,
+      "title": "Draw an Event card",
+      "answer": 27
+    },
+    {
+      "n": 122,
+      "turn": 7,
+      "title": "Draw an Event card",
+      "answer": 35
+    },
+    {
+      "n": 123,
+      "turn": 7,
+      "title": "American Raid on Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 124,
+      "turn": 7,
+      "title": "Draw an Event card",
+      "answer": 24
+    },
+    {
+      "n": 125,
+      "turn": 7,
+      "title": "American Raid on York",
+      "answer": "ok"
+    },
+    {
+      "n": 126,
+      "turn": 7,
+      "title": "Tally – September I",
+      "answer": "ok"
+    },
+    {
+      "n": 127,
+      "turn": 7,
+      "title": "Reset – end of September I",
+      "answer": "ok"
+    },
+    {
+      "n": 128,
+      "turn": 8,
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 129,
+      "turn": 8,
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "KIN",
+            "ships": [
+              "asp"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "YOR",
+            "ships": [
+              "growler"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge",
+              "sylph"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    {
+      "n": 130,
+      "turn": 8,
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "answer": "F31"
+    },
+    {
+      "n": 131,
+      "turn": 8,
+      "title": "Draw an Event card",
+      "answer": 10
+    },
+    {
+      "n": 132,
+      "turn": 8,
+      "title": "Draw an Event card",
+      "answer": 21
+    },
+    {
+      "n": 133,
+      "turn": 8,
+      "title": "Draw an Event card",
+      "answer": 6
+    },
+    {
+      "n": 134,
+      "turn": 8,
+      "title": "American Raid on Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 135,
+      "turn": 8,
+      "title": "Draw an Event card",
+      "answer": 32
+    },
+    {
+      "n": 136,
+      "turn": 8,
+      "title": "American Raid on York",
+      "answer": "ok"
+    },
+    {
+      "n": 137,
+      "turn": 8,
+      "title": "Tally – September II",
+      "answer": "ok"
+    },
+    {
+      "n": 138,
+      "turn": 8,
+      "title": "Reset – end of September II",
+      "answer": "ok"
+    }
+  ],
+  "result": {
+    "score": 12,
+    "level": "U.S. Marginal Victory"
+  },
+  "endScore": 12
+}

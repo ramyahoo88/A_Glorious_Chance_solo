@@ -1,0 +1,16 @@
+[
+  {
+    "side": "US",
+    "url": "https://www.legionwargames.com/docs/AGC_Living_Rulebook_US_Solo_as_of_13apr2024.pdf",
+    "bytes": 25896280,
+    "sha256": "278cd7579905e518b4fe7bca122e86d3f94469590a8f519a3e37548c13b8293e",
+    "pages": 46
+  },
+  {
+    "side": "BR",
+    "url": "https://www.legionwargames.com/docs/AGC_Living_Rulebook_British_Solo_as_of_7aug2024.pdf",
+    "bytes": 24111116,
+    "sha256": "ef0746ab71cb2424fd996a88254d1bcc60f930cc91e740913385af31a2e4f452",
+    "pages": 46
+  }
+]

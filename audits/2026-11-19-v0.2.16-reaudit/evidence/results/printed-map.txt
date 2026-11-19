@@ -1,0 +1,1 @@
+{"navalBalanceBandsPerMap":7,"lakeCombatTable":70,"convoyScatterTable":60,"gunBandEndpointsTested":12,"mismatches":[]}

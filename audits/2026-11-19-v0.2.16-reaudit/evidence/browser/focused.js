@@ -1,0 +1,32 @@
+const fs=require('fs'),path=require('path'),assert=require('assert/strict'),crypto=require('crypto');
+const {chromium:pw}=require('playwright'),chromium=require('@sparticuz/chromium').default;
+const root=path.resolve(process.argv[2]||'.'),out=__dirname,drive=require('./ui-driver');
+const dir=path.join(root,'audits/2026-11-19-v0.2.14-reaudit/evidence');
+const before=JSON.parse(fs.readFileSync(path.join(dir,'intermediate-omitted-before.json'))).state;
+const answer=JSON.parse(fs.readFileSync(path.join(dir,'map-audit.json'))).examples['intermediate-omitted'].answer;
+const state=p=>p.evaluate('JSON.parse(JSON.stringify(G_STATE))');
+(async()=>{
+ const live=!!process.env.AGC_URL,browser=await pw.launch({executablePath:await chromium.executablePath(),args:chromium.args,headless:true,...(live&&process.env.HTTPS_PROXY?{proxy:{server:process.env.HTTPS_PROXY}}:{})});
+ const pg=await browser.newPage({viewport:{width:390,height:900},ignoreHTTPSErrors:live}),errors=[];pg.on('pageerror',e=>errors.push(e.message));pg.setDefaultTimeout(10000);
+ const url=process.env.AGC_URL||'file://'+path.join(root,'dist/index.html');await pg.goto(url);
+ assert((await pg.locator('.setup').textContent()).includes('Physical Event deck required'));
+ await pg.locator('.setup input[type=number]').fill('977001');await pg.getByRole('button',{name:'Start campaign',exact:true}).click();assert((await state(pg)).options.physicalEvents);
+ await pg.locator('#hdr').getByRole('button',{name:'Load',exact:true}).click();const fixture=JSON.parse(JSON.stringify(before));fixture.deck.event=[30,1,2];
+ await pg.locator('#modal textarea').fill(JSON.stringify({state:fixture,undo:[]}));await pg.getByRole('button',{name:'Load pasted text',exact:true}).click();
+ await drive(pg,await state(pg),answer);assert.equal((await state(pg)).prompt.kind,'event');
+ const initial=await state(pg);await pg.getByLabel('Event card number',{exact:true}).fill('39');assert(await pg.getByRole('button',{name:'Use Event card',exact:true}).isDisabled());assert.deepEqual(await state(pg),initial);
+ await pg.getByLabel('Event card number',{exact:true}).fill('30');await pg.getByRole('button',{name:'Use Event card',exact:true}).click();const redraw=await state(pg);assert.equal(redraw.prompt.kind,'event');assert(redraw.prompt.text.includes('Discard Event #30'));
+ assert.equal(await pg.getByLabel('Event card number',{exact:true}).inputValue(),'');
+ await pg.locator('#proc').screenshot({path:path.join(out,live?'live-event-redraw.png':'event-redraw-390.png')});
+ await pg.reload();await pg.getByRole('button',{name:'Continue it',exact:true}).click();assert.deepEqual(await state(pg),redraw);
+ const rng=redraw.rng;await pg.getByLabel('Event card number',{exact:true}).fill('1');assert.equal((await state(pg)).rng,rng);await pg.getByLabel('Event card number',{exact:true}).press('Enter');
+ const after=await state(pg);assert.equal(after.eventsDrawn.at(-1).id,1);
+ await pg.locator('#hdr').getByRole('button',{name:'↶ Undo',exact:true}).click();assert.deepEqual(await state(pg),redraw);assert((await pg.locator('#proc').textContent()).includes('Return the Event card'));
+ await drive(pg,redraw,1);assert.deepEqual(await state(pg),after);
+ await pg.locator('#hdr').getByRole('button',{name:'Reference',exact:true}).click();await pg.locator('#modal label select').selectOption({label:'Offline app'});
+ const [download]=await Promise.all([pg.waitForEvent('download'),pg.getByRole('button',{name:'Download app (.html)',exact:true}).click()]);const bytes=fs.readFileSync(await download.path());assert(bytes.equals(fs.readFileSync(path.join(root,'dist/index.html'))));
+ await pg.keyboard.press('Escape');
+ const widths=[];for(const width of [320,390,1024,1440]){await pg.setViewportSize({width,height:900});await pg.evaluate('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');const overflow=await pg.evaluate('document.documentElement.scrollWidth>innerWidth');assert(!overflow);widths.push({width,overflow});}
+ assert.deepEqual(errors,[]);const report={url,browser:await browser.version(),physicalCardsRequired:true,invalidRejected:true,galeRedrawSaved:true,enterSubmits:true,undoAndReplay:true,widths,download:{bytes:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')},errors};
+ fs.writeFileSync(path.join(out,live?'live-focused.json':'focused.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));await browser.close();
+})().catch(e=>{console.error(e);process.exit(1);});

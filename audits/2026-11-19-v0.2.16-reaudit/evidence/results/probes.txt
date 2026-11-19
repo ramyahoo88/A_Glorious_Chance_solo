@@ -1,0 +1,91 @@
+{
+  "natural": {
+    "turn-B2event": {
+      "seed": 980000,
+      "side": "US",
+      "n": 7,
+      "purpose": "Encounter Check PE1",
+      "answer": 3
+    },
+    "encounter-eventEntered": {
+      "seed": 980000,
+      "side": "US",
+      "n": 13,
+      "purpose": "Encounter Kingston (Weather Gage + Lake Zone Event)",
+      "answer": 31
+    },
+    "coastal-raidEvent": {
+      "seed": 980000,
+      "side": "US",
+      "n": 21,
+      "purpose": "U.S. Raid on Kingston coastline",
+      "answer": 27
+    },
+    "coastal-asBattleEvent": {
+      "seed": 980000,
+      "side": "US",
+      "n": 51,
+      "purpose": "U.S. Land Battle (Niagara)",
+      "answer": 23
+    },
+    "combat-wgEvent": {
+      "seed": 980000,
+      "side": "US",
+      "n": 74,
+      "purpose": "Weather Gage recheck",
+      "answer": 28
+    },
+    "encounter-reactionEvent": {
+      "seed": 980000,
+      "side": "BR",
+      "n": 14,
+      "purpose": "Reaction Segment Weather Gage (South Lake)",
+      "answer": 15
+    },
+    "intelligence-return": {
+      "seed": 980001,
+      "side": "US",
+      "n": 112,
+      "answer": "ok",
+      "card": 29,
+      "text": "Intelligence (Event #29) has been used in this Encounter with the enemy Flagship – the card returns to the Event deck.",
+      "inDrawPile": false,
+      "held": false
+    }
+  },
+  "corruptions": [
+    {
+      "name": "coastal-raidEvent",
+      "accepted": true,
+      "continued": false,
+      "error": "Cannot read properties of undefined (reading 'id')"
+    },
+    {
+      "name": "encounter-reactionEvent",
+      "accepted": true,
+      "continued": false,
+      "error": "Cannot read properties of undefined (reading 'push')"
+    },
+    {
+      "name": "coastal-asBattleEvent",
+      "accepted": true,
+      "continued": false,
+      "error": "Cannot read properties of undefined (reading 'forces')"
+    }
+  ],
+  "sameSideIntelligenceReplacement": {
+    "seed": 980006,
+    "side": "US",
+    "n": 136,
+    "sd": "US",
+    "old": {
+      "card": 29,
+      "until": 6
+    },
+    "new": {
+      "card": 31,
+      "until": 7
+    },
+    "answer": 31
+  }
+}

@@ -1,0 +1,8 @@
+US 40 entries 8 A4 In Ordinary? (30-point limit)
+US 80 entries 19 Draw an Event card
+US 120 entries 27 Draw an Event card
+US 160 entries 38 Command Decision – the A.I. holds the Weather Gage
+BR 40 entries 14 A7 Assign your ships
+BR 80 entries 25 Draw an Event card
+BR 120 entries 34 A4 In Ordinary? (30-point limit)
+{"games":[{"side":"US","seed":979001,"style":"fleet","width":1440,"group":false,"actions":181,"entries":40,"reloads":6,"undos":5,"inspections":5,"result":{"score":0,"level":"Draw"},"errors":[]},{"side":"BR","seed":979002,"style":"coast","width":390,"group":true,"actions":139,"entries":40,"reloads":6,"undos":5,"inspections":5,"result":{"score":74,"level":"U.S. Decisive Victory"},"errors":[]}],"browser":"153.0.8010.0"}
