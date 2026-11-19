@@ -1,0 +1,28 @@
+{
+  "auditedCommit": "c8073ddd7d639b0f0c68b64f6d319a711c5c2bea",
+  "sourceFiles": {
+    "package.json": "0695ba5b400aa66f1149f671985b76c30dda58fac06294f254e3c26eee20e8c5",
+    "tools/files.json": "f45577a148d8ec90df4756b702b115a3fa09e356cf224ce35f8b14de007b7acb",
+    "tools/build.js": "6defa984297d32d0c59b25c9753af72878fb8eae4393eeb45a8fed6045acee40",
+    "dist/index.html": "e8ad1b71f9a30710de520dec11c640b064e53768b3f7d3d52b8cdaa99a650f4e",
+    "src/assign.js": "7a1d3a93d8ff514f8de33f2e9064af461207edb60268e7694ddb3f90d8b83014",
+    "src/data.js": "764489d789f5f420912ff941d6b25b1c3fd2c3ce1713eade94be47550b483931",
+    "src/data_aids.js": "1366e543b4a891fb7041b4442e0c3ca0af92b3ff65c556646def8f7578571823",
+    "src/data_targets.js": "d7d0389271e16ca410a840dede5cb0a9bbbe6ae1636c1cc6c75c3939793f64a2",
+    "src/engine_coastal.js": "33102a9a1ac320f794db7736db904573c8b38186e53c3c257a1526ba6dd04152",
+    "src/engine_combat.js": "564c6a8d0f83f313c59feed43f2bb485c480a6ee688196aba47f60c2d5807048",
+    "src/engine_core.js": "80d19e663aac3aeb518b9a799d7a0c7a6036b37c956a3a19d62a1b60f43ea3d9",
+    "src/engine_deploy.js": "36e38a0d716f18905bf0fbcca3432e1b3bb6f1ca555640bb45a8087b7fdd70c8",
+    "src/engine_encounter.js": "a84286bd8aa7473623342c76dfc450596eadc3bb3c3875d806a637379f7ce1cc",
+    "src/engine_tally.js": "c69bc7e3ad66c055577c91b3b1f5da7d18c02bd82ab46e596c121fc9de2984d4",
+    "src/engine_turn.js": "8afc1d1d9a2dd19eec35b013a4bd0d4104b41d6cc82dc38c1fe5f82cd652d6ec",
+    "src/main.js": "d93c2a7a229a5458f2a072a185d75fbbd83970be4dd5021fb0cc3b3939d79ff0",
+    "src/rng.js": "c6428685b5a7304b00cf1128e0987c7f8e597db2c8698ad0cf0fb19fef23d225",
+    "src/state.js": "6ddff3e82cf5b2947a3b9c878731b5b6cf906f9d5665b1f25b09ef2e8d55f39d",
+    "src/style.css": "91660f2897c3657492b584295b5523a3bfced12226c0060b94d3368731d240b2",
+    "src/ui.js": "61271207c6f53f0c194c5dfb2af485b5c21b31b318b63bac19b2f266f9bb9fb1",
+    "src/ui_map.js": "df7bf8f50590dfab825f0ac77ffc10c974a70ec072bdffdaeae098a1171f628e",
+    "src/ui_reference.js": "6e6918fe59b5c861093f43046dc515a3ea856bbf201948f367ba0f76cb29c700",
+    "src/ui_table.js": "bd2c4820ab258067b7af6aa89afc616681fa5a39c6ed41636cb830cf8ef0cc39"
+  }
+}

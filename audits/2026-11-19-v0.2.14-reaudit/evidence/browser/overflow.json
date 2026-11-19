@@ -1,0 +1,118 @@
+{
+  "width": 1024,
+  "scrollWidth": 1057,
+  "items": [
+    {
+      "tag": "DIV",
+      "id": "",
+      "cls": "",
+      "text": "British Convoy Supply 2 · Construction Delay 1-10123456789101112",
+      "rect": {
+        "x": 821.125,
+        "y": 1040.921875,
+        "width": 236,
+        "height": 45,
+        "top": 1040.921875,
+        "right": 1057.125,
+        "bottom": 1085.921875,
+        "left": 821.125
+      }
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "cls": "",
+      "text": "British Convoy Supply 2 · Construction Delay 1",
+      "rect": {
+        "x": 821.125,
+        "y": 1040.921875,
+        "width": 236,
+        "height": 30,
+        "top": 1040.921875,
+        "right": 1057.125,
+        "bottom": 1070.921875,
+        "left": 821.125
+      }
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "cls": "trk",
+      "text": "-10123456789101112",
+      "rect": {
+        "x": 821.125,
+        "y": 1070.921875,
+        "width": 236,
+        "height": 15,
+        "top": 1070.921875,
+        "right": 1057.125,
+        "bottom": 1085.921875,
+        "left": 821.125
+      }
+    },
+    {
+      "tag": "I",
+      "id": "",
+      "cls": " ",
+      "text": "11",
+      "rect": {
+        "x": 1025.125,
+        "y": 1070.921875,
+        "width": 15,
+        "height": 15,
+        "top": 1070.921875,
+        "right": 1040.125,
+        "bottom": 1085.921875,
+        "left": 1025.125
+      }
+    },
+    {
+      "tag": "I",
+      "id": "",
+      "cls": " ",
+      "text": "12",
+      "rect": {
+        "x": 1042.125,
+        "y": 1070.921875,
+        "width": 15,
+        "height": 15,
+        "top": 1070.921875,
+        "right": 1057.125,
+        "bottom": 1085.921875,
+        "left": 1042.125
+      }
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "cls": "",
+      "text": "Troops You: 0 available, on track at 3, 6. A.I.: 0 available, 0 unrevealed, 2 on track.",
+      "rect": {
+        "x": 821.125,
+        "y": 1091.921875,
+        "width": 236,
+        "height": 51,
+        "top": 1091.921875,
+        "right": 1057.125,
+        "bottom": 1142.921875,
+        "left": 821.125
+      }
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "cls": "",
+      "text": "Flagships U.S.: General Pike · Br.: Wolfe (B)",
+      "rect": {
+        "x": 821.125,
+        "y": 1148.921875,
+        "width": 236,
+        "height": 15,
+        "top": 1148.921875,
+        "right": 1057.125,
+        "bottom": 1163.921875,
+        "left": 821.125
+      }
+    }
+  ]
+}

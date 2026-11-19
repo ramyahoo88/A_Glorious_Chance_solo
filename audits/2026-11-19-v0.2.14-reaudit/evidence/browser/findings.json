@@ -1,0 +1,403 @@
+{
+  "browser": "153.0.8010.0",
+  "ports": [
+    {
+      "side": "US",
+      "countText": "⚓ Sacket's Harbor16 ships · 14 Deployable",
+      "shipButtons": 0,
+      "dialog": "CloseSacket's HarborDeployableConstruction"
+    },
+    {
+      "side": "BR",
+      "countText": "⚓ Kingston Harbour6 ships · 5 Deployable",
+      "shipButtons": 0,
+      "dialog": "CloseKingston HarbourDeployableConstruction"
+    }
+  ],
+  "omitted": {
+    "metadata": {
+      "human": "US",
+      "seed": 971000,
+      "style": "fleet",
+      "options": {
+        "groupUpdates": false,
+        "confirmAiSteps": false,
+        "cuttingOut": true
+      },
+      "step": 38,
+      "prompt": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      },
+      "missing": [
+        {
+          "id": "oneida",
+          "from": "HOME_US",
+          "to": "NIA",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "oneida",
+          "from": "NIA",
+          "to": "YOR",
+          "handler": "encounter.event"
+        }
+      ],
+      "actualMoves": [
+        {
+          "from": {
+            "place": "HOME_BR",
+            "label": "Kingston Harbour · Deployable",
+            "box": "deployable",
+            "owner": "BR",
+            "mission": ""
+          },
+          "to": {
+            "place": "NIA",
+            "label": "Niagara",
+            "box": "lake",
+            "owner": "BR",
+            "mission": "Patrol"
+          },
+          "side": "BR",
+          "mission": "Patrol",
+          "captured": false,
+          "ships": [
+            "wolfe",
+            "moira",
+            "sss",
+            "melville"
+          ]
+        },
+        {
+          "from": {
+            "place": "HOME_US",
+            "label": "Sacket's Harbor · Deployable",
+            "box": "deployable",
+            "owner": "US",
+            "mission": ""
+          },
+          "to": {
+            "place": "YOR",
+            "label": "York",
+            "box": "lake",
+            "owner": "US",
+            "mission": "Patrol"
+          },
+          "side": "US",
+          "mission": "Patrol",
+          "captured": false,
+          "ships": [
+            "oneida"
+          ]
+        },
+        {
+          "from": {
+            "place": "HOME_US",
+            "label": "Sacket's Harbor · Deployable",
+            "box": "deployable",
+            "owner": "US",
+            "mission": ""
+          },
+          "to": {
+            "place": "NIA",
+            "label": "Niagara",
+            "box": "lake",
+            "owner": "US",
+            "mission": "ArmySupport"
+          },
+          "side": "US",
+          "mission": "ArmySupport",
+          "captured": false,
+          "ships": [
+            "madison"
+          ]
+        },
+        {
+          "from": {
+            "place": "HOME_US",
+            "label": "Sacket's Harbor · Deployable",
+            "box": "deployable",
+            "owner": "US",
+            "mission": ""
+          },
+          "to": {
+            "place": "KIN",
+            "label": "Kingston",
+            "box": "lake",
+            "owner": "US",
+            "mission": "Patrol"
+          },
+          "side": "US",
+          "mission": "Patrol",
+          "captured": false,
+          "ships": [
+            "tompkins",
+            "fairam",
+            "conquest",
+            "asp",
+            "growler",
+            "hamilton",
+            "julia",
+            "lady",
+            "ontario",
+            "pert",
+            "raven",
+            "scourge"
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "id": "oneida",
+          "from": "HOME_US",
+          "to": "NIA",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "madison",
+          "from": "HOME_US",
+          "to": "NIA",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "tompkins",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "fairam",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "conquest",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "asp",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "growler",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "hamilton",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "julia",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "lady",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "ontario",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "pert",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "raven",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "scourge",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "wolfe",
+          "from": "HOME_BR",
+          "to": "NIA",
+          "handler": "aiDeploy.place"
+        },
+        {
+          "id": "moira",
+          "from": "HOME_BR",
+          "to": "NIA",
+          "handler": "aiDeploy.place"
+        },
+        {
+          "id": "sss",
+          "from": "HOME_BR",
+          "to": "NIA",
+          "handler": "aiDeploy.place"
+        },
+        {
+          "id": "melville",
+          "from": "HOME_BR",
+          "to": "NIA",
+          "handler": "aiDeploy.place"
+        },
+        {
+          "id": "oneida",
+          "from": "NIA",
+          "to": "YOR",
+          "handler": "encounter.event"
+        }
+      ]
+    },
+    "oneida": [
+      {
+        "from": {
+          "place": "HOME_US",
+          "label": "Sacket's Harbor · Deployable",
+          "box": "deployable",
+          "owner": "US",
+          "mission": ""
+        },
+        "to": {
+          "place": "YOR",
+          "label": "York",
+          "box": "lake",
+          "owner": "US",
+          "mission": "Patrol"
+        },
+        "side": "US",
+        "mission": "Patrol",
+        "captured": false,
+        "ships": [
+          "oneida"
+        ]
+      }
+    ],
+    "summary": "Last action · August II · A7 Assign your shipsBritish A.I.: Kingston Harbour · Deployable → Niagara · Patrol · Wolfe (B), Earl of Moira (B), Sir Sidney Smith, Lord MelvilleU.S. (you): Sacket's Harbor · Deployable → York · Patrol · OneidaU.S. (you): Sacket's Harbor · Deployable → Niagara · Army Support · MadisonU.S. (you): Sacket's Harbor · Deployable → Kingston · Patrol · Gov. Tompkins, Fair American, Conquest, Asp, Growler, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge",
+    "log": [
+      {
+        "turn": 5,
+        "phase": "prep",
+        "text": "A8: revealed AI Troops markers – 0 Troops, 2 dummy (discarded).",
+        "kind": "ai"
+      },
+      {
+        "turn": 5,
+        "phase": "prep",
+        "text": "AI Available Troops this turn: 2.",
+        "kind": "ai"
+      },
+      {
+        "turn": 5,
+        "phase": "prep",
+        "text": "Drew 6 Target Cards. Row backs (left→right): Kingston · Sacket's · Niagara · York · North Lake · York.",
+        "kind": "ai"
+      },
+      {
+        "turn": 5,
+        "phase": "lake",
+        "text": "B1: Possible Encounters – PE1 Kingston (card 1), PE2 Niagara (card 3).",
+        "kind": "ai"
+      },
+      {
+        "turn": 5,
+        "phase": "lake",
+        "text": "PE1 Kingston: Event #4 shows the spyglass – ENCOUNTER 1! Target Card A7 revealed.",
+        "kind": "event"
+      },
+      {
+        "turn": 5,
+        "phase": "lake",
+        "text": "Target Card A7: Kingston – Patrol. Deployment table: Troops 2 row × Naval Balance “≥60” column → blank. No AI Deployment.",
+        "kind": "ai"
+      },
+      {
+        "turn": 5,
+        "phase": "lake",
+        "text": "PE2 Niagara: Event #10 shows the spyglass – ENCOUNTER 2! Target Card A19 revealed.",
+        "kind": "event"
+      },
+      {
+        "turn": 5,
+        "phase": "lake",
+        "text": "Upgrade Checks [7.1]: Earl of Moira: roll 2 – “B” version!.",
+        "kind": "ai"
+      },
+      {
+        "turn": 5,
+        "phase": "lake",
+        "text": "Target Card A19: Niagara – Patrol. Deployment table: Troops 2 row × Naval Balance “≥60” column → ship icon. AI Deploys to Niagara with a Patrol mission: • Wolfe (B) • Earl of Moira (B) • Sir Sidney Smith • Lord Melville",
+        "kind": "ai"
+      },
+      {
+        "turn": 5,
+        "phase": "lake",
+        "text": "Lake Zone Event in Niagara: #11 Separated Ships (U.S.).",
+        "kind": "event"
+      },
+      {
+        "turn": 5,
+        "phase": "lake",
+        "text": "Oneida is displaced to York as a new Patrol Force.",
+        "kind": "event"
+      },
+      {
+        "turn": 5,
+        "phase": "lake",
+        "text": "Weather Gage: American.",
+        "kind": "event"
+      }
+    ]
+  },
+  "q01": {
+    "zoneTitle": "York",
+    "closedToBoard": true
+  },
+  "privacy": true,
+  "errors": []
+}

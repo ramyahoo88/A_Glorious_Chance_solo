@@ -1,0 +1,37 @@
+{
+  "games": [
+    {
+      "seed": 973001,
+      "side": "US",
+      "style": "fleet",
+      "width": 1440,
+      "group": false,
+      "steps": 110,
+      "roundTrips": 2,
+      "undos": 3,
+      "inspections": 5,
+      "result": {
+        "score": -22,
+        "level": "British Victory"
+      },
+      "errors": []
+    },
+    {
+      "seed": 973002,
+      "side": "BR",
+      "style": "coast",
+      "width": 390,
+      "group": true,
+      "steps": 97,
+      "roundTrips": 2,
+      "undos": 3,
+      "inspections": 5,
+      "result": {
+        "score": 15,
+        "level": "U.S. Marginal Victory"
+      },
+      "errors": []
+    }
+  ],
+  "browser": "153.0.8010.0"
+}

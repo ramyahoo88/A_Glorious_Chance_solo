@@ -1,0 +1,33 @@
+{
+  "aidVI": {
+    "columns": 18,
+    "rolls": 648,
+    "automaticSingleShip": 36,
+    "mismatches": []
+  },
+  "pkg8": [
+    {
+      "rng": 1,
+      "ok": false,
+      "why": "the remaining ships total only 20 Long Gun points (2nd Force needs 22)"
+    },
+    {
+      "rng": 7,
+      "first": [
+        "oneida",
+        "madison"
+      ],
+      "second": [
+        "tompkins",
+        "fairam",
+        "conquest",
+        "sylph",
+        "growler",
+        "hamilton",
+        "julia",
+        "ontario"
+      ],
+      "ok": true
+    }
+  ]
+}

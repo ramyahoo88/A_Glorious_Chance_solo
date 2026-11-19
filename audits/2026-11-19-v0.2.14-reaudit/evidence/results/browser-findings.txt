@@ -1,0 +1,1 @@
+{"ports":[{"side":"US","countText":"⚓ Sacket's Harbor16 ships · 14 Deployable","shipButtons":0,"dialog":"CloseSacket's HarborDeployableConstruction"},{"side":"BR","countText":"⚓ Kingston Harbour6 ships · 5 Deployable","shipButtons":0,"dialog":"CloseKingston HarbourDeployableConstruction"}],"omissionReproducedThroughControls":true,"privacy":true,"closedToBoard":true,"errors":[]}

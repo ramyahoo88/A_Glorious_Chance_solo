@@ -1,0 +1,689 @@
+{
+  "browser": "153.0.8010.0",
+  "cases": 70,
+  "errors": [],
+  "problems": [
+    {
+      "name": "crowded",
+      "width": 1440,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 1440,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 1024,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 1024,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 768,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 768,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 412,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 412,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 390,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 390,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 360,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 360,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 320,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "crowded",
+      "width": 320,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "YOR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 1440,
+      "scope": "board",
+      "badges": [
+        [
+          "2",
+          "3",
+          164
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 1440,
+      "scope": "dialog",
+      "badges": [
+        [
+          "2",
+          "3",
+          161
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 1024,
+      "scope": "board",
+      "badges": [
+        [
+          "2",
+          "3",
+          263
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 1024,
+      "scope": "dialog",
+      "badges": [
+        [
+          "2",
+          "3",
+          161
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 768,
+      "scope": "board",
+      "badges": [
+        [
+          "2",
+          "3",
+          199
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 768,
+      "scope": "dialog",
+      "badges": [
+        [
+          "2",
+          "3",
+          208
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 412,
+      "scope": "board",
+      "badges": [
+        [
+          "2",
+          "3",
+          267
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 412,
+      "scope": "dialog",
+      "badges": [
+        [
+          "2",
+          "3",
+          273
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 390,
+      "scope": "board",
+      "badges": [
+        [
+          "2",
+          "3",
+          272
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 390,
+      "scope": "dialog",
+      "badges": [
+        [
+          "2",
+          "3",
+          277
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 360,
+      "scope": "board",
+      "badges": [
+        [
+          "2",
+          "3",
+          278
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 360,
+      "scope": "dialog",
+      "badges": [
+        [
+          "2",
+          "3",
+          283
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 320,
+      "scope": "board",
+      "badges": [
+        [
+          "2",
+          "3",
+          287
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "shared-routes-after",
+      "width": 320,
+      "scope": "dialog",
+      "badges": [
+        [
+          "2",
+          "3",
+          291
+        ]
+      ],
+      "nodes": [],
+      "hiddenHeads": []
+    },
+    {
+      "name": "withdrawal-after",
+      "width": 412,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "HOME_BR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "withdrawal-after",
+      "width": 390,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "HOME_BR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "withdrawal-after",
+      "width": 390,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "HOME_BR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "withdrawal-after",
+      "width": 360,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "HOME_BR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "withdrawal-after",
+      "width": 360,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "HOME_BR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "withdrawal-after",
+      "width": 320,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "HOME_BR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "withdrawal-after",
+      "width": 320,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "HOME_BR"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "intermediate-omitted-after",
+      "width": 1024,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "4",
+          [
+            "KIN"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "intermediate-omitted-after",
+      "width": 768,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "4",
+          [
+            "KIN"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "intermediate-omitted-after",
+      "width": 768,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "4",
+          [
+            "KIN"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "home-to-sackets-after",
+      "width": 1024,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "SAC"
+          ]
+        ],
+        [
+          "3",
+          [
+            "SAC"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "home-to-sackets-after",
+      "width": 768,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "SAC"
+          ]
+        ],
+        [
+          "3",
+          [
+            "SAC"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "home-to-sackets-after",
+      "width": 768,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "SAC"
+          ]
+        ],
+        [
+          "3",
+          [
+            "SAC"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "home-to-sackets-after",
+      "width": 360,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "SAC"
+          ]
+        ],
+        [
+          "3",
+          [
+            "SAC"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "home-to-sackets-after",
+      "width": 320,
+      "scope": "board",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "SAC"
+          ]
+        ],
+        [
+          "3",
+          [
+            "SAC"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "home-to-sackets-after",
+      "width": 320,
+      "scope": "dialog",
+      "badges": [],
+      "nodes": [],
+      "hiddenHeads": [
+        [
+          "1",
+          [
+            "SAC"
+          ]
+        ],
+        [
+          "3",
+          [
+            "SAC"
+          ]
+        ]
+      ]
+    }
+  ]
+}

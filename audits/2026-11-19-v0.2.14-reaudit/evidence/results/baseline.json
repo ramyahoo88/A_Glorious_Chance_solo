@@ -1,0 +1,13 @@
+{
+  "command": "npm test",
+  "exitCode": 0,
+  "engineAssertions": 861,
+  "smokeCampaigns": 200,
+  "failures": 0,
+  "buildCommand": "node tools/build.js",
+  "buildMatchesOriginal": true,
+  "uiCommand": "NODE_PATH=/tmp/agc-audit-runtime/node_modules npm run test:ui",
+  "uiSuites": 10,
+  "uiExitCode": 0,
+  "newMapAssertions": 63
+}

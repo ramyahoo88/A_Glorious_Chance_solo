@@ -1,0 +1,423 @@
+{
+  "games": 128,
+  "actions": 12381,
+  "saveChecks": 892,
+  "moves": 9708,
+  "intermediateOmissions": 28,
+  "crowdedPositions": 0,
+  "examples": {
+    "shared-routes": {
+      "human": "US",
+      "seed": 971000,
+      "style": "fleet",
+      "options": {
+        "groupUpdates": false,
+        "confirmAiSteps": false,
+        "cuttingOut": true
+      },
+      "step": 3,
+      "prompt": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Escort",
+            "zone": "SAC",
+            "ships": [
+              "scourge"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      },
+      "pairs": {
+        "HOME_US-NIA": 1,
+        "HOME_US-SAC": 2
+      }
+    },
+    "home-to-sackets": {
+      "human": "US",
+      "seed": 971000,
+      "style": "fleet",
+      "options": {
+        "groupUpdates": false,
+        "confirmAiSteps": false,
+        "cuttingOut": true
+      },
+      "step": 24,
+      "prompt": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Escort",
+            "zone": "SAC",
+            "ships": [
+              "pike"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    "withdrawal": {
+      "human": "US",
+      "seed": 971000,
+      "style": "fleet",
+      "options": {
+        "groupUpdates": false,
+        "confirmAiSteps": false,
+        "cuttingOut": true
+      },
+      "step": 29,
+      "prompt": "Tactics",
+      "answer": "ok"
+    },
+    "intermediate-omitted": {
+      "human": "US",
+      "seed": 971000,
+      "style": "fleet",
+      "options": {
+        "groupUpdates": false,
+        "confirmAiSteps": false,
+        "cuttingOut": true
+      },
+      "step": 38,
+      "prompt": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      },
+      "missing": [
+        {
+          "id": "oneida",
+          "from": "HOME_US",
+          "to": "NIA",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "oneida",
+          "from": "NIA",
+          "to": "YOR",
+          "handler": "encounter.event"
+        }
+      ],
+      "actualMoves": [
+        {
+          "from": {
+            "place": "HOME_BR",
+            "label": "Kingston Harbour · Deployable",
+            "box": "deployable",
+            "owner": "BR",
+            "mission": ""
+          },
+          "to": {
+            "place": "NIA",
+            "label": "Niagara",
+            "box": "lake",
+            "owner": "BR",
+            "mission": "Patrol"
+          },
+          "side": "BR",
+          "mission": "Patrol",
+          "captured": false,
+          "ships": [
+            "wolfe",
+            "moira",
+            "sss",
+            "melville"
+          ]
+        },
+        {
+          "from": {
+            "place": "HOME_US",
+            "label": "Sacket's Harbor · Deployable",
+            "box": "deployable",
+            "owner": "US",
+            "mission": ""
+          },
+          "to": {
+            "place": "YOR",
+            "label": "York",
+            "box": "lake",
+            "owner": "US",
+            "mission": "Patrol"
+          },
+          "side": "US",
+          "mission": "Patrol",
+          "captured": false,
+          "ships": [
+            "oneida"
+          ]
+        },
+        {
+          "from": {
+            "place": "HOME_US",
+            "label": "Sacket's Harbor · Deployable",
+            "box": "deployable",
+            "owner": "US",
+            "mission": ""
+          },
+          "to": {
+            "place": "NIA",
+            "label": "Niagara",
+            "box": "lake",
+            "owner": "US",
+            "mission": "ArmySupport"
+          },
+          "side": "US",
+          "mission": "ArmySupport",
+          "captured": false,
+          "ships": [
+            "madison"
+          ]
+        },
+        {
+          "from": {
+            "place": "HOME_US",
+            "label": "Sacket's Harbor · Deployable",
+            "box": "deployable",
+            "owner": "US",
+            "mission": ""
+          },
+          "to": {
+            "place": "KIN",
+            "label": "Kingston",
+            "box": "lake",
+            "owner": "US",
+            "mission": "Patrol"
+          },
+          "side": "US",
+          "mission": "Patrol",
+          "captured": false,
+          "ships": [
+            "tompkins",
+            "fairam",
+            "conquest",
+            "asp",
+            "growler",
+            "hamilton",
+            "julia",
+            "lady",
+            "ontario",
+            "pert",
+            "raven",
+            "scourge"
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "id": "oneida",
+          "from": "HOME_US",
+          "to": "NIA",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "madison",
+          "from": "HOME_US",
+          "to": "NIA",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "tompkins",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "fairam",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "conquest",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "asp",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "growler",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "hamilton",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "julia",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "lady",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "ontario",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "pert",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "raven",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "scourge",
+          "from": "HOME_US",
+          "to": "KIN",
+          "handler": "turn.A7b"
+        },
+        {
+          "id": "wolfe",
+          "from": "HOME_BR",
+          "to": "NIA",
+          "handler": "aiDeploy.place"
+        },
+        {
+          "id": "moira",
+          "from": "HOME_BR",
+          "to": "NIA",
+          "handler": "aiDeploy.place"
+        },
+        {
+          "id": "sss",
+          "from": "HOME_BR",
+          "to": "NIA",
+          "handler": "aiDeploy.place"
+        },
+        {
+          "id": "melville",
+          "from": "HOME_BR",
+          "to": "NIA",
+          "handler": "aiDeploy.place"
+        },
+        {
+          "id": "oneida",
+          "from": "NIA",
+          "to": "YOR",
+          "handler": "encounter.event"
+        }
+      ]
+    }
+  },
+  "modes": {
+    "0": 32,
+    "1": 32,
+    "2": 32,
+    "3": 32
+  },
+  "crowdedPosition": {
+    "human": "BR",
+    "seed": 971012,
+    "style": "fleet",
+    "options": {
+      "groupUpdates": false,
+      "confirmAiSteps": false,
+      "cuttingOut": true
+    },
+    "step": 59,
+    "prompt": "AI Deployment",
+    "answer": "ok",
+    "crowd": 28
+  },
+  "passedGameplayEquivalence": true
+}

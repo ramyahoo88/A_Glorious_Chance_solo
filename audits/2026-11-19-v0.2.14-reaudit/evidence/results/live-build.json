@@ -1,0 +1,13 @@
+{
+  "url": "https://ramyahoo88.github.io/A_Glorious_Chance_solo/",
+  "status": 200,
+  "bytes": 394415,
+  "sha256": "e8ad1b71f9a30710de520dec11c640b064e53768b3f7d3d52b8cdaa99a650f4e",
+  "matchesRelease": true,
+  "independentAssembly": {
+    "independentRebuildMatches": true,
+    "version": "0.2.14",
+    "bytes": 394415,
+    "sha256": "e8ad1b71f9a30710de520dec11c640b064e53768b3f7d3d52b8cdaa99a650f4e"
+  }
+}
