@@ -487,10 +487,12 @@ function resolveEncounterEnd(s) {
 }
 // Capture or Rescue of every ship that Struck Colors in the Encounter that is ending [LC5.3].
 // pursued: the side whose DW withdrawal Pursuit cancelled – it counts as having withdrawn (project ruling).
-function settleStruck(s, lines, pursued, only) {
+// atBoundary: settle from the sides' status at the Pursuit boundary (an older save repaired later), where only
+// the pursued side had withdrawn – later casualties in the new Encounter must not change the result.
+function settleStruck(s, lines, pursued, only, atBoundary) {
   const e = s.encounter;
   const gone = side => !encIds(s, side, ['in', 'dis']).length;
-  const out = side => gone(side) || e.withdrawn[side] || side === pursued;
+  const out = atBoundary ? (side => side === pursued) : (side => gone(side) || e.withdrawn[side] || side === pursued);
   const struck = Object.keys(e.ships).filter(id => e.ships[id] === 'struck' && (!only || only.indexOf(id) >= 0));
   struck.forEach(id => {
     const own = e.side[id], other = OTHER[own];

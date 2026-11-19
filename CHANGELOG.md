@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.7 – 2026-11-18
+Save-upgrade fixes from the audit of 0.2.6 (RULES_NOTES 72).
+* Reloading or undoing in a current game can no longer settle a surrender from the current Encounter early: saves now carry a build stamp and are never upgraded, and older saves need affirmative evidence (a Strike Check logged before the Pursuit) before a surrender is treated as old.
+* An old Pursuit surrender is settled from the sides at the Pursuit boundary, so a later casualty cannot change who gets the ship.
+* An old save whose A.I. already used the early-returned Troops – including a deployment being picked at that moment, or a turn already at Tally – is left as saved with a notice to load a save from before the withdrawal.
+* 12 new regression checks, using the auditor's positions as fixtures.
+
 ## 0.2.6 – 2026-11-18
 Save upgrades from the audit of 0.2.5 (RULES_NOTES 71).
 * A save made by 0.2.4 after an A.I. withdrawal had put its Troops back in Available too early now moves them to the F7 queue on loading; if the A.I. already sailed with them, the app says so and asks for an earlier save.

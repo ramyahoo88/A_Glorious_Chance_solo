@@ -480,7 +480,8 @@ function v024abort(s, fr) { if (!fr) return; if (fr.troops) { if (fr.side === s.
   log(s, SIDE_SHORT[fr.side] + ' Coastal mission aborted – ' + fr.troops + ' Troops marker(s) remain available for future use.', 'info'); fr.troops = 0; } fr.aborted = true; }
 function asV024(fn) { abortCoastalMission = v024abort; settleStruck = function (s, lines, pursued, only) { if (pursued === undefined || only) return v025settle(s, lines, pursued, only); };
   try { fn(); } finally { abortCoastalMission = v025abort; settleStruck = v025settle; } }
-function legacyL01() { const s = markerBoard(); asV024(() => act(s, 'ok')); return JSON.parse(JSON.stringify(s)); }
+function asSaved024(s) { const c = JSON.parse(JSON.stringify(s)); delete c.build; return c; }   // v0.2.4 wrote no build stamp
+function legacyL01() { const s = markerBoard(); asV024(() => act(s, 'ok')); return asSaved024(s); }
 `);
 X(`var l01 = legacyL01(); var l01raw = [aiTroopsInBox(l01), l01.troopsReturning.US];
    var up = checkSaveState(JSON.parse(JSON.stringify(l01))); var l01notes = (UI.loadNotes || []).slice(); var l01up = [aiTroopsInBox(up), up.troopsReturning.US];
@@ -493,7 +494,7 @@ ok('L01 … and says so', X(`l01notes.length === 1 && /return at F7/.test(l01not
 eq('L01 … so B20 deploys nothing: no Kingston landing, supply 1, score 0', X('l01play'), [false, 1, 0]);
 eq('L01 loading the upgraded save again changes nothing', X('[aiTroopsInBox(again), again.troopsReturning.US, (UI.loadNotes || []).length]'), [0, 1, 0]);
 X(`var sail = legacyL01(); delete sail.migrated; playUntil(sail, q => q.log.some(l => /AI Deploys to .*Carrying/.test(l.text)));
-   var sailed = sail.log.some(l => /AI Deploys to .*Carrying/.test(l.text)); var b0 = JSON.stringify([sail.aiTroops, sail.troopsReturning, sail.forces]);
+   var sailed = sail.log.some(l => /AI Deploys to .*Carrying/.test(l.text)); sail = asSaved024(sail); var b0 = JSON.stringify([sail.aiTroops, sail.troopsReturning, sail.forces]);
    var sup = checkSaveState(JSON.parse(JSON.stringify(sail))); var sailNotes = (UI.loadNotes || []).slice();`);
 ok('L01 control: once the A.I. has sailed with the marker, the load only warns', X(`sailed && sailNotes.length === 1 && /load a save from before the withdrawal/.test(sailNotes[0]) && JSON.stringify([sup.aiTroops, sup.troopsReturning, sup.forces]) === b0`), X('sailNotes.join(" | ")'));
 X(`var pre = markerBoard(); var preUp = checkSaveState(JSON.parse(JSON.stringify(pre)));`);
@@ -507,7 +508,7 @@ function w02Board() {
   waitAt(s, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(s); s.calls.unshift({ proc: 'turn', pc: 'B2done', A: {}, L: { pe: 1 } });
   s.pe = [{ num: 1, idx: 0, zone: 'NOR', forceId: s.encounter.humanForce, status: 'encounter' }]; s.encounter.peNum = 1; s.rng = 15; return s;
 }
-var l02 = w02Board(); asV024(() => { act(l02, 'ok'); act(l02, 'ok'); }); l02 = JSON.parse(JSON.stringify(l02));
+var l02 = w02Board(); asV024(() => { act(l02, 'ok'); act(l02, 'ok'); }); l02 = asSaved024(l02);
 `);
 eq('L02 the recreated v0.2.4 save still holds Beresford Struck in the new Encounter', X('[l02.encounter.ships.beres, l02.ships.beres.owner]'), ['struck', 'BR']);
 X(`var outs = ['pass', 'attack'].map(order => { const b = checkSaveState(JSON.parse(JSON.stringify(l02))); const n0 = (UI.loadNotes || []).slice(); let n = 0;
@@ -522,6 +523,42 @@ eq('L02 control: a v0.2.5 save after Pursuit is left alone', X('[(UI.loadNotes |
 X(`var nw = JSON.parse(JSON.stringify(l02)); nw.encounter.ships.moira = 'struck'; nw.log.push({ turn: nw.turn, phase: nw.phase, text: 'Earl of Moira (A) Strike Check 5 – STRIKES COLORS.', kind: 'combat' });
    var nwUp = checkSaveState(nw);`);
 eq('L02 control: a ship that struck in the new Encounter stays undecided', X('[nwUp.encounter.ships.moira, nwUp.encounter.ships.beres]'), ['struck', 'done']);
+
+// ===== v0.2.7: audit of v0.2.6 (F01–F04) – positions from the auditor's evidence (tests/fixtures/audit-v0.2.6) =====
+const fx = name => JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'audit-v0.2.6', name), 'utf8')).state);
+const loadFx = name => X(`(function(){ var raw = ${fx(name)}; var s = checkSaveState(JSON.parse(JSON.stringify(raw))); return { notes: (UI.loadNotes || []).slice(),
+  same: (function(){ var a = JSON.parse(JSON.stringify(s)), b = JSON.parse(JSON.stringify(raw)); [a, b].forEach(o => { delete o.build; delete o.migrated; if (o.encounter && o.encounter.flagIn && !Object.keys(o.encounter.flagIn).length) delete o.encounter.flagIn; }); return JSON.stringify(a) === JSON.stringify(b); })(),
+  enc: s.encounter ? s.encounter.ships : null, owner: id => s.ships[id].owner, box: aiTroopsInBox(s), due: (s.troopsReturning || {})[s.ai] || 0, ships: s.ships }; })()`);
+// F01 – a surrender in the current Encounter of a v0.2.6 game is never treated as an older one
+for (const [file, id, own] of [['F01_fresh_pending_withdrawal.json', 'wolfe', 'BR'], ['F01_fresh_pending_flag_transfer.json', 'growler', 'US']]) {
+  const r = loadFx(file);
+  eq(`F01 ${file}: ${id} stays pending with his own side, nothing changed, no notice`, [r.enc[id], r.ships[id].owner, r.same, r.notes.length], ['struck', own, true, 0]);
+}
+X(`var cur = newGame('BR', 191347); run(cur); act(cur, cur.prompt.kind === 'info' ? 'ok' : (cur.prompt.options ? cur.prompt.options[0].id : 'ok'));`);
+eq('F01 saves written by this version carry the build stamp', X('cur.build'), X('APP_VERSION'));
+X(`var stamped = JSON.parse(JSON.stringify(l02)); stamped.build = APP_VERSION; var stUp = checkSaveState(stamped);`);
+eq('F01 … and a stamped save is never upgraded (even with an old-looking surrender)', X('[stUp.encounter.ships.beres, (UI.loadNotes || []).length]'), ['struck', 0]);
+// F02 – an old Pursuit surrender is settled from the sides at the Pursuit boundary, whatever happened next
+{
+  const a = loadFx('F02_just_after_Asp_pursuit.json'), b = loadFx('F02_after_Melville_sinks.json');
+  eq('F02 save just after the Pursuit: Asp captured by the British', [a.enc.asp, a.ships.asp.owner], ['done', 'BR']);
+  eq('F02 save after Lord Melville sinks: the same – Asp captured by the British', [b.enc.asp, b.ships.asp.owner], ['done', 'BR']);
+  eq('F02 … while Julia, who struck in the new Encounter, stays pending', b.enc.julia, 'struck');
+}
+// F03 – a deployment already being picked with the inflated Troops row cannot be rebuilt: warn, leave the save as it is
+{
+  const r = loadFx('E01_old_B35_at_package_picker.json');
+  ok('F03 B35 picker save: warns and points to a save from before the withdrawal', r.notes.length === 1 && /load a save from before the withdrawal/.test(r.notes[0]), r.notes.join(' | '));
+  eq('F03 … and changes nothing (markers, deployment, dice)', [r.same, r.box, r.due], [true, 2, 0]);
+}
+// F04 – the warning also appears when the old save is opened at Tally
+{
+  const r = loadFx('E02_old_after_Kingston_Tally.json');
+  ok('F04 Tally save after the illegal Kingston landing: warns', r.notes.length === 1 && /Tally has scored/.test(r.notes[0]), r.notes.join(' | '));
+  eq('F04 … and keeps the scored turn as saved', r.same, true);
+  const q = loadFx('L01_old_already_sailed.json');
+  ok('F04 control: the already-sailed save still warns', q.notes.length === 1 && q.same, q.notes.join(' | '));
+}
 
 console.log(`regression tests: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

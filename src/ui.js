@@ -65,11 +65,11 @@ function checkSaveState(st) {
   const missing = core.filter(k => !(k in st));
   if (missing.length) bad('missing ' + missing.join(', '));
   if (st.ai !== OTHER[st.human]) bad('A.I. side');
-  Object.keys(fresh).forEach(k => { if (!(k in st)) st[k] = JSON.parse(JSON.stringify(fresh[k])); });
+  Object.keys(fresh).forEach(k => { if (!(k in st) && k !== 'build') st[k] = JSON.parse(JSON.stringify(fresh[k])); });   // build: only the save's own
   if (st.options && typeof st.options === 'object' && !Array.isArray(st.options)) st.options = Object.assign(defaultOptions(), st.options);
   Object.keys(fresh).forEach(k => {
     const a = fresh[k], b = st[k];
-    if (a === null) return;
+    if (a === null || (k === 'build' && b === undefined)) return;
     if (b === null || Array.isArray(a) !== Array.isArray(b) || typeof a !== typeof b) bad(`field “${k}”`);
     if (typeof a === 'number' && !Number.isFinite(b)) bad(`field “${k}”`);
   });
@@ -113,7 +113,9 @@ function checkSaveState(st) {
     }
   }
   UI.loadNotes = [];
-  return upgradeLegacy(st, UI.loadNotes);
+  upgradeLegacy(st, UI.loadNotes);
+  st.build = APP_VERSION;   // checked and upgraded once: later loads of this game leave it alone
+  return st;
 }
 // Replace the current game with a checked save; if it cannot be shown, put the old game back.
 function commitLoaded(st, undo) {

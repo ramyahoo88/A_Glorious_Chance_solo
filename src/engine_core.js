@@ -38,6 +38,7 @@ function run(s) {
 
 function act(s, answer) {
   if (!s.prompt) throw new Error('No prompt pending');
+  s.build = APP_VERSION;   // marks saves written by the corrected procedures (see upgradeLegacy)
   const err = validateAnswer(s, s.prompt, answer);
   if (err) throw new Error(err);
   const f = topFrame(s);

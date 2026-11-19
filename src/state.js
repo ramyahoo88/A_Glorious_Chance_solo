@@ -1,7 +1,7 @@
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.6';
+const APP_VERSION = '0.2.7';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -27,7 +27,7 @@ function newShip(base, ver, owner, box) {
 function newGame(human, seed, options) {
   const ai = OTHER[human];
   const s = {
-    app: APP_VERSION, human, ai, rng: (seed >>> 0) || 1, seed: (seed >>> 0) || 1,
+    app: APP_VERSION, build: APP_VERSION, human, ai, rng: (seed >>> 0) || 1, seed: (seed >>> 0) || 1,
     options: Object.assign(defaultOptions(), options || {}),
     turn: 0, phase: 'setup', stepLabel: 'Setup', over: false, result: null,
     ships: {}, forces: {}, nextForce: 1,
