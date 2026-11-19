@@ -7,7 +7,7 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.14, `dist/index.html`, 393,345 bytes, SHA-256 `db68717460b572426639d7a656d3f206eb8f2d459f59c3cc3d4b312fdf40e8d9`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
+**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.14, `dist/index.html`, 394,415 bytes, SHA-256 `e8ad1b71f9a30710de520dec11c640b064e53768b3f7d3d52b8cdaa99a650f4e`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
 
 **Campaign map.** v0.2.14 shows public fleets and missions on Lake Ontario, with numbered movement arrows and a **Show last action** report. Open **Map** from the toolbar at any point, or tap a fleet or port to inspect its ships. [Map verification](audits/2026-11-19-v0.2.14/).
 

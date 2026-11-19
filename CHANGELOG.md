@@ -6,7 +6,7 @@
 * Draw numbered movement arrows for the latest action and highlight its origin and destination. **Show last action** opens the map with ship names, missions and the written board-change report. Grouped updates retain intermediate moves.
 * Add **Map** to the campaign toolbar. Keep the full zone lists under **All zone details**, and keep the written turn instructions beside the map.
 * Save the movement report with the campaign so reload and Undo restore it. Older saves start recording from their next action. Hidden cards, future orders and unrevealed markers do not enter the map.
-* Add 59 map/control assertions and compare 48 complete campaigns against direct engine play, including 497 save round trips; all game state, log, dice and results match.
+* Add 63 map/control assertions and compare 48 complete campaigns against direct engine play, including 497 save round trips; all game state, log, dice and results match.
 
 ## 0.2.13 – 2026-11-19
 

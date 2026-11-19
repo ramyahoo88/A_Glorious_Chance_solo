@@ -11,9 +11,9 @@
 ## Verification
 
 * `npm test`: 861 existing assertions and 200 complete smoke campaigns passed.
-* `npm run test:ui`: all ten DOM/control suites passed, including **59 new map assertions**. Covers natural A.I. deployment, withdrawal to port, capture and zone movement; route endpoints, numbered arrows, ship counts and missions; inspection without changing position/dice/draft/history/storage; hidden-information independence; old saves; exact movement reports after reload and Undo.
+* `npm run test:ui`: all ten DOM/control suites passed, including **63 new map assertions**. Covers natural A.I. deployment, withdrawal to port, capture and zone movement; route endpoints, numbered arrows, ship counts and missions; inspection without changing position/dice/draft/history/storage; hidden-information independence; old saves; exact movement reports after reload and Undo.
 * **48 complete campaigns**, seeds 969000–969023 on both sides, four purposeful policies and both report paces: 5,226 decisions, 3,582 recorded transition groups, 1,231 grouped notices and 497 save round trips. After every action, complete gameplay state, hidden decks, RNG, log and final result match direct engine play. Only the presentation report is excluded from this comparison. This is a compatibility check, not a new balance estimate.
-* Independent Python assembly reproduces `dist/index.html` exactly: **393,345 bytes**, SHA-256 **`db68717460b572426639d7a656d3f206eb8f2d459f59c3cc3d4b312fdf40e8d9`**.
+* Independent Python assembly reproduces `dist/index.html` exactly: **394,415 bytes**, SHA-256 **`e8ad1b71f9a30710de520dec11c640b064e53768b3f7d3d52b8cdaa99a650f4e`**.
 
 The four natural before/after positions were found in an 18-campaign diagnostic search beginning at seed 968000. The search is separate from the 48 complete equivalence checks. The fixtures and their exact actions are in `evidence/natural-fixtures.json`.
 

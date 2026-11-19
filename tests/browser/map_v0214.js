@@ -33,6 +33,7 @@ async function page(saved) {
     check(name + ': movement display preserves actual score and dice', [after.vp, after.rng, after.log], [expected.vp, expected.rng, expected.log]);
     const routes = after.tableReport.map.moves.filter(m => m.from.place && m.to.place && m.from.place !== m.to.place).length;
     check(name + ': numbered arrows match geographic transitions', p.d.querySelectorAll('#board .map-route').length, routes);
+    check(name + ': each route has a readable number badge', p.d.querySelectorAll('#board .map-route-badge').length, routes);
     const unchanged = p.snap(); p.x('renderBoard(G_STATE)');
     check(name + ': repainting is read-only', p.snap(), unchanged);
     p.click('Show last action');

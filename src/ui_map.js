@@ -77,23 +77,38 @@ function campaignMap(s, scope = 'board') {
     svg.appendChild(mapSvg('text', { x, y, 'text-anchor': 'middle', class: 'map-geography' }, text));
   svg.appendChild(mapSvg('path', { d: 'M955 90 L955 40 M945 55 L955 40 L965 55', fill: 'none', stroke: '#526d70', 'stroke-width': 3 }));
   svg.appendChild(mapSvg('text', { x: 955, y: 28, 'text-anchor': 'middle', class: 'map-geography' }, 'N'));
-  const touched = new Set();
+  const touched = new Set(), badges = [];
   (action?.moves || []).forEach((move, i) => {
     const a = MAP_POINTS[move.from.place], b = MAP_POINTS[move.to.place];
     if (a) touched.add(move.from.place); if (b) touched.add(move.to.place);
     if (!a || !b || move.from.place === move.to.place) return;
     const dx = b[0] - a[0], dy = b[1] - a[1], length = Math.hypot(dx, dy);
-    const inset = Math.min(48, length / 4), bend = (i % 3 - 1) * 28;
-    const start = [a[0] + dx / length * inset, a[1] + dy / length * inset];
-    const end = [b[0] - dx / length * inset, b[1] - dy / length * inset];
-    const mid = [(a[0] + b[0]) / 2 - dy / length * bend, (a[1] + b[1]) / 2 + dx / length * bend];
+    const halfHeight = place => ZONES.includes(place) ? 40 + ['US', 'BR'].filter(sd => mapZoneShips(s, place, sd).length).length * 26 : 32;
+    const edge = (p, place, sign) => {
+      const fraction = Math.min(dx ? 142 / Math.abs(dx) : Infinity, dy ? halfHeight(place) / Math.abs(dy) : Infinity);
+      return [p[0] + sign * dx * fraction, p[1] + sign * dy * fraction];
+    };
+    let start, end, mid;
+    if (ZONES.includes(move.from.place) && ZONES.includes(move.to.place) && Math.abs(dy) < 60) {
+      // Sail around the fleet labels, keeping the route and arrowhead visible.
+      const direction = a[1] < 320 ? 1 : -1;
+      start = [a[0], a[1] + direction * halfHeight(move.from.place)];
+      end = [b[0], b[1] + direction * halfHeight(move.to.place)];
+      mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2 + direction * (180 + i % 3 * 16)];
+    } else {
+      start = edge(a, move.from.place, 1); end = edge(b, move.to.place, -1);
+      const bend = (i % 3 - 1) * 28;
+      mid = [(start[0] + end[0]) / 2 - dy / length * bend, (start[1] + end[1]) / 2 + dx / length * bend];
+    }
     svg.appendChild(mapSvg('path', { d: `M${start} Q${mid} ${end}`, class: 'map-route ' + move.side,
       'data-move': i + 1, fill: 'none', stroke: move.side === 'US' ? '#2f5f9e' : '#a8322d',
       'stroke-width': 5, 'stroke-dasharray': move.side === 'US' ? '10 5' : 'none', 'marker-end': `url(#map-arrow-${move.side}-${scope})` }));
-    svg.appendChild(mapSvg('circle', { cx: mid[0], cy: mid[1], r: 15, fill: '#fffdf8', stroke: '#465c67', 'stroke-width': 2 }));
-    svg.appendChild(mapSvg('text', { x: mid[0], y: mid[1] + 6, 'text-anchor': 'middle', class: 'map-route-number' }, String(i + 1)));
+    const label = [start[0] / 4 + mid[0] / 2 + end[0] / 4, start[1] / 4 + mid[1] / 2 + end[1] / 4];
+    badges.push(el('span', { class: 'map-route-badge', 'aria-hidden': 'true',
+      style: { left: label[0] / 10 + '%', top: label[1] / 6.4 + '%' } }, String(i + 1)));
   });
   stage.appendChild(svg);
+  badges.forEach(badge => stage.appendChild(badge));
   const position = (node, place) => {
     const [x, y] = MAP_POINTS[place]; node.style.left = x / 10 + '%'; node.style.top = y / 6.4 + '%';
     if (touched.has(place)) node.classList.add('map-moved');

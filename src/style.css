@@ -228,7 +228,7 @@ button.optcard { display: block; width: 100%; text-align: left; }
 .map-stage { position: relative; width: 100%; aspect-ratio: 1000 / 640; min-height: 470px; border: 1px solid #b8bda7; border-radius: 9px; isolation: isolate; }
 .map-water { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 9px; pointer-events: none; }
 .map-geography { font: 18px Georgia, serif; letter-spacing: 3px; fill: #506d74; }
-.map-route-number { font: bold 19px Georgia, serif; fill: #1f2a33; }
+.map-route-badge { position: absolute; transform: translate(-50%, -50%); z-index: 2; width: 21px; height: 21px; border: 1px solid #465c67; border-radius: 50%; background: #fffdf8; color: var(--ink); text-align: center; line-height: 19px; font-size: .75rem; font-weight: bold; pointer-events: none; }
 .map-zone, .map-port { position: absolute; transform: translate(-50%, -50%); width: 26%; }
 .map-zone { border: 1px solid #789ca8; background: rgba(248,253,255,.94); border-radius: 7px; padding: 3px; text-align: center; box-shadow: 0 1px 3px #45646a22; }
 .map-zone-name { display: block; width: 100%; border: 0; border-radius: 4px; background: transparent; font-weight: bold; font-size: .86rem; padding: 3px 1px; }
