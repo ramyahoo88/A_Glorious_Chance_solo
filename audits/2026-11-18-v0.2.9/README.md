@@ -5,6 +5,7 @@
 - [Full report (Markdown)](A_Glorious_Chance_v0.2.9_Comprehensive_Audit.md)
 - [Full report (21-page PDF)](A_Glorious_Chance_v0.2.9_Comprehensive_Audit.pdf)
 - [Evidence, importable saves and runnable checks](A_Glorious_Chance_v0.2.9_Evidence.zip)
+- [Finding-by-finding response to Claude's v0.2.8 audit](../2026-11-18-v0.2.8-claude-audit/AGC_v0.2.9_response_to_Claude_v0.2.8_audit.md)
 
 All 28 confirmed finding groups are fixed. Final verification includes 423 engine assertions, 101 DOM checks, 200 smoke games, 768 campaign executions, 128 intensive save campaigns and two complete native-Chrome games matching independent final-state replays. Both committed HTML and the public site are byte-identical to the separate rebuild.
 
