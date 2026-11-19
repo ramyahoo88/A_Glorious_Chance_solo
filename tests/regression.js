@@ -495,7 +495,7 @@ eq('L01 … so B20 deploys nothing: no Kingston landing, supply 1, score 0', X('
 eq('L01 loading the upgraded save again changes nothing', X('[aiTroopsInBox(again), again.troopsReturning.US, (UI.loadNotes || []).length]'), [0, 1, 0]);
 X(`var sail = legacyL01(); delete sail.migrated; playUntil(sail, q => q.log.some(l => /AI Deploys to .*Carrying/.test(l.text)));
    var sailed = sail.log.some(l => /AI Deploys to .*Carrying/.test(l.text)); sail = asSaved024(sail); var b0 = JSON.stringify([sail.aiTroops, sail.troopsReturning, sail.forces]);
-   var sup = checkSaveState(JSON.parse(JSON.stringify(sail))); var sailNotes = (UI.loadNotes || []).slice();`);
+   var sup = checkSaveState(JSON.parse(JSON.stringify(sail))); var sailNotes = (sup.recovery || (UI.loadNotes || [])).slice();`);
 ok('L01 control: once the A.I. has sailed with the marker, the load only warns', X(`sailed && sailNotes.length === 1 && /load a save from before the withdrawal/.test(sailNotes[0]) && JSON.stringify([sup.aiTroops, sup.troopsReturning, sup.forces]) === b0`), X('sailNotes.join(" | ")'));
 X(`var pre = markerBoard(); var preUp = checkSaveState(JSON.parse(JSON.stringify(pre)));`);
 eq('L01 control: a save from before the withdrawal is left alone', X('[(UI.loadNotes || []).length, aiTroopsInBox(preUp), preUp.troopsReturning.US]'), [0, 0, 0]);
@@ -527,7 +527,8 @@ eq('L02 control: a ship that struck in the new Encounter stays undecided', X('[n
 // ===== v0.2.7: audit of v0.2.6 (F01–F04) – positions from the auditor's evidence (tests/fixtures/audit-v0.2.6) =====
 const fx = name => JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'audit-v0.2.6', name), 'utf8')).state);
 const loadFx = name => X(`(function(){ var raw = ${fx(name)}; var s = checkSaveState(JSON.parse(JSON.stringify(raw))); return { notes: (UI.loadNotes || []).slice(),
-  same: (function(){ var a = JSON.parse(JSON.stringify(s)), b = JSON.parse(JSON.stringify(raw)); [a, b].forEach(o => { delete o.build; delete o.migrated; if (o.encounter && o.encounter.flagIn && !Object.keys(o.encounter.flagIn).length) delete o.encounter.flagIn; }); return JSON.stringify(a) === JSON.stringify(b); })(),
+  recovery: (s.recovery || []).slice(),
+  same: (function(){ var a = JSON.parse(JSON.stringify(s)), b = JSON.parse(JSON.stringify(raw)); [a, b].forEach(o => { delete o.build; delete o.migrated; delete o.recovery; if (o.encounter && o.encounter.flagIn && !Object.keys(o.encounter.flagIn).length) delete o.encounter.flagIn; }); return JSON.stringify(a) === JSON.stringify(b); })(),
   enc: s.encounter ? s.encounter.ships : null, owner: id => s.ships[id].owner, box: aiTroopsInBox(s), due: (s.troopsReturning || {})[s.ai] || 0, ships: s.ships }; })()`);
 // F01 – a surrender in the current Encounter of a v0.2.6 game is never treated as an older one
 for (const [file, id, own] of [['F01_fresh_pending_withdrawal.json', 'wolfe', 'BR'], ['F01_fresh_pending_flag_transfer.json', 'growler', 'US']]) {
@@ -548,17 +549,61 @@ eq('F01 … and a stamped save is never upgraded (even with an old-looking surre
 // F03 – a deployment already being picked with the inflated Troops row cannot be rebuilt: warn, leave the save as it is
 {
   const r = loadFx('E01_old_B35_at_package_picker.json');
-  ok('F03 B35 picker save: warns and points to a save from before the withdrawal', r.notes.length === 1 && /load a save from before the withdrawal/.test(r.notes[0]), r.notes.join(' | '));
+  ok('F03 B35 picker save: warns and points to a save from before the withdrawal', r.recovery.length === 1 && /load a save from before the withdrawal/.test(r.recovery[0]), r.recovery.join(' | '));
   eq('F03 … and changes nothing (markers, deployment, dice)', [r.same, r.box, r.due], [true, 2, 0]);
 }
 // F04 – the warning also appears when the old save is opened at Tally
 {
   const r = loadFx('E02_old_after_Kingston_Tally.json');
-  ok('F04 Tally save after the illegal Kingston landing: warns', r.notes.length === 1 && /Tally has scored/.test(r.notes[0]), r.notes.join(' | '));
+  ok('F04 Tally save after the illegal Kingston landing: warns', r.recovery.length === 1 && /Tally has scored/.test(r.recovery[0]), r.recovery.join(' | '));
   eq('F04 … and keeps the scored turn as saved', r.same, true);
   const q = loadFx('L01_old_already_sailed.json');
-  ok('F04 control: the already-sailed save still warns', q.notes.length === 1 && q.same, q.notes.join(' | '));
+  ok('F04 control: the already-sailed save still warns', q.recovery.length === 1 && q.same, q.recovery.join(' | '));
 }
+
+// ===== v0.2.8: audit of v0.2.7 (N01–N03, O01) – positions in tests/fixtures/audit-v0.2.7 =====
+const fx7 = name => JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'audit-v0.2.7', name), 'utf8')).state);
+const open7 = (name, again) => X(`(function(){ var raw = ${fx7(name)}; var s = checkSaveState(JSON.parse(JSON.stringify(raw)));
+  var first = (s.recovery || []).slice(); var notes = (UI.loadNotes || []).slice();
+  var s2 = checkSaveState(JSON.parse(JSON.stringify(s)));                       // export and open again
+  var strip = o => { o = JSON.parse(JSON.stringify(o)); ['build', 'migrated', 'recovery'].forEach(k => delete o[k]); if (o.encounter && o.encounter.flagIn && !Object.keys(o.encounter.flagIn).length) delete o.encounter.flagIn; return JSON.stringify(o); };
+  return { first: first, notes: notes, reopen: (s2.recovery || []).slice(), same: strip(s) === strip(raw), build: s2.build }; })()`);
+// N01 – damage already applied by 0.2.6's own repair is flagged (and the game left as saved)
+for (const [file, re] of [['V026_saved_after_wrong_Wolfe_repair.json', /changed by version 0\.2\.6.*Wolfe struck in the current Encounter/],
+  ['V026_saved_after_wrong_Asp_repair.json', /changed by version 0\.2\.6.*Asp struck before the Pursuit and should have been captured by the British/],
+  ['V026_saved_after_wrong_B35_repair.json', /changed by version 0\.2\.6.*already chosen a deployment row/]]) {
+  const r = open7(file);
+  ok(`N01 ${file}: flagged`, r.first.length === 1 && re.test(r.first[0]), r.first.join(' | '));
+  eq(`N01 ${file}: … left as saved, and the notice is still there after export and reopening`, [r.same, r.reopen.length], [true, 1]);
+}
+X(`var good = checkSaveState(JSON.parse(JSON.stringify(${fx('F02_just_after_Asp_pursuit.json')}))); var good2 = checkSaveState(JSON.parse(JSON.stringify(good)));`);
+eq('N01 control: a correct repair (Asp captured at the boundary) is not flagged, then or on reopening', X('[(good.recovery || []).length, (good2.recovery || []).length, good2.ships.asp.owner]'), [0, 0, 'BR']);
+// N02 – unresolved-recovery notices stay with the board
+for (const file of ['V027_saved_after_E01_old_B35_at_package_picker.json', 'V027_saved_after_E02_old_after_Kingston_Tally.json']) {
+  const r = open7(file);
+  eq(`N02 ${file} (exported by 0.2.7 after its notice): notice back, kept on reopening, nothing changed`, [r.first.length, r.reopen.length, r.same], [1, 1, true]);
+}
+{
+  X(`var e01 = checkSaveState(JSON.parse(JSON.stringify(${fx('E01_old_B35_at_package_picker.json')}))); var e01again = checkSaveState(JSON.parse(JSON.stringify(e01)));
+     var ack = JSON.parse(JSON.stringify(e01again)); delete ack.recovery; var ackAgain = checkSaveState(ack);`);
+  eq('N02 E01: the notice survives export and reopening', X('[(e01.recovery || []).length, (e01again.recovery || []).length]'), [1, 1]);
+  eq('N02 … until the player acknowledges it', X('(ackAgain.recovery || []).length'), 0);
+  X(`var played = JSON.parse(JSON.stringify(e01again)); act(played, played.prompt.kind === 'select' ? (played.prompt.initial || []) : 'ok');`);
+  eq('N02 … and playing on keeps it on the board', X('(played.recovery || []).length'), 1);
+}
+// N03 – a state restored by Undo is stamped like a load
+{
+  const raw = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'audit-v0.2.7', 'V024_autosave_with_pre_F7_undo.json'), 'utf8'));
+  X(`var __r = render, __a = autosave; render = function () {}; autosave = function () {};
+     G_STATE = checkSaveState(JSON.parse(JSON.stringify(${JSON.stringify(raw.state)}))); UNDO = ${JSON.stringify(raw.undo)}.slice();
+     undo(); var undone = { build: G_STATE.build, due: G_STATE.troopsReturning[G_STATE.ai], exported: JSON.parse(saveText()).state.build };
+     render = __r; autosave = __a;`);
+  eq('N03 Undo onto an old snapshot: repaired (1 due at F7) and stamped – also in the exported save', X('[undone.due, undone.build, undone.exported]'), [1, X('APP_VERSION'), X('APP_VERSION')]);
+}
+// O01 – zero Defense shows ∞:1 in the applied round, as in the previews
+X(`var z = fresh('BR', 191073); stageCombat(z, 'SAC', ['asp'], ['rg'], 'BR'); z.ships.asp.steps = 0; z.encounter.ships.asp = 'in';
+   waitAt(z, 'combat', 'grRoll', {}, { st: 'GR1' }); afterCombatCaller(z); act(z, 'ok'); var zline = z.log.map(l => l.text).find(t => /^Gunnery Round 1:/.test(t)) || '';`);
+ok('O01 Gunnery Round against zero Defense reads ∞:1 (column 3:1+)', X(`/ vs U\\.S\\. 0 = ∞:1 → column 3:1\\+/.test(zline)`), X('zline').slice(0, 120));
 
 console.log(`regression tests: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

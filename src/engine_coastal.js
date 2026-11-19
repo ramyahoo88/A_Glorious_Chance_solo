@@ -219,7 +219,7 @@ PROCS.harbor = {
     const r = d10(s), m = Math.max(0, Math.min(9, r + drm));
     const code = CRT[m][col];
     const res = parseCrt(code);
-    const lines = [`Harbor Gunnery Round ${f.L.round}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${fmt(dStr)} = ${fmt(ratio)}:1, −1 shore batteries → ${CRT_COLS[col]}; d10 ${r}${drm ? '+' + drm : ''} → ${code}${drms.length ? ' [' + drms.join(', ') + ']' : ''}. (W results ignored.)`];
+    const lines = [`Harbor Gunnery Round ${f.L.round}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${fmt(dStr)} = ${dStr <= 0 ? '∞' : fmt(ratio)}:1, −1 shore batteries → ${CRT_COLS[col]}; d10 ${r}${drm ? '+' + drm : ''} → ${code}${drms.length ? ' [' + drms.join(', ') + ']' : ''}. (W results ignored.)`];
     const dMap = {}, aMap = {};
     if (res.dHits) distributeHits(s, c.col[c.def], res.dHits, dMap, lines, { side: c.def });
     if (res.aHits) distributeHits(s, c.col[c.att], res.aHits, aMap, lines, { side: c.att });

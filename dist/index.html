@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Glorious Chance – Solo Companion v0.2.7</title>
+<title>A Glorious Chance – Solo Companion v0.2.8</title>
 <style>
 :root {
   --bg: #f3efe6; --panel: #fffdf8; --ink: #1f2a33; --muted: #6b7680; --line: #d9d1c2;
@@ -190,6 +190,8 @@ button.small { padding: 3px 8px; font-size: .82rem; }
   .panel { padding: 8px; }
 }
 #board { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.banner.recovery { background: #fdecea; border-color: #d9534f; }
+.banner.recovery button { margin-top: 6px; }
 
 </style>
 </head>
@@ -635,7 +637,7 @@ function lbLookup(lgTotal, troops, shift, d66v) {
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.7';
+const APP_VERSION = '0.2.8';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -2650,7 +2652,7 @@ PROCS.combat = {
     if (tacActive(c, 'att', 'A_sweep')) { if (res.aHits || res.aW) notes.push('Sweep Up & Fire: Attacker hits/withdrawal ignored'); res.aHits = 0; res.aW = false; }
     if (tacActive(c, 'def', 'D_escape') && !c.tac.def.used) { res.dW = true; res.escape = true; useTac(c, 'def'); notes.push('Escape: Defender withdraws; hit Defenders automatically pass Disengagement'); }
     if (defRake) { c.tac.def.used = true; res.defRake = true; }
-    const txt = `${st === 'GR1' ? 'Gunnery Round 1' : 'Gunnery Round 2'}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${SIDE_SHORT[c.def]} ${fmt(dStr)}${noLG ? ' (Haze: no Long Guns)' : ''} = ${fmt(ratio)}:1 → column ${CRT_COLS[colIdx]}${shifts.length ? ' (' + shifts.join(', ') + ')' : ''}. ` +
+    const txt = `${st === 'GR1' ? 'Gunnery Round 1' : 'Gunnery Round 2'}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${SIDE_SHORT[c.def]} ${fmt(dStr)}${noLG ? ' (Haze: no Long Guns)' : ''} = ${dStr <= 0 ? '∞' : fmt(ratio)}:1 → column ${CRT_COLS[colIdx]}${shifts.length ? ' (' + shifts.join(', ') + ')' : ''}. ` +
       `d10 ${rolls.map(x => x.r + (drm ? (drm > 0 ? '+' : '') + drm + '=' + x.m : '') + ' ' + x.code).join(', then ')}${drms.length ? ' [' + drms.join('; ') + ']' : ''} → ${roll.code}${notes.length ? ' (' + notes.join('; ') + ')' : ''}.`;
     log(s, txt, 'roll');
     f.L.res = res; f.L.txt = txt; f.L.defenders = defenders;
@@ -2923,13 +2925,20 @@ function upgradeLegacy(s, notes) {
   notes = notes || [];
   if (!s || !s.calls) return s;
   upgradeLegacyPrompt(s);
-  if (s.build) return s;                       // written by the corrected procedures
+  // 0.2.7 stamped a save even when it could only warn, and kept the warning off the board: such a save
+  // (stamped 0.2.7 and touched by an upgrade) is checked again, for warnings only – nothing is changed
+  const recheck = s.build === '0.2.7' && !!s.migrated;
+  if (s.build && !recheck) return s;           // written by the corrected procedures
+  // a position this version cannot put right is kept as saved, with a notice that stays on the board
+  // (and in every save of it) until the player loads another game or acknowledges it
+  const warn = text => { s.recovery = s.recovery || []; if (s.recovery.indexOf(text) < 0) s.recovery.push(text); if (notes.indexOf(text) < 0) notes.push(text); };
   const done = s.migrated || {};
   const mark = k => { s.migrated = Object.assign(done, { [k]: true }); };
   const turnLog = (s.log || []).map((l, i) => ({ l, i })).filter(x => x.l.turn === s.turn);
   const pendingLines = [].concat(...(s.calls || []).map(f => (f.L && Array.isArray(f.L.lines)) ? f.L.lines.filter(x => typeof x === 'string') : []));
   // L01 – before 0.2.5 a withdrawn A.I. coastal mission put its Troops straight back in the A.I. Available box
-  if (!done.aiTroopsF7 && ['lake', 'enemy', 'breakout', 'coastal', 'tally'].indexOf(s.phase) >= 0) {
+  const repairedTroops = turnLog.some(x => /^Older save upgraded: the A\.I\.'s \d+ withdrawn Troops marker/.test(x.l.text));
+  if ((!done.aiTroopsF7 || (recheck && !repairedTroops)) && ['lake', 'enemy', 'breakout', 'coastal', 'tally'].indexOf(s.phase) >= 0) {
     const re = new RegExp('^' + SIDE_SHORT[s.ai].replace(/\./g, '\\.') + ' Coastal mission aborted – (\\d+) Troops marker\\(s\\) remain available for future use\\.');
     const hits = turnLog.filter(x => re.test(x.l.text));
     if (hits.length) {
@@ -2942,8 +2951,8 @@ function upgradeLegacy(s, notes) {
         (s.calls || []).some(f => f.proc === 'aiDeploy' && f.L && f.L.cell && f.L.cell.row >= 1);
       const inBox = s.aiTroops.box.filter(m => m.revealed && m.troops).length;
       if (used || inBox < n) {
-        notes.push(`This save comes from an earlier version that put ${n} withdrawn A.I. Troops marker(s) back in its Available box too early this turn, and the A.I. has already counted ${n > 1 ? 'them' : 'it'} for a deployment${s.phase === 'tally' ? ' that this Tally has scored' : ''}. That can't be undone safely here, so the game is left as saved: to replay this turn by the rules, load a save from before the withdrawal.`);
-      } else if (s.phase === 'tally') {
+        warn(`This save comes from an earlier version that put ${n} withdrawn A.I. Troops marker(s) back in its Available box too early this turn, and the A.I. has already counted ${n > 1 ? 'them' : 'it'} for a deployment${s.phase === 'tally' ? ' that this Tally has scored' : ''}. That can't be undone safely here, so the game is left as saved: to replay this turn by the rules, load a save from before the withdrawal.`);
+      } else if (s.phase === 'tally' || recheck) {
         // nothing used it and F7 has the same result either way: leave the box alone
       } else {
         for (let k = 0; k < n; k++) s.aiTroops.box.splice(s.aiTroops.box.findIndex(m => m.revealed && m.troops), 1);
@@ -2956,11 +2965,11 @@ function upgradeLegacy(s, notes) {
   }
   // L02 – before 0.2.5 a ship that Struck Colors before Pursuit stayed undecided into the new Encounter
   const e = s.encounter;
-  if (e && e.ships && !done.pursuitStruck) {
+  if (e && e.ships && (!done.pursuitStruck || recheck)) {
     const pIdx = turnLog.filter(x => /^Pursuit! The withdrawal is cancelled and a new Encounter begins/.test(x.l.text)).map(x => x.i).pop();
     const pending = Object.keys(e.ships).filter(id => e.ships[id] === 'struck');
     if (pIdx !== undefined && pending.length) {
-      const struckText = (txt, id) => /STRIKES COLORS/.test(txt) && (txt.indexOf(shipName(s, id) + ' ') === 0 || txt.indexOf(def(s.ships[id]).name + ' Strike Check') === 0);
+      const struckText = (txt, id) => shipLineRe(s, id, 'Strike Check .*STRIKES COLORS').test(txt);
       const combatSince = turnLog.some(x => x.i > pIdx && /^Gunnery Round [12]:/.test(x.l.text)) || pendingLines.length > 0 || (s.calls || []).some(f => f.proc === 'combat');
       const old = [], unsure = [];
       pending.forEach(id => {
@@ -2971,7 +2980,7 @@ function upgradeLegacy(s, notes) {
       const grRe = /^Gunnery Round [12]: (U\.S\.|British) .* vs (U\.S\.|British) /;
       const gr = turnLog.filter(x => x.i < pIdx && grRe.test(x.l.text)).pop();
       const pursued = gr ? (grRe.exec(gr.l.text)[2] === 'U.S.' ? 'US' : 'BR') : null;
-      if (old.length && pursued) {
+      if (old.length && pursued && !recheck) {
         mark('pursuitStruck');
         const lines = [];
         settleStruck(s, lines, pursued, old, true);
@@ -2981,11 +2990,56 @@ function upgradeLegacy(s, notes) {
       if (unsure.length || (old.length && !pursued)) {
         mark('pursuitStruck');
         const who = unsure.concat(pursued ? [] : old).map(id => shipName(s, id)).join(', ');
-        notes.push(`This save comes from an earlier version and holds a surrender (${who}) that may date from before the Pursuit; the save doesn't show which Encounter it belongs to, so it is left as saved. To settle it by the rules, load a save from before the Pursuit.`);
+        warn(`This save comes from an earlier version and holds a surrender (${who}) that may date from before the Pursuit; the save doesn't show which Encounter it belongs to, so it is left as saved. To settle it by the rules, load a save from before the Pursuit.`);
       }
     }
   }
+  // 0.2.6 repaired some of these on opening, and its own repair could go wrong. A save it wrote afterwards is
+  // recognised by contradictions the corrected procedures can never produce; it can't be rolled back safely,
+  // so it is flagged, not changed.
+  damageFrom026(s, turnLog, pendingLines, warn);
   return s;
+}
+// A ship's own lines in the log, whoever owns her now ("Wolfe (B) Strike Check …", later "Wolfe (B) [U.S.]")
+function shipLineRe(s, id, rest) { return new RegExp('^' + def(s.ships[id]).name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?: \\([A-Z]\\))?(?: \\[[^\\]]*\\])? ' + rest); }
+function damageFrom026(s, turnLog, pendingLines, warn) {
+  const e = s.encounter;
+  const pursuitAt = turnLog.filter(x => /^Pursuit! The withdrawal is cancelled and a new Encounter begins/.test(x.l.text)).map(x => x.i);
+  const grRe = /^Gunnery Round [12]: (U\.S\.|British) .* vs (U\.S\.|British) /;
+  // (a) a surrender settled in the middle of its Encounter chain
+  if (e && e.ships && pursuitAt.length) {
+    Object.keys(e.ships).filter(id => e.ships[id] === 'done').forEach(id => {
+      const full = def(s.ships[id]).name;
+      const settleRe = shipLineRe(s, id, 'is (?:CAPTURED by the (?:Americans|British)\\.|rescued and returns home)'), strikeRe = shipLineRe(s, id, 'Strike Check .*STRIKES COLORS');
+      const settle = turnLog.filter(x => settleRe.test(x.l.text)).pop();
+      if (!settle) return;
+      const pIdx = pursuitAt.filter(i => i < settle.i).pop();
+      if (pIdx === undefined) return;
+      const struck = txt => strikeRe.test(txt);
+      const own = (e.side && e.side[id]) || null;
+      const captured = /CAPTURED/.test(settle.l.text);
+      let why = null;
+      if (pendingLines.some(struck) || turnLog.some(x => x.i > pIdx && struck(x.l.text))) {
+        why = `${full} struck in the current Encounter, but was already ${captured ? 'captured' : 'rescued'} before it ended (the printed rules settle it at the end of its own Encounter)`;
+      } else if (own && turnLog.some(x => x.i < pIdx && struck(x.l.text))) {
+        const gr = turnLog.filter(x => x.i < pIdx && grRe.test(x.l.text)).pop();
+        if (gr) {
+          const pursued = grRe.exec(gr.l.text)[2] === 'U.S.' ? 'US' : 'BR';
+          if ((own === pursued) !== captured) why = `${full} struck before the Pursuit and should have been ${own === pursued ? 'captured by the ' + SIDE_PL[OTHER[own]] : 'rescued'} at that moment (rules note 68), but was ${captured ? 'captured' : 'rescued'} instead`;
+        }
+      }
+      if (why) warn(`This save was changed by version 0.2.6 when it was opened: ${why}. That can't be put back safely here, so the game is left as saved: to play this turn by the rules, load the save from before 0.2.6 opened it.`);
+    });
+  }
+  // (b) Troops moved to the F7 queue after the A.I. had already counted them
+  const upgraded = turnLog.find(x => /^Older save upgraded: the A\.I\.'s \d+ withdrawn Troops marker/.test(x.l.text));
+  if (upgraded) {
+    const abortRe = new RegExp('^' + SIDE_SHORT[s.ai].replace(/\./g, '\\.') + ' Coastal mission aborted – \\d+ Troops marker\\(s\\) remain available');
+    const first = turnLog.find(x => abortRe.test(x.l.text));
+    const lookedUp = first && turnLog.some(x => x.i > first.i && x.i < upgraded.i && /Deployment table: Troops [1-9]\d* row/.test(x.l.text));
+    const inFlight = (s.calls || []).some(f => f.proc === 'aiDeploy' && f.L && f.L.cell && f.L.cell.row > aiTroopsInBox(s));
+    if (lookedUp || inFlight) warn(`This save was changed by version 0.2.6 when it was opened: it moved the A.I.'s early-returned Troops to the F7 queue after the A.I. had already chosen a deployment row with them${inFlight ? ' – the deployment on screen still uses that row' : ''}. That can't be put back safely here, so the game is left as saved: to play this turn by the rules, load a save from before the withdrawal.`);
+  }
 }
 // Attacker Rake is single-use: once its hits are allocated the card goes back to its deck (Playbook p.19)
 function spendRake(s, c) {
@@ -3472,7 +3526,7 @@ PROCS.harbor = {
     const r = d10(s), m = Math.max(0, Math.min(9, r + drm));
     const code = CRT[m][col];
     const res = parseCrt(code);
-    const lines = [`Harbor Gunnery Round ${f.L.round}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${fmt(dStr)} = ${fmt(ratio)}:1, −1 shore batteries → ${CRT_COLS[col]}; d10 ${r}${drm ? '+' + drm : ''} → ${code}${drms.length ? ' [' + drms.join(', ') + ']' : ''}. (W results ignored.)`];
+    const lines = [`Harbor Gunnery Round ${f.L.round}: ${SIDE_SHORT[c.att]} ${fmt(aStr)} vs ${fmt(dStr)} = ${dStr <= 0 ? '∞' : fmt(ratio)}:1, −1 shore batteries → ${CRT_COLS[col]}; d10 ${r}${drm ? '+' + drm : ''} → ${code}${drms.length ? ' [' + drms.join(', ') + ']' : ''}. (W results ignored.)`];
     const dMap = {}, aMap = {};
     if (res.dHits) distributeHits(s, c.col[c.def], res.dHits, dMap, lines, { side: c.def });
     if (res.aHits) distributeHits(s, c.col[c.att], res.aHits, aMap, lines, { side: c.att });
@@ -3880,7 +3934,22 @@ function doAct(answer) {
   autosave(); render();
   const p = $('proc'); if (p) p.scrollTop = 0;
 }
-function undo() { if (!UNDO.length) return; const notes = []; G_STATE = upgradeLegacy(JSON.parse(UNDO.pop()), notes); UI.err = notes.join(' '); UI.local = null; autosave(); render(); }
+function undo() {
+  if (!UNDO.length) return;
+  const notes = [];
+  G_STATE = upgradeLegacy(JSON.parse(UNDO.pop()), notes);
+  G_STATE.build = APP_VERSION;   // checked and upgraded like a load: saves of it carry this version
+  UI.err = notes.filter(n => !(G_STATE.recovery || []).includes(n)).join(' '); UI.local = null; autosave(); render();
+}
+// The player has read an unresolved-recovery notice and chooses to keep playing this position
+function acknowledgeRecovery() { if (!G_STATE) return; delete G_STATE.recovery; autosave(); render(); }
+function recoveryBanner(s) {
+  if (!s.recovery || !s.recovery.length) return null;
+  return el('div', { class: 'banner recovery' },
+    el('b', null, 'This game needs an earlier save. '), s.recovery.join(' '), el('br'),
+    el('button', { onclick: () => importSave() }, 'Load an earlier save'), ' ',
+    el('button', { onclick: () => acknowledgeRecovery() }, 'Keep playing this position'));
+}
 function startGame(human, seed, opts) {
   G_STATE = newGame(human, seed, opts);
   UNDO = [];
@@ -3957,7 +4026,8 @@ function commitLoaded(st, undo) {
   const loadedUndo = Array.isArray(undo) ? undo.filter(u => typeof u === 'string') : [];
   // keep the previous game reachable: one Undo after loading returns to it (and its own Undo history)
   const keep = prevS ? prevU.concat([JSON.stringify(prevS)]) : [];
-  G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.err = (UI.loadNotes || []).join(' '); UI.loadNotes = [];
+  G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.loadNotes = UI.loadNotes || [];
+  UI.err = UI.loadNotes.filter(n => !(st.recovery || []).includes(n)).join(' '); UI.loadNotes = [];   // unresolved notices show in their own panel
   try { render(); }
   catch (e) {
     G_STATE = prevS; UNDO = prevU;
@@ -4079,6 +4149,7 @@ function renderHeader(s) {
 function renderProc(s) {
   const p = $('proc'); p.innerHTML = '';
   p.appendChild(el('div', { class: 'step' }, `${TURN_NAMES[Math.min(s.turn, 7)]} · ${s.stepLabel || ''}`));
+  const rb = recoveryBanner(s); if (rb) p.appendChild(rb);
   if (s.over) {
     p.appendChild(el('div', { class: 'ptitle' }, 'Game Over'));
     p.appendChild(el('div', { class: 'ptext' }, `Final Game Score: ${sgn(s.result.score)}\n${s.result.level}\n\nU.S. VP ${sgn(s.vp.US)} · British VP ${sgn(-s.vp.BR)} (British VPs count negative).`));

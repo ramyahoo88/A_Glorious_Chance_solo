@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.8 – 2026-11-18
+Save-recovery fixes from the audit of 0.2.7 (RULES_NOTES 73).
+* Saves already changed by 0.2.6's faulty repair (an early capture such as Wolfe's, a wrongly rescued Asp, Troops queued after the A.I. used them) are now recognised and flagged with a notice to load an earlier save; the game is left as saved.
+* "Load an earlier save" notices now stay on the board – through autosave, export, reload and Undo – until you load another game or choose to keep playing the position.
+* A game restored by Undo is stamped with the current version, so its saves carry it.
+* Gunnery Rounds against zero Defense now read ∞:1, as the previews do (same 3:1+ column).
+* 14 new regression checks, using the auditor's positions as fixtures.
+
 ## 0.2.7 – 2026-11-18
 Save-upgrade fixes from the audit of 0.2.6 (RULES_NOTES 72).
 * Reloading or undoing in a current game can no longer settle a surrender from the current Encounter early: saves now carry a build stamp and are never upgraded, and older saves need affirmative evidence (a Strike Check logged before the Pursuit) before a surrender is treated as old.

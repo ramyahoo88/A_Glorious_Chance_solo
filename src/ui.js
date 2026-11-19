@@ -46,7 +46,22 @@ function doAct(answer) {
   autosave(); render();
   const p = $('proc'); if (p) p.scrollTop = 0;
 }
-function undo() { if (!UNDO.length) return; const notes = []; G_STATE = upgradeLegacy(JSON.parse(UNDO.pop()), notes); UI.err = notes.join(' '); UI.local = null; autosave(); render(); }
+function undo() {
+  if (!UNDO.length) return;
+  const notes = [];
+  G_STATE = upgradeLegacy(JSON.parse(UNDO.pop()), notes);
+  G_STATE.build = APP_VERSION;   // checked and upgraded like a load: saves of it carry this version
+  UI.err = notes.filter(n => !(G_STATE.recovery || []).includes(n)).join(' '); UI.local = null; autosave(); render();
+}
+// The player has read an unresolved-recovery notice and chooses to keep playing this position
+function acknowledgeRecovery() { if (!G_STATE) return; delete G_STATE.recovery; autosave(); render(); }
+function recoveryBanner(s) {
+  if (!s.recovery || !s.recovery.length) return null;
+  return el('div', { class: 'banner recovery' },
+    el('b', null, 'This game needs an earlier save. '), s.recovery.join(' '), el('br'),
+    el('button', { onclick: () => importSave() }, 'Load an earlier save'), ' ',
+    el('button', { onclick: () => acknowledgeRecovery() }, 'Keep playing this position'));
+}
 function startGame(human, seed, opts) {
   G_STATE = newGame(human, seed, opts);
   UNDO = [];
@@ -123,7 +138,8 @@ function commitLoaded(st, undo) {
   const loadedUndo = Array.isArray(undo) ? undo.filter(u => typeof u === 'string') : [];
   // keep the previous game reachable: one Undo after loading returns to it (and its own Undo history)
   const keep = prevS ? prevU.concat([JSON.stringify(prevS)]) : [];
-  G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.err = (UI.loadNotes || []).join(' '); UI.loadNotes = [];
+  G_STATE = st; UNDO = keep.length ? keep : loadedUndo; UI.local = null; UI.loadNotes = UI.loadNotes || [];
+  UI.err = UI.loadNotes.filter(n => !(st.recovery || []).includes(n)).join(' '); UI.loadNotes = [];   // unresolved notices show in their own panel
   try { render(); }
   catch (e) {
     G_STATE = prevS; UNDO = prevU;
@@ -245,6 +261,7 @@ function renderHeader(s) {
 function renderProc(s) {
   const p = $('proc'); p.innerHTML = '';
   p.appendChild(el('div', { class: 'step' }, `${TURN_NAMES[Math.min(s.turn, 7)]} · ${s.stepLabel || ''}`));
+  const rb = recoveryBanner(s); if (rb) p.appendChild(rb);
   if (s.over) {
     p.appendChild(el('div', { class: 'ptitle' }, 'Game Over'));
     p.appendChild(el('div', { class: 'ptext' }, `Final Game Score: ${sgn(s.result.score)}\n${s.result.level}\n\nU.S. VP ${sgn(s.vp.US)} · British VP ${sgn(-s.vp.BR)} (British VPs count negative).`));
