@@ -1,0 +1,57 @@
+{
+  "version": "0.2.13",
+  "url": "https://ramyahoo88.github.io/A_Glorious_Chance_solo/",
+  "towingPreview": 8,
+  "actualCombatUsesEight": true,
+  "damagedImportCases": [
+    "missing",
+    "null",
+    "array"
+  ],
+  "damagedImportMessages": [
+    {
+      "fixture": "null-frame-locals",
+      "message": "Could not read that text: this save is damaged or incomplete (procedure locals). Your current game was not changed."
+    },
+    {
+      "fixture": "array-frame-locals",
+      "message": "Could not read that text: this save is damaged or incomplete (procedure locals). Your current game was not changed."
+    }
+  ],
+  "openGamePreserved": true,
+  "undoPreservedOnRejection": true,
+  "adjustFieldNames": [
+    {
+      "label": "Ship to correct",
+      "tag": "SELECT"
+    },
+    {
+      "label": "Destination box",
+      "tag": "SELECT"
+    },
+    {
+      "label": "Ship steps",
+      "tag": "INPUT"
+    },
+    {
+      "label": "Ship owner",
+      "tag": "SELECT"
+    },
+    {
+      "label": "Move one Troops marker",
+      "tag": "SELECT"
+    }
+  ],
+  "zeroStepWarning": "No Steps \u2013 combat strengths 0",
+  "originalCampaignRestoredExactBeforeReload": true,
+  "reloadedCampaignUnchangedExceptBuildStamp": true,
+  "originalUndoPreserved": true,
+  "originalUndoSteps": 60,
+  "mainReleaseCommit": "8689c4dfdf2c7c6e13b0e868e96fbb3e6338d0cd",
+  "pagesCommit": "dd5013ea68b64eb7db6f309618a779969aed8087",
+  "deploymentId": 44570316100,
+  "deploymentConclusion": "success",
+  "downloadMatchesRelease": true,
+  "downloadBytes": 376755,
+  "downloadSHA256": "60403a5fa01557db61b64ef0de3b52d01103fa92a8f7783e40a10814bdafd412"
+}

@@ -20,6 +20,18 @@ This patch changes display and save validation. It does not change combat rules,
 
 These are focused patch-verification runs. They do not add a new balance study or repeat the previous audit's full campaign matrix. DOM emulation is not visual browser testing.
 
+## Live publication and Chrome verification
+
+The patch is on `main` at **`8689c4dfdf2c7c6e13b0e868e96fbb3e6338d0cd`** and `gh-pages` at **`dd5013ea68b64eb7db6f309618a779969aed8087`**. [GitHub Pages deployment 44570316100](https://github.com/ramyahoo88/A_Glorious_Chance_solo/actions/runs/44570316100) completed successfully. The [public app](https://ramyahoo88.github.io/A_Glorious_Chance_solo/) visibly reports v0.2.13.
+
+* Original seed 961377 now previews **8 untowed schooners**, with the −2 threshold at 4. Continuing through the actual Tactics and combat buttons produces the same 8-schooner count in the result.
+* The original missing-locals file, its null sibling and an array-locals control are refused with a damaged-save explanation. Exported campaign text and the available Undo count remain identical across the rejected imports.
+* Original Sir Sidney Smith's zero-step position displays the badge in both the combat column and map. The four named Adjust fields work through their labels, and a participant correction still receives the Encounter refusal.
+* The actual **Download app (.html)** file is byte-identical to the independent rebuild and release: **376,755 bytes**, SHA-256 **`60403a5fa01557db61b64ef0de3b52d01103fa92a8f7783e40a10814bdafd412`**.
+* The pre-existing campaign and all **60 Undo steps** were restored after testing. Reload in v0.2.13 preserves its exact exported position except for updating the `build` stamp; its private contents are not included in the evidence.
+
+Screenshots and verification metadata are in `evidence/browser/`. This live session tests the focused corrections and compatibility; it is not another complete browser campaign or a physical-phone/screen-reader test.
+
 ## Reproduce
 
 ```sh

@@ -1,4 +1,9 @@
 {
+  "browser/adjust-labels.jpg": "ac136411314cdd81d1e8cbb56dad4816859699ac5a96cd9801a01ed87e0294f4",
+  "browser/browser-verification.json": "51f9073fe418c6832f406b8e85962a38f5862dfa76f13c5cefe8ed80acc4c92c",
+  "browser/no-steps.jpg": "f583e2babcdb4370830850b312276dbd62a0478aba3019fa0cfbf1e064f02bcc",
+  "browser/rejected-save.jpg": "93a67030281f48d85a3deaace6bbc0b31f59ddc022f51943fb8d300f3560e3c0",
+  "browser/towing-preview.jpg": "4fc977a9c622a7be14d8cd1b120670d8c36b80f1db3be55efa1479c25f41e8c6",
   "campaign/load.js": "fb8043ffc9815f16252ac3048d1d22700cfeec6c4257a2b4a6a1717c2274e4e5",
   "campaign/observations.js": "2f166353753cf5c813ceb8c2b52548dbc7615a7f26b715a77486192736387e2d",
   "campaign/options-defender-outmaneuver.json": "c52783931c7e7a6a05435294b34fd1b902f29ec5cda2182752a19f6ac3dc8600",
