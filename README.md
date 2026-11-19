@@ -9,6 +9,8 @@ Open `dist/index.html` in any modern browser. It needs no install and no network
 
 **Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.9: `dist/index.html`, 324,911 bytes, SHA-256 `ffa43b5dd90a5540c2757cb6701d8742e8a1eff8beba51a6ec27d4b1f7c815c4`). On a phone, open it once and use the browser's Add to Home Screen; your game stays in that browser.
 
+**Latest audit:** [v0.2.9 comprehensive report and evidence](audits/2026-11-18-v0.2.9/) — fresh-game rules, controls, saves and release verification; 28 confirmed groups fixed, with open rulings documented.
+
 You still play on your physical map with your counters. The app tells you what to move, and it draws and reads every card for you.
 
 ## What the app does for you
