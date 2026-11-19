@@ -49,3 +49,9 @@ node audits/2026-11-19-v0.2.17/evidence/browser/focused.js .
 ```
 
 Use `AGC_URL=https://ramyahoo88.github.io/A_Glorious_Chance_solo/` for the focused browser script to check the live page. It creates an isolated context, uses the environment proxy when present and verifies the actual app download against the local release. No existing user browser storage is used.
+
+## Live publication
+
+Release source: `337962ef0f252f8d23a1abcfc24532f77d50a4a0`. Published `gh-pages` commit: `e85056757bbbee845d4d69fbcee8d7f3fc0e3cf2`. [GitHub Pages run 44631111543](https://github.com/ramyahoo88/A_Glorious_Chance_solo/actions/runs/44631111543) completed successfully.
+
+The bare [public URL](https://ramyahoo88.github.io/A_Glorious_Chance_solo/) and the actual live Download app both match the independently rebuilt 422,019-byte release. The focused Chromium run on that URL passed atomic rejection of all three damaged saves; exact Undo/reload/save-transfer/replay across all five tested boundaries; consecutive Undos; Intelligence disposition; Deck status ordering, draft/focus retention and read-only behavior; and all four viewport widths. No page errors were observed. Results and screenshots are in `evidence/browser/live-*` and `evidence/results/live*`.
