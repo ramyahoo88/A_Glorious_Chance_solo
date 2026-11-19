@@ -1,0 +1,20 @@
+{
+  "side": "US",
+  "seed": 941119,
+  "style": "coast",
+  "steps": 115,
+  "totals": {
+    "choice": 27,
+    "select": 10,
+    "assign": 8,
+    "info": 64,
+    "lineup": 6
+  },
+  "score": -23,
+  "level": "British Victory",
+  "vp": {
+    "US": 60,
+    "BR": 83
+  },
+  "pursuit": 0
+}

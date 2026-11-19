@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.12 – 2026-11-19
+
+* Lock participant ship corrections throughout an active Encounter, with an explanation in Adjust before editing. This prevents ships moved off the lake from remaining in cached combat lineups.
+* Refuse damaged Event, Target and Tactic references in saves before replacing the open game, Undo history or autosave. Valid older saves, empty decks and held cards remain supported.
+* Make the losing Flagship's required +2 Melee Leader Casualty Check, as well as the winner's +1 check; resolve death or capture once.
+* Adopt the audit's recommended project rulings: install replacement commanders after the current combat result, and require at least one eligible gun for an unescorted Convoy attack. See RULES_NOTES 96–98.
+* Add **Download app (.html)** to setup and Reference → Offline app. It downloads a clean, self-contained app; Save still exports the current campaign.
+* Add case-insensitive search across the entire game log, including ship/card text, turn and phase, combined with the category filter.
+* Add focused combat, convoy, import, manual-correction, download and log-search regression tests; preserve the earlier audit and its importable positions.
+
 ## 0.2.11 – 2026-11-18
 
 * When a Weather Gage change hands the next combat decision to the other side, the combat display identifies the previous formation, attacker and defender until the new formation is chosen.

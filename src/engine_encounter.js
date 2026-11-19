@@ -499,11 +499,38 @@ function flagshipLost(s, side, leaderFate) {
 }
 function leaderCasualty(s, side, how) {
   const L = s.leader[side];
+  if (!leaderAlive(s, side)) return;
   const before = leaderName(s, side);
   if (how === 'wounded') { L.wounded = true; log(s, `${before} is WOUNDED (no Command DRM; returns next turn).`, 'combat'); return; }
+  if (s.leaderResult) {
+    s.leaderResult[side] = how;
+    log(s, `${before} is ${how.toUpperCase()}! His successor takes command after this combat result.`, 'combat');
+    return;
+  }
   if (side === 'BR') L.seq = 1; else L.seq = Math.min(2, L.seq + 1);
   L.wounded = false;
   log(s, `${before} is ${how.toUpperCase()}! Command passes to ${leaderName(s, side)}.`, 'combat');
+}
+// Project ruling: the commander who starts a result takes its casualties.
+// Keep this small context in the save if a Withdrawal/flag-transfer choice pauses
+// the result. A successor cannot take another hit, be captured, grant a DRM or
+// transfer the flag on behalf of the commander just removed in the same result.
+function beginLeaderResult(s) {
+  if (s.leaderResult) return false;
+  s.leaderResult = {};
+  return true;
+}
+function endLeaderResult(s) {
+  const removed = s.leaderResult;
+  if (!removed) return;
+  for (const side of ['US', 'BR']) {
+    if (!removed[side]) continue;
+    const L = s.leader[side];
+    L.seq = side === 'BR' ? 1 : Math.min(2, L.seq + 1);
+    L.wounded = false;
+    log(s, `${SIDE_SHORT[side]} command passes to ${leaderName(s, side)} after the combat result.`, 'combat');
+  }
+  delete s.leaderResult;
 }
 function abortCoastalMission(s, fr) {
   if (!fr) return;

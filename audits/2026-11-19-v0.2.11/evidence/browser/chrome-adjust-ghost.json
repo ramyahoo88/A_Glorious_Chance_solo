@@ -1,0 +1,1090 @@
+{
+  "state": {
+    "app": "0.2.11",
+    "build": "0.2.11",
+    "human": "US",
+    "ai": "BR",
+    "rng": 3081004553,
+    "seed": 920000,
+    "options": {
+      "cuttingOut": true,
+      "oa1Upgrades": false,
+      "usAiPrecondition": "longgun",
+      "confirmAiSteps": true,
+      "groupUpdates": false,
+      "manualPackages": false,
+      "manualLandBattle": false
+    },
+    "turn": 0,
+    "phase": "lake",
+    "stepLabel": "Encounter – Command Decision (patrol segment)",
+    "over": false,
+    "result": null,
+    "ships": {
+      "wolfe": {
+        "id": "wolfe",
+        "ver": "B",
+        "owner": "BR",
+        "box": "lake",
+        "zone": "KIN",
+        "port": "home",
+        "steps": 3,
+        "delay": 0,
+        "forceId": "F4",
+        "isolated": false,
+        "flags": {}
+      },
+      "rg": {
+        "id": "rg",
+        "ver": "B",
+        "owner": "BR",
+        "box": "lake",
+        "zone": "KIN",
+        "port": "home",
+        "steps": 3,
+        "delay": 0,
+        "forceId": "F4",
+        "isolated": false,
+        "flags": {}
+      },
+      "moira": {
+        "id": "moira",
+        "ver": "B",
+        "owner": "BR",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 2,
+        "delay": 0,
+        "forceId": "F3",
+        "isolated": false,
+        "flags": {}
+      },
+      "beres": {
+        "id": "beres",
+        "ver": "A",
+        "owner": "BR",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 2,
+        "delay": 0,
+        "forceId": "F3",
+        "isolated": false,
+        "flags": {}
+      },
+      "sss": {
+        "id": "sss",
+        "ver": "",
+        "owner": "BR",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 2,
+        "delay": 0,
+        "forceId": "F3",
+        "isolated": false,
+        "flags": {}
+      },
+      "melville": {
+        "id": "melville",
+        "ver": "",
+        "owner": "BR",
+        "box": "construction",
+        "zone": null,
+        "port": "home",
+        "steps": 2,
+        "delay": 0,
+        "forceId": null,
+        "isolated": false,
+        "flags": {}
+      },
+      "oneida": {
+        "id": "oneida",
+        "ver": "",
+        "owner": "US",
+        "box": "outOfPlay",
+        "zone": null,
+        "port": "home",
+        "steps": 2,
+        "delay": 0,
+        "forceId": null,
+        "isolated": false,
+        "flags": {}
+      },
+      "madison": {
+        "id": "madison",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 3,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "tompkins": {
+        "id": "tompkins",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 2,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "fairam": {
+        "id": "fairam",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "conquest": {
+        "id": "conquest",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "asp": {
+        "id": "asp",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "growler": {
+        "id": "growler",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "hamilton": {
+        "id": "hamilton",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "julia": {
+        "id": "julia",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "lady": {
+        "id": "lady",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 2,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "ontario": {
+        "id": "ontario",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "pert": {
+        "id": "pert",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": "F2",
+        "isolated": false,
+        "flags": {}
+      },
+      "raven": {
+        "id": "raven",
+        "ver": "",
+        "owner": "US",
+        "box": "deployable",
+        "zone": null,
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": null,
+        "isolated": false,
+        "flags": {}
+      },
+      "scourge": {
+        "id": "scourge",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "SAC",
+        "port": "home",
+        "steps": 1,
+        "delay": 0,
+        "forceId": "F1",
+        "isolated": false,
+        "flags": {}
+      },
+      "sylph": {
+        "id": "sylph",
+        "ver": "",
+        "owner": "US",
+        "box": "construction",
+        "zone": null,
+        "port": "home",
+        "steps": 3,
+        "delay": 0,
+        "forceId": null,
+        "isolated": false,
+        "flags": {}
+      },
+      "pike": {
+        "id": "pike",
+        "ver": "",
+        "owner": "US",
+        "box": "construction",
+        "zone": null,
+        "port": "home",
+        "steps": 3,
+        "delay": 0,
+        "forceId": null,
+        "isolated": false,
+        "flags": {}
+      }
+    },
+    "forces": {
+      "F1": {
+        "id": "F1",
+        "side": "US",
+        "zone": "SAC",
+        "mission": "Escort",
+        "ships": [
+          "scourge"
+        ],
+        "troops": 0,
+        "ended": false,
+        "origin": "prep",
+        "cardId": null,
+        "aborted": false
+      },
+      "F2": {
+        "id": "F2",
+        "side": "US",
+        "zone": "SAC",
+        "mission": "Patrol",
+        "ships": [
+          "madison",
+          "tompkins",
+          "fairam",
+          "conquest",
+          "asp",
+          "growler",
+          "hamilton",
+          "julia",
+          "lady",
+          "ontario",
+          "pert"
+        ],
+        "troops": 0,
+        "ended": false,
+        "origin": "prep",
+        "cardId": null,
+        "aborted": false
+      },
+      "F3": {
+        "id": "F3",
+        "side": "BR",
+        "zone": "SAC",
+        "mission": "CuttingOut",
+        "ships": [
+          "moira",
+          "beres",
+          "sss"
+        ],
+        "troops": 0,
+        "ended": false,
+        "origin": "targetCard",
+        "cardId": "A34",
+        "aborted": false,
+        "deployPhase": "lake"
+      },
+      "F4": {
+        "id": "F4",
+        "side": "BR",
+        "zone": "KIN",
+        "mission": "Patrol",
+        "ships": [
+          "rg",
+          "wolfe"
+        ],
+        "troops": 0,
+        "ended": false,
+        "origin": "targetCard",
+        "cardId": null,
+        "aborted": false
+      }
+    },
+    "nextForce": 5,
+    "zones": {
+      "YOR": {
+        "control": null,
+        "blockade": null,
+        "event": null,
+        "flags": {}
+      },
+      "NOR": {
+        "control": null,
+        "blockade": null,
+        "event": null,
+        "flags": {}
+      },
+      "KIN": {
+        "control": null,
+        "blockade": null,
+        "event": null,
+        "flags": {}
+      },
+      "NIA": {
+        "control": null,
+        "blockade": null,
+        "event": null,
+        "flags": {}
+      },
+      "SOU": {
+        "control": null,
+        "blockade": null,
+        "event": null,
+        "flags": {}
+      },
+      "SAC": {
+        "control": null,
+        "blockade": null,
+        "event": 14,
+        "flags": {}
+      }
+    },
+    "blockade": {
+      "US": false,
+      "BR": false
+    },
+    "vp": {
+      "US": 0,
+      "BR": 0
+    },
+    "vpLog": [],
+    "supply": {
+      "US": 1,
+      "BR": 1
+    },
+    "cd": {
+      "US": 0,
+      "BR": 0
+    },
+    "niagara": 3,
+    "nb": 0,
+    "nbBand": 3,
+    "fallOffensive": null,
+    "flagship": {
+      "US": "madison",
+      "BR": "wolfe"
+    },
+    "leader": {
+      "US": {
+        "seq": 0,
+        "wounded": false
+      },
+      "BR": {
+        "seq": 0,
+        "wounded": false
+      }
+    },
+    "convoys": {
+      "US": {
+        "0": {
+          "real": true,
+          "revealed": true,
+          "delay": false,
+          "deployed": false,
+          "result": null
+        },
+        "1": {
+          "real": false,
+          "revealed": true
+        }
+      },
+      "BR": {
+        "0": {
+          "real": false,
+          "revealed": false,
+          "delay": false,
+          "deployed": false,
+          "result": null
+        },
+        "1": {
+          "real": true,
+          "revealed": false,
+          "delay": false,
+          "deployed": false,
+          "result": null
+        },
+        "2": {
+          "real": true,
+          "revealed": false,
+          "delay": false,
+          "deployed": false,
+          "result": null
+        },
+        "3": {
+          "real": false,
+          "revealed": false,
+          "delay": false,
+          "deployed": false,
+          "result": null
+        },
+        "4": {
+          "real": false,
+          "revealed": false,
+          "delay": false,
+          "deployed": false,
+          "result": null
+        },
+        "5": {
+          "real": true,
+          "revealed": false,
+          "delay": false,
+          "deployed": false,
+          "result": null
+        },
+        "6": {
+          "real": false,
+          "revealed": false,
+          "delay": false,
+          "deployed": false,
+          "result": null
+        },
+        "7": {
+          "real": true,
+          "revealed": false,
+          "delay": false,
+          "deployed": false,
+          "result": null
+        }
+      }
+    },
+    "pendingConvoy": {
+      "US": [],
+      "BR": []
+    },
+    "convoyDeployed": {
+      "US": null,
+      "BR": null
+    },
+    "troops": {
+      "US": {
+        "track": [
+          2,
+          3,
+          7
+        ],
+        "available": 0
+      },
+      "BR": {
+        "track": [],
+        "available": 0
+      }
+    },
+    "aiTroops": {
+      "track": [
+        {
+          "space": 2,
+          "troops": false
+        },
+        {
+          "space": 3,
+          "troops": false
+        },
+        {
+          "space": 4,
+          "troops": false
+        },
+        {
+          "space": 5,
+          "troops": false
+        },
+        {
+          "space": 6,
+          "troops": true
+        },
+        {
+          "space": 7,
+          "troops": true
+        },
+        {
+          "space": 8,
+          "troops": false
+        }
+      ],
+      "box": [
+        {
+          "troops": true,
+          "revealed": true
+        }
+      ]
+    },
+    "deck": {
+      "target": [
+        "A1",
+        "A33",
+        "A47",
+        "A49",
+        "A12",
+        "A9",
+        "A10",
+        "A20",
+        "A14",
+        "A15",
+        "A29",
+        "A25",
+        "A52",
+        "A48",
+        "A35",
+        "A53",
+        "A51",
+        "A37",
+        "A40",
+        "A7",
+        "A45",
+        "A32",
+        "A27",
+        "A41",
+        "A28",
+        "A21",
+        "A31",
+        "A42",
+        "A4",
+        "A5",
+        "A16",
+        "A44",
+        "A24",
+        "A3",
+        "A38",
+        "A26",
+        "A17",
+        "A8",
+        "A13",
+        "A6",
+        "A36",
+        "A22",
+        "A50",
+        "A19",
+        "A18",
+        "A46"
+      ],
+      "event": [
+        9,
+        33,
+        26,
+        29,
+        18,
+        11,
+        1,
+        3,
+        21,
+        25,
+        2,
+        20,
+        35,
+        7,
+        8,
+        37,
+        22,
+        5,
+        31,
+        4,
+        30,
+        12,
+        13,
+        28,
+        6,
+        24,
+        32,
+        17,
+        27,
+        34,
+        15,
+        19,
+        38,
+        16,
+        36
+      ],
+      "tacA": [
+        "A_dummy1",
+        "A_rake",
+        "A_pursuit",
+        "A_rof",
+        "A_firstshot",
+        "A_dummy2",
+        "A_outmaneuver",
+        "A_surprise",
+        "A_grapple",
+        "A_sweep"
+      ],
+      "tacD": [
+        "D_dummy1",
+        "D_outmaneuver",
+        "D_openrange",
+        "D_firstshot",
+        "D_repel",
+        "D_rake",
+        "D_rof",
+        "D_dummy2",
+        "D_escape",
+        "D_mutual"
+      ]
+    },
+    "targetRow": [
+      {
+        "id": "A39",
+        "revealed": false,
+        "removed": false,
+        "enc": false
+      },
+      {
+        "id": "A43",
+        "revealed": false,
+        "removed": false,
+        "enc": false
+      },
+      {
+        "id": "A11",
+        "revealed": false,
+        "removed": false,
+        "enc": false
+      },
+      {
+        "id": "A23",
+        "revealed": false,
+        "removed": false,
+        "enc": false
+      },
+      {
+        "id": "A34",
+        "revealed": true,
+        "removed": false,
+        "enc": true,
+        "usedCell": {
+          "row": 1,
+          "col": 3
+        }
+      },
+      {
+        "id": "A54",
+        "revealed": false,
+        "removed": false,
+        "enc": false
+      },
+      {
+        "id": "A30",
+        "revealed": false,
+        "removed": false,
+        "enc": false
+      },
+      {
+        "id": "A2",
+        "revealed": false,
+        "removed": false,
+        "enc": false
+      }
+    ],
+    "eventsDrawn": [
+      {
+        "id": 23,
+        "purpose": "Encounter Check PE1"
+      },
+      {
+        "id": 10,
+        "purpose": "Encounter Check PE2"
+      },
+      {
+        "id": 14,
+        "purpose": "Encounter Sacket's (Weather Gage + Lake Zone Event)"
+      }
+    ],
+    "pe": [
+      {
+        "num": 1,
+        "zone": "SAC",
+        "forceId": "F1",
+        "idx": 0,
+        "status": "discarded"
+      },
+      {
+        "num": 2,
+        "zone": "SAC",
+        "forceId": "F2",
+        "idx": 4,
+        "status": "encounter"
+      },
+      {
+        "num": 3,
+        "zone": "SAC",
+        "forceId": "F1",
+        "idx": 6,
+        "status": "possible"
+      }
+    ],
+    "peNext": 4,
+    "cuttingOutUsed": {
+      "US": false,
+      "BR": true
+    },
+    "intelligence": {
+      "US": null,
+      "BR": null
+    },
+    "coastal": {
+      "raids": [],
+      "battles": [],
+      "cutouts": []
+    },
+    "turnFlags": {
+      "aiCutOutThisTurn": false
+    },
+    "calls": [
+      {
+        "proc": "turn",
+        "pc": "B2done",
+        "L": {
+          "pending": [],
+          "pe": 2
+        },
+        "answer": "ok"
+      },
+      {
+        "proc": "encounter",
+        "pc": "afterCombat",
+        "A": {
+          "zone": "SAC",
+          "kind": "normal",
+          "convoySide": null,
+          "peNum": 2,
+          "humanForces": [
+            "F2"
+          ],
+          "aiForces": [
+            "F3"
+          ],
+          "startAt": "event"
+        },
+        "L": {
+          "ev": 14
+        },
+        "answer": "attack"
+      },
+      {
+        "proc": "combat",
+        "pc": "assemble2",
+        "A": {
+          "attacker": "US",
+          "segment": "patrol"
+        },
+        "L": {
+          "nextCombat": null
+        }
+      }
+    ],
+    "prompt": {
+      "id": 12,
+      "kind": "lineup",
+      "title": "Lake Combat – choose your attacking ships",
+      "side": "US",
+      "text": "Only full-strength ships may attack. Each ship with a “T” may tow one Converted Laker Schooner (towing avoids the untowed-schooner DRM penalty; untowed schooners in a U.S. attack risk −1/−2 DRM).\nDefending: Earl of Moira (B), Lord Beresford (A), Sir Sidney Smith.",
+      "candidates": [
+        "oneida",
+        "madison",
+        "tompkins",
+        "fairam",
+        "conquest",
+        "asp",
+        "growler",
+        "hamilton",
+        "julia",
+        "lady",
+        "ontario",
+        "pert"
+      ],
+      "defenders": [
+        "moira",
+        "beres",
+        "sss"
+      ],
+      "defaultTows": {
+        "madison": "tompkins"
+      }
+    },
+    "log": [
+      {
+        "turn": 0,
+        "phase": "setup",
+        "text": "New American Solo Campaign (seed 920000). Your Troops markers set up on Convoy Supply spaces 3, 7, 2 (rolls 24→3, 56→7, 22→2).",
+        "kind": "setup"
+      },
+      {
+        "turn": 0,
+        "phase": "prep",
+        "text": "===== June I =====",
+        "kind": "turn"
+      },
+      {
+        "turn": 0,
+        "phase": "prep",
+        "text": "Your June Convoy is scheduled for June I.",
+        "kind": "player"
+      },
+      {
+        "turn": 0,
+        "phase": "prep",
+        "text": "Naval Balance +0 → band “−15 to +15” (8 Target Cards).",
+        "kind": "track"
+      },
+      {
+        "turn": 0,
+        "phase": "prep",
+        "text": "You assign Escort Force (Scourge) to Sacket's.",
+        "kind": "player"
+      },
+      {
+        "turn": 0,
+        "phase": "prep",
+        "text": "You assign Patrol Force (Oneida, Madison, Gov. Tompkins, Fair American, Conquest, Asp, Growler, Hamilton, Julia, Lady of the Lake, Ontario, Pert) to Sacket's.",
+        "kind": "player"
+      },
+      {
+        "turn": 0,
+        "phase": "prep",
+        "text": "A8: revealed AI Troops markers – 1 Troops, 0 dummy (discarded).",
+        "kind": "ai"
+      },
+      {
+        "turn": 0,
+        "phase": "prep",
+        "text": "AI Available Troops this turn: 1.",
+        "kind": "ai"
+      },
+      {
+        "turn": 0,
+        "phase": "prep",
+        "text": "Drew 8 Target Cards. Row backs (left→right): Sacket's · South Lake · Niagara · North Lake · Sacket's · York · Sacket's · Kingston.",
+        "kind": "ai"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "B1: Possible Encounters – PE1 Sacket's (card 1), PE2 Sacket's (card 5), PE3 Sacket's (card 7).",
+        "kind": "ai"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "PE1 Sacket's: Event #23 – no spyglass, false alarm.",
+        "kind": "event"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "PE2 Sacket's: Event #10 shows the spyglass – ENCOUNTER 2! Target Card A34 revealed.",
+        "kind": "event"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "Upgrade Checks [7.1]: Wolfe: roll 4 – “B” version!; Royal George: roll 4 – “B” version!; Earl of Moira: roll 2 – “B” version!; Lord Beresford: roll 3 – still “A”.",
+        "kind": "ai"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "Target Card A34: Sacket's – Cutting-Out. Deployment table: Troops 1 row × Naval Balance “-15 to 15” column → ship icon. AI Deploys to Sacket's with a Cutting-Out mission: • Wolfe (B) • Royal George (B) • Earl of Moira (B) • Lord Beresford (A) • Sir Sidney Smith",
+        "kind": "ai"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "Lake Zone Event in Sacket's: #14 Separated Ships (British).",
+        "kind": "event"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "Royal George (B), Wolfe (B) are displaced to Kingston as a new Patrol Force.",
+        "kind": "event"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "Weather Gage: American.",
+        "kind": "event"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "Manual adjustment: Oneida → Out of Play, 2 steps, U.S..",
+        "kind": "player"
+      },
+      {
+        "turn": 0,
+        "phase": "lake",
+        "text": "LAKE COMBAT in Sacket's – Americans attack (Combat Sequence A).",
+        "kind": "combat"
+      }
+    ],
+    "lastRolls": [],
+    "encounter": {
+      "zone": "SAC",
+      "kind": "normal",
+      "segment": "patrol",
+      "peNum": 2,
+      "ships": {
+        "oneida": "in",
+        "madison": "in",
+        "tompkins": "in",
+        "fairam": "in",
+        "conquest": "in",
+        "asp": "in",
+        "growler": "in",
+        "hamilton": "in",
+        "julia": "in",
+        "lady": "in",
+        "ontario": "in",
+        "pert": "in",
+        "wolfe": "out",
+        "rg": "out",
+        "moira": "in",
+        "beres": "in",
+        "sss": "in"
+      },
+      "side": {
+        "oneida": "US",
+        "madison": "US",
+        "tompkins": "US",
+        "fairam": "US",
+        "conquest": "US",
+        "asp": "US",
+        "growler": "US",
+        "hamilton": "US",
+        "julia": "US",
+        "lady": "US",
+        "ontario": "US",
+        "pert": "US",
+        "wolfe": "BR",
+        "rg": "BR",
+        "moira": "BR",
+        "beres": "BR",
+        "sss": "BR"
+      },
+      "struckBy": {},
+      "convoySide": null,
+      "breakoutSide": null,
+      "wg": "US",
+      "wgCard": 14,
+      "withdrawn": {
+        "US": false,
+        "BR": false
+      },
+      "humanForce": "F2",
+      "aiForce": "F3",
+      "firstAttack": false,
+      "log": [],
+      "flagIn": {
+        "US": true,
+        "BR": true
+      }
+    },
+    "combat": {
+      "att": "US",
+      "def": "BR",
+      "seq": "A",
+      "pos": 0,
+      "segment": "patrol",
+      "col": {
+        "US": [],
+        "BR": []
+      },
+      "tows": {},
+      "tac": {
+        "att": null,
+        "def": null
+      },
+      "gr": 0,
+      "newSeq": false,
+      "plan": null,
+      "roundAttackers": [],
+      "log": [],
+      "openGaps": false,
+      "rainy": false
+    },
+    "lossesThisTurn": [],
+    "troopsReturning": {
+      "US": 0,
+      "BR": 0
+    },
+    "promptSeq": 12
+  },
+  "undo": []
+}

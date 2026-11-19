@@ -431,6 +431,7 @@ PROCS.combat = {
       else distributeHits(s, attCol, res.aHits, aMap, lines, { side: c.att });
     }
     const ctx = { round: 'GR', escapeSide: res.escape ? c.def : null };
+    beginLeaderResult(s);
     const rd = applyHits(s, c.def, dMap, ctx, lines);
     const ra = applyHits(s, c.att, aMap, ctx, lines);
     f.L.failedDis = { [c.def]: rd.stayed, [c.att]: ra.stayed };
@@ -494,6 +495,7 @@ PROCS.combat = {
     return G('roundResults');
   },
   roundResults(s, f) {
+    endLeaderResult(s);
     const lines = f.L.closeResult ? f.L.lines : f.L.lines.slice(1);
     lines.forEach(l => log(s, l, l === 'You ignore the Withdrawal result.' ? 'player' : 'combat'));
     return P(info(f.L.closeResult ? 'Close Action Round' : 'Gunnery Round results', f.L.lines.join('\n'), { combatView: true }), f.L.closeResult ? 'caDone' : 'finishRound');
@@ -593,6 +595,7 @@ PROCS.combat = {
       return P(info('Close Action', lines.join('\n'), { combatView: true }), '__segEnd');
     }
     const grapple = c.att === 'BR' && (c.grapple || tacActive(c, 'att', 'A_grapple'));
+    beginLeaderResult(s);
     pairs.forEach(([a, d]) => {
       const sa = s.ships[a], sd = s.ships[d];
       if (e.ships[a] !== 'in' || e.ships[d] !== 'in') return;
@@ -627,6 +630,7 @@ PROCS.combat = {
       // Leader Casualty Checks for Flagships in a Melee with a result
       const wSide = s.ships[winner].owner, lSide = s.ships[loser].owner;
       if (s.flagship[wSide] === winner) leaderCheck(s, wSide, 1, lines, grapple && wSide === 'US' ? 2 : 0);
+      if (s.flagship[lSide] === loser) leaderCheck(s, lSide, 2, lines, grapple && lSide === 'US' ? 2 : 0);
       const lfate = s.flagship[lSide] === loser && leaderAlive(s, lSide) ? 'captured' : null;
       e.ships[loser] = 'cap';
       captureShip(s, loser, wSide, 'Melee', false, lfate);
@@ -854,6 +858,7 @@ function applyHits(s, side, map, ctx, lines) {
   const e = s.encounter, out = { stayed: [], hit: [] };
   const ids = Object.keys(map);
   if (!ids.length) return out;
+  const ownResult = beginLeaderResult(s);
   const zf = e ? s.zones[e.zone].flags : {};
   const harbor = e && e.kind === 'harbor';
   const struckSoFar = () => Object.keys(e.ships).filter(id => e.ships[id] === 'struck' && e.side[id] === side).length;
@@ -920,10 +925,12 @@ function applyHits(s, side, map, ctx, lines) {
       sinkShip(s, id, OTHER[sh.owner], 'Lake Combat', lfate);
     }
   });
+  if (ownResult) endLeaderResult(s);
   return out;
 }
-function leaderAlive(s, side) { return true; } // generic leaders can also become casualties (no further game effect)
+function leaderAlive(s, side) { return !(s.leaderResult && s.leaderResult[side]); }
 function leaderCheck(s, side, drm, lines, extra) {
+  if (!leaderAlive(s, side)) return null;
   const tot = drm + (extra || 0);
   const r = twoD6(s), t = r + tot;
   let res = 'no effect';
@@ -940,7 +947,7 @@ function flagTransferOptions(s, side) {
   const sh = s.ships[fl];
   // The Flagship may be Engaged or have just Disengaged (it is still in the column until the gap closes): Playbook p.19
   if (!sh || !isReduced(sh) || ['in', 'dis'].indexOf(s.encounter.ships[fl]) < 0) return [];
-  const L = s.leader[side]; if (L.wounded) return [];
+  const L = s.leader[side]; if (L.wounded || !leaderAlive(s, side)) return [];
   const col = c.col[side] || []; const i = col.indexOf(fl);
   if (i < 0) return [];
   return [col[i - 1], col[i + 1]].filter(id => id && isFull(s.ships[id]) && s.encounter.ships[id] === 'in');

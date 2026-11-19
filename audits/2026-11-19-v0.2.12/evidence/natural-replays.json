@@ -1,0 +1,66 @@
+{
+  "melee-loser-before": {
+    "leader": {
+      "US": {
+        "seq": 1,
+        "wounded": false
+      },
+      "BR": {
+        "seq": 1,
+        "wounded": false
+      }
+    },
+    "rng": 293651598,
+    "lines": [
+      "Cdre. Yeo is KILLED! His successor takes command after this combat result.",
+      "Cdre. Chauncey is CAPTURED! His successor takes command after this combat result.",
+      "U.S. flag shifts to Pert.",
+      "U.S. command passes to Capt. Sinclair after the combat result.",
+      "British command passes to generic leader after the combat result.",
+      "Royal George (B) vs Fair American: d10 10 > 6 – MELEE 5+7=12 vs 4+1=5 – Fair American is CAPTURED!",
+      "Leader Casualty Check (Cdre. Yeo): 2d6 12+1 – KILLED.",
+      "Leader Casualty Check (Cdre. Chauncey): 2d6 4+2 – no effect."
+    ]
+  },
+  "double-leader-before": {
+    "leader": {
+      "US": {
+        "seq": 1,
+        "wounded": false
+      },
+      "BR": {
+        "seq": 0,
+        "wounded": false
+      }
+    },
+    "rng": 1429440551,
+    "lines": [
+      "Gunnery Round 2: U.S. 10 vs British 32 = 0.31:1 → column 1:2-. d10 3+1=4 A3 [+1 Rate of Fire] → A3.",
+      "Cdre. Chauncey is KILLED! His successor takes command after this combat result.",
+      "U.S. flag shifts to Gov. Tompkins.",
+      "U.S. command passes to Capt. Sinclair after the combat result.",
+      "U.S. hit distribution (1-ship column): 46→#1 Madison, 41→#1 Madison, 43→#1 Madison.",
+      "Leader Casualty Check (Cdre. Chauncey): 2d6 11 – KILLED.",
+      "Madison takes 3 hit(s) and loses her last Step.",
+      "Madison Strike Check 9 – SINKS!"
+    ]
+  },
+  "zero-guns-before": {
+    "leader": {
+      "US": {
+        "seq": 0,
+        "wounded": false
+      },
+      "BR": {
+        "seq": 1,
+        "wounded": false
+      }
+    },
+    "rng": 3949206919,
+    "lines": [
+      "PE3 Sacket's: Event #7 shows the spyglass – ENCOUNTER 3! Target Card B10 revealed.",
+      "AI Convoy marker for August II revealed: Convoy.",
+      "U.S. Convoy (your Patrol Force (Royal George (B))): No eligible guns — no convoy attack. The Convoy continues normally; no die is rolled."
+    ]
+  }
+}

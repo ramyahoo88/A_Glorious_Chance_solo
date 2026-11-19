@@ -281,6 +281,7 @@ PROCS.harbor = {
       if (e.ships[id] === 'in' && isFull(s.ships[id]))
         flagBeforeHits[side] = { id, leader: s.leader[side].seq };
     });
+    beginLeaderResult(s);
     applyHits(s, c.def, dMap, { round: 'GR' }, lines);
     applyHits(s, c.att, aMap, { round: 'GR' }, lines);
     if (res.end) { lines.push('END – the Harbor Encounter ends.'); f.L.round = 2; }
@@ -300,6 +301,7 @@ PROCS.harbor = {
   },
   roundResults(s, f) {
     if (f.L.aiTransfer) transferAiFlagIfBeneficial(s, f.L.lines);
+    endLeaderResult(s);
     f.L.lines.forEach(line => log(s, line, 'combat'));
     return P(info('Harbor Encounter', f.L.lines.join('\n'), { combatView: true }), 'round');
   },

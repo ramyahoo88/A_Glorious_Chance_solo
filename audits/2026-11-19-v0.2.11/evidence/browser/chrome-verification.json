@@ -1,0 +1,27 @@
+{
+  "US": {
+    "seed": 941119,
+    "fullStateEqual": true,
+    "result": {
+      "score": -23,
+      "level": "British Victory"
+    },
+    "scoringLedgerEqual": true
+  },
+  "BR": {
+    "seed": 941120,
+    "fullStateEqual": true,
+    "result": {
+      "score": 8,
+      "level": "Draw"
+    },
+    "scoringLedgerEqual": true
+  },
+  "consoleSample": {
+    "limit": 50,
+    "returned": 50,
+    "allFromExtension": true,
+    "allSameMessage": true,
+    "message": "Error sending browser metadata to extension: Object"
+  }
+}

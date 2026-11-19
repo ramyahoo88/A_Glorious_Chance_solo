@@ -1,0 +1,274 @@
+{
+  "README.md": {
+    "bytes": 5013,
+    "sha256": "afd4a8183c0381a4d5a9462a2eb62ecb485c9dff3fbb735b908072079f9f0219"
+  },
+  "browser/browser-restoration.json": {
+    "bytes": 42,
+    "sha256": "008f887df8214c44c788e2c4fd25bb41c5bee13c71d41f2a93befa69f1ae465f"
+  },
+  "browser/browser-save-checks.json": {
+    "bytes": 64,
+    "sha256": "9625fd59354c078a63a3b94ce9ca2594e7b03471c811956720add357e6e30ddf"
+  },
+  "browser/campaign_controls.js": {
+    "bytes": 4666,
+    "sha256": "d21586da3b2aaadf76b03d7308851306e876a1fb4c44e75288cd6da791d72eb3"
+  },
+  "browser/checkpoints/game-over-941119.json": {
+    "bytes": 63524,
+    "sha256": "443ec9cb2348c01c0d843e95dbc879c327507d0e81f383c7d23a10a8a287e316"
+  },
+  "browser/checkpoints/game-over-941120.json": {
+    "bytes": 63919,
+    "sha256": "352809529fd5803f311872eec0e87d41b696c8185c01b48a5dd4a81fce10a6ef"
+  },
+  "browser/chrome-BR-result.jpg": {
+    "bytes": 188888,
+    "sha256": "b0df91edca1fc0dab5186502bcbf278884dfeffeb09996314143e98835433279"
+  },
+  "browser/chrome-US-result.jpg": {
+    "bytes": 198069,
+    "sha256": "c48eb43e1b76e5c46b0bf63ad085a0c604823c3b0d3be5cdba6c75bffb55cf56"
+  },
+  "browser/chrome-adjust-ghost.json": {
+    "bytes": 22644,
+    "sha256": "fdd330eb5fe5211ecc20d30a117157d2a7a8ef209d4208cba8026a376401ed86"
+  },
+  "browser/chrome-final-BR.json": {
+    "bytes": 92057,
+    "sha256": "933ed565ceef8ac4838357d4b8ab13831caa8a2b421e072b493e6e70c5a23630"
+  },
+  "browser/chrome-final-US.json": {
+    "bytes": 94121,
+    "sha256": "c8341e722115fd87e5bc404b0a834e12dde325ee12254ae3dd5e0b889a282b4e"
+  },
+  "browser/chrome-progress.jsonl": {
+    "bytes": 15234,
+    "sha256": "1b12d4cafafe05110e504a03808e4a93d84f911b5ef10dc7d5267cc8926e1e6e"
+  },
+  "browser/chrome-verification.json": {
+    "bytes": 520,
+    "sha256": "f9e768579e3d708bf114e4f32f12925d625c542216400b6c6ea3c145e68050fd"
+  },
+  "browser/controls-941119.json": {
+    "bytes": 50676,
+    "sha256": "a29f2eaeb04c089e858276aa68664f0bd46eef0c6224f3abdfaa2d69ef5dee56"
+  },
+  "browser/controls-941120.json": {
+    "bytes": 49868,
+    "sha256": "4840729aec8f7c71050b5f3d6c42f48abef14d1340be4d3881d195118d5c81a6"
+  },
+  "browser/page_helpers.js": {
+    "bytes": 4217,
+    "sha256": "f3085ff546eba36e4cf5293839c6c98196d94abb1e3ec312cb63f77059a1fc7e"
+  },
+  "campaign/fresh.json": {
+    "bytes": 1502397,
+    "sha256": "ee9e9404902c85c990bcda9895f830afac9bba9db034cf35349f9ac50034ad1e"
+  },
+  "campaign/load.js": {
+    "bytes": 495,
+    "sha256": "fb8043ffc9815f16252ac3048d1d22700cfeec6c4257a2b4a6a1717c2274e4e5"
+  },
+  "campaign/observations.js": {
+    "bytes": 11450,
+    "sha256": "2f166353753cf5c813ceb8c2b52548dbc7615a7f26b715a77486192736387e2d"
+  },
+  "campaign/options.json": {
+    "bytes": 129676,
+    "sha256": "a78b2b4c6de86f72c3bc3a9f33e4339dc96675b7e3025444dd69b019a1d8f154"
+  },
+  "campaign/policy.js": {
+    "bytes": 4008,
+    "sha256": "3f8ed4149fe133ba3e0273432d4e5ee7a1416717eb830dc80b88fa930dedf58c"
+  },
+  "campaign/sweep.js": {
+    "bytes": 13695,
+    "sha256": "53a3f120b6175a71b8b3b82920825f0d2b3d4a61b93d1db6036b564c25ce256f"
+  },
+  "deploy/setup-and-packages.js": {
+    "bytes": 5971,
+    "sha256": "fb8a9b20b583b78a029dd78ad7155f0848eb2f3298c6cecd32d5fbf81c038999"
+  },
+  "make_report.py": {
+    "bytes": 6088,
+    "sha256": "ec7ed9b6b3808ca812ef5f379dcc15305ccff19d151b89b1cb696cc5fb95d732"
+  },
+  "printed/load.js": {
+    "bytes": 495,
+    "sha256": "fb8043ffc9815f16252ac3048d1d22700cfeec6c4257a2b4a6a1717c2274e4e5"
+  },
+  "printed/map-results.json": {
+    "bytes": 139,
+    "sha256": "3df5cfe0cff7e7feea9abd2fc646371dbd91ca3ada0555c09f018e3fbda1e9e5"
+  },
+  "printed/map_checks.js": {
+    "bytes": 1859,
+    "sha256": "4a67a2845430f72a292fcccf7f689233e5cc79ac4fc34be61703daebf28010b3"
+  },
+  "printed/paper-results.json": {
+    "bytes": 543,
+    "sha256": "32f002b1be6265c7fd17b9e6fa1c5825c5e5a91f5239030c1c0ac383bc78ec3e"
+  },
+  "printed/paper_checks.js": {
+    "bytes": 1549,
+    "sha256": "acf36919e4a60a4ad70d56c0e8ca00247c0c195fa3e0e82fe06da0db801009a4"
+  },
+  "printed/tactic_fields.js": {
+    "bytes": 1426,
+    "sha256": "ef4aef7d8a45948c9fd33bfd0481d2555bb89088446939d234a82c3de980129b"
+  },
+  "probe.js": {
+    "bytes": 1952,
+    "sha256": "47730e081fd635b200646bc344a294408e5370db56c806c7f66ecd6d68b93aaa"
+  },
+  "results/browser-BR.log": {
+    "bytes": 269,
+    "sha256": "7ac7489505a33e5dbdbecad295538c72a2ba347f635640519b3de4fca240349f"
+  },
+  "results/browser-US.log": {
+    "bytes": 281,
+    "sha256": "9f60833bb7dd76f0338689ec9ca9c47e412e821af9c1e3458716c777d837541d"
+  },
+  "results/fresh.log": {
+    "bytes": 599,
+    "sha256": "dee6e529fa49d0e05b412c8bc13140d620203797bb17b53b9613c34c82f7cd0a"
+  },
+  "results/grouped.log": {
+    "bytes": 124,
+    "sha256": "a4629f11ffe2e074950b29b7dddadb4a408bc50c5eb45097221ba96a04c42552"
+  },
+  "results/install.log": {
+    "bytes": 247,
+    "sha256": "e261b32abce517804e3383d2c6c8e6810c3df9b849566c5cbb2ec36194b65e64"
+  },
+  "results/map.log": {
+    "bytes": 119,
+    "sha256": "c2dab75663d0fe9ad29aeb6f56e9600e1551d125783050bfeb13be32b5a00d21"
+  },
+  "results/npm-test.log": {
+    "bytes": 5537,
+    "sha256": "d9d30cf9696bfbf1823fd1aa72b9bc4abf6e1b4c8c9f3da9b97c0b5f8f896fb4"
+  },
+  "results/npm-ui.log": {
+    "bytes": 27987,
+    "sha256": "1ad9edffa079d6008f4bfae922990a77be7d056d9e06303633e366d54033861a"
+  },
+  "results/options.log": {
+    "bytes": 583,
+    "sha256": "59244ad1e08677cf78bd4762bfc5616f5cb5cf540e1f9e1b2518e6a74641ed39"
+  },
+  "results/packages.log": {
+    "bytes": 1586,
+    "sha256": "c7ee6be7e4b027b3a8549a41421dad29849e118bd843f5941a20f19a674e6b10"
+  },
+  "results/paper.log": {
+    "bytes": 544,
+    "sha256": "8e5b90afaa5766fcf56e16a92b3cfc0f830aafb1a20c9324c6a69e70b0095f59"
+  },
+  "results/probe.log": {
+    "bytes": 2672,
+    "sha256": "56219402e2163c6b6e1875b88a1ffc36a0eccd7a838e4c6ce564a16302412db1"
+  },
+  "results/release.json": {
+    "bytes": 345,
+    "sha256": "f85b5c0964ea3528312bb250d95a4c4972534a4c33a19de12345081c764d84bb"
+  },
+  "results/rule-replays.log": {
+    "bytes": 3158,
+    "sha256": "25f69e81773401a7e4e87af3a64ecaddcff64ef44fc2c9ce73d2dc11dea037af"
+  },
+  "results/tactics.log": {
+    "bytes": 179,
+    "sha256": "406652e83fa5f2f775ab0aa14a382dbb6e03aa0a2809ba52c620398ebadeb708"
+  },
+  "results/targeted.log": {
+    "bytes": 2100,
+    "sha256": "df9baca996c2b6298d54bd7d471330e94a17838efffa814acdd3abc5daafb3ab"
+  },
+  "rule_replays.js": {
+    "bytes": 1748,
+    "sha256": "e8047ef8a2974a11c816f4da966ab27aa7ee63cf9f8e17c1478ef2ba73c82742"
+  },
+  "source-manifest.json": {
+    "bytes": 3333,
+    "sha256": "1bf51a0f2223c3b95b7824f1ce8d6e023e1f2902553ccc9ed2b6e146780ab894"
+  },
+  "table/grouped-results.json": {
+    "bytes": 28745,
+    "sha256": "8b30195fec6f5bc77064c168475d5881716c36bf3486dac8d0395b8d3f8fac46"
+  },
+  "table/grouped_campaigns.js": {
+    "bytes": 2209,
+    "sha256": "67d188ed941fd01a42078143427e703755cbc273ac662a238e4e852c8d8ef8f2"
+  },
+  "targeted/adjust-ghost-after.json": {
+    "bytes": 20443,
+    "sha256": "8018140ee5b10036d215ede8f296311b424676612bc4fd661a7eaf84499cd4f8"
+  },
+  "targeted/command.json": {
+    "bytes": 19622,
+    "sha256": "e916709bb943ab743a35a5e7b9fd9e91a50130b86331679098fd1b4a6083969d"
+  },
+  "targeted/double-leader-after.json": {
+    "bytes": 57284,
+    "sha256": "2e972fe3938dc644597b3593420b818995d79434cc9cedaab981f17739f577b7"
+  },
+  "targeted/double-leader-before.json": {
+    "bytes": 55255,
+    "sha256": "abbd2cb25b5cfe2e433b1d333adfb003bff946869a0018d6f2059ded643fd642"
+  },
+  "targeted/encounter.json": {
+    "bytes": 19523,
+    "sha256": "c7e3a4e75049d06851e2ff58d213d7a0ba865cda6120475238a233468eb9776c"
+  },
+  "targeted/gunnery.json": {
+    "bytes": 24908,
+    "sha256": "1135920d1f01416d139dbf43d11dea93a6fa2b47855277e0ca77e97e8f4034b8"
+  },
+  "targeted/lineup.json": {
+    "bytes": 20306,
+    "sha256": "d44c6ba59680c954b182791fd7c13f281e4c123e7e08558b4cd1789785ee2317"
+  },
+  "targeted/melee-loser-after.json": {
+    "bytes": 58744,
+    "sha256": "367babff520fb73a20bb73c632aa3ea4cb9cb0a0566204f25775dc49ba0cbd3f"
+  },
+  "targeted/melee-loser-before.json": {
+    "bytes": 58160,
+    "sha256": "640db21b61cc22ed5ef105bd05ec8531277a9fe235e85616b9db1c885e9f975f"
+  },
+  "targeted/natural-metadata.json": {
+    "bytes": 2671,
+    "sha256": "cf949241c83fd5ebbca3e53f1f1c7c8cad42d894141186f834cda7120b7ca7a1"
+  },
+  "targeted/rule-replay-results.json": {
+    "bytes": 3157,
+    "sha256": "89f99343e9e276318ff46fef3cbfda65d0d2589327727a5f43199fc72153a8c9"
+  },
+  "targeted/tactics.json": {
+    "bytes": 21652,
+    "sha256": "98aa9133a1d9ca08d566dac98d2420999a1979532eb72ea44ddaa678b7b71483"
+  },
+  "targeted/targeted-results.json": {
+    "bytes": 2099,
+    "sha256": "22012a5b2a93622291bc627f995889d6dfd8c2ce9fdc114cb41830913f98de2e"
+  },
+  "targeted/unknown-event-save.json": {
+    "bytes": 19525,
+    "sha256": "914902dcadc2be570e5d4c0d889652b39262724f4a12641e602f70cbdf87d78e"
+  },
+  "targeted/zero-guns-after.json": {
+    "bytes": 71690,
+    "sha256": "a22e834bbed667ac7e54365d3d321c55cc5830404156464ea5ace87866c22ee5"
+  },
+  "targeted/zero-guns-before.json": {
+    "bytes": 70302,
+    "sha256": "661cf0eb352f39894cf7df06304efae2b5d2f138435483601a61a78fa78b3416"
+  },
+  "targeted.js": {
+    "bytes": 4567,
+    "sha256": "847eebdf853f1da9098c7f07b5b946967a5fc79df5375c61d9f0fa128fbb8c91"
+  }
+}

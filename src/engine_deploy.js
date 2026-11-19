@@ -469,10 +469,14 @@ PROCS.aiDeploy = {
 };
 // Convoy encounter after an escorted AI convoy: aiDeploy returns forces, B2after runs the encounter with kind convoy
 function scatterRoll(s, convoySide, gunsN, attackerTxt) {
+  if (gunsN < 1) {
+    const txt = 'No eligible guns — no convoy attack. The Convoy continues normally; no die is rolled.';
+    log(s, `${SIDE_SHORT[convoySide]} Convoy (${attackerTxt}): ${txt}`, 'info');
+    return { res: null, txt };
+  }
   const row = SCATTER_ROWS.findIndex(r => gunsN >= r[0] && gunsN <= r[1]);
   const r = d10(s);
   let res = row < 0 ? 'S' : SCATTER[row][r];
-  if (gunsN <= 0) res = 'S';
   const c = s.convoys[convoySide][s.turn];
   if (c) c.result = res;
   const word = { S: 'Convoy Scatters', D: 'Convoy Destroyed', C: 'Convoy Captured' }[res];

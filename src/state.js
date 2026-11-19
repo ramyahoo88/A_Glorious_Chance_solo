@@ -1,7 +1,7 @@
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.11';
+const APP_VERSION = '0.2.12';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -211,10 +211,10 @@ function leaderName(s, side) {
 }
 function originalLeaderOk(s, side) {
   const L = s.leader[side];
-  return (side === 'BR' ? L.seq === 0 : L.seq <= 1) && !L.wounded;
+  return (side === 'BR' ? L.seq === 0 : L.seq <= 1) && !L.wounded && leaderAlive(s, side);
 }
 function commandDRMAvailable(s, side) {
   const L = s.leader[side];
-  if (L.wounded) return false;
+  if (L.wounded || !leaderAlive(s, side)) return false;
   return side === 'BR' ? L.seq === 0 : L.seq === 1;
 }

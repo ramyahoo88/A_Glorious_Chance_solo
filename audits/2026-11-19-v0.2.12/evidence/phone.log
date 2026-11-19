@@ -1,0 +1,118 @@
+{
+  "resultCount": 12,
+  "failures": 0,
+  "results": [
+    {
+      "name": "A7 changing the flagship as the last input applies the displayed choice",
+      "pass": true,
+      "detail": {
+        "original": "madison",
+        "chosen": "oneida",
+        "seed": 280004
+      }
+    },
+    {
+      "name": "The same flagship transfer also works before a later ship selection",
+      "pass": true,
+      "detail": {
+        "seed": 280004,
+        "inputOrder": [
+          "flagship",
+          "ship",
+          "confirm"
+        ]
+      }
+    },
+    {
+      "name": "An empty A7 warns before confirmation and clears when ships will sail",
+      "pass": true,
+      "detail": {
+        "seed": 280004,
+        "assigned": 1
+      }
+    },
+    {
+      "name": "Homeport and A7 ship details work without changing the draft, RNG or Undo",
+      "pass": true,
+      "detail": {
+        "inspected": [
+          "homeport",
+          "A7 with one assigned",
+          "lake"
+        ],
+        "seed": 280004
+      }
+    },
+    {
+      "name": "Selection and lineup changes preserve focus and scroll; tow has its own name",
+      "pass": true,
+      "detail": {
+        "scrollTop": 80,
+        "tow": "Madison → Asp"
+      }
+    },
+    {
+      "name": "An empty first Round explains the skipped roll and does not display odds",
+      "pass": true,
+      "detail": {
+        "attacker": "Madison",
+        "defender": "Wolfe",
+        "encounter": "Sacket's"
+      }
+    },
+    {
+      "name": "A reserve appears once and has no line position when its battle column is empty",
+      "pass": true,
+      "detail": {
+        "reserve": "Madison",
+        "fighting": "Wolfe"
+      }
+    },
+    {
+      "name": "A changed Weather Gage labels the completed formation and a retained Gage keeps the active roles",
+      "pass": true,
+      "detail": {
+        "previous": "B",
+        "newGage": "American",
+        "retainedGage": "British",
+        "harbor": true
+      }
+    },
+    {
+      "name": "Reference returns all 648 line positions and keeps the Close control reachable",
+      "pass": true,
+      "detail": {
+        "shipColumns": 18,
+        "redBluePairs": 648
+      }
+    },
+    {
+      "name": "Lake zone placement follows the board at either width without another game action",
+      "pass": true,
+      "detail": {
+        "wide": "\"YOR NOR KIN\" \"NIA SOU SAC\"",
+        "narrow": "\"YOR NIA\" \"NOR SOU\" \"KIN SAC\""
+      }
+    },
+    {
+      "name": "Only currently revealed cards appear in the lookup and face-up board tiles open",
+      "pass": true,
+      "detail": {
+        "hidden": "A1",
+        "revealed": [
+          "A2",
+          "Event #1"
+        ]
+      }
+    },
+    {
+      "name": "Editing a custom package threshold survives a hand tick without altering saved preferences",
+      "pass": true,
+      "detail": {
+        "criterion": "ships",
+        "threshold": 2,
+        "remember": false
+      }
+    }
+  ]
+}

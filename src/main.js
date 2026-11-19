@@ -1,4 +1,7 @@
 /* Boot */
+// Capture the complete static page before render() adds a game or any dialogs.
+// This also works from a local file with no fetch, service worker or network.
+const APP_DOWNLOAD_HTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
 installResume();
 document.addEventListener('keydown', (e) => {
   if (modalKeydown(e) || e.defaultPrevented || e.repeat) return;

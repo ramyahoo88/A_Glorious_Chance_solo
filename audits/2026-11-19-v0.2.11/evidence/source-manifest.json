@@ -1,0 +1,62 @@
+{
+  "auditedMain": "fe636b21e2ee0027c611acd873ebea89189ed057",
+  "appVersion": "0.2.11",
+  "checkedAt": "2026-11-19",
+  "release": {
+    "before": "18b5ecf165f322f344bbd3df7e1bf4b0d1a9d9b747780beb8640213fa675d05e",
+    "rebuilt": "18b5ecf165f322f344bbd3df7e1bf4b0d1a9d9b747780beb8640213fa675d05e",
+    "bytes": 367635,
+    "identical": true,
+    "public": {
+      "bytes": 367635,
+      "sha256": "18b5ecf165f322f344bbd3df7e1bf4b0d1a9d9b747780beb8640213fa675d05e",
+      "matches": true
+    }
+  },
+  "rules": [
+    {
+      "name": "AGC_Living_Rulebook_British_Solo_as_of_7aug2024.pdf",
+      "url": "https://www.legionwargames.com/docs/AGC_Living_Rulebook_British_Solo_as_of_7aug2024.pdf",
+      "bytes": 24111116,
+      "sha256": "ef0746ab71cb2424fd996a88254d1bcc60f930cc91e740913385af31a2e4f452"
+    },
+    {
+      "name": "AGC_Living_Rulebook_US_Solo_as_of_13apr2024.pdf",
+      "url": "https://www.legionwargames.com/docs/AGC_Living_Rulebook_US_Solo_as_of_13apr2024.pdf",
+      "bytes": 25896280,
+      "sha256": "278cd7579905e518b4fe7bca122e86d3f94469590a8f519a3e37548c13b8293e"
+    },
+    {
+      "name": "AGC_Living_Playbook_as_of_6Aug2024.pdf",
+      "url": "https://www.legionwargames.com/docs/AGC_Living_Playbook_as_of_6Aug2024.pdf",
+      "bytes": 4420290,
+      "sha256": "7383005e969eda114961a9099de21b31fe99c469ea845b885ed0b468d31ff002"
+    },
+    {
+      "name": "AGC_errata_and_clarifications_rev_13Apr2024.pdf",
+      "url": "https://www.legionwargames.com/docs/AGC_errata_and_clarifications_rev_13Apr2024.pdf",
+      "bytes": 1089321,
+      "sha256": "ed170899e1ef7a61741b2125252db08d376969ab6df83cb04a54ae96a6a3a39a"
+    }
+  ],
+  "applicationSources": {
+    "src/assign.js": "7a1d3a93d8ff514f8de33f2e9064af461207edb60268e7694ddb3f90d8b83014",
+    "src/data.js": "764489d789f5f420912ff941d6b25b1c3fd2c3ce1713eade94be47550b483931",
+    "src/data_aids.js": "1366e543b4a891fb7041b4442e0c3ca0af92b3ff65c556646def8f7578571823",
+    "src/data_targets.js": "d7d0389271e16ca410a840dede5cb0a9bbbe6ae1636c1cc6c75c3939793f64a2",
+    "src/engine_coastal.js": "96c7d3c75f6259406405ecf49dd75da2e0a6ba98d485065e08e862edfe18dc2b",
+    "src/engine_combat.js": "aa6cb1cc26b41b87b26b86e87441bc6a088fa35b04bab0cbd21a270cbee68913",
+    "src/engine_core.js": "80d19e663aac3aeb518b9a799d7a0c7a6036b37c956a3a19d62a1b60f43ea3d9",
+    "src/engine_deploy.js": "ede870ccf4dc003175b0bea38c826e571de5bd00df04867c25c372e86a1d0a7d",
+    "src/engine_encounter.js": "e60d4294727121b1e31235f6893ad87d27a4c0cf1d36d44d7235531a46926813",
+    "src/engine_tally.js": "c69bc7e3ad66c055577c91b3b1f5da7d18c02bd82ab46e596c121fc9de2984d4",
+    "src/engine_turn.js": "8afc1d1d9a2dd19eec35b013a4bd0d4104b41d6cc82dc38c1fe5f82cd652d6ec",
+    "src/main.js": "98a29a5c829531e1b918801b3310159644b027b872364f2d5e7fc5dbf0fe833f",
+    "src/rng.js": "c6428685b5a7304b00cf1128e0987c7f8e597db2c8698ad0cf0fb19fef23d225",
+    "src/state.js": "cdc830af601f9577d6179159f4c6989b3ef67335791d09c7649dabedfa27f5c2",
+    "src/style.css": "37ef4c980fee8e9769da4d6aaab4b3ccc9b61b1104cc3acd24121266dd3ded27",
+    "src/ui.js": "0f73c45f99ab7478eae5b4a3f43e0f62cc14db8499863f47188bcb988c877407",
+    "src/ui_reference.js": "6e6918fe59b5c861093f43046dc515a3ea856bbf201948f367ba0f76cb29c700",
+    "src/ui_table.js": "e30686c5d3994ae11c12f37923e82fcce107236b03693786969745caa69eefd8"
+  }
+}

@@ -1,0 +1,1471 @@
+{
+  "sameSeedsAndPolicies": 1600,
+  "changedFinalScore": 209,
+  "changedVictoryTier": 45,
+  "note": "Corrected casualty and convoy rolls change later seeded dice; this is a regression comparison, not an isolated balance estimate.",
+  "gamesWithScoreChanges": [
+    {
+      "human": "US",
+      "seed": 920000,
+      "policy": "blockade",
+      "oldScore": -40,
+      "newScore": -50
+    },
+    {
+      "human": "BR",
+      "seed": 920000,
+      "policy": "fleet",
+      "oldScore": 122,
+      "newScore": 23
+    },
+    {
+      "human": "BR",
+      "seed": 920001,
+      "policy": "cautious",
+      "oldScore": 88,
+      "newScore": 95
+    },
+    {
+      "human": "BR",
+      "seed": 920001,
+      "policy": "blockade",
+      "oldScore": 62,
+      "newScore": 67
+    },
+    {
+      "human": "US",
+      "seed": 920002,
+      "policy": "fleet",
+      "oldScore": -117,
+      "newScore": -102
+    },
+    {
+      "human": "BR",
+      "seed": 920002,
+      "policy": "cautious",
+      "oldScore": 102,
+      "newScore": 53
+    },
+    {
+      "human": "BR",
+      "seed": 920006,
+      "policy": "coast",
+      "oldScore": 89,
+      "newScore": 95
+    },
+    {
+      "human": "US",
+      "seed": 920007,
+      "policy": "blockade",
+      "oldScore": 25,
+      "newScore": 20
+    },
+    {
+      "human": "BR",
+      "seed": 920009,
+      "policy": "fleet",
+      "oldScore": 30,
+      "newScore": 40
+    },
+    {
+      "human": "BR",
+      "seed": 920009,
+      "policy": "coast",
+      "oldScore": 2,
+      "newScore": 68
+    },
+    {
+      "human": "BR",
+      "seed": 920009,
+      "policy": "screen",
+      "oldScore": 76,
+      "newScore": 94
+    },
+    {
+      "human": "BR",
+      "seed": 920009,
+      "policy": "blockade",
+      "oldScore": 24,
+      "newScore": 114
+    },
+    {
+      "human": "US",
+      "seed": 920010,
+      "policy": "screen",
+      "oldScore": -66,
+      "newScore": -46
+    },
+    {
+      "human": "US",
+      "seed": 920011,
+      "policy": "fleet",
+      "oldScore": -25,
+      "newScore": -3
+    },
+    {
+      "human": "BR",
+      "seed": 920011,
+      "policy": "fleet",
+      "oldScore": 75,
+      "newScore": 35
+    },
+    {
+      "human": "US",
+      "seed": 920013,
+      "policy": "fleet",
+      "oldScore": -65,
+      "newScore": -100
+    },
+    {
+      "human": "BR",
+      "seed": 920013,
+      "policy": "fleet",
+      "oldScore": 54,
+      "newScore": 53
+    },
+    {
+      "human": "BR",
+      "seed": 920013,
+      "policy": "coast",
+      "oldScore": 94,
+      "newScore": 99
+    },
+    {
+      "human": "BR",
+      "seed": 920013,
+      "policy": "blockade",
+      "oldScore": 68,
+      "newScore": 84
+    },
+    {
+      "human": "BR",
+      "seed": 920014,
+      "policy": "coast",
+      "oldScore": 50,
+      "newScore": 43
+    },
+    {
+      "human": "BR",
+      "seed": 920015,
+      "policy": "fleet",
+      "oldScore": 53,
+      "newScore": 65
+    },
+    {
+      "human": "BR",
+      "seed": 920016,
+      "policy": "fleet",
+      "oldScore": 89,
+      "newScore": 81
+    },
+    {
+      "human": "BR",
+      "seed": 920017,
+      "policy": "coast",
+      "oldScore": 92,
+      "newScore": -13
+    },
+    {
+      "human": "US",
+      "seed": 920018,
+      "policy": "cautious",
+      "oldScore": -44,
+      "newScore": -45
+    },
+    {
+      "human": "BR",
+      "seed": 920019,
+      "policy": "fleet",
+      "oldScore": 44,
+      "newScore": -7
+    },
+    {
+      "human": "US",
+      "seed": 920020,
+      "policy": "cautious",
+      "oldScore": -76,
+      "newScore": -55
+    },
+    {
+      "human": "BR",
+      "seed": 920020,
+      "policy": "fleet",
+      "oldScore": 81,
+      "newScore": 76
+    },
+    {
+      "human": "US",
+      "seed": 920021,
+      "policy": "blockade",
+      "oldScore": -91,
+      "newScore": -122
+    },
+    {
+      "human": "BR",
+      "seed": 920021,
+      "policy": "screen",
+      "oldScore": 57,
+      "newScore": 108
+    },
+    {
+      "human": "US",
+      "seed": 920022,
+      "policy": "blockade",
+      "oldScore": -71,
+      "newScore": -75
+    },
+    {
+      "human": "US",
+      "seed": 920023,
+      "policy": "screen",
+      "oldScore": -91,
+      "newScore": -47
+    },
+    {
+      "human": "BR",
+      "seed": 920023,
+      "policy": "cautious",
+      "oldScore": 57,
+      "newScore": 70
+    },
+    {
+      "human": "BR",
+      "seed": 920023,
+      "policy": "blockade",
+      "oldScore": -28,
+      "newScore": 12
+    },
+    {
+      "human": "US",
+      "seed": 920024,
+      "policy": "screen",
+      "oldScore": -69,
+      "newScore": -51
+    },
+    {
+      "human": "BR",
+      "seed": 920024,
+      "policy": "coast",
+      "oldScore": -3,
+      "newScore": 46
+    },
+    {
+      "human": "US",
+      "seed": 920026,
+      "policy": "fleet",
+      "oldScore": -72,
+      "newScore": -133
+    },
+    {
+      "human": "US",
+      "seed": 920026,
+      "policy": "blockade",
+      "oldScore": -8,
+      "newScore": -14
+    },
+    {
+      "human": "US",
+      "seed": 920027,
+      "policy": "screen",
+      "oldScore": -84,
+      "newScore": -35
+    },
+    {
+      "human": "US",
+      "seed": 920027,
+      "policy": "blockade",
+      "oldScore": -120,
+      "newScore": -168
+    },
+    {
+      "human": "BR",
+      "seed": 920027,
+      "policy": "cautious",
+      "oldScore": 53,
+      "newScore": 78
+    },
+    {
+      "human": "US",
+      "seed": 920028,
+      "policy": "fleet",
+      "oldScore": -44,
+      "newScore": -74
+    },
+    {
+      "human": "BR",
+      "seed": 920029,
+      "policy": "blockade",
+      "oldScore": 43,
+      "newScore": 24
+    },
+    {
+      "human": "BR",
+      "seed": 920032,
+      "policy": "screen",
+      "oldScore": 105,
+      "newScore": 45
+    },
+    {
+      "human": "US",
+      "seed": 920033,
+      "policy": "fleet",
+      "oldScore": -89,
+      "newScore": -69
+    },
+    {
+      "human": "US",
+      "seed": 920033,
+      "policy": "cautious",
+      "oldScore": -124,
+      "newScore": -93
+    },
+    {
+      "human": "BR",
+      "seed": 920033,
+      "policy": "fleet",
+      "oldScore": 40,
+      "newScore": 80
+    },
+    {
+      "human": "BR",
+      "seed": 920033,
+      "policy": "cautious",
+      "oldScore": 49,
+      "newScore": 68
+    },
+    {
+      "human": "BR",
+      "seed": 920033,
+      "policy": "screen",
+      "oldScore": 114,
+      "newScore": 92
+    },
+    {
+      "human": "BR",
+      "seed": 920033,
+      "policy": "blockade",
+      "oldScore": 62,
+      "newScore": -35
+    },
+    {
+      "human": "BR",
+      "seed": 920035,
+      "policy": "fleet",
+      "oldScore": 86,
+      "newScore": 97
+    },
+    {
+      "human": "US",
+      "seed": 920036,
+      "policy": "screen",
+      "oldScore": -43,
+      "newScore": -28
+    },
+    {
+      "human": "BR",
+      "seed": 920036,
+      "policy": "fleet",
+      "oldScore": 103,
+      "newScore": 101
+    },
+    {
+      "human": "US",
+      "seed": 920037,
+      "policy": "fleet",
+      "oldScore": -19,
+      "newScore": -47
+    },
+    {
+      "human": "US",
+      "seed": 920037,
+      "policy": "screen",
+      "oldScore": -115,
+      "newScore": -77
+    },
+    {
+      "human": "BR",
+      "seed": 920038,
+      "policy": "screen",
+      "oldScore": 17,
+      "newScore": 68
+    },
+    {
+      "human": "BR",
+      "seed": 920039,
+      "policy": "screen",
+      "oldScore": 104,
+      "newScore": 68
+    },
+    {
+      "human": "US",
+      "seed": 920040,
+      "policy": "screen",
+      "oldScore": -91,
+      "newScore": -130
+    },
+    {
+      "human": "US",
+      "seed": 920041,
+      "policy": "coast",
+      "oldScore": -52,
+      "newScore": -11
+    },
+    {
+      "human": "BR",
+      "seed": 920041,
+      "policy": "cautious",
+      "oldScore": 72,
+      "newScore": 62
+    },
+    {
+      "human": "BR",
+      "seed": 920042,
+      "policy": "screen",
+      "oldScore": 97,
+      "newScore": 96
+    },
+    {
+      "human": "BR",
+      "seed": 920043,
+      "policy": "coast",
+      "oldScore": 90,
+      "newScore": 85
+    },
+    {
+      "human": "US",
+      "seed": 920045,
+      "policy": "blockade",
+      "oldScore": -149,
+      "newScore": -151
+    },
+    {
+      "human": "BR",
+      "seed": 920045,
+      "policy": "fleet",
+      "oldScore": 89,
+      "newScore": 98
+    },
+    {
+      "human": "BR",
+      "seed": 920045,
+      "policy": "coast",
+      "oldScore": 60,
+      "newScore": 47
+    },
+    {
+      "human": "BR",
+      "seed": 920048,
+      "policy": "screen",
+      "oldScore": 58,
+      "newScore": 63
+    },
+    {
+      "human": "BR",
+      "seed": 920049,
+      "policy": "cautious",
+      "oldScore": 24,
+      "newScore": 43
+    },
+    {
+      "human": "US",
+      "seed": 920050,
+      "policy": "fleet",
+      "oldScore": -79,
+      "newScore": -58
+    },
+    {
+      "human": "US",
+      "seed": 920051,
+      "policy": "fleet",
+      "oldScore": -125,
+      "newScore": -124
+    },
+    {
+      "human": "US",
+      "seed": 920051,
+      "policy": "cautious",
+      "oldScore": -108,
+      "newScore": -124
+    },
+    {
+      "human": "BR",
+      "seed": 920051,
+      "policy": "fleet",
+      "oldScore": 52,
+      "newScore": 36
+    },
+    {
+      "human": "US",
+      "seed": 920052,
+      "policy": "blockade",
+      "oldScore": -99,
+      "newScore": -83
+    },
+    {
+      "human": "BR",
+      "seed": 920052,
+      "policy": "screen",
+      "oldScore": 82,
+      "newScore": 76
+    },
+    {
+      "human": "BR",
+      "seed": 920054,
+      "policy": "screen",
+      "oldScore": 78,
+      "newScore": 60
+    },
+    {
+      "human": "US",
+      "seed": 920055,
+      "policy": "coast",
+      "oldScore": -66,
+      "newScore": 8
+    },
+    {
+      "human": "US",
+      "seed": 920055,
+      "policy": "screen",
+      "oldScore": -100,
+      "newScore": -104
+    },
+    {
+      "human": "BR",
+      "seed": 920055,
+      "policy": "screen",
+      "oldScore": 90,
+      "newScore": 80
+    },
+    {
+      "human": "US",
+      "seed": 920056,
+      "policy": "fleet",
+      "oldScore": -136,
+      "newScore": -96
+    },
+    {
+      "human": "US",
+      "seed": 920056,
+      "policy": "cautious",
+      "oldScore": -129,
+      "newScore": -149
+    },
+    {
+      "human": "BR",
+      "seed": 920056,
+      "policy": "fleet",
+      "oldScore": 68,
+      "newScore": 66
+    },
+    {
+      "human": "BR",
+      "seed": 920057,
+      "policy": "cautious",
+      "oldScore": 82,
+      "newScore": 84
+    },
+    {
+      "human": "US",
+      "seed": 920058,
+      "policy": "blockade",
+      "oldScore": -142,
+      "newScore": -147
+    },
+    {
+      "human": "BR",
+      "seed": 920058,
+      "policy": "fleet",
+      "oldScore": 12,
+      "newScore": 7
+    },
+    {
+      "human": "BR",
+      "seed": 920058,
+      "policy": "coast",
+      "oldScore": 20,
+      "newScore": 6
+    },
+    {
+      "human": "BR",
+      "seed": 920059,
+      "policy": "coast",
+      "oldScore": 12,
+      "newScore": 18
+    },
+    {
+      "human": "US",
+      "seed": 920060,
+      "policy": "screen",
+      "oldScore": -70,
+      "newScore": -67
+    },
+    {
+      "human": "BR",
+      "seed": 920060,
+      "policy": "coast",
+      "oldScore": 58,
+      "newScore": 43
+    },
+    {
+      "human": "BR",
+      "seed": 920061,
+      "policy": "screen",
+      "oldScore": 83,
+      "newScore": 57
+    },
+    {
+      "human": "BR",
+      "seed": 920061,
+      "policy": "blockade",
+      "oldScore": 62,
+      "newScore": 96
+    },
+    {
+      "human": "US",
+      "seed": 920062,
+      "policy": "blockade",
+      "oldScore": -95,
+      "newScore": -119
+    },
+    {
+      "human": "BR",
+      "seed": 920062,
+      "policy": "cautious",
+      "oldScore": 43,
+      "newScore": 85
+    },
+    {
+      "human": "US",
+      "seed": 920064,
+      "policy": "blockade",
+      "oldScore": -45,
+      "newScore": -89
+    },
+    {
+      "human": "BR",
+      "seed": 920064,
+      "policy": "screen",
+      "oldScore": -21,
+      "newScore": 25
+    },
+    {
+      "human": "BR",
+      "seed": 920067,
+      "policy": "blockade",
+      "oldScore": 5,
+      "newScore": -22
+    },
+    {
+      "human": "US",
+      "seed": 920069,
+      "policy": "fleet",
+      "oldScore": -65,
+      "newScore": -104
+    },
+    {
+      "human": "US",
+      "seed": 920069,
+      "policy": "screen",
+      "oldScore": -75,
+      "newScore": -49
+    },
+    {
+      "human": "BR",
+      "seed": 920069,
+      "policy": "fleet",
+      "oldScore": 88,
+      "newScore": 31
+    },
+    {
+      "human": "BR",
+      "seed": 920069,
+      "policy": "coast",
+      "oldScore": 11,
+      "newScore": 2
+    },
+    {
+      "human": "BR",
+      "seed": 920069,
+      "policy": "cautious",
+      "oldScore": 72,
+      "newScore": 63
+    },
+    {
+      "human": "US",
+      "seed": 920070,
+      "policy": "fleet",
+      "oldScore": -122,
+      "newScore": -59
+    },
+    {
+      "human": "BR",
+      "seed": 920070,
+      "policy": "fleet",
+      "oldScore": 15,
+      "newScore": 59
+    },
+    {
+      "human": "BR",
+      "seed": 920070,
+      "policy": "screen",
+      "oldScore": 35,
+      "newScore": 94
+    },
+    {
+      "human": "BR",
+      "seed": 920073,
+      "policy": "screen",
+      "oldScore": 73,
+      "newScore": 68
+    },
+    {
+      "human": "BR",
+      "seed": 920074,
+      "policy": "screen",
+      "oldScore": 69,
+      "newScore": 53
+    },
+    {
+      "human": "US",
+      "seed": 920077,
+      "policy": "cautious",
+      "oldScore": -50,
+      "newScore": -68
+    },
+    {
+      "human": "US",
+      "seed": 920077,
+      "policy": "screen",
+      "oldScore": -10,
+      "newScore": -46
+    },
+    {
+      "human": "US",
+      "seed": 920078,
+      "policy": "coast",
+      "oldScore": -110,
+      "newScore": -1
+    },
+    {
+      "human": "BR",
+      "seed": 920078,
+      "policy": "coast",
+      "oldScore": 20,
+      "newScore": 17
+    },
+    {
+      "human": "US",
+      "seed": 920080,
+      "policy": "fleet",
+      "oldScore": 7,
+      "newScore": 6
+    },
+    {
+      "human": "US",
+      "seed": 920081,
+      "policy": "cautious",
+      "oldScore": -84,
+      "newScore": -86
+    },
+    {
+      "human": "US",
+      "seed": 920082,
+      "policy": "blockade",
+      "oldScore": -46,
+      "newScore": -45
+    },
+    {
+      "human": "BR",
+      "seed": 920082,
+      "policy": "fleet",
+      "oldScore": 48,
+      "newScore": 80
+    },
+    {
+      "human": "US",
+      "seed": 920085,
+      "policy": "screen",
+      "oldScore": -69,
+      "newScore": -64
+    },
+    {
+      "human": "US",
+      "seed": 920086,
+      "policy": "cautious",
+      "oldScore": -54,
+      "newScore": -83
+    },
+    {
+      "human": "BR",
+      "seed": 920087,
+      "policy": "fleet",
+      "oldScore": 25,
+      "newScore": 37
+    },
+    {
+      "human": "BR",
+      "seed": 920088,
+      "policy": "fleet",
+      "oldScore": 89,
+      "newScore": 43
+    },
+    {
+      "human": "BR",
+      "seed": 920088,
+      "policy": "cautious",
+      "oldScore": 85,
+      "newScore": 76
+    },
+    {
+      "human": "US",
+      "seed": 920089,
+      "policy": "cautious",
+      "oldScore": -73,
+      "newScore": -86
+    },
+    {
+      "human": "US",
+      "seed": 920089,
+      "policy": "blockade",
+      "oldScore": 16,
+      "newScore": 20
+    },
+    {
+      "human": "US",
+      "seed": 920091,
+      "policy": "fleet",
+      "oldScore": -75,
+      "newScore": -77
+    },
+    {
+      "human": "BR",
+      "seed": 920092,
+      "policy": "screen",
+      "oldScore": 49,
+      "newScore": 43
+    },
+    {
+      "human": "BR",
+      "seed": 920092,
+      "policy": "blockade",
+      "oldScore": -55,
+      "newScore": -64
+    },
+    {
+      "human": "BR",
+      "seed": 920093,
+      "policy": "screen",
+      "oldScore": 88,
+      "newScore": 77
+    },
+    {
+      "human": "US",
+      "seed": 920096,
+      "policy": "blockade",
+      "oldScore": 27,
+      "newScore": 40
+    },
+    {
+      "human": "BR",
+      "seed": 920096,
+      "policy": "cautious",
+      "oldScore": 47,
+      "newScore": 46
+    },
+    {
+      "human": "BR",
+      "seed": 920096,
+      "policy": "screen",
+      "oldScore": 125,
+      "newScore": 126
+    },
+    {
+      "human": "BR",
+      "seed": 920097,
+      "policy": "coast",
+      "oldScore": 4,
+      "newScore": 21
+    },
+    {
+      "human": "US",
+      "seed": 920098,
+      "policy": "blockade",
+      "oldScore": -102,
+      "newScore": -154
+    },
+    {
+      "human": "US",
+      "seed": 920099,
+      "policy": "screen",
+      "oldScore": -68,
+      "newScore": -85
+    },
+    {
+      "human": "BR",
+      "seed": 920099,
+      "policy": "fleet",
+      "oldScore": 59,
+      "newScore": 61
+    },
+    {
+      "human": "BR",
+      "seed": 920099,
+      "policy": "blockade",
+      "oldScore": 30,
+      "newScore": 29
+    },
+    {
+      "human": "US",
+      "seed": 920100,
+      "policy": "blockade",
+      "oldScore": -68,
+      "newScore": -67
+    },
+    {
+      "human": "US",
+      "seed": 920101,
+      "policy": "screen",
+      "oldScore": -65,
+      "newScore": -94
+    },
+    {
+      "human": "BR",
+      "seed": 920101,
+      "policy": "blockade",
+      "oldScore": 36,
+      "newScore": 64
+    },
+    {
+      "human": "US",
+      "seed": 920102,
+      "policy": "blockade",
+      "oldScore": -4,
+      "newScore": -6
+    },
+    {
+      "human": "US",
+      "seed": 920103,
+      "policy": "cautious",
+      "oldScore": -50,
+      "newScore": -89
+    },
+    {
+      "human": "BR",
+      "seed": 920104,
+      "policy": "fleet",
+      "oldScore": 104,
+      "newScore": 88
+    },
+    {
+      "human": "US",
+      "seed": 920105,
+      "policy": "fleet",
+      "oldScore": -38,
+      "newScore": -41
+    },
+    {
+      "human": "BR",
+      "seed": 920105,
+      "policy": "fleet",
+      "oldScore": 103,
+      "newScore": 101
+    },
+    {
+      "human": "BR",
+      "seed": 920106,
+      "policy": "blockade",
+      "oldScore": -106,
+      "newScore": -66
+    },
+    {
+      "human": "BR",
+      "seed": 920107,
+      "policy": "blockade",
+      "oldScore": -50,
+      "newScore": -71
+    },
+    {
+      "human": "US",
+      "seed": 920110,
+      "policy": "blockade",
+      "oldScore": -86,
+      "newScore": -112
+    },
+    {
+      "human": "BR",
+      "seed": 920111,
+      "policy": "fleet",
+      "oldScore": 96,
+      "newScore": 93
+    },
+    {
+      "human": "BR",
+      "seed": 920112,
+      "policy": "cautious",
+      "oldScore": 84,
+      "newScore": 107
+    },
+    {
+      "human": "BR",
+      "seed": 920113,
+      "policy": "screen",
+      "oldScore": 67,
+      "newScore": 71
+    },
+    {
+      "human": "BR",
+      "seed": 920113,
+      "policy": "blockade",
+      "oldScore": 89,
+      "newScore": 55
+    },
+    {
+      "human": "BR",
+      "seed": 920114,
+      "policy": "cautious",
+      "oldScore": 122,
+      "newScore": 119
+    },
+    {
+      "human": "BR",
+      "seed": 920116,
+      "policy": "fleet",
+      "oldScore": 77,
+      "newScore": 51
+    },
+    {
+      "human": "BR",
+      "seed": 920116,
+      "policy": "coast",
+      "oldScore": 62,
+      "newScore": 53
+    },
+    {
+      "human": "BR",
+      "seed": 920116,
+      "policy": "cautious",
+      "oldScore": 89,
+      "newScore": 60
+    },
+    {
+      "human": "US",
+      "seed": 920117,
+      "policy": "fleet",
+      "oldScore": -91,
+      "newScore": -101
+    },
+    {
+      "human": "US",
+      "seed": 920117,
+      "policy": "cautious",
+      "oldScore": -53,
+      "newScore": -89
+    },
+    {
+      "human": "US",
+      "seed": 920117,
+      "policy": "screen",
+      "oldScore": -68,
+      "newScore": -83
+    },
+    {
+      "human": "BR",
+      "seed": 920118,
+      "policy": "screen",
+      "oldScore": 45,
+      "newScore": 82
+    },
+    {
+      "human": "BR",
+      "seed": 920119,
+      "policy": "fleet",
+      "oldScore": 59,
+      "newScore": 113
+    },
+    {
+      "human": "BR",
+      "seed": 920119,
+      "policy": "cautious",
+      "oldScore": 71,
+      "newScore": 99
+    },
+    {
+      "human": "US",
+      "seed": 920121,
+      "policy": "fleet",
+      "oldScore": -26,
+      "newScore": -31
+    },
+    {
+      "human": "BR",
+      "seed": 920121,
+      "policy": "coast",
+      "oldScore": 46,
+      "newScore": 32
+    },
+    {
+      "human": "US",
+      "seed": 920122,
+      "policy": "cautious",
+      "oldScore": -84,
+      "newScore": -65
+    },
+    {
+      "human": "US",
+      "seed": 920124,
+      "policy": "fleet",
+      "oldScore": -33,
+      "newScore": -32
+    },
+    {
+      "human": "US",
+      "seed": 920124,
+      "policy": "screen",
+      "oldScore": -34,
+      "newScore": -24
+    },
+    {
+      "human": "BR",
+      "seed": 920124,
+      "policy": "fleet",
+      "oldScore": 78,
+      "newScore": 56
+    },
+    {
+      "human": "BR",
+      "seed": 920124,
+      "policy": "blockade",
+      "oldScore": 117,
+      "newScore": 123
+    },
+    {
+      "human": "US",
+      "seed": 920125,
+      "policy": "fleet",
+      "oldScore": -96,
+      "newScore": -154
+    },
+    {
+      "human": "BR",
+      "seed": 920125,
+      "policy": "fleet",
+      "oldScore": 12,
+      "newScore": -4
+    },
+    {
+      "human": "BR",
+      "seed": 920129,
+      "policy": "coast",
+      "oldScore": 68,
+      "newScore": 42
+    },
+    {
+      "human": "BR",
+      "seed": 920130,
+      "policy": "blockade",
+      "oldScore": 62,
+      "newScore": 23
+    },
+    {
+      "human": "BR",
+      "seed": 920131,
+      "policy": "coast",
+      "oldScore": 46,
+      "newScore": 27
+    },
+    {
+      "human": "US",
+      "seed": 920132,
+      "policy": "blockade",
+      "oldScore": 23,
+      "newScore": -28
+    },
+    {
+      "human": "BR",
+      "seed": 920132,
+      "policy": "screen",
+      "oldScore": 115,
+      "newScore": 116
+    },
+    {
+      "human": "BR",
+      "seed": 920132,
+      "policy": "blockade",
+      "oldScore": 82,
+      "newScore": 99
+    },
+    {
+      "human": "BR",
+      "seed": 920133,
+      "policy": "fleet",
+      "oldScore": 37,
+      "newScore": 62
+    },
+    {
+      "human": "BR",
+      "seed": 920133,
+      "policy": "blockade",
+      "oldScore": 57,
+      "newScore": 40
+    },
+    {
+      "human": "BR",
+      "seed": 920134,
+      "policy": "fleet",
+      "oldScore": 85,
+      "newScore": 29
+    },
+    {
+      "human": "US",
+      "seed": 920136,
+      "policy": "blockade",
+      "oldScore": 27,
+      "newScore": 35
+    },
+    {
+      "human": "BR",
+      "seed": 920136,
+      "policy": "screen",
+      "oldScore": 51,
+      "newScore": 87
+    },
+    {
+      "human": "US",
+      "seed": 920137,
+      "policy": "fleet",
+      "oldScore": -104,
+      "newScore": -108
+    },
+    {
+      "human": "BR",
+      "seed": 920137,
+      "policy": "fleet",
+      "oldScore": 106,
+      "newScore": 117
+    },
+    {
+      "human": "US",
+      "seed": 920138,
+      "policy": "blockade",
+      "oldScore": -65,
+      "newScore": -47
+    },
+    {
+      "human": "BR",
+      "seed": 920138,
+      "policy": "coast",
+      "oldScore": 92,
+      "newScore": 109
+    },
+    {
+      "human": "US",
+      "seed": 920139,
+      "policy": "fleet",
+      "oldScore": -106,
+      "newScore": -62
+    },
+    {
+      "human": "BR",
+      "seed": 920139,
+      "policy": "screen",
+      "oldScore": 56,
+      "newScore": 72
+    },
+    {
+      "human": "US",
+      "seed": 920140,
+      "policy": "coast",
+      "oldScore": 25,
+      "newScore": 13
+    },
+    {
+      "human": "US",
+      "seed": 920140,
+      "policy": "screen",
+      "oldScore": -85,
+      "newScore": -74
+    },
+    {
+      "human": "US",
+      "seed": 920140,
+      "policy": "blockade",
+      "oldScore": 27,
+      "newScore": 23
+    },
+    {
+      "human": "US",
+      "seed": 920141,
+      "policy": "screen",
+      "oldScore": -62,
+      "newScore": -42
+    },
+    {
+      "human": "BR",
+      "seed": 920141,
+      "policy": "fleet",
+      "oldScore": 60,
+      "newScore": 57
+    },
+    {
+      "human": "BR",
+      "seed": 920141,
+      "policy": "cautious",
+      "oldScore": 49,
+      "newScore": 42
+    },
+    {
+      "human": "BR",
+      "seed": 920141,
+      "policy": "screen",
+      "oldScore": 78,
+      "newScore": 92
+    },
+    {
+      "human": "US",
+      "seed": 920142,
+      "policy": "fleet",
+      "oldScore": -58,
+      "newScore": -94
+    },
+    {
+      "human": "US",
+      "seed": 920143,
+      "policy": "fleet",
+      "oldScore": -57,
+      "newScore": -120
+    },
+    {
+      "human": "US",
+      "seed": 920143,
+      "policy": "screen",
+      "oldScore": -99,
+      "newScore": -69
+    },
+    {
+      "human": "BR",
+      "seed": 920143,
+      "policy": "screen",
+      "oldScore": 95,
+      "newScore": 124
+    },
+    {
+      "human": "US",
+      "seed": 920144,
+      "policy": "blockade",
+      "oldScore": -7,
+      "newScore": -19
+    },
+    {
+      "human": "BR",
+      "seed": 920144,
+      "policy": "fleet",
+      "oldScore": 84,
+      "newScore": 120
+    },
+    {
+      "human": "BR",
+      "seed": 920144,
+      "policy": "cautious",
+      "oldScore": 86,
+      "newScore": 132
+    },
+    {
+      "human": "BR",
+      "seed": 920146,
+      "policy": "fleet",
+      "oldScore": -7,
+      "newScore": 103
+    },
+    {
+      "human": "BR",
+      "seed": 920146,
+      "policy": "blockade",
+      "oldScore": -36,
+      "newScore": -44
+    },
+    {
+      "human": "US",
+      "seed": 920149,
+      "policy": "blockade",
+      "oldScore": -87,
+      "newScore": -154
+    },
+    {
+      "human": "BR",
+      "seed": 920149,
+      "policy": "coast",
+      "oldScore": 31,
+      "newScore": 36
+    },
+    {
+      "human": "US",
+      "seed": 920150,
+      "policy": "screen",
+      "oldScore": -80,
+      "newScore": -105
+    },
+    {
+      "human": "US",
+      "seed": 920151,
+      "policy": "cautious",
+      "oldScore": -40,
+      "newScore": -41
+    },
+    {
+      "human": "BR",
+      "seed": 920151,
+      "policy": "coast",
+      "oldScore": 105,
+      "newScore": 110
+    },
+    {
+      "human": "BR",
+      "seed": 920151,
+      "policy": "screen",
+      "oldScore": 78,
+      "newScore": 55
+    },
+    {
+      "human": "BR",
+      "seed": 920155,
+      "policy": "coast",
+      "oldScore": 17,
+      "newScore": 47
+    },
+    {
+      "human": "BR",
+      "seed": 920156,
+      "policy": "cautious",
+      "oldScore": 50,
+      "newScore": 41
+    },
+    {
+      "human": "US",
+      "seed": 920158,
+      "policy": "fleet",
+      "oldScore": -90,
+      "newScore": -111
+    },
+    {
+      "human": "BR",
+      "seed": 920158,
+      "policy": "coast",
+      "oldScore": 32,
+      "newScore": 29
+    },
+    {
+      "human": "US",
+      "seed": 920159,
+      "policy": "screen",
+      "oldScore": -71,
+      "newScore": -79
+    },
+    {
+      "human": "BR",
+      "seed": 920159,
+      "policy": "fleet",
+      "oldScore": 115,
+      "newScore": 72
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "checkedCards": 20,
+  "active": 16,
+  "dummies": 4,
+  "fields": [
+    "id",
+    "deck",
+    "symbol",
+    "color",
+    "sideRestriction",
+    "dummy"
+  ],
+  "mismatches": 0
+}

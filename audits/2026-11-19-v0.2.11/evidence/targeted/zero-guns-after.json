@@ -1,0 +1,2743 @@
+{
+  "app": "0.2.11",
+  "build": "0.2.11",
+  "human": "BR",
+  "ai": "US",
+  "rng": 1485805436,
+  "seed": 920011,
+  "options": {
+    "cuttingOut": true,
+    "oa1Upgrades": false,
+    "usAiPrecondition": "longgun",
+    "confirmAiSteps": true,
+    "groupUpdates": false,
+    "manualPackages": false,
+    "manualLandBattle": false
+  },
+  "turn": 5,
+  "phase": "lake",
+  "stepLabel": "B2 Encounter Checks",
+  "over": false,
+  "result": null,
+  "ships": {
+    "wolfe": {
+      "id": "wolfe",
+      "ver": "B",
+      "owner": "BR",
+      "box": "sunk",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "rg": {
+      "id": "rg",
+      "ver": "B",
+      "owner": "BR",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": "F17",
+      "isolated": false,
+      "flags": {}
+    },
+    "moira": {
+      "id": "moira",
+      "ver": "B",
+      "owner": "US",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": "F18",
+      "isolated": false,
+      "flags": {
+        "reflagged": true
+      }
+    },
+    "beres": {
+      "id": "beres",
+      "ver": "B",
+      "owner": "US",
+      "box": "transit",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {
+        "reflagged": true
+      }
+    },
+    "sss": {
+      "id": "sss",
+      "ver": "",
+      "owner": "US",
+      "box": "transit",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {
+        "reflagged": true
+      }
+    },
+    "melville": {
+      "id": "melville",
+      "ver": "",
+      "owner": "BR",
+      "box": "deployable",
+      "zone": null,
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "oneida": {
+      "id": "oneida",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": "F18",
+      "isolated": false,
+      "flags": {}
+    },
+    "madison": {
+      "id": "madison",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 3,
+      "delay": 0,
+      "forceId": "F18",
+      "isolated": false,
+      "flags": {}
+    },
+    "tompkins": {
+      "id": "tompkins",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": "F18",
+      "isolated": false,
+      "flags": {}
+    },
+    "fairam": {
+      "id": "fairam",
+      "ver": "",
+      "owner": "BR",
+      "box": "outOfPlay",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {
+        "reflagged": true
+      }
+    },
+    "conquest": {
+      "id": "conquest",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": "F18",
+      "isolated": false,
+      "flags": {}
+    },
+    "asp": {
+      "id": "asp",
+      "ver": "",
+      "owner": "US",
+      "box": "deployable",
+      "zone": null,
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "growler": {
+      "id": "growler",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": "F18",
+      "isolated": false,
+      "flags": {}
+    },
+    "hamilton": {
+      "id": "hamilton",
+      "ver": "",
+      "owner": "US",
+      "box": "deployable",
+      "zone": null,
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "julia": {
+      "id": "julia",
+      "ver": "",
+      "owner": "US",
+      "box": "sunk",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "lady": {
+      "id": "lady",
+      "ver": "",
+      "owner": "US",
+      "box": "deployable",
+      "zone": null,
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "ontario": {
+      "id": "ontario",
+      "ver": "",
+      "owner": "BR",
+      "box": "outOfPlay",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {
+        "reflagged": true
+      }
+    },
+    "pert": {
+      "id": "pert",
+      "ver": "",
+      "owner": "US",
+      "box": "deployable",
+      "zone": null,
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "raven": {
+      "id": "raven",
+      "ver": "",
+      "owner": "US",
+      "box": "deployable",
+      "zone": null,
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "scourge": {
+      "id": "scourge",
+      "ver": "",
+      "owner": "US",
+      "box": "deployable",
+      "zone": null,
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "sylph": {
+      "id": "sylph",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 3,
+      "delay": 0,
+      "forceId": "F18",
+      "isolated": false,
+      "flags": {}
+    },
+    "pike": {
+      "id": "pike",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 3,
+      "delay": 0,
+      "forceId": "F18",
+      "isolated": false,
+      "flags": {}
+    }
+  },
+  "forces": {
+    "F17": {
+      "id": "F17",
+      "side": "BR",
+      "zone": "SAC",
+      "mission": "Patrol",
+      "ships": [
+        "rg"
+      ],
+      "troops": 0,
+      "ended": true,
+      "origin": "prep",
+      "cardId": null,
+      "aborted": false
+    },
+    "F18": {
+      "id": "F18",
+      "side": "US",
+      "zone": "SAC",
+      "mission": "Patrol",
+      "ships": [
+        "moira",
+        "oneida",
+        "madison",
+        "tompkins",
+        "conquest",
+        "sylph",
+        "pike",
+        "growler"
+      ],
+      "troops": 0,
+      "ended": true,
+      "origin": "targetCard",
+      "cardId": "B41",
+      "aborted": false,
+      "deployPhase": "lake"
+    }
+  },
+  "nextForce": 19,
+  "zones": {
+    "YOR": {
+      "control": "US",
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    },
+    "NOR": {
+      "control": null,
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    },
+    "KIN": {
+      "control": "US",
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    },
+    "NIA": {
+      "control": "BR",
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    },
+    "SOU": {
+      "control": null,
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    },
+    "SAC": {
+      "control": "US",
+      "blockade": null,
+      "event": 22,
+      "flags": {}
+    }
+  },
+  "blockade": {
+    "US": false,
+    "BR": false
+  },
+  "vp": {
+    "US": 42,
+    "BR": 22
+  },
+  "vpLog": [
+    {
+      "turn": 0,
+      "side": "BR",
+      "n": 2,
+      "why": "Julia destroyed (Lake Combat)"
+    },
+    {
+      "turn": 0,
+      "side": "BR",
+      "n": 4,
+      "why": "Ontario captured (Struck Colors)"
+    },
+    {
+      "turn": 0,
+      "side": "US",
+      "n": 1,
+      "why": "Lake Control (1 zone)"
+    },
+    {
+      "turn": 0,
+      "side": "BR",
+      "n": 1,
+      "why": "Lake Control (1 zone)"
+    },
+    {
+      "turn": 0,
+      "side": "US",
+      "n": 1,
+      "why": "Raid on the York coastline"
+    },
+    {
+      "turn": 1,
+      "side": "US",
+      "n": 1,
+      "why": "Lake Control (1 zone)"
+    },
+    {
+      "turn": 1,
+      "side": "BR",
+      "n": 2,
+      "why": "Lake Control (2 zones)"
+    },
+    {
+      "turn": 2,
+      "side": "US",
+      "n": 2,
+      "why": "Lake Control (2 zones)"
+    },
+    {
+      "turn": 2,
+      "side": "BR",
+      "n": 2,
+      "why": "Lake Control (2 zones)"
+    },
+    {
+      "turn": 2,
+      "side": "US",
+      "n": 2,
+      "why": "Raid on the Kingston coastline"
+    },
+    {
+      "turn": 3,
+      "side": "US",
+      "n": 14,
+      "why": "Earl of Moira captured (Struck Colors)"
+    },
+    {
+      "turn": 3,
+      "side": "BR",
+      "n": 8,
+      "why": "Fair American captured (Struck Colors in a Harbor Encounter)"
+    },
+    {
+      "turn": 3,
+      "side": "US",
+      "n": 2,
+      "why": "Lake Control (2 zones)"
+    },
+    {
+      "turn": 3,
+      "side": "BR",
+      "n": 2,
+      "why": "Lake Control (2 zones)"
+    },
+    {
+      "turn": 4,
+      "side": "US",
+      "n": 16,
+      "why": "Wolfe destroyed (Lake Combat)"
+    },
+    {
+      "turn": 4,
+      "side": "US",
+      "n": 3,
+      "why": "Lake Control (3 zones)"
+    },
+    {
+      "turn": 4,
+      "side": "BR",
+      "n": 1,
+      "why": "Lake Control (1 zone)"
+    }
+  ],
+  "supply": {
+    "US": 6,
+    "BR": 4
+  },
+  "cd": {
+    "US": 0,
+    "BR": 0
+  },
+  "niagara": 6,
+  "nb": 112,
+  "nbBand": 6,
+  "fallOffensive": null,
+  "flagship": {
+    "US": "pike",
+    "BR": "rg"
+  },
+  "leader": {
+    "US": {
+      "seq": 0,
+      "wounded": false
+    },
+    "BR": {
+      "seq": 1,
+      "wounded": false
+    }
+  },
+  "convoys": {
+    "US": {
+      "0": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "1": {
+        "real": false,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "2": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "3": {
+        "real": false,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "4": {
+        "real": false,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "5": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": true,
+        "result": "S"
+      },
+      "6": {
+        "real": true,
+        "revealed": false,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "7": {
+        "real": false,
+        "revealed": false,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      }
+    },
+    "BR": {
+      "0": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": true,
+        "result": null
+      },
+      "1": {
+        "real": false,
+        "revealed": true
+      },
+      "2": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "3": {
+        "real": false,
+        "revealed": true
+      },
+      "4": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "5": {
+        "real": false,
+        "revealed": true
+      }
+    }
+  },
+  "pendingConvoy": {
+    "US": [],
+    "BR": []
+  },
+  "convoyDeployed": {
+    "US": {
+      "zone": "SAC"
+    },
+    "BR": null
+  },
+  "troops": {
+    "US": {
+      "track": [],
+      "available": 0
+    },
+    "BR": {
+      "track": [
+        5
+      ],
+      "available": 0
+    }
+  },
+  "aiTroops": {
+    "track": [
+      {
+        "space": 7,
+        "troops": true
+      },
+      {
+        "space": 8,
+        "troops": false
+      }
+    ],
+    "box": []
+  },
+  "deck": {
+    "target": [
+      "B5",
+      "B39",
+      "B13",
+      "B7",
+      "B21",
+      "B43",
+      "B24",
+      "B8",
+      "B34",
+      "B40",
+      "B4",
+      "B31",
+      "B45",
+      "B1",
+      "B29",
+      "B26",
+      "B38",
+      "B37",
+      "B14",
+      "B15",
+      "B25",
+      "B48",
+      "B32",
+      "B33",
+      "B47",
+      "B16",
+      "B46",
+      "B30",
+      "B23",
+      "B11",
+      "B28",
+      "B2",
+      "B17",
+      "B19",
+      "B35",
+      "B22",
+      "B20",
+      "B49",
+      "B42",
+      "B36"
+    ],
+    "event": [
+      38,
+      24,
+      1,
+      5,
+      15,
+      8,
+      27,
+      26,
+      14,
+      3,
+      4,
+      21,
+      19,
+      36,
+      30,
+      2,
+      11,
+      20,
+      13,
+      12,
+      37,
+      9,
+      6,
+      35,
+      23,
+      10,
+      32,
+      28,
+      16,
+      25,
+      29,
+      34,
+      18
+    ],
+    "tacA": [
+      "A_firstshot",
+      "A_surprise",
+      "A_outmaneuver",
+      "A_dummy1",
+      "A_rake",
+      "A_dummy2",
+      "A_grapple",
+      "A_rof",
+      "A_sweep"
+    ],
+    "tacD": [
+      "D_rof",
+      "D_outmaneuver",
+      "D_firstshot",
+      "D_rake",
+      "D_dummy2",
+      "D_openrange",
+      "D_dummy1",
+      "D_repel",
+      "D_mutual"
+    ]
+  },
+  "targetRow": [
+    {
+      "id": "B44",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "B12",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "B9",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "B27",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "B41",
+      "revealed": true,
+      "removed": false,
+      "enc": true,
+      "usedCell": {
+        "row": 0,
+        "col": 6
+      }
+    },
+    {
+      "id": "B18",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "B6",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "B3",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "B50",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "B10",
+      "revealed": true,
+      "removed": false,
+      "enc": true,
+      "usedCell": {
+        "row": 0,
+        "col": 6
+      }
+    }
+  ],
+  "eventsDrawn": [
+    {
+      "id": 17,
+      "purpose": "Encounter Check PE1"
+    },
+    {
+      "id": 22,
+      "purpose": "Encounter Sacket's (Weather Gage + Lake Zone Event)"
+    },
+    {
+      "id": 31,
+      "purpose": "Reaction Segment Weather Gage (Sacket's)"
+    },
+    {
+      "id": 33,
+      "purpose": "Encounter Check PE2"
+    },
+    {
+      "id": 7,
+      "purpose": "Encounter Check PE3"
+    }
+  ],
+  "pe": [
+    {
+      "num": 1,
+      "zone": "SAC",
+      "forceId": "F17",
+      "idx": 4,
+      "status": "ended"
+    },
+    {
+      "num": 2,
+      "zone": "SAC",
+      "forceId": "F17",
+      "idx": 5,
+      "status": "discarded"
+    },
+    {
+      "num": 3,
+      "zone": "SAC",
+      "forceId": "F17",
+      "idx": 9,
+      "status": "encounter"
+    }
+  ],
+  "peNext": 4,
+  "cuttingOutUsed": {
+    "US": false,
+    "BR": false
+  },
+  "intelligence": {
+    "US": null,
+    "BR": null
+  },
+  "coastal": {
+    "raids": [],
+    "battles": [],
+    "cutouts": []
+  },
+  "turnFlags": {
+    "aiCutOutThisTurn": false
+  },
+  "calls": [
+    {
+      "proc": "turn",
+      "pc": "B2after",
+      "L": {
+        "upN": 2,
+        "pending": [],
+        "queue": [],
+        "done": {
+          "h": true
+        },
+        "pe": 3
+      },
+      "answer": "ok"
+    },
+    {
+      "proc": "aiDeploy",
+      "pc": "__resume",
+      "A": {
+        "cardIdx": 9,
+        "zone": "SAC",
+        "phase": "lake",
+        "encounter": true,
+        "humanForceId": "F17",
+        "peNum": 3
+      },
+      "L": {
+        "card": "B10",
+        "mission": "Escort",
+        "why": "",
+        "cell": {
+          "row": 0,
+          "col": 6,
+          "v": 0
+        },
+        "head": "Target Card B10: Sacket's – Escort (Patrol).",
+        "cellTxt": "Deployment table: Troops 0 row × Naval Balance “≥60” column → blank.",
+        "__ret": {
+          "convoyHandled": true
+        }
+      }
+    }
+  ],
+  "prompt": {
+    "id": 125,
+    "kind": "info",
+    "title": "Convoy found!",
+    "text": "Target Card B10: Sacket's – Escort (Patrol).\nThe AI August Convoy is found in Sacket's – unescorted!\nConvoy Scatter Table: 0 guns, d10 = 2 → Convoy Scatters.",
+    "options": [
+      {
+        "id": "ok",
+        "label": "Continue",
+        "primary": true
+      }
+    ],
+    "targetCard": "B10"
+  },
+  "log": [
+    {
+      "turn": 0,
+      "phase": "setup",
+      "text": "New British Solo Campaign (seed 920011). Your Troops markers set up on Convoy Supply spaces 2, 5, 3 (rolls 22→2, 44→5, 43→5, 26→3).",
+      "kind": "setup"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "===== June I =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "Your June Convoy is scheduled for June I.",
+      "kind": "player"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "Upgrade roll 1d10 = 8 → up to 1 “A” ships may upgrade.",
+      "kind": "roll"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "Wolfe (A) goes to Make Ready for upgrade.",
+      "kind": "player"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "Naval Balance +0 → band “−15 to +15” (8 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "New British Flagship: Royal George (A).",
+      "kind": "ship"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "Escort Convoy box: Sir Sidney Smith.",
+      "kind": "player"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Royal George (A), Earl of Moira (A)) to Kingston.",
+      "kind": "player"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "A8: revealed AI Troops markers – 1 Troops, 0 dummy (discarded).",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 1.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "Drew 8 Target Cards. Row backs (left→right): York · Kingston · Niagara · Kingston · York · North Lake · Niagara · Kingston.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Kingston (card 2), PE2 Kingston (card 4), PE3 Kingston (card 8).",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "PE1 Kingston: Event #24 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "PE2 Kingston: Event #28 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "PE3 Kingston: Event #25 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "C3: revealed B25 York Raid; B44 Niagara Army Support; B49 York Patrol; B48 North Lake Patrol; B17 Niagara Army Support.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Target Card B25: York – Raid (Patrol). Deployment table: Troops 1 row × Naval Balance “-15 to 15” column → Force Package #4. Force Package #4: 16 Long Gun needed → Oneida, Madison, Gov. Tompkins, Fair American, Conquest, Growler, Hamilton (Long Gun 16). AI Deploys to York with a Raid mission: • Oneida • Madison • Gov. Tompkins • Fair American • Conquest • Growler • Hamilton",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Target Card B44: Niagara – Army Support. The Force cannot carry Troops (needs 4 Close Action per Troops marker) – no Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Target Card B49: York – Patrol. Deployment table: Troops 1 row × Naval Balance “-15 to 15” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Target Card B48: North Lake – Patrol (Attack Convoy). Deployment table: Troops 1 row × Naval Balance “-15 to 15” column → Force Package #10. Force Package #10: Two random Secondary ships: Julia, Ontario. AI Deploys to North Lake with an Attack Convoy mission (your Convoy is running this turn): • Julia • Ontario",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Your escorted Convoy is attacked in North Lake.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Lake Zone Event in North Lake: #22 Adverse Wind.",
+      "kind": "event"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Weather Gage: British.",
+      "kind": "event"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "LAKE COMBAT in North Lake – British attack (Combat Sequence B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Line of battle – British (attacking): 1.Sir Sidney Smith; U.S. (defending): 1.Julia 2.Ontario.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "A.I. drew Mutual Support, Rate of Fire, Dummy, Outmaneuver, Open Range → plays Rate of Fire.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Attacker: Pursuit",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Defender: Rate of Fire",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Gunnery Round 1: British 3 vs U.S. 1.5 = 2:1 → column 2:1. d10 3-1=2 D2 [−1 Defender Rate of Fire] → D2.",
+      "kind": "roll"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "U.S. hit distribution (2-ship column): 34→#1 Julia, 46→#2 Ontario.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Julia takes 1 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Ontario takes 1 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Julia Strike Check 2 – FIGHT ON! She refuses to strike (strengths now 0).",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Ontario Strike Check 5 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Gunnery Round 2: British 3 vs U.S. 0 = ∞:1 → column 3:1+. d10 3-1=2 D3 [−1 Defender Rate of Fire] → D3.",
+      "kind": "roll"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "U.S. hit distribution (1-ship column): 14→#1 Julia, 35→#1 Julia, 62→#1 Julia.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Julia takes 3 hit(s) and loses her last Step (+3 for hits on a zero-step ship).",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Julia Strike Check 9+3 – SINKS!",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "The escort protects the Convoy.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Ontario is CAPTURED by the British.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "Target Card B17: Niagara – Army Support. Deployment table: Troops 1 row × Naval Balance “-15 to 15” column → Force Package #6. Force Package #6: 20 points of Long Gun strength; Deploy as a single Force. Requirements not met – only 3 Long Gun points are Deployable (needs 20). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "U.S. Raid (York): Coastal Event #19: None",
+      "kind": "coastal"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "U.S. Raid (York): The Raid marker is placed on the York coastline (VPs and supplies in the Tally Phase).",
+      "kind": "coastal"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "British scores 2 VP (Game Score −2): Julia destroyed (Lake Combat)",
+      "kind": "vp"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "British scores 4 VP (Game Score −4): Ontario captured (Struck Colors)",
+      "kind": "vp"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "U.S. scores 1 VP (Game Score +1): Lake Control (1 zone)",
+      "kind": "vp"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "British scores 1 VP (Game Score −1): Lake Control (1 zone)",
+      "kind": "vp"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "U.S. scores 1 VP (Game Score +1): Raid on the York coastline",
+      "kind": "vp"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "U.S. Convoy Supply 1 → 3 (Convoy arrives)",
+      "kind": "track"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "British Convoy Supply 1 → 3 (Convoy arrives)",
+      "kind": "track"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "U.S. Convoy Supply 3 → 4 (Raid supplies)",
+      "kind": "track"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "British Convoy Supply 3 → 2 (Raid losses)",
+      "kind": "track"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "1 of your Troops marker(s) become Available.",
+      "kind": "info"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "3 “AI Troops?” marker(s) move to the AI Available Troops box (revealed next turn).",
+      "kind": "info"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "===== June II =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Wolfe completes her refit and joins as the “B” version",
+      "kind": "ship"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Wolfe (B) moves from Make Ready to Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Upgrade roll 1d10 = 7 → up to 1 “A” ships +1 for stripped captured Laker Schooners may upgrade.",
+      "kind": "roll"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Royal George (A) goes to Make Ready for upgrade.",
+      "kind": "player"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Captured Ontario is stripped by the British and removed from play",
+      "kind": "ship"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "General Pike launched – Construction → Make Ready (Deployable next turn).",
+      "kind": "ship"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Naval Balance +32 → band “+26 to +59” (10 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "New British Flagship: Wolfe (B).",
+      "kind": "ship"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "You assign Army Support Force (Wolfe (B), Earl of Moira (A)) +1 Troops to Niagara.",
+      "kind": "player"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Lord Beresford (A)) to Sacket's.",
+      "kind": "player"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "A8: revealed AI Troops markers – 0 Troops, 3 dummy (discarded).",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 1.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Drew 10 Target Cards. Row backs (left→right): Kingston · Kingston · Sacket's · Niagara · York · Kingston · North Lake · Sacket's · York · Kingston.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Sacket's (card 3), PE2 Niagara (card 4), PE3 Sacket's (card 8).",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "PE1 Sacket's: Event #13 shows the spyglass – ENCOUNTER 1! Target Card B10 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "AI Convoy marker for June II revealed: No Convoy.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Target Card B10: Sacket's – Escort (Patrol). Deployment table: Troops 1 row × Naval Balance “≥26” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "PE2 Niagara: Event #35 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "PE3 Sacket's: Event #4 shows the spyglass – ENCOUNTER 3! Target Card B38 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Target Card B38: Sacket's – Patrol. Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #2. Force Package #2: 28 points of Long Gun strength; Deploy as a single Force. Requirements not met – only 19 Long Gun points are Deployable (needs 28). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "enemy",
+      "text": "C3: revealed B35 Kingston Army Support; B11 Kingston Raid; B24 York Raid; B46 Kingston Army Support; B22 North Lake Patrol; B50 York Patrol; B45 Kingston Army Support.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "enemy",
+      "text": "Target Card B35: Kingston – Army Support. Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #8. Force Package #8: 1st Force: Main ships totaling 8 points of Close Action strength, on an Army Support mission transporting Troops. 2nd Force: any other remaining Main or Secondary ships totaling 22 points of Long Gun strength, in the same Lake Zone, with a Patrol mission. Roll 1d6 for which Force is in an Encounter with the British: odd = Army Support Force, even = Patrol Force. Requirements not met – the remaining ships total only 16 Long Gun points (2nd Force needs 22). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "enemy",
+      "text": "Target Card B11: Kingston – Raid (Patrol). Deployment table: Troops 1 row × Naval Balance “≥26” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "enemy",
+      "text": "Target Card B24: York – Raid (Patrol). Deployment table: Troops 1 row × Naval Balance “≥26” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "enemy",
+      "text": "Target Card B46: Kingston – Army Support. Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #8. Force Package #8: 1st Force: Main ships totaling 8 points of Close Action strength, on an Army Support mission transporting Troops. 2nd Force: any other remaining Main or Secondary ships totaling 22 points of Long Gun strength, in the same Lake Zone, with a Patrol mission. Roll 1d6 for which Force is in an Encounter with the British: odd = Army Support Force, even = Patrol Force. Requirements not met – the remaining ships total only 16 Long Gun points (2nd Force needs 22). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "enemy",
+      "text": "Target Card B22: North Lake – Patrol (Attack Convoy). Deployment table: Troops 1 row × Naval Balance “≥26” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "enemy",
+      "text": "Target Card B50: York – Patrol (Attack Convoy). Deployment table: Troops 1 row × Naval Balance “≥26” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "enemy",
+      "text": "Target Card B45: Kingston – Army Support. Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #8. Force Package #8: 1st Force: Main ships totaling 8 points of Close Action strength, on an Army Support mission transporting Troops. 2nd Force: any other remaining Main or Secondary ships totaling 22 points of Long Gun strength, in the same Lake Zone, with a Patrol mission. Roll 1d6 for which Force is in an Encounter with the British: odd = Army Support Force, even = Patrol Force. Requirements not met – the remaining ships total only 16 Long Gun points (2nd Force needs 22). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "coastal",
+      "text": "British Troops launched in Niagara: 1.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 1,
+      "phase": "coastal",
+      "text": "Coastal Event #34: Sudden Storm – Raid: no supplies; VPs: 1 VP for a 2-VP target, otherwise none. Army Support: an Attacker Major Success becomes a Success.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 1,
+      "phase": "coastal",
+      "text": "Land Battle vs the Niagara Front: 1 Troops marker(s), supporting Long Gun Strength 3. Dice (red/blue) 11-66: 22.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 1,
+      "phase": "coastal",
+      "text": "Land Battle Table: column “1 to 6 Long Gun / 1 Troops”, roll 22.",
+      "kind": "roll"
+    },
+    {
+      "turn": 1,
+      "phase": "coastal",
+      "text": "British Land Battle result: Draw.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 1,
+      "phase": "tally",
+      "text": "U.S. scores 1 VP (Game Score +1): Lake Control (1 zone)",
+      "kind": "vp"
+    },
+    {
+      "turn": 1,
+      "phase": "tally",
+      "text": "British scores 2 VP (Game Score −2): Lake Control (2 zones)",
+      "kind": "vp"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "===== July I =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Your July Convoy is scheduled for July I.",
+      "kind": "player"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Royal George completes her refit and joins as the “B” version",
+      "kind": "ship"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Royal George (B) moves from Make Ready to Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "General Pike moves from Make Ready to Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "USS Gen. Pike becomes the U.S. Flagship [LC5.1]",
+      "kind": "ship"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Upgrade roll 1d10 = 4 → up to 2 “A” ships may upgrade.",
+      "kind": "roll"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Earl of Moira (A) goes to Make Ready for upgrade.",
+      "kind": "player"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Naval Balance +58 → band “+26 to +59” (10 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Escort Convoy box: Sir Sidney Smith.",
+      "kind": "player"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Wolfe (B), Royal George (B)) to Sacket's.",
+      "kind": "player"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 1.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Drew 10 Target Cards. Row backs (left→right): Niagara · Kingston · South Lake · Sacket's · Niagara · Kingston · Kingston · Kingston · North Lake · Kingston.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Sacket's (card 4).",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "PE1 Sacket's: Event #22 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "C3: revealed B5 Niagara Army Support; B11 Kingston Raid; B29 South Lake Patrol; B19 Niagara Army Support; B4 Kingston Raid; B33 Kingston Army Support; B34 Kingston Army Support; B47 North Lake Patrol; B32 Kingston Patrol.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "Target Card B5: Niagara – Army Support. Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #4. Force Package #4: 16 Long Gun needed → Madison, Gov. Tompkins, General Pike (Long Gun 16). AI Deploys to Niagara with an Army Support mission: • Madison • Gov. Tompkins • General Pike Carrying 1 Troops marker(s).",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "Target Card B11: Kingston – Raid (Patrol). Deployment table: Troops 1 row × Naval Balance “≥26” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "Target Card B29: South Lake – Patrol. Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #10. Force Package #10: Two random Secondary ships: Lady of the Lake, Scourge. AI Deploys to South Lake with a Patrol mission: • Lady of the Lake • Scourge",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "Target Card B19: Niagara – Army Support. No Deployment: no AI Troops are Available.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "Target Card B4: Kingston – Raid (Patrol). Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #10. Force Package #10: Two random Secondary ships: Pert, Asp. AI Deploys to Kingston with a Raid mission: • Pert • Asp",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "Target Card B33: Kingston – Army Support. No Deployment: no AI Troops are Available.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "Target Card B34: Kingston – Army Support. No Deployment: no AI Troops are Available.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "Target Card B47: North Lake – Patrol (Attack Convoy). Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #11. Force Package #11: Five steps' worth of Secondary Ships, selected at random. Deploy as a single Force. Requirements not met – Secondary ships total only 3 steps (needs 5). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "Target Card B32: Kingston – Patrol. Deployment table: Troops 1 row × Naval Balance “≥26” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "coastal",
+      "text": "U.S. Raid (Kingston): Coastal Event #11: None",
+      "kind": "coastal"
+    },
+    {
+      "turn": 2,
+      "phase": "coastal",
+      "text": "U.S. Raid (Kingston): The Raid marker is placed on the Kingston coastline (VPs and supplies in the Tally Phase).",
+      "kind": "coastal"
+    },
+    {
+      "turn": 2,
+      "phase": "coastal",
+      "text": "U.S. Troops launched in Niagara: 1.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 2,
+      "phase": "coastal",
+      "text": "Coastal Event #33: Sudden Storm – Raid: no supplies; VPs: 1 VP for a 2-VP target, otherwise none. Army Support: an Attacker Major Success becomes a Success.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 2,
+      "phase": "coastal",
+      "text": "Land Battle vs the Niagara Front: 1 Troops marker(s), supporting Long Gun Strength 16. Dice (red/blue) 11-66: 11.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 2,
+      "phase": "coastal",
+      "text": "Land Battle Table: column “16 to 24 Long Gun / 1 Troops”, roll 11.",
+      "kind": "roll"
+    },
+    {
+      "turn": 2,
+      "phase": "coastal",
+      "text": "U.S. Land Battle result: Defender Major Success.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "U.S. scores 2 VP (Game Score +2): Lake Control (2 zones)",
+      "kind": "vp"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "British scores 2 VP (Game Score −2): Lake Control (2 zones)",
+      "kind": "vp"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "U.S. scores 2 VP (Game Score +2): Raid on the Kingston coastline",
+      "kind": "vp"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "U.S. Convoy Supply 4 → 6 (Convoy arrives)",
+      "kind": "track"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "British Convoy Supply 2 → 4 (Convoy arrives)",
+      "kind": "track"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "1 of your Troops marker(s) become Available.",
+      "kind": "info"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "2 “AI Troops?” marker(s) move to the AI Available Troops box (revealed next turn).",
+      "kind": "info"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "===== July II =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Earl of Moira completes her refit and joins as the “B” version",
+      "kind": "ship"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Earl of Moira (B) moves from Make Ready to Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Upgrade roll 1d10 = 3 → up to 2 “A” ships may upgrade.",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Lord Beresford (A) goes to Make Ready for upgrade.",
+      "kind": "player"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Lord Melville launched – Construction → Make Ready (Deployable next turn).",
+      "kind": "ship"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Sylph launched – Construction → Make Ready (Deployable next turn).",
+      "kind": "ship"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Naval Balance +54 → band “+26 to +59” (10 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "You assign Army Support Force (Wolfe (B), Royal George (B)) +1 Troops to Niagara.",
+      "kind": "player"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Earl of Moira (B)) to Kingston.",
+      "kind": "player"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "A8: revealed AI Troops markers – 1 Troops, 1 dummy (discarded).",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 1.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Drew 10 Target Cards. Row backs (left→right): South Lake · Kingston · North Lake · South Lake · Sacket's · Niagara · Sacket's · Kingston · York · Niagara.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Kingston (card 2), PE2 Niagara (card 6), PE3 Kingston (card 8), PE4 Niagara (card 10).",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "PE1 Kingston: Event #13 shows the spyglass – ENCOUNTER 1! Target Card B33 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Target Card B33: Kingston – Army Support. Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #7. Force Package #7: All Main Ships + Secondary ships with Long Gun or Close Action: Oneida, Madison, Gov. Tompkins, Fair American, Conquest, General Pike, Growler, Hamilton, Pert, Raven, Scourge. AI Deploys to Kingston with an Army Support mission: • Oneida • Madison • Gov. Tompkins • Fair American • Conquest • General Pike • Growler • Hamilton • Pert • Raven • Scourge Carrying 1 Troops marker(s).",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Lake Zone Event in Kingston: #34 Separated Ships (British).",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Weather Gage: British.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Kingston – British attack (Combat Sequence B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Line of battle – British (attacking): 1.Earl of Moira (B); U.S. (defending): 1.General Pike 2.Madison 3.Oneida 4.Gov. Tompkins 5.Fair American 6.Conquest 7.Hamilton 8.Growler 9.Pert 10.Raven 11.Scourge.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "A.I. drew Mutual Support, Rake, First Shot, Dummy, Outmaneuver → plays First Shot.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Matching color bars (lavender) – both Tactics negate each other.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Attacker: Surprise (negated)",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Defender: First Shot (negated)",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Gunnery Round 1: British 4.5 vs U.S. 38.5 = 0.12:1 → column 1:2-. d10 8 End → End.",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "END – the current Segment ends immediately.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Reaction: Kingston Harbour (Deployable): d10 2 -1 = 1 → fails",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Reaction: A.I. Homeport Deployable ships (2): d10 3 → fails",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Reaction Segment Weather Gage: British (Event #31).",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Kingston – British attack (Combat Sequence B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Line of battle – British (attacking): 1.Earl of Moira (B); U.S. (defending): 1.General Pike 2.Madison 3.Oneida 4.Gov. Tompkins 5.Fair American 6.Conquest 7.Hamilton 8.Growler 9.Pert 10.Raven 11.Scourge.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "A.I. drew Mutual Support, Rake, Open Range, Repel, Dummy → plays Repel.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Attacker: Rake",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Defender: Repel",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Gunnery Round 1: British 4.5 vs U.S. 38.5 = 0.12:1 → column 1:2-. d10 1 A5 → A5.",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "British hit distribution (1-ship column): 64→#1 Earl of Moira, 15→#1 Earl of Moira, 12→#1 Earl of Moira, 65→#1 Earl of Moira, 63→#1 Earl of Moira.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Earl of Moira (B) takes 5 hit(s) and loses her last Step (+3 for hits on a zero-step ship).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Earl of Moira (B) Strike Check 1+3 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Earl of Moira is CAPTURED by the Americans.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "PE2 Niagara: Event #21 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "PE3: you have no Force left in Kingston – marker discarded.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "PE4 Niagara: Event #10 shows the spyglass – ENCOUNTER 4! Target Card B43 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Target Card B43: Niagara – Patrol (Attack Convoy). Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #2. Force Package #2: 28 points of Long Gun strength; Deploy as a single Force. Requirements not met – only 0 Long Gun points are Deployable (needs 28). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "enemy",
+      "text": "C3: revealed B3 South Lake Patrol; B47 North Lake Patrol; B14 South Lake Patrol; B38 Sacket's Patrol; B18 Sacket's Escort; B8 Kingston Cutting-Out; B49 York Patrol.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "enemy",
+      "text": "Target Card B3: South Lake – Patrol. Deployment table: Troops 1 row × Naval Balance “≥26” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "enemy",
+      "text": "Target Card B47: North Lake – Patrol (Attack Convoy). Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #11. Force Package #11: Five steps' worth of Secondary Ships, selected at random. Deploy as a single Force. Requirements not met – Secondary ships total only 3 steps (needs 5). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "enemy",
+      "text": "Target Card B14: South Lake – Patrol. Deployment table: Troops 1 row × Naval Balance “≥26” column → Force Package #10. Force Package #10: Two random Secondary ships: Asp, Lady of the Lake. AI Deploys to South Lake with a Patrol mission: • Asp • Lady of the Lake",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "U.S. Troops launched in Kingston: 1.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "HARBOR ENCOUNTER at Kingston Harbour: General Pike, Madison, Oneida, Gov. Tompkins, Fair American, Conquest, Hamilton, Growler, Pert, Raven, Scourge must fight the ships in port: Sir Sidney Smith. (Up to two Gunnery Rounds, −1 column for shore batteries, no Disengagement or Withdrawal.)",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Harbor Gunnery Round 1: U.S. 49.5 vs 2 = 24.75:1, −1 shore batteries → 2.5:1; d10 7 → A1/D5. (W results ignored.)",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "British hit distribution (1-ship column): 51→#1 Sir Sidney Smith, 56→#1 Sir Sidney Smith, 13→#1 Sir Sidney Smith, 65→#1 Sir Sidney Smith, 61→#1 Sir Sidney Smith.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "U.S. hit distribution (11-ship column): 33→#5 Fair American.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Sir Sidney Smith takes 5 hit(s) and loses her last Step (+3 for hits on a zero-step ship).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Sir Sidney Smith Strike Check 2+3 – Strikes Colors (in her own harbor: not captured).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Fair American takes 1 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Fair American Strike Check 8 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Fair American strikes and is captured by the defenders.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Sir Sidney Smith struck her colors in her own harbor – not captured.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Coastal Event #8: None",
+      "kind": "coastal"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Land Battle vs Kingston Harbour: 1 Troops marker(s), supporting Long Gun Strength 26. Dice (red/blue) 11-66: 65.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Land Battle Table: column “25+ Long Gun / 1 Troops”, roll 65.",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "U.S. Land Battle result: Attacker Major Success.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "British Troops launched in Niagara: 1.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Coastal Event #1: None",
+      "kind": "coastal"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Land Battle vs the Niagara Front: 1 Troops marker(s), supporting Long Gun Strength 5. Dice (red/blue) 11-66: 52.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "Land Battle Table: column “1 to 6 Long Gun / 1 Troops”, roll 52.",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "coastal",
+      "text": "British Land Battle result: Attacker Success.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "U.S. scores 14 VP (Game Score +14): Earl of Moira captured (Struck Colors)",
+      "kind": "vp"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "British scores 8 VP (Game Score −8): Fair American captured (Struck Colors in a Harbor Encounter)",
+      "kind": "vp"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "U.S. scores 2 VP (Game Score +2): Lake Control (2 zones)",
+      "kind": "vp"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "British scores 2 VP (Game Score −2): Lake Control (2 zones)",
+      "kind": "vp"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "British Construction Delay 0 → 2 (Shipyard Damage)",
+      "kind": "track"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "British Convoy Supply 4 → 2 (enemy Land Battle success vs Homeport)",
+      "kind": "track"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "===== August I =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Your August Convoy is scheduled for August I.",
+      "kind": "player"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Lord Beresford completes her refit and joins as the “B” version",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Lord Beresford (B) moves from Make Ready to Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Lord Melville moves from Make Ready to Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Sylph moves from Make Ready to Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Earl of Moira (B) [U.S.] In Transit → Repairing",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Sir Sidney Smith In Transit → Repairing",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Captured Fair American is stripped by the British and removed from play",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "British Construction Delay 2 → 1 (free reduction A5)",
+      "kind": "track"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Naval Balance +98 → band “≥ +60” (10 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Wolfe (B)) to Sacket's.",
+      "kind": "player"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 0.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Drew 10 Target Cards. Row backs (left→right): Niagara · York · Niagara · South Lake · York · Niagara · Sacket's · Kingston · South Lake · Niagara.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Sacket's (card 7).",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "PE1 Sacket's: Event #19 shows the spyglass – ENCOUNTER 1! Target Card B37 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Target Card B37: Sacket's – Patrol. Deployment table: Troops 0 row × Naval Balance “≥60” column → Force Package #1. Force Package #1: All Main Ships: Oneida, Madison, Gov. Tompkins, Conquest, Sylph, General Pike. AI Deploys to Sacket's with a Patrol mission: • Oneida • Madison • Gov. Tompkins • Conquest • Sylph • General Pike",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Lake Zone Event in Sacket's: #38 Commanding Breeze.",
+      "kind": "event"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Weather Gage: British.",
+      "kind": "event"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Sacket's – British attack (Combat Sequence B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Line of battle – British (attacking): 1.Wolfe (B); U.S. (defending): 1.General Pike 2.Madison 3.Sylph 4.Oneida 5.Gov. Tompkins 6.Conquest.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "A.I. drew Escape, Repel, Rate of Fire, Dummy, Open Range → plays Repel.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Attacker: Rake",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Defender: Repel",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Gunnery Round 1: British 10.5 vs U.S. 39 = 0.27:1 → column 1:2-. d10 3+1=4 A3 [+1 Command (Cdre. Yeo)] → A3.",
+      "kind": "roll"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Cdre. Yeo is KILLED! Command passes to generic leader.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "generic leader is CAPTURED! Command passes to generic leader.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "British flag shifts to Royal George (B).",
+      "kind": "info"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "British hit distribution (1-ship column): 56→#1 Wolfe, 16→#1 Wolfe, 24→#1 Wolfe.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Leader Casualty Check (Cdre. Yeo): 2d6 11 – KILLED.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Leader Casualty Check (generic leader): 2d6 7 – no effect.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Leader Casualty Check (generic leader): 2d6 8 – no effect.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Wolfe (B) takes 3 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Wolfe (B) Strike Check 10 – SINKS!",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "C3: revealed B44 Niagara Army Support; B25 York Raid; B19 Niagara Army Support; B1 South Lake Patrol; B12 York Patrol; B43 Niagara Patrol; B35 Kingston Army Support; B14 South Lake Patrol; B5 Niagara Army Support.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "Target Card B44: Niagara – Army Support. No Deployment: no AI Troops are Available.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "Target Card B25: York – Raid (Patrol). Deployment table: Troops 0 row × Naval Balance “≥60” column → Force Package #3. Force Package #3: 22 points of Long Gun strength; Deploy as a single Force. Requirements not met – only 6 Long Gun points are Deployable (needs 22). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "Target Card B19: Niagara – Army Support. No Deployment: no AI Troops are Available.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "Target Card B1: South Lake – Patrol. Deployment table: Troops 0 row × Naval Balance “≥60” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "Target Card B12: York – Patrol (Cutting-Out). Deployment table: Troops 0 row × Naval Balance “≥60” column → Force Package #1. Force Package #1: All Main Ships; Deploy as a single Force. Requirements not met – no Main Ships are Deployable. No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "Target Card B43: Niagara – Patrol (Attack Convoy). Deployment table: Troops 0 row × Naval Balance “≥60” column → Force Package #2. Force Package #2: 28 points of Long Gun strength; Deploy as a single Force. Requirements not met – only 6 Long Gun points are Deployable (needs 28). No Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "Target Card B35: Kingston – Army Support. No Deployment: no AI Troops are Available.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "Target Card B14: South Lake – Patrol. Deployment table: Troops 0 row × Naval Balance “≥60” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "enemy",
+      "text": "Target Card B5: Niagara – Army Support. No Deployment: no AI Troops are Available.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "breakout",
+      "text": "D: no enemy ships are on station outside your Homeport – the Blockade will lapse in F2.3 and your Convoy runs on schedule.",
+      "kind": "player"
+    },
+    {
+      "turn": 4,
+      "phase": "tally",
+      "text": "U.S. scores 16 VP (Game Score +16): Wolfe destroyed (Lake Combat)",
+      "kind": "vp"
+    },
+    {
+      "turn": 4,
+      "phase": "tally",
+      "text": "U.S. scores 3 VP (Game Score +3): Lake Control (3 zones)",
+      "kind": "vp"
+    },
+    {
+      "turn": 4,
+      "phase": "tally",
+      "text": "British scores 1 VP (Game Score −1): Lake Control (1 zone)",
+      "kind": "vp"
+    },
+    {
+      "turn": 4,
+      "phase": "tally",
+      "text": "British Convoy Supply 2 → 4 (Convoy arrives)",
+      "kind": "track"
+    },
+    {
+      "turn": 5,
+      "phase": "prep",
+      "text": "===== August II =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 5,
+      "phase": "prep",
+      "text": "Earl of Moira (B) [U.S.] repaired – Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 5,
+      "phase": "prep",
+      "text": "Sir Sidney Smith repaired – Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 5,
+      "phase": "prep",
+      "text": "British Construction Delay 1 → 0 (free reduction A5)",
+      "kind": "track"
+    },
+    {
+      "turn": 5,
+      "phase": "prep",
+      "text": "Naval Balance +112 → band “≥ +60” (10 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 5,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Royal George (B), Lord Beresford (B), Sir Sidney Smith) to Sacket's.",
+      "kind": "player"
+    },
+    {
+      "turn": 5,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 0.",
+      "kind": "ai"
+    },
+    {
+      "turn": 5,
+      "phase": "prep",
+      "text": "Drew 10 Target Cards. Row backs (left→right): Niagara · York · Niagara · South Lake · Sacket's · Sacket's · Kingston · South Lake · York · Sacket's.",
+      "kind": "ai"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Sacket's (card 5), PE2 Sacket's (card 6), PE3 Sacket's (card 10).",
+      "kind": "ai"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "PE1 Sacket's: Event #17 shows the spyglass – ENCOUNTER 1! Target Card B41 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Target Card B41: Sacket's – Patrol. Deployment table: Troops 0 row × Naval Balance “≥60” column → Force Package #2. Force Package #2: 28 Long Gun needed → Earl of Moira B, Oneida, Madison, Gov. Tompkins, Conquest, Sylph, General Pike, Growler (Long Gun 29). AI Deploys to Sacket's with a Patrol mission: • Earl of Moira (B) [U.S.] • Oneida • Madison • Gov. Tompkins • Conquest • Sylph • General Pike • Growler",
+      "kind": "ai"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Lake Zone Event in Sacket's: #22 Adverse Wind.",
+      "kind": "event"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Weather Gage: British.",
+      "kind": "event"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Sacket's – British attack (Combat Sequence B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Line of battle – British (attacking): 1.Royal George (B) 2.Sir Sidney Smith 3.Lord Beresford (B); U.S. (defending): 1.General Pike 2.Madison 3.Sylph 4.Earl of Moira (B) [U.S.] 5.Oneida 6.Gov. Tompkins 7.Conquest 8.Growler.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "A.I. drew Mutual Support, First Shot, Repel, Escape, Dummy → plays Escape.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Matching color bars (yellow) – both Tactics negate each other.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Attacker: Pursuit (negated)",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Defender: Escape (negated)",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Gunnery Round 1: British 16 vs U.S. 44.5 = 0.36:1 → column 1:2-. d10 1 A5 → A5.",
+      "kind": "roll"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "British hit distribution (3-ship column): 35→#2 Sir Sidney Smith, 12→#1 Royal George, 64→#3 Lord Beresford, 31→#2 Sir Sidney Smith, 54→#3 Lord Beresford.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Sir Sidney Smith takes 2 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Leader Casualty Check (generic leader): 2d6 2 – no effect.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Royal George (B) takes 1 hit(s) and is flipped to her Reduced side – 2 Step(s) left.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Royal George (B) Disengagement Check 5 – fails, remains Engaged.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Lord Beresford (B) takes 2 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Sir Sidney Smith Strike Check 4 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Lord Beresford (B) Strike Check 6 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "British has no full-strength ships left to attack – the Segment ends.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Reaction: Kingston Harbour (Deployable): d10 4 = 4 → fails",
+      "kind": "roll"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Reaction: A.I. Homeport Deployable ships (6): d10 1 → fails",
+      "kind": "roll"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Reaction Segment Weather Gage: British (Event #31).",
+      "kind": "event"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Sacket's – British attack (Combat Sequence B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Lord Beresford (B) Struck Colors – 1d6 1",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Lord Beresford is CAPTURED by the Americans.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Sir Sidney Smith Struck Colors – 1d6 2",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Sir Sidney Smith is CAPTURED by the Americans.",
+      "kind": "combat"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "PE2 Sacket's: Event #33 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "PE3 Sacket's: Event #7 shows the spyglass – ENCOUNTER 3! Target Card B10 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "AI Convoy marker for August II revealed: Convoy.",
+      "kind": "ai"
+    },
+    {
+      "turn": 5,
+      "phase": "lake",
+      "text": "Convoy Scatter Table vs U.S. Convoy (your Patrol Force (Royal George (B)), 0 guns): d10 2 → Convoy Scatters.",
+      "kind": "roll"
+    }
+  ],
+  "lastRolls": [],
+  "encounter": null,
+  "combat": null,
+  "lossesThisTurn": [
+    {
+      "id": "beres",
+      "owner": "BR",
+      "how": "captured",
+      "by": "US",
+      "why": "Struck Colors"
+    },
+    {
+      "id": "sss",
+      "owner": "BR",
+      "how": "captured",
+      "by": "US",
+      "why": "Struck Colors"
+    }
+  ],
+  "troopsReturning": {
+    "US": 0,
+    "BR": 0
+  },
+  "promptSeq": 125,
+  "tacPlayed": [
+    "A_pursuit",
+    "D_escape"
+  ]
+}

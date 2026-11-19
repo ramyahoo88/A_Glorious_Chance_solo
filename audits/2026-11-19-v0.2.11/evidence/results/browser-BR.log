@@ -1,0 +1,20 @@
+{
+  "side": "BR",
+  "seed": 941120,
+  "style": "coast",
+  "steps": 157,
+  "totals": {
+    "choice": 14,
+    "select": 11,
+    "assign": 8,
+    "info": 123,
+    "lineup": 1
+  },
+  "score": 8,
+  "level": "Draw",
+  "vp": {
+    "US": 39,
+    "BR": 31
+  },
+  "pursuit": 0
+}

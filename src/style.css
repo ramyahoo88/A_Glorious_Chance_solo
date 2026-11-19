@@ -215,3 +215,6 @@ button.optcard { display: block; width: 100%; text-align: left; }
 .table-recap summary { cursor: pointer; padding: .45rem 0; font-weight: 650; }
 .table-recap ul { padding-inline-start: 1.2rem; }
 .table-recap li, .table-recap .ptext { margin: .25rem 0 .5rem; }
+.log-search-label { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-bottom: .5rem; }
+#log-search { width: 20rem; max-width: 100%; min-width: 0; }
+.app-download { margin-top: .7rem; }

@@ -1,0 +1,2460 @@
+{
+  "app": "0.2.11",
+  "build": "0.2.11",
+  "human": "US",
+  "ai": "BR",
+  "rng": 357592795,
+  "seed": 920016,
+  "options": {
+    "cuttingOut": true,
+    "oa1Upgrades": false,
+    "usAiPrecondition": "longgun",
+    "confirmAiSteps": true,
+    "groupUpdates": false,
+    "manualPackages": false,
+    "manualLandBattle": false
+  },
+  "turn": 4,
+  "phase": "lake",
+  "stepLabel": "Lake Combat – Sequence B: Weather Gage recheck",
+  "over": false,
+  "result": null,
+  "ships": {
+    "wolfe": {
+      "id": "wolfe",
+      "ver": "B",
+      "owner": "BR",
+      "box": "repairing",
+      "zone": null,
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "rg": {
+      "id": "rg",
+      "ver": "B",
+      "owner": "BR",
+      "box": "lake",
+      "zone": "KIN",
+      "port": "home",
+      "steps": 3,
+      "delay": 0,
+      "forceId": "F14",
+      "isolated": false,
+      "flags": {}
+    },
+    "moira": {
+      "id": "moira",
+      "ver": "B",
+      "owner": "BR",
+      "box": "lake",
+      "zone": "KIN",
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": "F14",
+      "isolated": false,
+      "flags": {}
+    },
+    "beres": {
+      "id": "beres",
+      "ver": "B",
+      "owner": "BR",
+      "box": "repairing",
+      "zone": null,
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "sss": {
+      "id": "sss",
+      "ver": "",
+      "owner": "BR",
+      "box": "lake",
+      "zone": "KIN",
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": "F14",
+      "isolated": false,
+      "flags": {}
+    },
+    "melville": {
+      "id": "melville",
+      "ver": "",
+      "owner": "BR",
+      "box": "makeReady",
+      "zone": null,
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "oneida": {
+      "id": "oneida",
+      "ver": "",
+      "owner": "US",
+      "box": "sunk",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "madison": {
+      "id": "madison",
+      "ver": "",
+      "owner": "US",
+      "box": "repairing",
+      "zone": null,
+      "port": "home",
+      "steps": 2,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "tompkins": {
+      "id": "tompkins",
+      "ver": "",
+      "owner": "US",
+      "box": "sunk",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "fairam": {
+      "id": "fairam",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "KIN",
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": "F13",
+      "isolated": false,
+      "flags": {}
+    },
+    "conquest": {
+      "id": "conquest",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "KIN",
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": "F13",
+      "isolated": false,
+      "flags": {}
+    },
+    "asp": {
+      "id": "asp",
+      "ver": "",
+      "owner": "US",
+      "box": "sunk",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "growler": {
+      "id": "growler",
+      "ver": "",
+      "owner": "US",
+      "box": "sunk",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "hamilton": {
+      "id": "hamilton",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "KIN",
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": "F13",
+      "isolated": false,
+      "flags": {}
+    },
+    "julia": {
+      "id": "julia",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "KIN",
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": "F13",
+      "isolated": false,
+      "flags": {}
+    },
+    "lady": {
+      "id": "lady",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "KIN",
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": "F13",
+      "isolated": false,
+      "flags": {}
+    },
+    "ontario": {
+      "id": "ontario",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "KIN",
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": "F13",
+      "isolated": false,
+      "flags": {}
+    },
+    "pert": {
+      "id": "pert",
+      "ver": "",
+      "owner": "US",
+      "box": "deployable",
+      "zone": null,
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "raven": {
+      "id": "raven",
+      "ver": "",
+      "owner": "US",
+      "box": "lake",
+      "zone": "SAC",
+      "port": "home",
+      "steps": 1,
+      "delay": 0,
+      "forceId": "F12",
+      "isolated": false,
+      "flags": {}
+    },
+    "scourge": {
+      "id": "scourge",
+      "ver": "",
+      "owner": "BR",
+      "box": "outOfPlay",
+      "zone": null,
+      "port": "home",
+      "steps": 0,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {
+        "reflagged": true
+      }
+    },
+    "sylph": {
+      "id": "sylph",
+      "ver": "",
+      "owner": "US",
+      "box": "construction",
+      "zone": null,
+      "port": "home",
+      "steps": 3,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    },
+    "pike": {
+      "id": "pike",
+      "ver": "",
+      "owner": "US",
+      "box": "construction",
+      "zone": null,
+      "port": "home",
+      "steps": 3,
+      "delay": 0,
+      "forceId": null,
+      "isolated": false,
+      "flags": {}
+    }
+  },
+  "forces": {
+    "F12": {
+      "id": "F12",
+      "side": "US",
+      "zone": "SAC",
+      "mission": "Escort",
+      "ships": [
+        "raven"
+      ],
+      "troops": 0,
+      "ended": true,
+      "origin": "prep",
+      "cardId": null,
+      "aborted": false
+    },
+    "F13": {
+      "id": "F13",
+      "side": "US",
+      "zone": "KIN",
+      "mission": "Patrol",
+      "ships": [
+        "fairam",
+        "conquest",
+        "hamilton",
+        "julia",
+        "lady",
+        "ontario"
+      ],
+      "troops": 0,
+      "ended": false,
+      "origin": "prep",
+      "cardId": null,
+      "aborted": false
+    },
+    "F14": {
+      "id": "F14",
+      "side": "BR",
+      "zone": "KIN",
+      "mission": "Patrol",
+      "ships": [
+        "rg",
+        "moira",
+        "sss"
+      ],
+      "troops": 0,
+      "ended": false,
+      "origin": "targetCard",
+      "cardId": "A3",
+      "aborted": false,
+      "deployPhase": "lake"
+    }
+  },
+  "nextForce": 15,
+  "zones": {
+    "YOR": {
+      "control": null,
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    },
+    "NOR": {
+      "control": null,
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    },
+    "KIN": {
+      "control": "US",
+      "blockade": null,
+      "event": 24,
+      "flags": {}
+    },
+    "NIA": {
+      "control": "BR",
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    },
+    "SOU": {
+      "control": null,
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    },
+    "SAC": {
+      "control": "US",
+      "blockade": null,
+      "event": null,
+      "flags": {}
+    }
+  },
+  "blockade": {
+    "US": false,
+    "BR": false
+  },
+  "vp": {
+    "US": 3,
+    "BR": 19
+  },
+  "vpLog": [
+    {
+      "turn": 0,
+      "side": "BR",
+      "n": 4,
+      "why": "Scourge captured (Struck Colors)"
+    },
+    {
+      "turn": 1,
+      "side": "BR",
+      "n": 2,
+      "why": "Asp destroyed (Lake Combat)"
+    },
+    {
+      "turn": 1,
+      "side": "BR",
+      "n": 4,
+      "why": "Gov. Tompkins destroyed (Lake Combat)"
+    },
+    {
+      "turn": 1,
+      "side": "BR",
+      "n": 1,
+      "why": "Lake Control (1 zone)"
+    },
+    {
+      "turn": 2,
+      "side": "US",
+      "n": 1,
+      "why": "Lake Control (1 zone)"
+    },
+    {
+      "turn": 3,
+      "side": "BR",
+      "n": 7,
+      "why": "Oneida destroyed (Lake Combat)"
+    },
+    {
+      "turn": 3,
+      "side": "US",
+      "n": 2,
+      "why": "Lake Control (2 zones)"
+    },
+    {
+      "turn": 3,
+      "side": "BR",
+      "n": 1,
+      "why": "Lake Control (1 zone)"
+    }
+  ],
+  "supply": {
+    "US": 3,
+    "BR": 5
+  },
+  "cd": {
+    "US": 0,
+    "BR": 0
+  },
+  "niagara": 3,
+  "nb": -8,
+  "nbBand": 3,
+  "fallOffensive": null,
+  "flagship": {
+    "US": "fairam",
+    "BR": "rg"
+  },
+  "leader": {
+    "US": {
+      "seq": 0,
+      "wounded": false
+    },
+    "BR": {
+      "seq": 0,
+      "wounded": false
+    }
+  },
+  "convoys": {
+    "US": {
+      "0": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "1": {
+        "real": false,
+        "revealed": true
+      },
+      "2": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "3": {
+        "real": false,
+        "revealed": true
+      },
+      "4": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "5": {
+        "real": false,
+        "revealed": true
+      }
+    },
+    "BR": {
+      "0": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "1": {
+        "real": false,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "2": {
+        "real": false,
+        "revealed": true,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "3": {
+        "real": true,
+        "revealed": true,
+        "delay": false,
+        "deployed": true,
+        "result": null
+      },
+      "4": {
+        "real": false,
+        "revealed": false,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "5": {
+        "real": true,
+        "revealed": false,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "6": {
+        "real": true,
+        "revealed": false,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      },
+      "7": {
+        "real": false,
+        "revealed": false,
+        "delay": false,
+        "deployed": false,
+        "result": null
+      }
+    }
+  },
+  "pendingConvoy": {
+    "US": [],
+    "BR": []
+  },
+  "convoyDeployed": {
+    "US": null,
+    "BR": null
+  },
+  "troops": {
+    "US": {
+      "track": [
+        6,
+        7
+      ],
+      "available": 1
+    },
+    "BR": {
+      "track": [],
+      "available": 0
+    }
+  },
+  "aiTroops": {
+    "track": [
+      {
+        "space": 6,
+        "troops": true
+      },
+      {
+        "space": 7,
+        "troops": true
+      },
+      {
+        "space": 8,
+        "troops": false
+      }
+    ],
+    "box": []
+  },
+  "deck": {
+    "target": [
+      "A38",
+      "A9",
+      "A13",
+      "A54",
+      "A26",
+      "A2",
+      "A34",
+      "A16",
+      "A15",
+      "A51",
+      "A18",
+      "A6",
+      "A5",
+      "A35",
+      "A48",
+      "A24",
+      "A37",
+      "A32",
+      "A21",
+      "A46",
+      "A12",
+      "A31",
+      "A11",
+      "A23",
+      "A36",
+      "A28",
+      "A20",
+      "A47",
+      "A45",
+      "A8",
+      "A42",
+      "A44",
+      "A27",
+      "A40",
+      "A49",
+      "A50",
+      "A7",
+      "A33",
+      "A53",
+      "A41",
+      "A4",
+      "A19",
+      "A52",
+      "A17",
+      "A43",
+      "A10"
+    ],
+    "event": [
+      31,
+      20,
+      22,
+      7,
+      16,
+      11,
+      3,
+      21,
+      5,
+      30,
+      14,
+      28,
+      13,
+      1,
+      15,
+      34,
+      17,
+      12,
+      8,
+      9,
+      29,
+      6,
+      27,
+      37,
+      10,
+      4,
+      32,
+      18,
+      36,
+      26,
+      33,
+      35
+    ],
+    "tacA": [
+      "A_rake",
+      "A_rof",
+      "A_dummy1",
+      "A_firstshot",
+      "A_surprise",
+      "A_pursuit",
+      "A_sweep",
+      "A_grapple",
+      "A_dummy2"
+    ],
+    "tacD": [
+      "D_firstshot",
+      "D_openrange",
+      "D_rof",
+      "D_dummy2",
+      "D_escape",
+      "D_dummy1",
+      "D_outmaneuver",
+      "D_mutual",
+      "D_repel"
+    ]
+  },
+  "targetRow": [
+    {
+      "id": "A25",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "A30",
+      "revealed": true,
+      "removed": false,
+      "enc": true,
+      "usedCell": {
+        "row": 0,
+        "col": 3
+      }
+    },
+    {
+      "id": "A1",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "A3",
+      "revealed": true,
+      "removed": false,
+      "enc": true,
+      "usedCell": {
+        "row": 0,
+        "col": 3
+      }
+    },
+    {
+      "id": "A22",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "A14",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "A29",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    },
+    {
+      "id": "A39",
+      "revealed": false,
+      "removed": false,
+      "enc": false
+    }
+  ],
+  "eventsDrawn": [
+    {
+      "id": 38,
+      "purpose": "Encounter Check PE1"
+    },
+    {
+      "id": 2,
+      "purpose": "Encounter Check PE2"
+    },
+    {
+      "id": 25,
+      "purpose": "Encounter Check PE3"
+    },
+    {
+      "id": 19,
+      "purpose": "Encounter Check PE4"
+    },
+    {
+      "id": 24,
+      "purpose": "Encounter Kingston (Weather Gage + Lake Zone Event)"
+    },
+    {
+      "id": 23,
+      "purpose": "Weather Gage recheck"
+    }
+  ],
+  "pe": [
+    {
+      "num": 1,
+      "zone": "SAC",
+      "forceId": "F12",
+      "idx": 0,
+      "status": "discarded"
+    },
+    {
+      "num": 2,
+      "zone": "SAC",
+      "forceId": "F12",
+      "idx": 1,
+      "status": "ended"
+    },
+    {
+      "num": 3,
+      "zone": "KIN",
+      "forceId": "F13",
+      "idx": 2,
+      "status": "discarded"
+    },
+    {
+      "num": 4,
+      "zone": "KIN",
+      "forceId": "F13",
+      "idx": 3,
+      "status": "encounter"
+    },
+    {
+      "num": 5,
+      "zone": "SAC",
+      "forceId": "F12",
+      "idx": 6,
+      "status": "possible"
+    },
+    {
+      "num": 6,
+      "zone": "SAC",
+      "forceId": "F12",
+      "idx": 7,
+      "status": "possible"
+    }
+  ],
+  "peNext": 7,
+  "cuttingOutUsed": {
+    "US": false,
+    "BR": false
+  },
+  "intelligence": {
+    "US": null,
+    "BR": null
+  },
+  "coastal": {
+    "raids": [],
+    "battles": [],
+    "cutouts": []
+  },
+  "turnFlags": {
+    "aiCutOutThisTurn": false
+  },
+  "calls": [
+    {
+      "proc": "turn",
+      "pc": "B2done",
+      "L": {
+        "pending": [],
+        "pe": 4,
+        "done": {
+          "ai": true
+        }
+      },
+      "answer": "ok"
+    },
+    {
+      "proc": "encounter",
+      "pc": "afterCombat",
+      "A": {
+        "zone": "KIN",
+        "kind": "normal",
+        "convoySide": null,
+        "peNum": 4,
+        "humanForces": [
+          "F13"
+        ],
+        "aiForces": [
+          "F14"
+        ],
+        "startAt": "event"
+      },
+      "L": {
+        "ev": 24,
+        "decision": "confront",
+        "dec": {
+          "ships": [
+            "rg",
+            "moira",
+            "sss"
+          ],
+          "tows": {},
+          "why": "A.I. preconditions met: Carronade + Defense 15 vs 0; odds 2.75:1 (needs 1:1)."
+        }
+      },
+      "answer": "ok"
+    },
+    {
+      "proc": "combat",
+      "pc": "next",
+      "A": {
+        "attacker": "BR",
+        "segment": "patrol",
+        "aiPlan": {
+          "ships": [
+            "rg",
+            "moira",
+            "sss"
+          ],
+          "tows": {},
+          "why": "A.I. preconditions met: Carronade + Defense 15 vs 0; odds 2.75:1 (needs 1:1)."
+        }
+      },
+      "L": {
+        "nextCombat": null,
+        "hDrawn": [
+          "D_rake",
+          "D_dummy2",
+          "D_escape",
+          "D_repel"
+        ],
+        "hDeck": "D",
+        "st": "GR2",
+        "roundPlan": {
+          "ships": [
+            "rg",
+            "moira",
+            "sss"
+          ],
+          "tows": {},
+          "why": "A.I. preconditions met: Carronade + Defense 15 vs 0; odds 4.71:1 (needs 1:1)."
+        },
+        "subgroup": null,
+        "res": {
+          "aHits": 0,
+          "dHits": 4,
+          "aW": false,
+          "dW": false,
+          "end": false,
+          "code": "D4"
+        },
+        "txt": "Gunnery Round 2: British 16.5 vs U.S. 3.5 = 4.71:1 → column 3:1+. d10 3+1=4 D4 [+1 Command (Cdre. Yeo)] → D4.",
+        "defenders": [
+          "fairam",
+          "hamilton",
+          "julia",
+          "ontario"
+        ],
+        "closeResult": false,
+        "failedDis": {
+          "US": [],
+          "BR": []
+        },
+        "hit": {
+          "US": [
+            "hamilton",
+            "julia",
+            "ontario"
+          ],
+          "BR": []
+        },
+        "lines": [
+          "Gunnery Round 2: British 16.5 vs U.S. 3.5 = 4.71:1 → column 3:1+. d10 3+1=4 D4 [+1 Command (Cdre. Yeo)] → D4.",
+          "U.S. hit distribution (4-ship column): 32→#2 Hamilton, 34→#2 Hamilton, 53→#3 Julia, 61→#4 Ontario.",
+          "Hamilton takes 2 hit(s) and loses her last Step (+1 for hits on a zero-step ship).",
+          "Julia takes 1 hit(s) and loses her last Step.",
+          "Ontario takes 1 hit(s) and loses her last Step.",
+          "Hamilton Strike Check 6+1 – STRIKES COLORS.",
+          "Julia Strike Check 3 – STRIKES COLORS.",
+          "Ontario Strike Check 5 – STRIKES COLORS."
+        ],
+        "wQueue": [],
+        "outcome": null
+      }
+    }
+  ],
+  "prompt": {
+    "id": 91,
+    "kind": "info",
+    "title": "Weather Gage recheck",
+    "text": "Weather Gage recheck: Event #23 → British.\nThe British keep the Weather Gage – continue Combat Sequence B.",
+    "options": [
+      {
+        "id": "ok",
+        "label": "Continue",
+        "primary": true
+      }
+    ],
+    "eventCard": 23,
+    "combatView": true
+  },
+  "log": [
+    {
+      "turn": 0,
+      "phase": "setup",
+      "text": "New American Solo Campaign (seed 920016). Your Troops markers set up on Convoy Supply spaces 6, 7, 2 (rolls 53→6, 56→7, 54→6, 22→2).",
+      "kind": "setup"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "===== June I =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "Your June Convoy is scheduled for June I.",
+      "kind": "player"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "Naval Balance +0 → band “−15 to +15” (8 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "You assign Escort Force (Scourge) to Sacket's.",
+      "kind": "player"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Oneida, Madison, Gov. Tompkins, Fair American, Conquest, Asp, Growler, Hamilton, Julia, Lady of the Lake, Ontario, Pert) to Sacket's.",
+      "kind": "player"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "A8: revealed AI Troops markers – 1 Troops, 0 dummy (discarded).",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 1.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "prep",
+      "text": "Drew 8 Target Cards. Row backs (left→right): South Lake · South Lake · Sacket's · Niagara · York · Sacket's · Sacket's · Sacket's.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Sacket's (card 3), PE2 Sacket's (card 6), PE3 Sacket's (card 7), PE4 Sacket's (card 8).",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "PE1 Sacket's: Event #17 shows the spyglass – ENCOUNTER 1! Target Card A25 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Upgrade Checks [7.1]: Wolfe: roll 1 – still “A”; Royal George: roll 4 – “B” version!; Earl of Moira: roll 3 – still “A”; Lord Beresford: roll 6 – “B” version!.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Target Card A25: Sacket's – Army Support. Deployment table: Troops 1 row × Naval Balance “-15 to 15” column → ship icon. AI Deploys to Sacket's with an Army Support mission: • Wolfe (A) • Royal George (B) • Earl of Moira (A) • Lord Beresford (B) • Sir Sidney Smith Carrying 1 Troops marker(s).",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Lake Zone Event in Sacket's: #24 Adverse Wind.",
+      "kind": "event"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Weather Gage: British.",
+      "kind": "event"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Command Decision: Confront.",
+      "kind": "player"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Sacket's – British attack (Combat Sequence B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Line of battle – British (attacking): 1.Wolfe (A) 2.Royal George (B) 3.Earl of Moira (A) 4.Sir Sidney Smith 5.Lord Beresford (B); U.S. (defending): 1.Scourge.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "A.I. drew Sweep Up & Fire, Outmaneuver, Surprise, Rate of Fire, Dummy → plays Outmaneuver.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Mutual Support negates Outmaneuver.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Attacker: Outmaneuver (negated)",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Defender: Mutual Support",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Gunnery Round 1: British 29 vs U.S. 0.5 = 58:1 → column 3:1+. d10 0+1=1 D2W [+1 Command (Cdre. Yeo)] → D2W.",
+      "kind": "roll"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "U.S. hit distribution (1-ship column): 63→#1 Scourge, 21→#1 Scourge.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Scourge takes 2 hit(s) and loses her last Step (+1 for hits on a zero-step ship).",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Scourge Strike Check 2+1 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "lake",
+      "text": "Scourge is CAPTURED by the British.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "enemy",
+      "text": "C1: the AI has no Deployable ships – no Enemy Operations.",
+      "kind": "ai"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "British Troops launched in Sacket's: 1.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "HARBOR ENCOUNTER at Sacket's Harbor: Wolfe (A), Royal George (B), Earl of Moira (A), Sir Sidney Smith, Lord Beresford (B) must fight the ships in port: Raven. (Up to two Gunnery Rounds, −1 column for shore batteries, no Disengagement or Withdrawal.)",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "Harbor Gunnery Round 1: British 29 vs 0.5 = 58:1, −1 shore batteries → 2.5:1; d10 7+1 → D5W [+1 Command]. (W results ignored.)",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "U.S. hit distribution (1-ship column): 33→#1 Raven, 13→#1 Raven, 41→#1 Raven, 55→#1 Raven, 51→#1 Raven.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "Raven takes 5 hit(s) and loses her last Step (+4 for hits on a zero-step ship).",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "Raven Strike Check 1+4 – Strikes Colors (in her own harbor: not captured).",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "Raven struck her colors in her own harbor – not captured.",
+      "kind": "combat"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "Coastal Event #8: None",
+      "kind": "coastal"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "Land Battle vs Sacket's Harbor: 1 Troops marker(s), supporting Long Gun Strength 6. Dice (red/blue) 11-66: 42.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "Land Battle Table: column “1 to 6 Long Gun / 1 Troops”, roll 42.",
+      "kind": "roll"
+    },
+    {
+      "turn": 0,
+      "phase": "coastal",
+      "text": "British Land Battle result: Attacker Success.",
+      "kind": "coastal"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "British scores 4 VP (Game Score −4): Scourge captured (Struck Colors)",
+      "kind": "vp"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "British Convoy Supply 1 → 3 (Convoy arrives)",
+      "kind": "track"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "U.S. Convoy Supply 1 → 3 (Convoy arrives)",
+      "kind": "track"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "U.S. Convoy Supply 3 → 1 (enemy Land Battle success vs Homeport)",
+      "kind": "track"
+    },
+    {
+      "turn": 0,
+      "phase": "tally",
+      "text": "2 “AI Troops?” marker(s) move to the AI Available Troops box (revealed next turn).",
+      "kind": "info"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "===== June II =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Raven In Transit → Repairing",
+      "kind": "ship"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Captured Scourge is stripped by the British and removed from play",
+      "kind": "ship"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Naval Balance +4 → band “−15 to +15” (8 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Oneida, Madison, Gov. Tompkins, Fair American, Conquest, Asp, Growler, Hamilton, Julia, Lady of the Lake, Ontario) to Kingston.",
+      "kind": "player"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "A8: revealed AI Troops markers – 0 Troops, 2 dummy (discarded).",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 0.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "prep",
+      "text": "Drew 8 Target Cards. Row backs (left→right): Kingston · Niagara · York · South Lake · York · Kingston · North Lake · South Lake.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Kingston (card 1), PE2 Kingston (card 6).",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "PE1 Kingston: Event #21 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "PE2 Kingston: Event #4 shows the spyglass – ENCOUNTER 2! Target Card A2 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Upgrade Checks [7.1]: Wolfe: roll 3 – still “A”; Earl of Moira: roll 1 – still “A”.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Target Card A2: Kingston – Patrol. Deployment table: Troops 0 row × Naval Balance “-15 to 15” column → ship icon. AI Deploys to Kingston with a Patrol mission: • Wolfe (A) • Royal George (B) • Earl of Moira (A) • Lord Beresford (B) • Sir Sidney Smith",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Lake Zone Event in Kingston: #23 Haze.",
+      "kind": "event"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Weather Gage: British.",
+      "kind": "event"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Command Decision: Confront.",
+      "kind": "player"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Kingston – British attack (Combat Sequence B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Line of battle – British (attacking): 1.Wolfe (A) 2.Royal George (B) 3.Earl of Moira (A) 4.Sir Sidney Smith 5.Lord Beresford (B); U.S. (defending): 1.Madison 2.Oneida 3.Gov. Tompkins 4.Fair American 5.Conquest 6.Hamilton 7.Asp 8.Growler 9.Julia 10.Lady of the Lake 11.Ontario.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Your Tactics draw: Outmaneuver, First Shot, Dummy, Open Range – none valid.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "A.I. drew Surprise, Rake, Pursuit, Grapple, Outmaneuver → plays Grapple.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Attacker: Grapple",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Defender: none",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Gunnery Round 1: British 26 vs U.S. 15 (Haze: no Long Guns) = 1.73:1 → column 1.5:1. d10 5+1=6 D3W [+1 Command (Cdre. Yeo)] → D3W.",
+      "kind": "roll"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "U.S. hit distribution (11-ship column): 16→#3 Gov. Tompkins, 65→#10 Lady of the Lake, 45→#7 Asp.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Gov. Tompkins takes 1 hit(s) and is flipped to her Reduced side – 1 Step(s) left.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Gov. Tompkins Disengagement Check 4 – fails, remains Engaged.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Lady of the Lake takes 1 hit(s) and is flipped to her Reduced side – 1 Step(s) left.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Lady of the Lake (Fast) automatically passes her first Disengagement Check – Disengaged.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Asp takes 1 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Asp Strike Check 9 – SINKS!",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "American ships withdraw to In Transit: Oneida, Madison, Fair American, Conquest, Growler, Hamilton, Julia, Lady of the Lake, Ontario.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Still Engaged (failed Disengagement): Gov. Tompkins.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "A.I. preconditions met: Carronade + Defense 26 vs 0; odds 29:1 (needs 1:1).",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Gunnery Round 2: British 29 vs U.S. 1 = 29:1 → column 3:1+. d10 4+1=5 D4W [+1 Command (Cdre. Yeo)] → D4W.",
+      "kind": "roll"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "U.S. hit distribution (1-ship column): 64→#1 Gov. Tompkins, 33→#1 Gov. Tompkins, 53→#1 Gov. Tompkins, 44→#1 Gov. Tompkins.",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Gov. Tompkins takes 4 hit(s) and loses her last Step (+3 for hits on a zero-step ship).",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "lake",
+      "text": "Gov. Tompkins Strike Check 10+3 – SINKS!",
+      "kind": "combat"
+    },
+    {
+      "turn": 1,
+      "phase": "enemy",
+      "text": "C1: the AI has no Deployable ships – no Enemy Operations.",
+      "kind": "ai"
+    },
+    {
+      "turn": 1,
+      "phase": "tally",
+      "text": "British scores 2 VP (Game Score −2): Asp destroyed (Lake Combat)",
+      "kind": "vp"
+    },
+    {
+      "turn": 1,
+      "phase": "tally",
+      "text": "British scores 4 VP (Game Score −4): Gov. Tompkins destroyed (Lake Combat)",
+      "kind": "vp"
+    },
+    {
+      "turn": 1,
+      "phase": "tally",
+      "text": "British scores 1 VP (Game Score −1): Lake Control (1 zone)",
+      "kind": "vp"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "===== July I =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Your July Convoy is scheduled for July I.",
+      "kind": "player"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Raven repaired – Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Lady of the Lake In Transit → Repairing",
+      "kind": "ship"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Naval Balance -8 → band “−15 to +15” (8 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "You assign Escort Force (Raven) to Sacket's.",
+      "kind": "player"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Oneida, Madison, Fair American, Conquest, Growler, Hamilton, Julia, Ontario) to Kingston.",
+      "kind": "player"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 0.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "prep",
+      "text": "Drew 8 Target Cards. Row backs (left→right): South Lake · Kingston · Kingston · Niagara · Kingston · South Lake · Sacket's · Niagara.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Kingston (card 2), PE2 Kingston (card 3), PE3 Kingston (card 5), PE4 Sacket's (card 7).",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "PE1 Kingston: Event #8 shows the spyglass – ENCOUNTER 1! Target Card A4 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "Upgrade Checks [7.1]: Wolfe: roll 6 – “B” version!; Earl of Moira: roll 4 – “B” version!.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "Target Card A4: Kingston – Patrol. Deployment table: Troops 0 row × Naval Balance “-15 to 15” column → ship icon. AI Deploys to Kingston with a Patrol mission: • Wolfe (B) • Royal George (B) • Earl of Moira (B) • Lord Beresford (B) • Sir Sidney Smith",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "Lake Zone Event in Kingston: #12 Sickness (British).",
+      "kind": "event"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "British Construction Delay 0 → 1 (Sickness Event #12)",
+      "kind": "track"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "Weather Gage: American.",
+      "kind": "event"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Kingston – Americans attack (Combat Sequence A).",
+      "kind": "combat"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "Line of battle – U.S. (attacking): 1.Madison 2.Fair American 3.Oneida 4.Conquest 5.Hamilton 6.Growler 7.Julia 8.Ontario [towing: Madison→Fair American]; British (defending): 1.Wolfe (B) 2.Royal George (B) 3.Earl of Moira (B) 4.Sir Sidney Smith 5.Lord Beresford (B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "A.I. drew Rake, Mutual Support, First Shot, Open Range, Dummy → plays Open Range.",
+      "kind": "combat"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "Attacker: Outmaneuver",
+      "kind": "combat"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "Defender: Open Range",
+      "kind": "combat"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "Gunnery Round 1: U.S. 26.5 vs British 27.5 = 0.96:1 → column 1:1.5. d10 8-1=7 D1W [5 untowed Laker Schooners: d6 5, DRM -1] → D1W.",
+      "kind": "roll"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "British hit distribution (10-ship column, Open Range +5): 66→#10 (empty – no effect).",
+      "kind": "combat"
+    },
+    {
+      "turn": 2,
+      "phase": "lake",
+      "text": "British ships withdraw to In Transit: Wolfe (B), Royal George (B), Earl of Moira (B), Lord Beresford (B), Sir Sidney Smith.",
+      "kind": "combat"
+    },
+    {
+      "turn": 2,
+      "phase": "enemy",
+      "text": "C1: the AI has no Deployable ships – no Enemy Operations.",
+      "kind": "ai"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "U.S. scores 1 VP (Game Score +1): Lake Control (1 zone)",
+      "kind": "vp"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "U.S. Convoy Supply 1 → 3 (Convoy arrives)",
+      "kind": "track"
+    },
+    {
+      "turn": 2,
+      "phase": "tally",
+      "text": "1 of your Troops marker(s) become Available.",
+      "kind": "info"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "===== July II =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Lady of the Lake repaired – Deployable",
+      "kind": "ship"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "British Construction Delay 1 → 0 (free reduction A5)",
+      "kind": "track"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Naval Balance +90 → band “≥ +60” (6 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "You assign Army Support Force (Oneida, Madison) +1 Troops to Niagara.",
+      "kind": "player"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Fair American, Conquest, Growler, Hamilton, Julia, Lady of the Lake, Ontario, Pert) to Sacket's.",
+      "kind": "player"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 0.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "prep",
+      "text": "Drew 6 Target Cards. Added one Kingston card for the Blockade because none was drawn [A10]. Row backs (left→right): Kingston · Sacket's · Niagara · Niagara · Niagara · Sacket's · Sacket's.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Sacket's (card 2), PE2 Niagara (card 3), PE3 Niagara (card 4), PE4 Niagara (card 5), PE5 Sacket's (card 6), PE6 Sacket's (card 7).",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "PE1 Sacket's: Event #20 shows the spyglass – ENCOUNTER 1! Target Card A34 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Target Card A34: Sacket's – Cutting-Out. Deployment table: Troops 0 row × Naval Balance “≥60” column → blank. No AI Deployment.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "PE2 Niagara: Event #32 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "PE3 Niagara: Event #17 shows the spyglass – ENCOUNTER 3! Target Card A15 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Target Card A15: Niagara – Army Support. No Deployment: no AI Troops are Available.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "PE4 Niagara: Event #12 shows the spyglass – ENCOUNTER 4! Target Card A18 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "AI Convoy marker for July II revealed: Convoy.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Target Card A18: Niagara – Escort (Patrol). Deployment table: Troops 0 row × Naval Balance “≥60” column → ship icon. AI Deploys to Niagara with an Escort mission: • Wolfe (B) • Royal George (B) • Earl of Moira (B) • Lord Beresford (B) • Sir Sidney Smith",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Lake Zone Event in Niagara: #18 Adverse Wind.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Weather Gage: American.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Niagara – Americans attack (Combat Sequence A).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Line of battle – U.S. (attacking): 1.Madison 2.Oneida; British (defending): 1.Wolfe (B) 2.Royal George (B) 3.Earl of Moira (B) 4.Sir Sidney Smith 5.Lord Beresford (B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "A.I. drew Dummy, First Shot, Repel, Rate of Fire, Open Range → plays Open Range.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Attacker: Surprise",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Defender: Open Range",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Gunnery Round 1: U.S. 14.5 vs British 27.5 = 0.53:1 → column 1:1.5 (+1 Surprise). d10 6 D1 → D1.",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "British hit distribution (10-ship column, Open Range +5): 34→#5 Lord Beresford.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Lord Beresford (B) takes 1 hit(s) and is flipped to her Reduced side – 1 Step(s) left.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Lord Beresford (B) Disengagement Check 6 – fails, remains Engaged.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Weather Gage recheck: Event #14 → American.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Gunnery Round 2: U.S. 14.5 vs British 25 = 0.58:1 → column 1:2-. d10 5 A2 → A2.",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Cdre. Chauncey is WOUNDED (no Command DRM; returns next turn).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "U.S. hit distribution (2-ship column): 12→#1 Madison, 35→#1 Madison.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Leader Casualty Check (Cdre. Chauncey): 2d6 6 – no effect.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Leader Casualty Check (Cdre. Chauncey): 2d6 10 – wounded.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Madison takes 2 hit(s) and is flipped to her Reduced side – 1 Step(s) left (Last Step).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Madison Disengagement Check 3 – DISENGAGED.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Weather Gage recheck: Event #27 → British.",
+      "kind": "event"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Line of battle – British (attacking): 1.Wolfe (B) 2.Royal George (B) 3.Earl of Moira (B) 4.Sir Sidney Smith; U.S. (defending): 1.Oneida.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "A.I. drew Outmaneuver, Rate of Fire, Sweep Up & Fire, Pursuit, Grapple → plays Pursuit.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Attacker: Pursuit",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Defender: Rate of Fire",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Gunnery Round 1: British 27 vs U.S. 5.5 = 4.91:1 → column 3:1+. d10 8 A1/D7 [+1 Command (Cdre. Yeo); −1 Defender Rate of Fire] → A1/D7.",
+      "kind": "roll"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Cdre. Yeo is WOUNDED (no Command DRM; returns next turn).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "U.S. hit distribution (1-ship column): 61→#1 Oneida, 31→#1 Oneida, 36→#1 Oneida, 53→#1 Oneida, 56→#1 Oneida, 44→#1 Oneida, 16→#1 Oneida.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "British hit distribution (4-ship column): 21→#1 Wolfe.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Oneida takes 7 hit(s) and loses her last Step (+5 for hits on a zero-step ship).",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Oneida Strike Check 8+5 – SINKS!",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Leader Casualty Check (Cdre. Yeo): 2d6 10 – wounded.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Wolfe (B) takes 1 hit(s) and is flipped to her Reduced side – 2 Step(s) left.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "Wolfe (B) Disengagement Check 3 – DISENGAGED.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "lake",
+      "text": "The escort protects the Convoy.",
+      "kind": "combat"
+    },
+    {
+      "turn": 3,
+      "phase": "enemy",
+      "text": "C1: the AI has no Deployable ships – no Enemy Operations.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "breakout",
+      "text": "D: none of your ships are on station outside the AI Homeport – the Blockade will lapse in F2.3 and the AI Convoy is not delayed.",
+      "kind": "ai"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "British scores 7 VP (Game Score −7): Oneida destroyed (Lake Combat)",
+      "kind": "vp"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "U.S. scores 2 VP (Game Score +2): Lake Control (2 zones)",
+      "kind": "vp"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "British scores 1 VP (Game Score −1): Lake Control (1 zone)",
+      "kind": "vp"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "British Convoy Supply 3 → 5 (Convoy arrives)",
+      "kind": "track"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "1 unlaunched Troops marker(s) return – you have 1 Available.",
+      "kind": "info"
+    },
+    {
+      "turn": 3,
+      "phase": "tally",
+      "text": "2 “AI Troops?” marker(s) move to the AI Available Troops box (revealed next turn).",
+      "kind": "info"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Cdre. Chauncey returns to duty.",
+      "kind": "info"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Cdre. Yeo returns to duty.",
+      "kind": "info"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "===== August I =====",
+      "kind": "turn"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Your August Convoy is scheduled for August I.",
+      "kind": "player"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Wolfe (B) In Transit → Repairing",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Lord Beresford (B) In Transit → Repairing",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Madison In Transit → Repairing",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Lord Melville launched – Construction → Make Ready (Deployable next turn).",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Naval Balance -8 → band “−15 to +15” (8 Target Cards).",
+      "kind": "track"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "New U.S. Flagship: Fair American.",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "New British Flagship: Royal George (B).",
+      "kind": "ship"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "You assign Escort Force (Raven) to Sacket's.",
+      "kind": "player"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "You assign Patrol Force (Fair American, Conquest, Growler, Hamilton, Julia, Lady of the Lake, Ontario) to Kingston.",
+      "kind": "player"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "A8: revealed AI Troops markers – 0 Troops, 2 dummy (discarded).",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "AI Available Troops this turn: 0.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "prep",
+      "text": "Drew 8 Target Cards. Row backs (left→right): Sacket's · Sacket's · Kingston · Kingston · North Lake · Niagara · Sacket's · Sacket's.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "B1: Possible Encounters – PE1 Sacket's (card 1), PE2 Sacket's (card 2), PE3 Kingston (card 3), PE4 Kingston (card 4), PE5 Sacket's (card 7), PE6 Sacket's (card 8).",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "PE1 Sacket's: Event #38 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "PE2 Sacket's: Event #2 shows the spyglass – ENCOUNTER 2! Target Card A30 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Target Card A30: Sacket's – Army Support. No Deployment: no AI Troops are Available.",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "PE3 Kingston: Event #25 – no spyglass, false alarm.",
+      "kind": "event"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "PE4 Kingston: Event #19 shows the spyglass – ENCOUNTER 4! Target Card A3 revealed.",
+      "kind": "event"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Target Card A3: Kingston – Patrol. Deployment table: Troops 0 row × Naval Balance “-15 to 15” column → ship icon. AI Deploys to Kingston with a Patrol mission: • Royal George (B) • Earl of Moira (B) • Sir Sidney Smith",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Lake Zone Event in Kingston: #24 Adverse Wind.",
+      "kind": "event"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Weather Gage: British.",
+      "kind": "event"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Command Decision: Confront.",
+      "kind": "player"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "LAKE COMBAT in Kingston – British attack (Combat Sequence B).",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Line of battle – British (attacking): 1.Royal George (B) 2.Earl of Moira (B) 3.Sir Sidney Smith; U.S. (defending): 1.Fair American 2.Conquest 3.Hamilton 4.Growler 5.Julia 6.Lady of the Lake 7.Ontario.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "A.I. drew Outmaneuver, Dummy, Dummy, Sweep Up & Fire, Rate of Fire → plays Outmaneuver.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Matching color bars (salmon) – both Tactics negate each other.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Attacker: Outmaneuver (negated)",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Defender: Rake (negated)",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Gunnery Round 1: British 16.5 vs U.S. 6 = 2.75:1 → column 2.5:1. d10 2+1=3 D3 [+1 Command (Cdre. Yeo)] → D3.",
+      "kind": "roll"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "U.S. hit distribution (7-ship column): 21→#2 Conquest, 55→#6 Lady of the Lake, 35→#4 Growler.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Conquest takes 1 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Lady of the Lake takes 1 hit(s) and is flipped to her Reduced side – 1 Step(s) left.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Lady of the Lake (Fast) automatically passes her first Disengagement Check – Disengaged.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Growler takes 1 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Conquest Strike Check 5 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Growler Strike Check 9 – SINKS!",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "A.I. preconditions met: Carronade + Defense 15 vs 0; odds 4.71:1 (needs 1:1).",
+      "kind": "ai"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Gunnery Round 2: British 16.5 vs U.S. 3.5 = 4.71:1 → column 3:1+. d10 3+1=4 D4 [+1 Command (Cdre. Yeo)] → D4.",
+      "kind": "roll"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "U.S. hit distribution (4-ship column): 32→#2 Hamilton, 34→#2 Hamilton, 53→#3 Julia, 61→#4 Ontario.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Hamilton takes 2 hit(s) and loses her last Step (+1 for hits on a zero-step ship).",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Julia takes 1 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Ontario takes 1 hit(s) and loses her last Step.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Hamilton Strike Check 6+1 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Julia Strike Check 3 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Ontario Strike Check 5 – STRIKES COLORS.",
+      "kind": "combat"
+    },
+    {
+      "turn": 4,
+      "phase": "lake",
+      "text": "Weather Gage recheck: Event #23 → British.",
+      "kind": "event"
+    }
+  ],
+  "lastRolls": [],
+  "encounter": {
+    "zone": "KIN",
+    "kind": "normal",
+    "segment": "patrol",
+    "peNum": 4,
+    "ships": {
+      "fairam": "in",
+      "conquest": "struck",
+      "growler": "sunk",
+      "hamilton": "struck",
+      "julia": "struck",
+      "lady": "dis",
+      "ontario": "struck",
+      "rg": "in",
+      "moira": "in",
+      "sss": "in"
+    },
+    "side": {
+      "fairam": "US",
+      "conquest": "US",
+      "growler": "US",
+      "hamilton": "US",
+      "julia": "US",
+      "lady": "US",
+      "ontario": "US",
+      "rg": "BR",
+      "moira": "BR",
+      "sss": "BR"
+    },
+    "struckBy": {},
+    "convoySide": null,
+    "breakoutSide": null,
+    "wg": "BR",
+    "wgCard": 23,
+    "withdrawn": {
+      "US": false,
+      "BR": false
+    },
+    "humanForce": "F13",
+    "aiForce": "F14",
+    "firstAttack": false,
+    "log": [],
+    "flagIn": {
+      "US": true,
+      "BR": true
+    },
+    "leaderFate": {}
+  },
+  "combat": {
+    "att": "BR",
+    "def": "US",
+    "seq": "B",
+    "pos": 3,
+    "segment": "patrol",
+    "col": {
+      "US": [
+        "fairam"
+      ],
+      "BR": [
+        "rg",
+        "moira",
+        "sss"
+      ]
+    },
+    "tows": {},
+    "tac": {
+      "att": {
+        "id": "A_outmaneuver",
+        "used": false,
+        "negated": true
+      },
+      "def": {
+        "id": "D_rake",
+        "used": false,
+        "negated": true
+      }
+    },
+    "gr": 2,
+    "newSeq": false,
+    "plan": {
+      "ships": [
+        "rg",
+        "moira",
+        "sss"
+      ],
+      "tows": {},
+      "why": "A.I. preconditions met: Carronade + Defense 15 vs 0; odds 2.75:1 (needs 1:1)."
+    },
+    "roundAttackers": [
+      "rg",
+      "moira",
+      "sss"
+    ],
+    "log": [],
+    "openGaps": false,
+    "rainy": false,
+    "sitting": null
+  },
+  "lossesThisTurn": [
+    {
+      "id": "growler",
+      "owner": "US",
+      "how": "sunk",
+      "by": "BR",
+      "why": "Lake Combat"
+    }
+  ],
+  "troopsReturning": {
+    "US": 0,
+    "BR": 0
+  },
+  "promptSeq": 91,
+  "tacPlayed": [
+    "A_outmaneuver",
+    "D_rake"
+  ]
+}

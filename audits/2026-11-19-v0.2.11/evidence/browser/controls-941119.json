@@ -1,0 +1,2266 @@
+{
+  "side": "US",
+  "seed": 941119,
+  "style": "coast",
+  "options": {
+    "cuttingOut": false,
+    "oa1Upgrades": false,
+    "usAiPrecondition": "longgun",
+    "confirmAiSteps": true,
+    "groupUpdates": true,
+    "manualPackages": false,
+    "manualLandBattle": false
+  },
+  "totals": {
+    "choice": 27,
+    "select": 10,
+    "assign": 8,
+    "info": 64,
+    "lineup": 6
+  },
+  "steps": [
+    {
+      "step": "June I · A1 Schedule Convoy",
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "June I (this turn)"
+        }
+      ]
+    },
+    {
+      "step": "June I · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "June I · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Asp"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Growler"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Oneida"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Madison"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Gov. Tompkins"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Fair American"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Conquest"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Hamilton"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Julia"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Lady of the Lake"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Ontario"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Pert"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Raven"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "June I · B2 Encounter Checks",
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · E Coastal Action Phase",
+      "title": "American Raid on Kingston",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June I · E Coastal Action Phase",
+      "title": "American Raid on York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "June II · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Asp"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Growler"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 0,
+          "label": "Army Support"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Niagara"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Oneida"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Madison"
+        },
+        {
+          "type": "number",
+          "group": 2,
+          "value": "2"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 3,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Gov. Tompkins"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Fair American"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Conquest"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Hamilton"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Julia"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Lady of the Lake"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Ontario"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Pert"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Raven"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "June II · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Asp) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "June II · E Coastal Action Phase",
+      "title": "British Raid on South Lake",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · E Coastal Action Phase",
+      "title": "American Raid on Kingston",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · E Coastal Action Phase",
+      "title": "American Raid on York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "June II · E6.3 Your Land Battles",
+      "title": "Land Battle result",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · A1 Schedule Convoy",
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "July I (this turn)"
+        }
+      ]
+    },
+    {
+      "step": "July I · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "July I · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Asp"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Growler"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 0,
+          "label": "Army Support"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Oneida"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Madison"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 3,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Gov. Tompkins"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Fair American"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Conquest"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Hamilton"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Julia"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Lady of the Lake"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Ontario"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Pert"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Raven"
+        },
+        {
+          "type": "ship",
+          "group": 3,
+          "label": "Scourge"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "July I · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Asp) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "July I · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 2 in Kingston",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Army Support Force (Oneida, Madison) +1 Troops — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "July I · B2 Encounter Checks",
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · B2 Encounter Checks",
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E Coastal Action Phase",
+      "title": "American Raid on Kingston",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E Coastal Action Phase",
+      "title": "American Raid on York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E Harbor Encounter",
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E Harbor Encounter",
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July I · E6.3 Your Land Battles",
+      "title": "Land Battle result",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "July II · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Asp"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Growler"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Gov. Tompkins"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Fair American"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Conquest"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Hamilton"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Julia"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Lady of the Lake"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Ontario"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Pert"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Raven"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Scourge"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "July II · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Asp) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "July II · B2 Encounter Checks",
+      "title": "Encounter 1: enemy sighted",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter 1 – Lake Zone Event & Weather Gage",
+      "title": "Encounter 1 in Kingston",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter – Command Decision (patrol segment)",
+      "title": "Command Decision – you hold the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter – Command Decision (patrol segment)",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter – Command Decision (patrol segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Gunnery result",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter – Reaction Segment",
+      "title": "Reaction Segment – declare Reaction Checks",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "checkbox",
+          "label": "General Pike – Sacket's Harbor (Deployable) (DRM -2)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Gov. Tompkins – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Fair American – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Conquest – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Hamilton – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Julia – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Lady of the Lake – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Ontario – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Pert – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Raven – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "checkbox",
+          "label": "Scourge – Patrol Force (Gov. Tompkins, Fair American, Conquest, Hamilton, Julia, Lady of the Lake, Ontario, Pert, Raven, Scourge) in Kingston (DRM +1)"
+        },
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter – Reaction Segment",
+      "title": "Reaction Segment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter – Command Decision (reaction segment)",
+      "title": "Command Decision – you hold the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter – Command Decision (reaction segment)",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter – Command Decision (reaction segment)",
+      "title": "LC3 Tactics – you are the Attacker",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "tactic",
+          "label": "Pursuit"
+        }
+      ]
+    },
+    {
+      "step": "July II · Encounter – Command Decision (reaction segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence A: Weather Gage recheck",
+      "title": "Weather Gage changes!",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence A: Weather Gage recheck",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Gunnery Round 2",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Weather Gage recheck",
+      "title": "Weather Gage changes!",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Weather Gage recheck",
+      "title": "You gain the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Weather Gage recheck",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Weather Gage recheck",
+      "title": "LC3 Tactics – you are the Attacker",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "tactic",
+          "label": "First Shot"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Weather Gage recheck",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence A: Weather Gage recheck",
+      "title": "Weather Gage changes!",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence A: Weather Gage recheck",
+      "title": "LC3 Tactics – you are the Defender",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "tactic",
+          "label": "Escape"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence A: Weather Gage recheck",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Withdrawal result against you",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Withdraw"
+        }
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ],
+      "resultLog": [
+        "Asp is CAPTURED by the British.",
+        "Fair American is CAPTURED by the British.",
+        "Hamilton is CAPTURED by the British.",
+        "Julia is CAPTURED by the British.",
+        "Ontario is CAPTURED by the British.",
+        "Pert is CAPTURED by the British.",
+        "Raven is CAPTURED by the British.",
+        "Scourge is CAPTURED by the British."
+      ]
+    },
+    {
+      "step": "July II · Lake Combat – Sequence B: Gunnery Round 1",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "July II · E Coastal Action Phase",
+      "title": "American Raid on York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · A1 Schedule Convoy",
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "August I (this turn)"
+        }
+      ]
+    },
+    {
+      "step": "August I · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "August I · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Growler"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "General Pike"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Oneida"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Madison"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "August I · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 2 in Kingston",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Growler) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "August I · B2 Encounter Checks",
+      "title": "Encounter 1: enemy sighted",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter 1 – Lake Zone Event & Weather Gage",
+      "title": "Encounter 1 in York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Command Decision (patrol segment)",
+      "title": "Command Decision – you hold the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Command Decision (patrol segment)",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Command Decision (patrol segment)",
+      "title": "LC3 Tactics – you are the Attacker",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "tactic",
+          "label": "Rake"
+        }
+      ]
+    },
+    {
+      "step": "August I · Encounter – Command Decision (patrol segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Rake – where do the hits go?",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Lead ship: Wolfe (A)"
+        }
+      ]
+    },
+    {
+      "step": "August I · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Lake Combat – Sequence A: Weather Gage recheck",
+      "title": "Weather Gage recheck",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · Lake Combat – Sequence A: Gunnery Round 2",
+      "title": "Gunnery Round 2 – attack or pass?",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "August I · Lake Combat – Sequence A: Gunnery Round 2",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ],
+      "resultLog": [
+        "Cdre. Yeo is CAPTURED! Command passes to generic leader.",
+        "Wolfe is CAPTURED by the Americans."
+      ]
+    },
+    {
+      "step": "August I · Lake Combat – Sequence A: Gunnery Round 2",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · E Coastal Action Phase",
+      "title": "American Raid on Kingston",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August I · E Coastal Action Phase",
+      "title": "American Raid on York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "August II · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Growler"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Lady of the Lake"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Oneida"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Madison"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "August II · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Growler) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "August II · B2 Encounter Checks",
+      "title": "Encounter – no enemy",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · E Harbor Encounter",
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · E Harbor Encounter",
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · E Harbor Encounter",
+      "title": "Harbor Encounter",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · E3.3 A.I. Land Battles",
+      "title": "Land Battle result",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · E3.3 A.I. Land Battles",
+      "title": "American Raid on Kingston",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "August II · E3.3 A.I. Land Battles",
+      "title": "American Raid on York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · A1 Schedule Convoy",
+      "title": "A1 Schedule your Convoy",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "September I (this turn)"
+        }
+      ]
+    },
+    {
+      "step": "September I · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "September I · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Growler (Isolated)"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "Lady of the Lake (Isolated)"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Oneida (Isolated)"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "September I · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Growler) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "September I · B2 Encounter Checks",
+      "title": "Encounter 1: enemy sighted",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter 1 – Lake Zone Event & Weather Gage",
+      "title": "Encounter 1 in Kingston",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter – Command Decision (patrol segment)",
+      "title": "Command Decision – you hold the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter – Command Decision (patrol segment)",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter – Command Decision (patrol segment)",
+      "title": "LC3 Tactics – you are the Attacker",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "tactic",
+          "label": "Rake"
+        }
+      ]
+    },
+    {
+      "step": "September I · Encounter – Command Decision (patrol segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ],
+      "resultLog": [
+        "Growler is CAPTURED by the British."
+      ]
+    },
+    {
+      "step": "September I · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September I · E Coastal Action Phase",
+      "title": "American Raid on York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · A4 In Ordinary",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "September II · A7 Assign Ships",
+      "title": "A7 Assign your ships",
+      "kind": "assign",
+      "actions": [
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "select",
+          "group": 0,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 0,
+          "label": "Lady of the Lake"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 1,
+          "index": 0,
+          "label": "Raid"
+        },
+        {
+          "type": "ship",
+          "group": 1,
+          "label": "General Pike"
+        },
+        {
+          "type": "button",
+          "label": "+ Add Force"
+        },
+        {
+          "type": "select",
+          "group": 2,
+          "index": 1,
+          "label": "Kingston"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Wolfe A"
+        },
+        {
+          "type": "ship",
+          "group": 2,
+          "label": "Oneida"
+        },
+        {
+          "type": "button",
+          "label": "Confirm assignments"
+        }
+      ]
+    },
+    {
+      "step": "September II · B1 Possible Encounters",
+      "title": "B1 Possible Encounter 1 in Kingston",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Raid Force (Lady of the Lake) — 0 marker(s) so far"
+        }
+      ]
+    },
+    {
+      "step": "September II · B2 Encounter Checks",
+      "title": "Encounter 2: enemy sighted",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · Encounter 2 – Lake Zone Event & Weather Gage",
+      "title": "Encounter 2 in York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · Encounter – Command Decision (patrol segment)",
+      "title": "Command Decision – you hold the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "September II · Encounter – Command Decision (patrol segment)",
+      "title": "Lake Combat – choose your attacking ships",
+      "kind": "lineup",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack with these ships"
+        }
+      ]
+    },
+    {
+      "step": "September II · Encounter – Command Decision (patrol segment)",
+      "title": "Tactics",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · Lake Combat – Sequence A: Gunnery Round 1",
+      "title": "Gunnery Round results",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · Lake Combat – Sequence A: Weather Gage recheck",
+      "title": "Weather Gage recheck",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · Encounter – Reaction Segment",
+      "title": "Reaction Segment – declare Reaction Checks",
+      "kind": "select",
+      "actions": [
+        {
+          "type": "checkbox",
+          "label": "Madison – Sacket's Harbor (Deployable) (DRM -4)"
+        },
+        {
+          "type": "button",
+          "label": "Confirm"
+        }
+      ]
+    },
+    {
+      "step": "September II · Encounter – Reaction Segment",
+      "title": "Reaction Segment",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · Encounter – Command Decision (reaction segment)",
+      "title": "Command Decision – you hold the Weather Gage",
+      "kind": "choice",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Attack"
+        }
+      ]
+    },
+    {
+      "step": "September II · Encounter – Command Decision (reaction segment)",
+      "title": "Encounter ended",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · E Coastal Action Phase",
+      "title": "American Raid on Kingston",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    },
+    {
+      "step": "September II · E Coastal Action Phase",
+      "title": "American Raid on York",
+      "kind": "info",
+      "actions": [
+        {
+          "type": "button",
+          "label": "Continue"
+        }
+      ]
+    }
+  ],
+  "final": {
+    "turn": 8,
+    "result": {
+      "score": -23,
+      "level": "British Victory"
+    },
+    "vp": {
+      "US": 60,
+      "BR": 83
+    },
+    "ledger": [
+      {
+        "turn": 0,
+        "side": "US",
+        "n": 1,
+        "why": "Lake Control (1 zone)"
+      },
+      {
+        "turn": 0,
+        "side": "BR",
+        "n": 1,
+        "why": "Lake Control (1 zone)"
+      },
+      {
+        "turn": 0,
+        "side": "US",
+        "n": 2,
+        "why": "Raid on the Kingston coastline"
+      },
+      {
+        "turn": 0,
+        "side": "US",
+        "n": 1,
+        "why": "Raid on the York coastline"
+      },
+      {
+        "turn": 1,
+        "side": "US",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 1,
+        "side": "BR",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 1,
+        "side": "BR",
+        "n": 1,
+        "why": "Raid on the South Lake coastline"
+      },
+      {
+        "turn": 1,
+        "side": "US",
+        "n": 2,
+        "why": "Raid on the Kingston coastline"
+      },
+      {
+        "turn": 1,
+        "side": "US",
+        "n": 1,
+        "why": "Raid on the York coastline"
+      },
+      {
+        "turn": 2,
+        "side": "US",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 2,
+        "side": "BR",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 2,
+        "side": "US",
+        "n": 1,
+        "why": "Raid on the Kingston coastline"
+      },
+      {
+        "turn": 2,
+        "side": "US",
+        "n": 1,
+        "why": "Raid on the York coastline"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 4,
+        "why": "Conquest destroyed (Lake Combat)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 4,
+        "why": "Gov. Tompkins destroyed (Lake Combat)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 4,
+        "why": "Asp captured (Struck Colors)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 8,
+        "why": "Fair American captured (Struck Colors)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 4,
+        "why": "Hamilton captured (Struck Colors)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 4,
+        "why": "Julia captured (Struck Colors)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 4,
+        "why": "Ontario captured (Struck Colors)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 4,
+        "why": "Pert captured (Struck Colors)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 4,
+        "why": "Raven captured (Struck Colors)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 4,
+        "why": "Scourge captured (Struck Colors)"
+      },
+      {
+        "turn": 3,
+        "side": "US",
+        "n": 1,
+        "why": "Lake Control (1 zone)"
+      },
+      {
+        "turn": 3,
+        "side": "BR",
+        "n": 3,
+        "why": "Lake Control (3 zones)"
+      },
+      {
+        "turn": 3,
+        "side": "US",
+        "n": 1,
+        "why": "Raid on the York coastline"
+      },
+      {
+        "turn": 4,
+        "side": "US",
+        "n": 32,
+        "why": "Wolfe captured (Struck Colors)"
+      },
+      {
+        "turn": 4,
+        "side": "US",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 4,
+        "side": "BR",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 5,
+        "side": "BR",
+        "n": 14,
+        "why": "Sylph destroyed (Lake Combat)"
+      },
+      {
+        "turn": 5,
+        "side": "US",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 5,
+        "side": "BR",
+        "n": 3,
+        "why": "Lake Control (3 zones)"
+      },
+      {
+        "turn": 5,
+        "side": "US",
+        "n": 2,
+        "why": "Raid on the Kingston coastline"
+      },
+      {
+        "turn": 6,
+        "side": "BR",
+        "n": 4,
+        "why": "Growler captured (Struck Colors)"
+      },
+      {
+        "turn": 6,
+        "side": "US",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 6,
+        "side": "BR",
+        "n": 3,
+        "why": "Lake Control (3 zones)"
+      },
+      {
+        "turn": 6,
+        "side": "US",
+        "n": 1,
+        "why": "Raid on the York coastline"
+      },
+      {
+        "turn": 7,
+        "side": "US",
+        "n": 2,
+        "why": "Lake Control (2 zones)"
+      },
+      {
+        "turn": 7,
+        "side": "BR",
+        "n": 4,
+        "why": "Lake Control (4 zones)"
+      },
+      {
+        "turn": 7,
+        "side": "US",
+        "n": 2,
+        "why": "Raid on the Kingston coastline"
+      }
+    ]
+  }
+}

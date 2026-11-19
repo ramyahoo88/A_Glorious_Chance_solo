@@ -1,0 +1,994 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> a-glorious-chance-solo-companion@0.2.12 test:ui
+> node tests/browser/ui_v029.js . --require-fixed && node tests/browser/persistence_v029.js . --require-fixed && node tests/browser/ui_followup_v029.js . --require-fixed && node tests/browser/persistence_followup_v029.js . --require-fixed && node tests/browser/tabletop_v0210.js . && node tests/browser/phone_v0210.js dist/index.html && node tests/browser/persistence_v0210.js . --require-fixed && node tests/browser/fixes_v0212.js
+
+{
+  "repo": "/workspace/scratch/ee9228aa604a/agc-audit",
+  "checks": 21,
+  "passed": 21,
+  "results": [
+    {
+      "name": "Assignment ships have native keyboard controls",
+      "pass": true,
+      "detail": "BUTTON"
+    },
+    {
+      "name": "Selected assignment ship is announced and keeps focus",
+      "pass": true,
+      "detail": {
+        "pressed": "true",
+        "focused": true
+      }
+    },
+    {
+      "name": "Ship assigned to another force is disabled",
+      "pass": true,
+      "detail": {
+        "tag": "BUTTON",
+        "disabled": true
+      }
+    },
+    {
+      "name": "\"Enter\" on Save does not advance the game",
+      "pass": true,
+      "detail": {
+        "prevented": false,
+        "prompt": "A10 Target Cards drawn"
+      }
+    },
+    {
+      "name": "\" \" on Save does not advance the game",
+      "pass": true,
+      "detail": {
+        "prevented": false,
+        "prompt": "A10 Target Cards drawn"
+      }
+    },
+    {
+      "name": "Modal has an accessible name and initial focus",
+      "pass": true,
+      "detail": {
+        "role": true,
+        "focused": true
+      }
+    },
+    {
+      "name": "Modal makes background controls inert",
+      "pass": true
+    },
+    {
+      "name": "Enter in modal leaves game and default button activation alone",
+      "pass": true,
+      "detail": {
+        "prevented": false,
+        "prompt": "A10 Target Cards drawn"
+      }
+    },
+    {
+      "name": "Undo shortcut does not change game behind modal",
+      "pass": true
+    },
+    {
+      "name": "Modal Tab wraps to first control",
+      "pass": true
+    },
+    {
+      "name": "Modal Shift+Tab wraps to last visible control",
+      "pass": true
+    },
+    {
+      "name": "Escape closes modal and restores focus",
+      "pass": true
+    },
+    {
+      "name": "Game Undo shortcut works on a button after closing Reference",
+      "pass": true
+    },
+    {
+      "name": "Page Enter still advances an information prompt",
+      "pass": true
+    },
+    {
+      "name": "Held key does not skip another prompt",
+      "pass": true
+    },
+    {
+      "name": "Default log cap is disclosed",
+      "pass": true
+    },
+    {
+      "name": "Full log reveals earlier entries",
+      "pass": true
+    },
+    {
+      "name": "Log filter reports the matching count",
+      "pass": true
+    },
+    {
+      "name": "Log controls leave game, dice and Undo unchanged",
+      "pass": true
+    },
+    {
+      "name": "Tactic choices have native keyboard controls",
+      "pass": true,
+      "detail": "BUTTON"
+    },
+    {
+      "name": "No script or console errors during UI checks",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}
+{
+  "checks": 38,
+  "failures": 0,
+  "results": [
+    {
+      "name": "Invalid ship steps \"1.5\" leave state, dice, history and autosave unchanged",
+      "pass": true,
+      "detail": {
+        "steps": 3,
+        "message": "Ship steps: enter a whole number from 0 to 3."
+      }
+    },
+    {
+      "name": "Invalid ship steps \"1.5\" have an explanation",
+      "pass": true
+    },
+    {
+      "name": "Invalid ship steps \"\" leave state, dice, history and autosave unchanged",
+      "pass": true,
+      "detail": {
+        "steps": 3,
+        "message": "Ship steps: enter a whole number from 0 to 3."
+      }
+    },
+    {
+      "name": "Invalid ship steps \"\" have an explanation",
+      "pass": true
+    },
+    {
+      "name": "Invalid ship steps \"-1\" leave state, dice, history and autosave unchanged",
+      "pass": true,
+      "detail": {
+        "steps": 3,
+        "message": "Ship steps: enter a whole number from 0 to 3."
+      }
+    },
+    {
+      "name": "Invalid ship steps \"-1\" have an explanation",
+      "pass": true
+    },
+    {
+      "name": "Invalid ship steps \"99\" leave state, dice, history and autosave unchanged",
+      "pass": true,
+      "detail": {
+        "steps": 3,
+        "message": "Ship steps: enter a whole number from 0 to 3."
+      }
+    },
+    {
+      "name": "Invalid ship steps \"99\" have an explanation",
+      "pass": true
+    },
+    {
+      "name": "Invalid ship steps \"1e309\" leave state, dice, history and autosave unchanged",
+      "pass": true,
+      "detail": {
+        "steps": 3,
+        "message": "Ship steps: enter a whole number from 0 to 3."
+      }
+    },
+    {
+      "name": "Invalid ship steps \"1e309\" have an explanation",
+      "pass": true
+    },
+    {
+      "name": "Fractional VP adjustment is atomic and explains the error",
+      "pass": true
+    },
+    {
+      "name": "Valid ship steps 0 apply",
+      "pass": true
+    },
+    {
+      "name": "Valid ship steps 0 survive current autosave reload",
+      "pass": true
+    },
+    {
+      "name": "Valid ship steps 0 Undo restores exact prior position after reload",
+      "pass": true
+    },
+    {
+      "name": "Valid ship steps 1 apply",
+      "pass": true
+    },
+    {
+      "name": "Valid ship steps 1 survive current autosave reload",
+      "pass": true
+    },
+    {
+      "name": "Valid ship steps 1 Undo restores exact prior position after reload",
+      "pass": true
+    },
+    {
+      "name": "Valid ship steps 3 apply",
+      "pass": true
+    },
+    {
+      "name": "Valid ship steps 3 survive current autosave reload",
+      "pass": true
+    },
+    {
+      "name": "Valid ship steps 3 Undo restores exact prior position after reload",
+      "pass": true
+    },
+    {
+      "name": "Current save emptyStack is refused atomically",
+      "pass": true,
+      "detail": {
+        "message": "CloseLoad gameLoading replaces the game you have open. Press Undo once to return to it.Choose a saved .json file: Load pasted textClear pasted textCould not read that text: this save is damaged or incomplete (pending decision). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Current save nullPrompt is refused atomically",
+      "pass": true,
+      "detail": {
+        "message": "CloseLoad gameLoading replaces the game you have open. Press Undo once to return to it.Choose a saved .json file: Load pasted textClear pasted textCould not read that text: this save is damaged or incomplete (pending decision). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Current save badPc is refused atomically",
+      "pass": true,
+      "detail": {
+        "message": "CloseLoad gameLoading replaces the game you have open. Press Undo once to return to it.Choose a saved .json file: Load pasted textClear pasted textCould not read that text: this save is damaged or incomplete (procedure stack). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Current save excessSteps is refused atomically",
+      "pass": true,
+      "detail": {
+        "message": "CloseLoad gameLoading replaces the game you have open. Press Undo once to return to it.Choose a saved .json file: Load pasted textClear pasted textCould not read that text: this save is damaged or incomplete (ship wolfe steps). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Current save excessSupply is refused atomically",
+      "pass": true,
+      "detail": {
+        "message": "CloseLoad gameLoading replaces the game you have open. Press Undo once to return to it.Choose a saved .json file: Load pasted textClear pasted textCould not read that text: this save is damaged or incomplete (Convoy Supply US). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Successful import immediately reports an autosave refusal",
+      "pass": true
+    },
+    {
+      "name": "Failed autosave preserves previous stored game",
+      "pass": true
+    },
+    {
+      "name": "Import Undo still restores previous game when storage refuses writes",
+      "pass": true
+    },
+    {
+      "name": "Settings /Pause after each A\\.I\\. move|Show individual Target Card/ immediately reports storage refusal",
+      "pass": true
+    },
+    {
+      "name": "Settings /Pick American Force Package ships myself/ immediately reports storage refusal",
+      "pass": true
+    },
+    {
+      "name": "Settings /Read the Land Battle Table myself/ immediately reports storage refusal",
+      "pass": true
+    },
+    {
+      "name": "Undo a current import restores previous state and its history",
+      "pass": true
+    },
+    {
+      "name": "Previous game remains undoable after undoing an import",
+      "pass": true
+    },
+    {
+      "name": "Reload setup does not write over autosave",
+      "pass": true
+    },
+    {
+      "name": "Replacing a saved game from setup asks first",
+      "pass": true
+    },
+    {
+      "name": "Cancel replacement preserves saved position",
+      "pass": true
+    },
+    {
+      "name": "Confirmed replacement starts chosen seed and clears history",
+      "pass": true
+    },
+    {
+      "name": "Save filename identifies side, turn, seed and decision",
+      "pass": true,
+      "detail": "agc-US-JuneI-seed290010-step1.json"
+    }
+  ]
+}
+{
+  "repo": "/workspace/scratch/ee9228aa604a/agc-audit",
+  "checks": 21,
+  "passed": 21,
+  "results": [
+    {
+      "name": "L13 zero entered Troops remains visibly zero",
+      "pass": true,
+      "detail": {
+        "shown": "0",
+        "held": 0
+      }
+    },
+    {
+      "name": "L13 zero cannot be confirmed",
+      "pass": true
+    },
+    {
+      "name": "L13 nearby one Troops can be confirmed",
+      "pass": true
+    },
+    {
+      "name": "L14 minimum Secondary count after Main Ships",
+      "pass": true,
+      "detail": [
+        "madison",
+        "oneida",
+        "growler"
+      ]
+    },
+    {
+      "name": "L14 ties repeat without unseeded randomness or state changes",
+      "pass": true,
+      "detail": {
+        "one": [
+          "madison",
+          "oneida",
+          "julia"
+        ],
+        "two": [
+          "madison",
+          "oneida",
+          "julia"
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "name": "L14 exhausted and impossible pools produce no selection",
+      "pass": true
+    },
+    {
+      "name": "L14 Main Ships satisfy requirement without adding Secondaries",
+      "pass": true
+    },
+    {
+      "name": "L14 count mode remains exact and Main-first",
+      "pass": true
+    },
+    {
+      "name": "L14 actual Auto-fill controls repeat the minimum selection",
+      "pass": true
+    },
+    {
+      "name": "L14 Auto-fill leaves game, RNG, Undo and autosave unchanged",
+      "pass": true
+    },
+    {
+      "name": "L7 Rainy lineup describes actual Close Action instead of Gunnery odds",
+      "pass": true,
+      "detail": "June I · SetupLake Combat – choose your attacking shipsOnly full-strength ships may attack. \nDefending: Oneida.★ Wolfe A2·4·8·4 ●●● M T— no tow —Rainy Squalls: no Gunnery — straight to Close Action.\nAttackers: Wolfe (A) CA 8. Defenders: Oneida CA 3. Close Action matchups: Wolfe (A) vs Oneida.Attack with these ships"
+    },
+    {
+      "name": "L7 preview leaves game, RNG and Undo unchanged",
+      "pass": true
+    },
+    {
+      "name": "L7 Reaction lineup retains Gunnery preview",
+      "pass": true
+    },
+    {
+      "name": "L10 offscreen above",
+      "pass": true,
+      "detail": [
+        {
+          "id": "proc",
+          "opts": {
+            "block": "start",
+            "inline": "nearest"
+          }
+        }
+      ]
+    },
+    {
+      "name": "L10 visible on phone",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "L10 offscreen below",
+      "pass": true,
+      "detail": [
+        {
+          "id": "proc",
+          "opts": {
+            "block": "start",
+            "inline": "nearest"
+          }
+        }
+      ]
+    },
+    {
+      "name": "L10 covered by sticky header",
+      "pass": true,
+      "detail": [
+        {
+          "id": "proc",
+          "opts": {
+            "block": "start",
+            "inline": "nearest"
+          }
+        }
+      ]
+    },
+    {
+      "name": "L10 visible below sticky header",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "L16 Settings labels occupy separate rows",
+      "pass": true
+    },
+    {
+      "name": "L16 Adjust numeric labels occupy separate rows",
+      "pass": true
+    },
+    {
+      "name": "No script or console errors in follow-ups",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}
+{
+  "checks": 21,
+  "failures": 0,
+  "results": [
+    {
+      "name": "M6 setup import loads chosen game",
+      "pass": true
+    },
+    {
+      "name": "M6 setup import preserves prior game plus history",
+      "pass": true
+    },
+    {
+      "name": "M6 Undo after import and reload restores prior game",
+      "pass": true
+    },
+    {
+      "name": "M6 prior Undo history survives",
+      "pass": true
+    },
+    {
+      "name": "M6 previous decision can still be undone",
+      "pass": true
+    },
+    {
+      "name": "M6 damaged setup import preserves stored bytes and setup",
+      "pass": true
+    },
+    {
+      "name": "M6 ordinary Continue does not duplicate the retained game in Undo",
+      "pass": true
+    },
+    {
+      "name": "M7 adjustment initially says keep current Lake box",
+      "pass": true
+    },
+    {
+      "name": "M7 steps-only edit preserves lake zone and Force",
+      "pass": true,
+      "detail": {
+        "id": "madison",
+        "ver": "",
+        "owner": "US",
+        "box": "lake",
+        "zone": "KIN",
+        "port": "home",
+        "steps": 2,
+        "delay": 0,
+        "forceId": "F3",
+        "isolated": false,
+        "flags": {}
+      }
+    },
+    {
+      "name": "M7 location-preserving adjustment survives reload",
+      "pass": true
+    },
+    {
+      "name": "M7 Undo restores exact pre-adjustment state",
+      "pass": true
+    },
+    {
+      "name": "M7 deployed owner change needs an explicit destination and is atomic",
+      "pass": true
+    },
+    {
+      "name": "M7 explicit owner and box change removes ship from old Force",
+      "pass": true
+    },
+    {
+      "name": "M7 explicit move remains exactly undoable",
+      "pass": true
+    },
+    {
+      "name": "L12 U.S. VP correction adds one +3 manual ledger entry",
+      "pass": true
+    },
+    {
+      "name": "L12 British correction has negative game-score effect",
+      "pass": true
+    },
+    {
+      "name": "L12 both adjustments Undo to original exact state",
+      "pass": true
+    },
+    {
+      "name": "L12 final ledger, result and header agree after correction and normal CD deductions",
+      "pass": true
+    },
+    {
+      "name": "L12 corrected final game reloads exactly",
+      "pass": true
+    },
+    {
+      "name": "L12 correction made after Game Over updates cached final result and ledger",
+      "pass": true
+    },
+    {
+      "name": "L12 postgame correction Undo restores exact final result",
+      "pass": true
+    }
+  ]
+}
+Tabletop controls: grouped reports, public information, exact Undo/replay, native summary keys, empty orders, and forced victory passed.
+{
+  "resultCount": 12,
+  "failures": 0,
+  "results": [
+    {
+      "name": "A7 changing the flagship as the last input applies the displayed choice",
+      "pass": true,
+      "detail": {
+        "original": "madison",
+        "chosen": "oneida",
+        "seed": 280004
+      }
+    },
+    {
+      "name": "The same flagship transfer also works before a later ship selection",
+      "pass": true,
+      "detail": {
+        "seed": 280004,
+        "inputOrder": [
+          "flagship",
+          "ship",
+          "confirm"
+        ]
+      }
+    },
+    {
+      "name": "An empty A7 warns before confirmation and clears when ships will sail",
+      "pass": true,
+      "detail": {
+        "seed": 280004,
+        "assigned": 1
+      }
+    },
+    {
+      "name": "Homeport and A7 ship details work without changing the draft, RNG or Undo",
+      "pass": true,
+      "detail": {
+        "inspected": [
+          "homeport",
+          "A7 with one assigned",
+          "lake"
+        ],
+        "seed": 280004
+      }
+    },
+    {
+      "name": "Selection and lineup changes preserve focus and scroll; tow has its own name",
+      "pass": true,
+      "detail": {
+        "scrollTop": 80,
+        "tow": "Madison → Asp"
+      }
+    },
+    {
+      "name": "An empty first Round explains the skipped roll and does not display odds",
+      "pass": true,
+      "detail": {
+        "attacker": "Madison",
+        "defender": "Wolfe",
+        "encounter": "Sacket's"
+      }
+    },
+    {
+      "name": "A reserve appears once and has no line position when its battle column is empty",
+      "pass": true,
+      "detail": {
+        "reserve": "Madison",
+        "fighting": "Wolfe"
+      }
+    },
+    {
+      "name": "A changed Weather Gage labels the completed formation and a retained Gage keeps the active roles",
+      "pass": true,
+      "detail": {
+        "previous": "B",
+        "newGage": "American",
+        "retainedGage": "British",
+        "harbor": true
+      }
+    },
+    {
+      "name": "Reference returns all 648 line positions and keeps the Close control reachable",
+      "pass": true,
+      "detail": {
+        "shipColumns": 18,
+        "redBluePairs": 648
+      }
+    },
+    {
+      "name": "Lake zone placement follows the board at either width without another game action",
+      "pass": true,
+      "detail": {
+        "wide": "\"YOR NOR KIN\" \"NIA SOU SAC\"",
+        "narrow": "\"YOR NIA\" \"NOR SOU\" \"KIN SAC\""
+      }
+    },
+    {
+      "name": "Only currently revealed cards appear in the lookup and face-up board tiles open",
+      "pass": true,
+      "detail": {
+        "hidden": "A1",
+        "revealed": [
+          "A2",
+          "Event #1"
+        ]
+      }
+    },
+    {
+      "name": "Editing a custom package threshold survives a hand tick without altering saved preferences",
+      "pass": true,
+      "detail": {
+        "criterion": "ships",
+        "threshold": 2,
+        "remember": false
+      }
+    }
+  ]
+}
+{
+  "title": "A Glorious Chance – Solo Companion v0.2.12",
+  "checks": 47,
+  "failures": 0,
+  "results": [
+    {
+      "name": "Reject empty choice before replacing state, history or autosave",
+      "pass": true,
+      "observed": {
+        "seed": 621001,
+        "error": "Could not read that text: this save is damaged or incomplete (no usable option for the pending decision). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Reject all disabled before replacing state, history or autosave",
+      "pass": true,
+      "observed": {
+        "seed": 621001,
+        "error": "Could not read that text: this save is damaged or incomplete (no usable option for the pending decision). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Reject Continue lacks ok before replacing state, history or autosave",
+      "pass": true,
+      "observed": {
+        "seed": 621001,
+        "error": "Could not read that text: this save is damaged or incomplete (no usable option for the pending decision). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Reject impossible selection before replacing state, history or autosave",
+      "pass": true,
+      "observed": {
+        "seed": 621001,
+        "error": "Could not read that text: this save is damaged or incomplete (pending selection). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Reject fourth human marker before replacing state, history or autosave",
+      "pass": true,
+      "observed": {
+        "seed": 621001,
+        "error": "Could not read that text: this save is damaged or incomplete (human Troops markers). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Reject Niagara off track before replacing state, history or autosave",
+      "pass": true,
+      "observed": {
+        "seed": 621001,
+        "error": "Could not read that text: this save is damaged or incomplete (Niagara Front). Your current game was not changed."
+      }
+    },
+    {
+      "name": "Backdrop dismissal retains an unsubmitted paste on reopening",
+      "pass": true
+    },
+    {
+      "name": "Escape dismissal retains the latest edit",
+      "pass": true
+    },
+    {
+      "name": "A closed file picker cannot overwrite a subsequent move",
+      "pass": true,
+      "observed": {
+        "seed": 621001
+      }
+    },
+    {
+      "name": "The latest file selection wins when reads finish in reverse order",
+      "pass": true,
+      "observed": {
+        "seed": 621003
+      }
+    },
+    {
+      "name": "Successful file import clears any pending paste",
+      "pass": true
+    },
+    {
+      "name": "A failed file read offers retry or paste and retains the current game",
+      "pass": true,
+      "observed": "The file could not be opened. Choose it again or paste the save text."
+    },
+    {
+      "name": "Editing a pasted alternative cancels an outstanding file read",
+      "pass": true
+    },
+    {
+      "name": "Normal play retains the 60 newest exact in-memory decisions",
+      "pass": true,
+      "observed": {
+        "seed": 621001,
+        "actions": 64,
+        "finalResult": {
+          "score": -46,
+          "level": "British Decisive Victory"
+        }
+      }
+    },
+    {
+      "name": "Reload retains all 60 exact position strings",
+      "pass": true,
+      "observed": {
+        "recovered": 60,
+        "autosaveUtf8Bytes": 242442,
+        "raw60Utf8Bytes": 1289654
+      }
+    },
+    {
+      "name": "Every recovered Undo button restores that exact earlier game, including dice",
+      "pass": true,
+      "observed": {
+        "exact": 60
+      }
+    },
+    {
+      "name": "Intermediate quota retains the latest fitting Undo positions in order and discloses that depth",
+      "pass": true,
+      "observed": {
+        "count": 14,
+        "quotaChars": 105036
+      }
+    },
+    {
+      "name": "65 accepted manual corrections honor the same 60-step limit",
+      "pass": true,
+      "observed": 60
+    },
+    {
+      "name": "If space permits only the current state, the accepted move autosaves and the header explains reload depth",
+      "pass": true,
+      "observed": {
+        "header": "AutosavedBrowser storage is nearly full. Undo steps available after reload: 0.VP U.S. / Br.+65"
+      }
+    },
+    {
+      "name": "The quota-limited reload restores the latest move",
+      "pass": true
+    },
+    {
+      "name": "If even the current state cannot fit, the last successful copy survives and the header warns",
+      "pass": true
+    },
+    {
+      "name": "One Undo skips a damaged history entry and restores the nearest usable position",
+      "pass": true,
+      "observed": {
+        "seed": 621001,
+        "errors": []
+      }
+    },
+    {
+      "name": "Truncated autosave is disclosed at startup and preserved until explicit replacement",
+      "pass": true
+    },
+    {
+      "name": "Unreadable autosave still requires confirmation before replacement",
+      "pass": true
+    },
+    {
+      "name": "U.S. Convoy Supply refuses 13 without changing game, log, Undo or disk",
+      "pass": true,
+      "observed": {
+        "message": "Enter a value from -1 to 12 for U.S. Convoy Supply.",
+        "lastLog": "===== June I ====="
+      }
+    },
+    {
+      "name": "British Convoy Supply refuses -2 without changing game, log, Undo or disk",
+      "pass": true,
+      "observed": {
+        "message": "Enter a value from -1 to 12 for British Convoy Supply.",
+        "lastLog": "===== June I ====="
+      }
+    },
+    {
+      "name": "U.S. Construction Delay refuses -1 without changing game, log, Undo or disk",
+      "pass": true,
+      "observed": {
+        "message": "Enter 0 or more for U.S. Construction Delay.",
+        "lastLog": "===== June I ====="
+      }
+    },
+    {
+      "name": "Niagara Front refuses 7 without changing game, log, Undo or disk",
+      "pass": true,
+      "observed": {
+        "message": "Enter a value from 0 to 6 for Niagara Front (0 Burlington … 6 Fort George).",
+        "lastLog": "===== June I ====="
+      }
+    },
+    {
+      "name": "British VP input explains its sign in the Game Score",
+      "pass": true,
+      "observed": "British VP (positive points reduce Game Score)  Set"
+    },
+    {
+      "name": "Both actual Convoy Supply endpoints remain editable",
+      "pass": true
+    },
+    {
+      "name": "Unchanged ship Apply preserves state, Undo depth and autosave bytes",
+      "pass": true
+    },
+    {
+      "name": "A7 moves one named marker from track to Available and refreshes the legal Army Support preview",
+      "pass": true,
+      "observed": {
+        "original": {
+          "stock": 3,
+          "available": 0,
+          "track": [
+            2,
+            4,
+            8
+          ]
+        },
+        "changed": {
+          "stock": 3,
+          "available": 1,
+          "track": [
+            4,
+            8
+          ]
+        },
+        "prompt": 1
+      }
+    },
+    {
+      "name": "Undo restores both the A7 prompt and the physical marker distribution",
+      "pass": true
+    },
+    {
+      "name": "A rejected import preserves a partly entered A7 Force as well as the game, Undo and disk",
+      "pass": true,
+      "observed": "Could not read that text: this save could not be displayed (Cannot read properties of null (reading 'kind')). Your current game was not changed."
+    },
+    {
+      "name": "Preparation Lake Control correction changes one public marker and leaves dice/score intact",
+      "pass": true
+    },
+    {
+      "name": "Lake Control Undo restores the exact position",
+      "pass": true
+    },
+    {
+      "name": "Lake Control cannot invalidate an active Blockade marker",
+      "pass": true
+    },
+    {
+      "name": "Flagship picker contains exactly the A7 eligible ships",
+      "pass": true
+    },
+    {
+      "name": "Flagship correction updates both the board and the live A7 draft",
+      "pass": true,
+      "observed": "oneida"
+    },
+    {
+      "name": "Flagship correction undoes exactly",
+      "pass": true
+    },
+    {
+      "name": "Adjust during lineup protects the named ship, draft, RNG, history and autosave",
+      "pass": true,
+      "observed": {
+        "id": "madison",
+        "observedBox": "lake",
+        "message": "The attacking lineup uses this ship’s current position and strength. Finish the lineup, or use Undo and make the correction before it opens."
+      }
+    },
+    {
+      "name": "An unrelated construction hull can still be corrected during lineup",
+      "pass": true,
+      "observed": "melville"
+    },
+    {
+      "name": "Adjust during reaction protects the named ship, draft, RNG, history and autosave",
+      "pass": true,
+      "observed": {
+        "id": "beres",
+        "observedBox": "deployable",
+        "message": "“Reaction Segment – declare Reaction Checks” uses a fixed list of ships and strengths. Finish this decision, or use Undo and make the correction before it opens."
+      }
+    },
+    {
+      "name": "An unrelated construction hull can still be corrected during reaction",
+      "pass": true,
+      "observed": "melville"
+    },
+    {
+      "name": "Portable text log includes every chronological record, including filtered and older entries",
+      "pass": true,
+      "observed": {
+        "downloaded": "agc-US-SeptemberII-seed280004-step131-log.txt",
+        "emitted": 430,
+        "expected": 430
+      }
+    },
+    {
+      "name": "Log export leaves game, RNG, history and autosave intact",
+      "pass": true
+    },
+    {
+      "name": "Unavailable log download offers the entire selected text for manual copy",
+      "pass": true
+    }
+  ]
+}
+v0.2.12 UI/save/download/search: 117 assertions passed.

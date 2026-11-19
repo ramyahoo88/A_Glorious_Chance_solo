@@ -7,9 +7,9 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.11, `dist/index.html`, 367,635 bytes, SHA-256 `18b5ecf165f322f344bbd3df7e1bf4b0d1a9d9b747780beb8640213fa675d05e`). On a phone, open it once and use the browser's Add to Home Screen; your game stays in that browser.
+**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.12, `dist/index.html`, 375,938 bytes, SHA-256 `01e2a45f80d5ca8ff67a12a2007ecd929469223ae79cb9e322a5c135127f5c25`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
 
-**Latest audit.** [v0.2.11 report, importable saves and reproducible evidence](audits/2026-11-18-v0.2.11/)
+**Latest corrections.** [v0.2.12 response and verification](audits/2026-11-19-v0.2.12/) implements all three findings, the two recommended project rulings and both usability improvements from the [19 November v0.2.11 audit](audits/2026-11-19-v0.2.11/). [Previous release audit](audits/2026-11-18-v0.2.11/).
 
 You play on your physical map with your counters. Open **board changes** after an action to see which pieces moved. **Settings → Group routine updates** collects automatic reports before the next decision. The default pace displays them individually. Select a ship to inspect its counter, or open **Reference** for the hit-distribution lookup and the cards already revealed.
 
@@ -27,7 +27,7 @@ You play on your physical map with your counters. Open **board changes** after a
 | Coastal (E) | Cutting-Out (optional), Raids and Coastal Events, troop launches, Harbor Encounters (two Gunnery Rounds, shore batteries, no disengagement/withdrawal), and Land Battles (Player Aid VII) with every Coastal Event effect. |
 | Tally (F) | Ship VPs, Lake Control, Blockade removal and placement, Isolated ships, Shipyard Damage, Niagara Front, Army Victory, the untransported-Troops penalty, Raid VPs, Convoy Supply (delays, arrivals, scatter/destroy/capture, raids, Fall Offensive bonus), the reset, sudden death, and final victory with Construction Delay deducted. |
 
-Every die roll and table lookup is written to the **Log**. Use **Show full log** to review entries older than the latest 400; filters name the kinds of entries shown. **Undo** restores the state before your last click, dice included. **Adjust** lets you correct any track or ship by hand. **Reference** shows the Lake Combat Table, the Convoy Scatter Table, the ship roster and the key checks. Ship and Tactic choices work with Tab and Enter/Space. Dialogs support Escape and keep game shortcuts from advancing play behind them. Export filenames identify the seed and decision checkpoint.
+Every die roll and table lookup is written to the **Log**. Use **Show full log** to review entries older than the latest 400; search the full history by ship, card, turn or phase and combine that with a category filter. **Undo** restores the state before your last click, dice included. **Adjust** lets you correct tracks and ships by hand; participants are locked during an active Encounter, with other pending ship selections protected too. **Reference** shows the Lake Combat Table, the Convoy Scatter Table, the ship roster and the key checks. Ship and Tactic choices work with Tab and Enter/Space. Dialogs support Escape and keep game shortcuts from advancing play behind them. Export filenames identify the seed and decision checkpoint.
 
 ## Player Aids V and VII
 

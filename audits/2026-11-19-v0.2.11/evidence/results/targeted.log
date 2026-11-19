@@ -1,0 +1,87 @@
+[
+  {
+    "key": "command",
+    "id": "oneida",
+    "message": "",
+    "accepted": true,
+    "encounterStatus": "in",
+    "beforeTitle": "Command Decision – you hold the Weather Gage",
+    "nextTitle": "Lake Combat – choose your attacking ships",
+    "stillCandidate": true,
+    "shipBox": "outOfPlay",
+    "stillInAttack": true,
+    "attackColumn": [
+      "madison",
+      "tompkins",
+      "oneida",
+      "fairam",
+      "conquest",
+      "hamilton",
+      "asp",
+      "growler",
+      "julia",
+      "lady",
+      "ontario",
+      "pert"
+    ],
+    "errors": []
+  },
+  {
+    "key": "tactics",
+    "id": "oneida",
+    "message": "",
+    "accepted": true,
+    "encounterStatus": "in",
+    "beforeTitle": "LC3 Tactics – you are the Attacker",
+    "round": "Gunnery Round 1: U.S. 31.5 vs British 7.5 = 4.2:1 → column 3:1+. d10 7-2=5 D4W, then 3-2=1 D2W [8 untowed Laker Schooners: d6 3, DRM -2] → D2W.\nApply ALL 2 hit(s) to one ship (the random ship has already been rolled):",
+    "col": {
+      "US": [
+        "madison",
+        "tompkins",
+        "oneida",
+        "fairam",
+        "conquest",
+        "hamilton",
+        "asp",
+        "growler",
+        "julia",
+        "lady",
+        "ontario",
+        "pert"
+      ],
+      "BR": [
+        "moira",
+        "sss",
+        "beres"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "key": "gunnery",
+    "id": "oneida",
+    "message": "",
+    "accepted": true,
+    "encounterStatus": "in",
+    "beforeTitle": "Gunnery Round results",
+    "errors": []
+  },
+  {
+    "key": "lineup",
+    "id": "oneida",
+    "message": "The attacking lineup uses this ship’s current position and strength. Finish the lineup, or use Undo and make the correction before it opens.",
+    "accepted": false,
+    "encounterStatus": "in",
+    "beforeTitle": "Lake Combat – choose your attacking ships",
+    "errors": []
+  },
+  {
+    "key": "unknown-event-save",
+    "accepted": true,
+    "actions": 5,
+    "error": "Cannot read properties of undefined (reading 'id')",
+    "pageErrors": [],
+    "undosToPriorGame": 6,
+    "priorGameRecovered": true
+  }
+]

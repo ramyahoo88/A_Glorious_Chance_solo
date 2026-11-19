@@ -4,7 +4,7 @@
 const SAVE_KEY = 'agc_solo_companion_v1';
 let G_STATE = null;          // current game state
 let UNDO = [];               // JSON snapshots
-let UI = { err: '', local: null, localFor: null, showLogAll: false, logFilter: 'all' };
+let UI = { err: '', local: null, localFor: null, showLogAll: false, logFilter: 'all', logSearch: '' };
 
 function el(tag, attrs, ...kids) {
   const e = document.createElement(tag);
@@ -147,6 +147,52 @@ function startGame(human, seed, opts) {
   autosave(); render();
 }
 function saveText() { return JSON.stringify({ state: G_STATE, undo: [] }); }
+function checkSavedCards(st, bad) {
+  const event = (id, field) => { if (!Number.isInteger(id) || !Object.hasOwn(EVENTS, id)) bad(field + ': unknown Event card'); };
+  const target = (id, field) => {
+    if (typeof id !== 'string' || !Object.hasOwn(TARGET_CARDS, id) || TARGET_CARDS[id].deck !== (st.human === 'US' ? 'A' : 'B'))
+      bad(field + ': unknown or wrong-campaign Target card');
+  };
+  const tactic = (id, deck, field) => {
+    if (typeof id !== 'string' || !Object.hasOwn(TACTIC_BY_ID, id) || TACTIC_BY_ID[id].deck !== deck)
+      bad(field + ': unknown or wrong-deck Tactic card');
+  };
+  const list = (items, field, check) => {
+    if (!Array.isArray(items)) bad(field + ': expected a card list');
+    items.forEach((id, i) => check(id, `${field}[${i}]`));
+  };
+  list(st.deck.event, 'deck.event', event);
+  list(st.deck.target, 'deck.target', target);
+  for (const deck of ['A', 'D']) list(st.deck['tac' + deck], 'deck.tac' + deck, (id, field) => tactic(id, deck, field));
+  list(st.targetRow, 'targetRow', (card, field) => target(card && card.id, field));
+  list(st.eventsDrawn, 'eventsDrawn', (card, field) => event(card && card.id, field));
+  for (const z of ZONES) if (st.zones[z].event != null) event(st.zones[z].event, `zones.${z}.event`);
+  for (const side of ['US', 'BR']) if (st.intelligence[side] != null) event(st.intelligence[side].card, `intelligence.${side}`);
+  if (st.encounter && st.encounter.wgCard != null) event(st.encounter.wgCard, 'encounter.wgCard');
+  if (st.prompt) {
+    if (st.prompt.eventCard != null) event(st.prompt.eventCard, 'prompt.eventCard');
+    if (st.prompt.targetCard != null) target(st.prompt.targetCard, 'prompt.targetCard');
+    if (st.prompt.tactic) {
+      if (!st.combat) bad('Tactics decision without combat');
+      const deck = st.combat.att === st.human ? 'A' : 'D';
+      list(st.prompt.options, 'prompt.options', (option, field) => tactic(option && option.id, deck, field));
+    }
+  }
+  if (st.combat && st.combat.tac) for (const [role, deck] of [['att', 'A'], ['def', 'D']]) {
+    const card = st.combat.tac[role];
+    if (card != null) tactic(card.id, deck, `combat.tac.${role}`);
+  }
+  for (const fr of Object.values(st.forces)) if (fr.cardId != null) target(fr.cardId, 'Force cardId');
+  for (const fr of st.calls) {
+    const loc = fr.L || {};
+    if (fr.proc === 'aiDeploy' && loc.card != null) target(loc.card, 'deployment Target card');
+    if (fr.proc === 'encounter' && loc.ev != null) event(loc.ev, 'Encounter Event card');
+    if (fr.proc === 'combat' && loc.hDrawn != null) {
+      if (!['A', 'D'].includes(loc.hDeck)) bad('pending Tactic deck');
+      list(loc.hDrawn, 'pending Tactics', (id, field) => tactic(id, loc.hDeck, field));
+    }
+  }
+}
 /* Check a loaded save before it replaces anything. Fields added by later versions are filled in from a
    fresh game; anything missing, mistyped or out of range is refused with a message. */
 function checkSaveState(st) {
@@ -220,6 +266,8 @@ function checkSaveState(st) {
     }
   }
   if (st.over && !st.result) bad('final result');
+  if (st.leaderResult != null && (typeof st.leaderResult !== 'object' || Array.isArray(st.leaderResult) || !st.combat ||
+      Object.entries(st.leaderResult).some(([side, fate]) => !['US', 'BR'].includes(side) || !['killed', 'captured'].includes(fate)))) bad('pending Leader succession');
   if (st.encounter) {
     const e = st.encounter;
     if (typeof e !== 'object' || ZONES.indexOf(e.zone) < 0 || !e.ships || typeof e.ships !== 'object' || Object.keys(e.ships).some(id => !st.ships[id])) bad('current Encounter');
@@ -234,6 +282,7 @@ function checkSaveState(st) {
       }
     }
   }
+  checkSavedCards(st, bad);
   UI.loadNotes = [];
   upgradeLegacy(st, UI.loadNotes);
   st.build = APP_VERSION;   // checked and upgraded once: later loads of this game leave it alone
@@ -274,6 +323,23 @@ function loadFromText(txt) {
   }
   commitLoaded(st, [], retained);
   closeModal();
+}
+function appDownloadControls() {
+  const status = el('p', { class: 'muted', role: 'status' });
+  const button = el('button', { onclick: () => {
+    let url, anchor;
+    try {
+      url = URL.createObjectURL(new Blob([APP_DOWNLOAD_HTML], { type: 'text/html;charset=utf-8' }));
+      anchor = el('a', { href: url, download: `A_Glorious_Chance_Solo_v${APP_VERSION}.html` });
+      document.body.appendChild(anchor); anchor.click();
+      status.textContent = 'App download started. Open the .html file in your browser to play offline. Use Save separately to keep your current campaign.';
+    } catch (e) { status.textContent = 'The app could not be downloaded. Check that your browser allows downloads, then try again.'; }
+    finally {
+      if (anchor) anchor.remove();
+      if (url && typeof URL.revokeObjectURL === 'function') setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+  } }, 'Download app (.html)');
+  return el('div', { class: 'app-download' }, button, status);
 }
 function exportSave() {
   const box = el('div');
@@ -795,14 +861,29 @@ function renderBoard(s) {
   const lg_ = el('div', { class: 'panel' });
   const logLabels = { all: 'All entries', combat: 'Combat and events', ai: 'A.I. moves', roll: 'Dice rolls', vp: 'Scoring', player: 'Your decisions' };
   const filt = el('select', { id: 'log-filter', 'aria-label': 'Filter the game log' }, ...Object.keys(logLabels).map(k => el('option', { value: k, selected: UI.logFilter === k ? true : null }, logLabels[k])));
-  filt.addEventListener('change', () => { UI.logFilter = filt.value; renderBoard(s); $('log-filter').focus(); });
+  filt.addEventListener('change', () => { UI.logFilter = filt.value; showEntries(); });
   lg_.appendChild(el('h2', null, 'Log ', filt));
+  const search = el('input', { id: 'log-search', type: 'search', 'aria-label': 'Search the full game log', placeholder: 'Ship, card number or phase' });
+  search.value = UI.logSearch;
+  search.addEventListener('input', () => { UI.logSearch = search.value; showEntries(); });
+  lg_.appendChild(el('label', { class: 'log-search-label' }, 'Search full log ', search));
   const logBox = el('div', { id: 'log' });
-  const entries = s.log.filter(l => UI.logFilter === 'all' || l.kind === UI.logFilter || (UI.logFilter === 'combat' && (l.kind === 'roll' || l.kind === 'event')));
-  const shown = UI.showLogAll ? entries.slice() : entries.slice(-400);
-  lg_.appendChild(el('div', { class: 'muted', id: 'log-count' }, `Showing ${shown.length} of ${entries.length} matching entries (newest first).`));
-  if (entries.length > 400) lg_.appendChild(el('button', { id: 'log-toggle', class: 'small', 'aria-pressed': String(UI.showLogAll), onclick: () => { UI.showLogAll = !UI.showLogAll; renderBoard(s); $('log-toggle').focus(); } }, UI.showLogAll ? 'Show recent 400' : 'Show full log'));
-  shown.reverse().forEach(l => logBox.appendChild(el('div', { class: l.kind }, `${TURN_NAMES[Math.min(l.turn, 7)].replace('September', 'Sep')} · ${l.text}`)));
+  const count = el('div', { class: 'muted', id: 'log-count', role: 'status' });
+  const toggle = el('button', { id: 'log-toggle', class: 'small', onclick: () => { UI.showLogAll = !UI.showLogAll; showEntries(); } });
+  function showEntries() {
+    const query = UI.logSearch.trim().toLocaleLowerCase();
+    const entries = s.log.filter(l => (UI.logFilter === 'all' || l.kind === UI.logFilter || (UI.logFilter === 'combat' && (l.kind === 'roll' || l.kind === 'event'))) &&
+      (!query || `${TURN_NAMES[Math.min(l.turn, 7)]} ${l.phase} ${l.text}`.toLocaleLowerCase().includes(query)));
+    const shown = UI.showLogAll ? entries.slice() : entries.slice(-400);
+    count.textContent = `Showing ${shown.length} of ${entries.length} matching entries (newest first).`;
+    toggle.hidden = entries.length <= 400;
+    toggle.setAttribute('aria-pressed', String(UI.showLogAll));
+    toggle.textContent = UI.showLogAll ? 'Show recent 400' : 'Show full log';
+    logBox.replaceChildren(...shown.reverse().map(l => el('div', { class: l.kind }, `${TURN_NAMES[Math.min(l.turn, 7)].replace('September', 'Sep')} · ${l.phase} · ${l.text}`)));
+    if (!shown.length) logBox.appendChild(el('p', { class: 'muted' }, 'No log entries match. Clear the search or choose another category.'));
+  }
+  showEntries();
+  lg_.appendChild(count); lg_.appendChild(toggle);
   lg_.appendChild(logBox);
   b.appendChild(lg_);
 }
@@ -907,6 +988,7 @@ function renderSetup() {
     if (saved) confirmBox('Replace saved game?', 'Starting a new campaign replaces the game saved in this browser.', 'Start new campaign', begin);
     else begin();
   } }, 'Start campaign'), el('button', { onclick: importSave }, 'Load a saved game')));
+  box.appendChild(appDownloadControls());
   box.appendChild(el('h3', null, 'Physical setup reminders'));
   box.appendChild(el('ul', null,
     el('li', null, 'Set up the map, Homeport Displays and markers per rule 3.1 and Player Aid II or IV. When you start, the app prepares the decks and hidden markers. The log gives the setup rolls and spaces for your Troops markers.'),
@@ -966,6 +1048,7 @@ function openRef() {
   const t2 = el('table', null, el('tr', null, el('th', null, 'Guns'), ...[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => el('th', null, String(i)))));
   SCATTER.forEach((row, i) => t2.appendChild(el('tr', null, el('th', null, SCATTER_ROWS[i][1] > 999 ? '96+' : SCATTER_ROWS[i].join('–')), ...row.split('').map(x => el('td', null, x)))));
   r.appendChild(t2);
+  r.appendChild(el('p', null, 'Project ruling: an attack needs at least one eligible gun. With none, the Convoy continues normally; do not roll or scatter it.'));
   r = topic('Land Battle Table (Player Aid VII) – roll 11-66');
   const lbt = el('table', null, el('tr', null, el('th', null, 'Long Gun / Troops'), ...['Def. Major', 'Def. Success', 'Draw', 'Att. Success', 'Att. Major', 'Feat of Arms'].map(h => el('th', null, h))));
   LB_TABLE.forEach((band, bi) => band.forEach((col, ti) => lbt.appendChild(el('tr', null, el('th', null, `${LB_BANDS[bi]} / ${ti + 1}`), ...col.map(rg => el('td', null, rg ? (rg[0] === rg[1] ? String(rg[0]) : rg[0] + '–' + rg[1]) : '—'))))));
@@ -981,6 +1064,7 @@ function openRef() {
     el('li', null, 'Disengagement: 1d6 1–3 Disengages (−1 per friendly ship already Struck). A Fast ship that was at full strength before the hit passes its first check automatically.'),
     el('li', null, 'Strike Check: 1d10 1–2 Fight On, 3–8 Strike Colors, 9–10 Sinks (−1 Flagship with original Leader; +1 per hit on a zero-step ship).'),
     el('li', null, 'Leader Casualty: 2d6 10 Wounded, 11–12 Killed (+1 hit in Close Action, +1 win Melee, +2 lose Melee).'),
+    el('li', null, 'Project ruling: resolve the starting commander’s fate throughout the combat Round result. Once killed or captured, he takes no more checks; his successor takes command after that result, including its withdrawals and flag transfers.'),
     el('li', null, 'Close Action: 2:1 CA or better; 1d10 ≤ difference = step loss (then Disengagement/Strike Check – a defender still Engaged goes to Melee), otherwise Melee (d6 + CA each; 150% captures).'),
     el('li', null, 'Reaction Check: 1d10 5–9 succeeds; +1 same zone, −1 per zone of distance (Homeport to its zone = 1). A.I. Homeport pool: no modifiers.'),
     el('li', null, 'Struck ships at Encounter end: Captured if their side withdrew/was eliminated, rescued if the enemy did, otherwise 1d6 1–3 Captured.')));
@@ -991,6 +1075,7 @@ function openRef() {
   r = topic('Victory');
   r.appendChild(el('p', null, '−33 or less British Decisive · −22 to −32 British Victory · −11 to −21 British Marginal · −10 to +10 Draw · +11 to +21 U.S. Marginal · +22 to +32 U.S. Victory · +33 or more U.S. Decisive. Construction Delay left at the end is deducted from each side.'));
   topic('Revealed cards').appendChild(revealedCardsLookup(G_STATE));
+  topic('Offline app').appendChild(appDownloadControls());
   openReferenceTopics(topics);
 }
 function openSettings() {
@@ -1043,7 +1128,15 @@ function openAdjust() {
   const boxSel = el('select', null, el('option', { value: '' }, 'Keep current box')); ['deployable', 'makeReady', 'repairing', 'construction', 'ordinary', 'transit', 'sunk', 'outOfPlay'].forEach(b => boxSel.appendChild(el('option', { value: b }, BOX_NAME[b])));
   const stepIn = el('input', { type: 'number', min: 0, step: 1, style: { width: '50px' } });
   const ownSel = el('select', null, el('option', { value: 'US' }, 'U.S.'), el('option', { value: 'BR' }, 'British'));
-  const sync = () => { const sh = s.ships[sel.value]; boxSel.options[0].textContent = `Keep current box (${BOX_NAME[sh.box]})`; boxSel.value = ''; stepIn.max = def(sh).full[4]; stepIn.value = sh.steps; ownSel.value = sh.owner; };
+  const shipNotice = el('p', { class: 'muted', role: 'status', id: 'ship-correction-notice' });
+  const sync = () => {
+    const sh = s.ships[sel.value];
+    boxSel.options[0].textContent = `Keep current box (${BOX_NAME[sh.box]})`; boxSel.value = '';
+    stepIn.max = def(sh).full[4]; stepIn.value = sh.steps; ownSel.value = sh.owner;
+    shipNotice.textContent = s.encounter && Object.hasOwn(s.encounter.ships, sh.id)
+      ? 'This ship belongs to the active Encounter. Ship corrections are locked until it ends. Use Undo to return to before the Encounter if a correction is needed.'
+      : 'A pending ship selection or attacking lineup may also lock this ship. Track corrections remain available.';
+  };
   sel.onchange = sync; sync();
   box.appendChild(el('div', null, sel, ' box ', boxSel, ' steps ', stepIn, ' owner ', ownSel, ' ', el('button', { class: 'small', onclick: () => {
     const sh = s.ships[sel.value];
@@ -1074,6 +1167,10 @@ function openAdjust() {
       msg.textContent = 'The attacking lineup uses this ship’s current position and strength. Finish the lineup, or use Undo and make the correction before it opens.';
       return;
     }
+    if (s.encounter && Object.hasOwn(s.encounter.ships, sh.id)) {
+      msg.textContent = 'The active Encounter uses this ship’s position, owner and strength. Finish the Encounter, or use Undo and make the correction before it opens.';
+      return;
+    }
     beginCorrection();
     if (destination !== sh.box) {
       if (sh.forceId) removeShipFromForce(s, sh.id);
@@ -1094,6 +1191,7 @@ function openAdjust() {
     log(s, `Manual adjustment: ${shipName(s, sh.id)} → ${BOX_NAME[sh.box]}, ${sh.steps} steps, ${SIDE_SHORT[sh.owner]}.`, 'player');
     autosave(); render(); openAdjust();
   } }, 'Apply')));
+  box.appendChild(shipNotice);
   const markers = s.troops[s.human];
   box.appendChild(el('h3', null, 'Your Troops'));
   box.appendChild(el('p', null, `${markers.available} Available. Supply track: ${markers.track.join(', ') || 'empty'}.`));

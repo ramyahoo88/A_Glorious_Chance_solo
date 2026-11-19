@@ -1,0 +1,85 @@
+{
+  "encounter": {
+    "human": "US",
+    "seed": 920000,
+    "turn": 0,
+    "title": "Encounter 2 in Sacket's",
+    "style": "fleet"
+  },
+  "command": {
+    "human": "US",
+    "seed": 920000,
+    "turn": 0,
+    "title": "Command Decision – you hold the Weather Gage",
+    "style": "fleet"
+  },
+  "lineup": {
+    "human": "US",
+    "seed": 920000,
+    "turn": 0,
+    "title": "Lake Combat – choose your attacking ships",
+    "style": "fleet"
+  },
+  "tactics": {
+    "human": "US",
+    "seed": 920000,
+    "turn": 0,
+    "title": "LC3 Tactics – you are the Attacker",
+    "style": "fleet"
+  },
+  "gunnery": {
+    "human": "US",
+    "seed": 920000,
+    "turn": 0,
+    "title": "Gunnery Round results",
+    "style": "fleet"
+  },
+  "zero-guns-before": {
+    "human": "BR",
+    "seed": 920011,
+    "turn": 5,
+    "title": "Encounter Check PE2",
+    "style": "fleet",
+    "after": [
+      "PE3 Sacket's: Event #7 shows the spyglass – ENCOUNTER 3! Target Card B10 revealed.",
+      "AI Convoy marker for August II revealed: Convoy.",
+      "Convoy Scatter Table vs U.S. Convoy (your Patrol Force (Royal George (B)), 0 guns): d10 2 → Convoy Scatters."
+    ]
+  },
+  "melee-loser-before": {
+    "human": "US",
+    "seed": 920016,
+    "turn": 4,
+    "title": "Weather Gage recheck",
+    "style": "fleet",
+    "ship": "fairam",
+    "owner": "US",
+    "after": [
+      "Cdre. Yeo is KILLED! Command passes to generic leader.",
+      "Cdre. Chauncey is CAPTURED! Command passes to Capt. Sinclair.",
+      "U.S. flag shifts to Pert.",
+      "Royal George (B) vs Fair American: d10 10 > 6 – MELEE 5+7=12 vs 4+1=5 – Fair American is CAPTURED!",
+      "Leader Casualty Check (Cdre. Yeo): 2d6 12+1 – KILLED."
+    ]
+  },
+  "double-leader-before": {
+    "human": "US",
+    "seed": 920023,
+    "turn": 5,
+    "title": "Gunnery Round 2 – attack or pass?",
+    "style": "screen",
+    "after": [
+      "Gunnery Round 2: U.S. 10 vs British 32 = 0.31:1 → column 1:2-. d10 3+1=4 A3 [+1 Rate of Fire] → A3.",
+      "Cdre. Chauncey is KILLED! Command passes to Capt. Sinclair.",
+      "Capt. Sinclair is KILLED! Command passes to generic leader.",
+      "generic leader is CAPTURED! Command passes to generic leader.",
+      "U.S. flag shifts to Gov. Tompkins.",
+      "U.S. hit distribution (1-ship column): 46→#1 Madison, 41→#1 Madison, 43→#1 Madison.",
+      "Leader Casualty Check (Cdre. Chauncey): 2d6 11 – KILLED.",
+      "Leader Casualty Check (Capt. Sinclair): 2d6 11 – KILLED.",
+      "Leader Casualty Check (generic leader): 2d6 7 – no effect.",
+      "Madison takes 3 hit(s) and loses her last Step.",
+      "Madison Strike Check 10 – SINKS!"
+    ]
+  }
+}

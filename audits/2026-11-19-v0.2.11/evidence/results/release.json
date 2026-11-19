@@ -1,0 +1,11 @@
+{
+  "before": "18b5ecf165f322f344bbd3df7e1bf4b0d1a9d9b747780beb8640213fa675d05e",
+  "rebuilt": "18b5ecf165f322f344bbd3df7e1bf4b0d1a9d9b747780beb8640213fa675d05e",
+  "bytes": 367635,
+  "identical": true,
+  "public": {
+    "bytes": 367635,
+    "sha256": "18b5ecf165f322f344bbd3df7e1bf4b0d1a9d9b747780beb8640213fa675d05e",
+    "matches": true
+  }
+}
