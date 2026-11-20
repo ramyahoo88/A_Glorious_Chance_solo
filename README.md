@@ -9,11 +9,11 @@ An offline, single-file HTML companion for **A Glorious Chance: The Naval Strugg
 
 Open `dist/index.html` in any modern browser. It needs no install and no network. The game autosaves in the browser (`localStorage`). **Save** (download or copy the save text) and **Load** (file or pasted text) move a game between devices.
 
-**Play online:** https://ramyahoo88.github.io/A_Glorious_Chance_solo/ – GitHub Pages serves the current release from the `gh-pages` branch (v0.2.17, `dist/index.html`, 422,019 bytes, SHA-256 `8623b7a73cacdda6eb9095871be9b8ec8fde62113ba86bb2a2910ce3000f18e4`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
+**Play online:** [Solo Table on Cloudflare](https://solo-table.pages.dev/games/a-glorious-chance/). The [earlier GitHub Pages copy](https://ramyahoo88.github.io/A_Glorious_Chance_solo/) remains available from `gh-pages`. Cloudflare uses this release (v0.2.18, `dist/index.html`, 423,428 bytes, SHA-256 `c1670ee2f30d1cc948805afb3781c7d1a91a2785bb02a37298d00e15c9d579f3`). Choose **Download app (.html)** on setup or under **Reference → Offline app**, then open the downloaded file in your browser for offline play. Use **Save** separately to transfer your campaign to that copy.
 
 **Campaign map.** v0.2.14 shows public fleets and missions on Lake Ontario, with numbered movement arrows and a **Show last action** report. Open **Map** from the toolbar at any point, or tap a fleet or port to inspect its ships. [Map verification](audits/2026-11-19-v0.2.14/).
 
-**Latest update.** [v0.2.17 verification](audits/2026-11-19-v0.2.17/) corrects Event-save validation and physical-card instructions, keeps Undo restoration reminders through reload and save transfer, and adds **Deck status** beside Event entry. It implements [the v0.2.16 re-audit](audits/2026-11-19-v0.2.16-reaudit/).
+**Latest update.** [v0.2.18 verification](audits/2026-11-20-v0.2.18/) closes both findings from [the v0.2.17 re-audit](audits/2026-11-20-v0.2.17-reaudit/): coastal Event imports validate the full side continuation, and several Undos across a reshuffle retain physical-pile rebuilding instructions through intervening notices, reload and Save transfer. **Reference → Event deck status** is available at every campaign checkpoint.
 
 You play on your physical map with your counters. Open **board changes** after an action to see which pieces moved. **Settings → Group routine updates** collects automatic reports before the next decision. The default pace displays them individually. Select a ship to inspect its counter, or open **Reference** for the hit-distribution lookup and the cards already revealed.
 
@@ -31,7 +31,7 @@ You play on your physical map with your counters. Open **board changes** after a
 | Coastal (E) | Cutting-Out (optional), Raids and Coastal Events, troop launches, Harbor Encounters (two Gunnery Rounds, shore batteries, no disengagement/withdrawal), and Land Battles (Player Aid VII) with every Coastal Event effect. |
 | Tally (F) | Ship VPs, Lake Control, Blockade removal and placement, Isolated ships, Shipyard Damage, Niagara Front, Army Victory, the untransported-Troops penalty, Raid VPs, Convoy Supply (delays, arrivals, scatter/destroy/capture, raids, Fall Offensive bonus), the reset, sudden death, and final victory with Construction Delay deducted. |
 
-**Deck status** beside Event number entry lists the remaining and used card numbers, held Intelligence cards, and the last entered card and purpose. When Undo asks you to return physical cards, follow its top-first order; the reminder stays with the saved checkpoint. Used Intelligence cards return at the next Event-deck reshuffle.
+**Deck status** beside Event number entry and **Reference → Event deck status** list the remaining and used card numbers, held Intelligence cards, and the last entered card and purpose. When Undo asks you to return physical cards, follow its top-first order; the reminder stays with the saved checkpoint. Used Intelligence cards return at the next Event-deck reshuffle.
 
 Every die roll and table lookup is written to the **Log**. Use **Show full log** to review entries older than the latest 400; search the full history by ship, card, turn or phase and combine that with a category filter. **Undo** restores the state before your last click, dice included. **Adjust** lets you correct tracks and ships by hand; participants are locked during an active Encounter, with other pending ship selections protected too. **Reference** shows the Lake Combat Table, the Convoy Scatter Table, the ship roster and the key checks. Ship and Tactic choices work with Tab and Enter/Space. Dialogs support Escape and keep game shortcuts from advancing play behind them. Export filenames identify the seed and decision checkpoint.
 
@@ -82,3 +82,5 @@ NODE_PATH=/tmp/agc-test-runtime/node_modules npm run test:ui
 ```
 
 This is an unofficial fan aid for owners of the game. All game content belongs to Legion Wargames.
+
+The focused recovery browser test runs with `npm run test:browser` (Playwright plus Chromium; set `CHROME_PATH` for a local executable, or provide @sparticuz/chromium 153.0.0). Set `AGC_URL` to test a hosted copy.

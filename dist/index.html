@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Glorious Chance – Solo Companion v0.2.17</title>
+<title>A Glorious Chance – Solo Companion v0.2.18</title>
 <style>
 :root {
   --bg: #f3efe6; --panel: #fffdf8; --ink: #1f2a33; --muted: #52606b; --line: #d9d1c2;
@@ -724,7 +724,7 @@ function lbLookup(lgTotal, troops, shift, d66v) {
 /* ============================================================================
    Game state creation and helper queries
    ========================================================================== */
-const APP_VERSION = '0.2.17';
+const APP_VERSION = '0.2.18';
 
 // Boxes a ship can be in. 'lake' = deployed in a Lake Zone (zone field).
 // port: 'home' or 'temp' (temporary homeport for Isolated ships)
@@ -991,7 +991,9 @@ function act(s, answer, onStep) {
   const err = validateAnswer(s, s.prompt, answer);
   if (err) throw new Error(err);
   delete s.tableReport;
-  delete s.eventRestore;   // physical-pile restoration is complete when play resumes
+  // Routine notices do not reconcile physical cards. Keep the reminder until
+  // the player resumes drawing from the restored pile.
+  if (s.prompt.kind === 'event') delete s.eventRestore;
   const f = topFrame(s);
   f.answer = answer;
   s.prompt = null;
@@ -4734,16 +4736,26 @@ function checkPendingEvent(st, bad) {
     }
     case 'coastal.raidEvent':
     case 'coastal.asBattleEvent': {
-      if (!['US', 'BR'].includes(loc.side) || !strings(loc.raids) || !strings(loc.as)) bad('pending Event coastal phase');
+      const queue = (ids, mission) => strings(ids) && new Set(ids).size === ids.length &&
+        ids.every(id => !st.forces[id] || (st.forces[id].side === loc.side && st.forces[id].mission === mission));
+      if (st.phase !== 'coastal' || !Array.isArray(loc.order) || loc.order.length !== 2 ||
+          loc.order[0] !== st.ai || loc.order[1] !== st.human || !Number.isInteger(loc.si) ||
+          loc.si < 0 || loc.si > 1 || loc.side !== loc.order[loc.si] ||
+          !queue(loc.raids, 'Raid') || !queue(loc.as, 'ArmySupport') || !obj(st.coastal) ||
+          !['raids', 'battles', 'cutouts'].every(k => Array.isArray(st.coastal[k]))) bad('pending Event coastal phase');
       if (parent.pc === 'raidEvent') {
         const fr = st.forces[loc.raidForce];
         if (!fr || !force(loc.raidForce, loc.side, fr.zone) || !fr.ships.length || fr.mission !== 'Raid') bad('pending Event Raid force');
         purpose = `${SIDE_SHORT[loc.side]} Raid on ${ZONE_NAME[fr.zone]} coastline`;
       } else {
         const cur = loc.cur;
-        if (!Array.isArray(loc.lz) || !obj(cur) || !ZONES.includes(cur.z) || !strings(cur.forces) || !cur.forces.length ||
-            new Set(cur.forces).size !== cur.forces.length || !Number.isInteger(cur.troops) || cur.troops < 0 ||
-            loc.troops !== cur.troops || cur.forces.some(fid => st.forces[fid] && !force(fid, loc.side, cur.z)))
+        const battle = item => obj(item) && ZONES.includes(item.z) && strings(item.forces) && item.forces.length > 0 &&
+          new Set(item.forces).size === item.forces.length && item.forces.every(fid =>
+            st.forces[fid] ? force(fid, loc.side, item.z) : item.troops !== undefined) &&
+          (item.troops === undefined || (Number.isInteger(item.troops) && item.troops >= 0));
+        if (!Array.isArray(loc.lz) || !loc.lz.every(battle) || !battle(cur) ||
+            !Number.isInteger(cur.troops) || loc.troops !== cur.troops ||
+            new Set([cur.z, ...loc.lz.map(item => item.z)]).size !== loc.lz.length + 1)
           bad('pending Event Land Battle');
         // A Harbor Encounter can remove a supporting Force after its Troops
         // launched. Those retained IDs are valid; their support is now zero.
@@ -4852,8 +4864,8 @@ function checkSaveState(st) {
   checkSavedCards(st, bad);
   if (st.eventRestore != null) {
     const note = st.eventRestore;
-    if (!note || typeof note !== 'object' || Array.isArray(note) || st.prompt?.kind !== 'event' ||
-        !Array.isArray(note.cards) || !note.cards.length || note.cards.some(id => !Number.isInteger(id) || !st.deck.event.includes(id)) ||
+    if (!note || typeof note !== 'object' || Array.isArray(note) ||
+        !Array.isArray(note.cards) || (!note.cards.length && !note.reshuffled) || note.cards.some(id => !Number.isInteger(id) || !st.deck.event.includes(id)) ||
         new Set(note.cards).size !== note.cards.length || typeof note.reshuffled !== 'boolean') bad('physical Event restoration');
   }
   UI.loadNotes = [];
@@ -5678,6 +5690,7 @@ function openRef() {
   r = topic('Victory');
   r.appendChild(el('p', null, '−33 or less British Decisive · −22 to −32 British Victory · −11 to −21 British Marginal · −10 to +10 Draw · +11 to +21 U.S. Marginal · +22 to +32 U.S. Victory · +33 or more U.S. Decisive. Construction Delay left at the end is deducted from each side.'));
   topic('Revealed cards').appendChild(revealedCardsLookup(G_STATE));
+  if (G_STATE) topic('Event deck status').appendChild(eventDeckStatus(G_STATE));
   topic('Offline app').appendChild(appDownloadControls());
   openReferenceTopics(topics);
 }
@@ -5895,26 +5908,29 @@ function renderEventEntry(s, pr) {
 // Saved presentation metadata: restoring a physical pile must not change the
 // game checkpoint, repeat dice or disappear when the player reloads/transfers it.
 function recordEventUndo(before, restored) {
-  if (restored.prompt?.kind !== 'event' || before?.seed !== restored.seed ||
+  if (!restored.options.physicalEvents || before?.seed !== restored.seed ||
       !restored.log.every((r, i) => JSON.stringify(r) === JSON.stringify(before.log[i]))) return;
   const extra = before.log.slice(restored.log.length);
   const entered = extra.flatMap(r => { const m = /^Physical Event card #(\d+) entered for /.exec(r.text); return m ? [Number(m[1])] : []; });
-  if (!entered.length) return;
   const cards = [...new Set(entered.concat(before.eventRestore?.cards || [], restored.eventRestore?.cards || []))]
     .filter(id => restored.deck.event.includes(id));
-  restored.eventRestore = { cards, reshuffled: before.turn !== restored.turn ||
-    !!before.eventRestore?.reshuffled || !!restored.eventRestore?.reshuffled || extra.some(r => r.text.startsWith('Event deck exhausted')) };
+  const reshuffled = before.turn !== restored.turn || !!before.eventRestore?.reshuffled ||
+    !!restored.eventRestore?.reshuffled || extra.some(r => r.text.startsWith('Event deck exhausted'));
+  // A reset may be crossed at an information screen, several Undos before the
+  // earlier draw. Carry it with that checkpoint, even with no returned card yet.
+  if (cards.length || reshuffled) restored.eventRestore = { cards, reshuffled };
 }
 function eventRestoreText(s) {
   const { cards, reshuffled } = s.eventRestore;
   const top = cards.map(id => '#' + id).join(', ');
-  const action = cards.length === 1 ? `Return the Event card ${top} to the top of your physical draw pile.` :
+  const action = !cards.length ? 'Restore the physical Event piles for this checkpoint.' :
+    cards.length === 1 ? `Return the Event card ${top} to the top of your physical draw pile.` :
     `Return the Event cards to the top of your physical draw pile in this order, top first: ${top}.`;
   return action + (reshuffled ?
-    ' This Undo crossed a reshuffle. Restore the earlier draw and used piles using Deck status. If the earlier order was lost, shuffle the other remaining cards first, then put the returned cards on top. Keep held Intelligence cards aside.' :
+    ` This Undo crossed a reshuffle. Restore the earlier draw pile (${s.deck.event.length} cards) and used pile using Deck status in Reference. If the earlier order was lost, shuffle the other remaining cards first, then put any returned cards on top. Keep held Intelligence cards aside.` :
     ' Keep the other cards in their previous order. Do not shuffle.');
 }
-function openEventDeckStatus(s) {
+function eventDeckStatus(s) {
   const box = el('div', { class: 'event-deck-status' }, el('h2', null, 'Event deck status'),
     el('p', null, 'Compare these numbers with your physical cards. The lists are in numerical order.'));
   const available = s.deck.event.slice().sort((a, b) => a - b);
@@ -5930,8 +5946,9 @@ function openEventDeckStatus(s) {
   const last = s.log.slice().reverse().find(row => /^Physical Event card #\d+ entered for /.test(row.text));
   box.append(el('h3', null, 'Last entered'), el('p', null, last ? last.text.replace('Physical Event card ', '') : 'No physical Event card entered yet.'),
     el('p', { class: 'muted' }, 'Keep used cards aside until the next Event-deck reshuffle. Keep held Intelligence cards out of the draw pile.'));
-  openModal(box);
+  return box;
 }
+function openEventDeckStatus(s) { openModal(eventDeckStatus(s)); }
 
 ;
 /* ---- ui_reference.js ---- */
@@ -6023,7 +6040,7 @@ function revealedCardsLookup(s) {
 }
 
 function openReferenceTopics(topics) {
-  const pick = el('select', null, ...topics.map((t, i) => el('option', { value: i }, t.name)));
+  const pick = el('select', { 'aria-label': 'Reference topic' }, ...topics.map((t, i) => el('option', { value: i }, t.name)));
   const current = el('div');
   const show = () => {
     const t = topics[Number(pick.value)];

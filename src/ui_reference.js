@@ -86,7 +86,7 @@ function revealedCardsLookup(s) {
 }
 
 function openReferenceTopics(topics) {
-  const pick = el('select', null, ...topics.map((t, i) => el('option', { value: i }, t.name)));
+  const pick = el('select', { 'aria-label': 'Reference topic' }, ...topics.map((t, i) => el('option', { value: i }, t.name)));
   const current = el('div');
   const show = () => {
     const t = topics[Number(pick.value)];

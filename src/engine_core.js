@@ -45,7 +45,9 @@ function act(s, answer, onStep) {
   const err = validateAnswer(s, s.prompt, answer);
   if (err) throw new Error(err);
   delete s.tableReport;
-  delete s.eventRestore;   // physical-pile restoration is complete when play resumes
+  // Routine notices do not reconcile physical cards. Keep the reminder until
+  // the player resumes drawing from the restored pile.
+  if (s.prompt.kind === 'event') delete s.eventRestore;
   const f = topFrame(s);
   f.answer = answer;
   s.prompt = null;
