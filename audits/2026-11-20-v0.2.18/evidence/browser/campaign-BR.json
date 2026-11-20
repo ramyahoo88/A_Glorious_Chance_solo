@@ -1,0 +1,1141 @@
+{
+  "side": "BR",
+  "seed": 987002,
+  "style": "coast",
+  "width": 390,
+  "group": true,
+  "actions": 149,
+  "entries": 38,
+  "reloads": 6,
+  "undos": 4,
+  "inspections": 5,
+  "result": {
+    "score": 77,
+    "level": "U.S. Decisive Victory"
+  },
+  "errors": [],
+  "trace": [
+    {
+      "n": 1,
+      "kind": "choice",
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 2,
+      "kind": "select",
+      "title": "A2 British Ship Upgrades",
+      "answer": [
+        "wolfe"
+      ]
+    },
+    {
+      "n": 3,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 4,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "sss"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "SOU",
+            "ships": [
+              "beres"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "rg"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "rg"
+      }
+    },
+    {
+      "n": 5,
+      "kind": "choice",
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "answer": "F1"
+    },
+    {
+      "n": 6,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 25
+    },
+    {
+      "n": 7,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 35
+    },
+    {
+      "n": 8,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 9,
+      "kind": "info",
+      "title": "Your Convoy is attacked!",
+      "answer": "ok"
+    },
+    {
+      "n": 10,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 11,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on Sacket's coastline",
+      "answer": 37
+    },
+    {
+      "n": 12,
+      "kind": "info",
+      "title": "British Raid on Sacket's",
+      "answer": "ok"
+    },
+    {
+      "n": 13,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on South Lake coastline",
+      "answer": 9
+    },
+    {
+      "n": 14,
+      "kind": "info",
+      "title": "British Raid on South Lake",
+      "answer": "ok"
+    },
+    {
+      "n": 15,
+      "kind": "select",
+      "title": "A2 British Ship Upgrades",
+      "answer": [
+        "rg"
+      ]
+    },
+    {
+      "n": 16,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 17,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "sss"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "SOU",
+            "ships": [
+              "beres"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "wolfe"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "wolfe"
+      }
+    },
+    {
+      "n": 18,
+      "kind": "choice",
+      "title": "B1 Possible Encounter 3 in Sacket's",
+      "answer": "F6"
+    },
+    {
+      "n": 19,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 20
+    },
+    {
+      "n": 20,
+      "kind": "info",
+      "title": "Encounter – no enemy",
+      "answer": "ok"
+    },
+    {
+      "n": 21,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 12
+    },
+    {
+      "n": 22,
+      "kind": "info",
+      "title": "Encounter 2: enemy sighted",
+      "answer": "ok"
+    },
+    {
+      "n": 23,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter South Lake (Weather Gage + Lake Zone Event)",
+      "answer": 5
+    },
+    {
+      "n": 24,
+      "kind": "info",
+      "title": "Encounter 2 in South Lake",
+      "answer": "ok"
+    },
+    {
+      "n": 25,
+      "kind": "choice",
+      "title": "Command Decision – the A.I. holds the Weather Gage",
+      "answer": "bypass"
+    },
+    {
+      "n": 26,
+      "kind": "info",
+      "title": "The A.I. declines battle",
+      "answer": "ok"
+    },
+    {
+      "n": 27,
+      "kind": "info",
+      "title": "Encounter ended",
+      "answer": "ok"
+    },
+    {
+      "n": 28,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE3",
+      "answer": 16
+    },
+    {
+      "n": 29,
+      "kind": "info",
+      "title": "Encounter 3: enemy sighted",
+      "answer": "ok"
+    },
+    {
+      "n": 30,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Sacket's (Weather Gage + Lake Zone Event)",
+      "answer": 8
+    },
+    {
+      "n": 31,
+      "kind": "info",
+      "title": "Encounter 3 in Sacket's",
+      "answer": "ok"
+    },
+    {
+      "n": 32,
+      "kind": "choice",
+      "title": "Command Decision – the A.I. holds the Weather Gage",
+      "answer": "bypass"
+    },
+    {
+      "n": 33,
+      "kind": "info",
+      "title": "The A.I. declines battle",
+      "answer": "ok"
+    },
+    {
+      "n": 34,
+      "kind": "info",
+      "title": "Encounter ended",
+      "answer": "ok"
+    },
+    {
+      "n": 35,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 36,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 37,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 38,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 39,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on Sacket's coastline",
+      "answer": 4
+    },
+    {
+      "n": 40,
+      "kind": "info",
+      "title": "British Raid on Sacket's",
+      "answer": "ok"
+    },
+    {
+      "n": 41,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on South Lake coastline",
+      "answer": 30
+    },
+    {
+      "n": 42,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on South Lake coastline",
+      "answer": 17
+    },
+    {
+      "n": 43,
+      "kind": "info",
+      "title": "British Raid on South Lake",
+      "answer": "ok"
+    },
+    {
+      "n": 44,
+      "kind": "choice",
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 45,
+      "kind": "select",
+      "title": "A2 British Ship Upgrades",
+      "answer": [
+        "moira"
+      ]
+    },
+    {
+      "n": 46,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 47,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "sss"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Raid",
+            "zone": "SOU",
+            "ships": [
+              "beres"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "SAC",
+            "ships": [
+              "wolfe"
+            ],
+            "troops": 1
+          }
+        ],
+        "flagship": "wolfe"
+      }
+    },
+    {
+      "n": 48,
+      "kind": "choice",
+      "title": "B1 Possible Encounter 2 in Sacket's",
+      "answer": "F13"
+    },
+    {
+      "n": 49,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 8
+    },
+    {
+      "n": 50,
+      "kind": "info",
+      "title": "Encounter – no enemy",
+      "answer": "ok"
+    },
+    {
+      "n": 51,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 30
+    },
+    {
+      "n": 52,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 4
+    },
+    {
+      "n": 53,
+      "kind": "info",
+      "title": "Convoy found!",
+      "answer": "ok"
+    },
+    {
+      "n": 54,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE3",
+      "answer": 34
+    },
+    {
+      "n": 55,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 56,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 57,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 58,
+      "kind": "info",
+      "title": "Harbor Encounter",
+      "answer": "ok"
+    },
+    {
+      "n": 59,
+      "kind": "info",
+      "title": "Harbor Encounter",
+      "answer": "ok"
+    },
+    {
+      "n": 60,
+      "kind": "info",
+      "title": "Harbor Encounter",
+      "answer": "ok"
+    },
+    {
+      "n": 61,
+      "kind": "info",
+      "title": "Harbor Encounter ends",
+      "answer": "ok"
+    },
+    {
+      "n": 62,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "U.S. Land Battle (Kingston)",
+      "answer": 2
+    },
+    {
+      "n": 63,
+      "kind": "info",
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 64,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on Sacket's coastline",
+      "answer": 33
+    },
+    {
+      "n": 65,
+      "kind": "info",
+      "title": "British Raid on Sacket's",
+      "answer": "ok"
+    },
+    {
+      "n": 66,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on South Lake coastline",
+      "answer": 6
+    },
+    {
+      "n": 67,
+      "kind": "info",
+      "title": "British Raid on South Lake",
+      "answer": "ok"
+    },
+    {
+      "n": 68,
+      "kind": "info",
+      "title": "Harbor Encounter",
+      "answer": "ok"
+    },
+    {
+      "n": 69,
+      "kind": "info",
+      "title": "Harbor Encounter",
+      "answer": "ok"
+    },
+    {
+      "n": 70,
+      "kind": "info",
+      "title": "Harbor Encounter ends",
+      "answer": "ok"
+    },
+    {
+      "n": 71,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Land Battle (Sacket's)",
+      "answer": 19
+    },
+    {
+      "n": 72,
+      "kind": "info",
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 73,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 74,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "sss"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "wolfe"
+            ],
+            "troops": 1
+          }
+        ],
+        "flagship": "wolfe"
+      }
+    },
+    {
+      "n": 75,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 19
+    },
+    {
+      "n": 76,
+      "kind": "info",
+      "title": "Encounter 1: enemy sighted",
+      "answer": "ok"
+    },
+    {
+      "n": 77,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Niagara (Weather Gage + Lake Zone Event)",
+      "answer": 22
+    },
+    {
+      "n": 78,
+      "kind": "info",
+      "title": "Encounter 1 in Niagara",
+      "answer": "ok"
+    },
+    {
+      "n": 79,
+      "kind": "choice",
+      "title": "Command Decision – you hold the Weather Gage",
+      "answer": "attack"
+    },
+    {
+      "n": 80,
+      "kind": "lineup",
+      "title": "Lake Combat – choose your attacking ships",
+      "answer": {
+        "attackers": [
+          "wolfe"
+        ],
+        "tows": {}
+      }
+    },
+    {
+      "n": 81,
+      "kind": "choice",
+      "title": "LC3 Tactics – you are the Attacker",
+      "answer": "A_outmaneuver"
+    },
+    {
+      "n": 82,
+      "kind": "info",
+      "title": "Tactics",
+      "answer": "ok"
+    },
+    {
+      "n": 83,
+      "kind": "info",
+      "title": "Gunnery Round results",
+      "answer": "ok"
+    },
+    {
+      "n": 84,
+      "kind": "info",
+      "title": "Encounter ended",
+      "answer": "ok"
+    },
+    {
+      "n": 85,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE3",
+      "answer": 29
+    },
+    {
+      "n": 86,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE4",
+      "answer": 12
+    },
+    {
+      "n": 87,
+      "kind": "info",
+      "title": "Encounter 4 – no enemy",
+      "answer": "ok"
+    },
+    {
+      "n": 88,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 89,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 90,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 91,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 92,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on Sacket's coastline",
+      "answer": 7
+    },
+    {
+      "n": 93,
+      "kind": "info",
+      "title": "British Raid on Sacket's",
+      "answer": "ok"
+    },
+    {
+      "n": 94,
+      "kind": "choice",
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 95,
+      "kind": "select",
+      "title": "A2 British Ship Upgrades",
+      "answer": [
+        "beres"
+      ]
+    },
+    {
+      "n": 96,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 97,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "ArmySupport",
+            "zone": "SAC",
+            "ships": [
+              "moira"
+            ],
+            "troops": 1
+          }
+        ],
+        "flagship": "moira"
+      }
+    },
+    {
+      "n": 98,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 14
+    },
+    {
+      "n": 99,
+      "kind": "info",
+      "title": "Encounter – no enemy",
+      "answer": "ok"
+    },
+    {
+      "n": 100,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 101,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 102,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 103,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 104,
+      "kind": "info",
+      "title": "Harbor Encounter",
+      "answer": "ok"
+    },
+    {
+      "n": 105,
+      "kind": "info",
+      "title": "Harbor Encounter",
+      "answer": "ok"
+    },
+    {
+      "n": 106,
+      "kind": "info",
+      "title": "Harbor Encounter ends",
+      "answer": "ok"
+    },
+    {
+      "n": 107,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Land Battle (Sacket's)",
+      "answer": 37
+    },
+    {
+      "n": 108,
+      "kind": "info",
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 109,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 110,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "melville"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "beres",
+              "sss"
+            ],
+            "troops": 1
+          }
+        ],
+        "flagship": "sss"
+      }
+    },
+    {
+      "n": 111,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 20
+    },
+    {
+      "n": 112,
+      "kind": "info",
+      "title": "Encounter 1 – no enemy",
+      "answer": "ok"
+    },
+    {
+      "n": 113,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 10
+    },
+    {
+      "n": 114,
+      "kind": "info",
+      "title": "Encounter – no enemy",
+      "answer": "ok"
+    },
+    {
+      "n": 115,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE3",
+      "answer": 25
+    },
+    {
+      "n": 116,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE4",
+      "answer": 29
+    },
+    {
+      "n": 117,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE5",
+      "answer": 32
+    },
+    {
+      "n": 118,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 119,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on Sacket's coastline",
+      "answer": 38
+    },
+    {
+      "n": 120,
+      "kind": "info",
+      "title": "British Raid on Sacket's",
+      "answer": "ok"
+    },
+    {
+      "n": 121,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Land Battle (Niagara)",
+      "answer": 8
+    },
+    {
+      "n": 122,
+      "kind": "info",
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 123,
+      "kind": "choice",
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 124,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 125,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "melville"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "beres"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "sss"
+      }
+    },
+    {
+      "n": 126,
+      "kind": "choice",
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "answer": "F25"
+    },
+    {
+      "n": 127,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 16
+    },
+    {
+      "n": 128,
+      "kind": "info",
+      "title": "Convoy found!",
+      "answer": "ok"
+    },
+    {
+      "n": 129,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 130,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 131,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on Sacket's coastline",
+      "answer": 38
+    },
+    {
+      "n": 132,
+      "kind": "info",
+      "title": "British Raid on Sacket's",
+      "answer": "ok"
+    },
+    {
+      "n": 133,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 134,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Raid",
+            "zone": "SAC",
+            "ships": [
+              "melville"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "beres"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "sss"
+      }
+    },
+    {
+      "n": 135,
+      "kind": "choice",
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "answer": "F29"
+    },
+    {
+      "n": 136,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 4
+    },
+    {
+      "n": 137,
+      "kind": "info",
+      "title": "Encounter 1: enemy sighted",
+      "answer": "ok"
+    },
+    {
+      "n": 138,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Sacket's (Weather Gage + Lake Zone Event)",
+      "answer": 9
+    },
+    {
+      "n": 139,
+      "kind": "info",
+      "title": "Encounter 1 in Sacket's",
+      "answer": "ok"
+    },
+    {
+      "n": 140,
+      "kind": "choice",
+      "title": "Command Decision – the A.I. holds the Weather Gage",
+      "answer": "bypass"
+    },
+    {
+      "n": 141,
+      "kind": "info",
+      "title": "The A.I. attacks!",
+      "answer": "ok"
+    },
+    {
+      "n": 142,
+      "kind": "choice",
+      "title": "LC3 Tactics – you are the Defender",
+      "answer": "D_outmaneuver"
+    },
+    {
+      "n": 143,
+      "kind": "info",
+      "title": "Tactics",
+      "answer": "ok"
+    },
+    {
+      "n": 144,
+      "kind": "info",
+      "title": "Gunnery Round results",
+      "answer": "ok"
+    },
+    {
+      "n": 145,
+      "kind": "info",
+      "title": "Encounter ended",
+      "answer": "ok"
+    },
+    {
+      "n": 146,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 147,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 148,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 149,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    }
+  ]
+}

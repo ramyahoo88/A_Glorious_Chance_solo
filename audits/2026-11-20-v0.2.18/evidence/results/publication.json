@@ -1,0 +1,34 @@
+{
+  "version": "0.2.18",
+  "sourceCommit": "b142d8c60d54f3fd2b466ade853cc6ced9b5718b",
+  "catalogCommit": "a1f2cc4054533d63619e31882d58155ccc3d835f",
+  "preview": {
+    "id": "5674ed78-e313-485d-a854-93869870ca29",
+    "url": "https://5674ed78.solo-table.pages.dev",
+    "environment": "preview",
+    "stage": {
+      "name": "queued",
+      "started_on": null,
+      "ended_on": null,
+      "status": "idle"
+    }
+  },
+  "production": {
+    "canonical": "78765fff-084f-4904-9767-5a3e07ca267d",
+    "id": "78765fff-084f-4904-9767-5a3e07ca267d",
+    "url": "https://78765fff.solo-table.pages.dev",
+    "environment": "production",
+    "stage": {
+      "name": "deploy",
+      "started_on": null,
+      "ended_on": "2026-11-20T22:32:38.660972Z",
+      "status": "success"
+    }
+  },
+  "publicUrl": "https://solo-table.pages.dev/games/a-glorious-chance/",
+  "downloadUrl": "https://solo-table.pages.dev/downloads/a-glorious-chance",
+  "appPR": "https://github.com/ramyahoo88/A_Glorious_Chance_solo/pull/1",
+  "catalogPR": "https://github.com/ramyahoo88/solo-automa/pull/1",
+  "bytes": 423428,
+  "sha256": "c1670ee2f30d1cc948805afb3781c7d1a91a2785bb02a37298d00e15c9d579f3"
+}

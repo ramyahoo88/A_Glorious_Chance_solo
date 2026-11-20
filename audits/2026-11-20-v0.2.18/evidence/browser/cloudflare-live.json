@@ -1,0 +1,13 @@
+{
+  "browser": "153.0.8010.0",
+  "url": "https://solo-table.pages.dev/games/a-glorious-chance/",
+  "assertions": 67,
+  "traceActions": 26,
+  "rejectionCases": [
+    "coastal-raidEvent",
+    "coastal-asBattleEvent"
+  ],
+  "undos": 10,
+  "restoredPile": 34,
+  "pageErrors": []
+}

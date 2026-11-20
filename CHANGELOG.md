@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.18 - 2026-11-20
+
+* Reject damaged coastal Event saves with a missing or inconsistent side order/cursor, invalid remaining Raid/Army Support queues, or malformed queued Land Battles before changing the open game. Keep legitimate launched Troops whose supporting ships were lost.
+* Preserve physical-deck rebuild instructions through every Undo checkpoint, including routine notices, reload and save transfer. Rewinding across a turn reset now identifies the earlier pile's card count even when the earlier Event entry is several Undos away. Resume drawing to clear the reminder.
+* Add **Event deck status** to Reference at every campaign checkpoint, reusing the same read-only panel beside Event entry.
+
 ## 0.2.17 - 2026-11-19
 
 * Refuse incomplete saves paused at physical Event entry before replacing the current campaign. Validate all six saved callers and their Encounter, Possible Encounter, combat, Raid, Reaction and Land Battle context. Preserve launched Troops when Harbor losses removed their supporting Force.

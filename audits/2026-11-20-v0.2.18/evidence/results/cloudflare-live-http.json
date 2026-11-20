@@ -1,0 +1,225 @@
+{
+  "base": "https://solo-table.pages.dev",
+  "passed": true,
+  "verifiedFiles": 31,
+  "attachmentHeaders": 9,
+  "files": [
+    {
+      "path": "/assets/colonial-twilight.webp",
+      "bytes": 293886,
+      "sha256": "9d7e8c101d35d77501f8f15a04a64931d5c0f52baeaab5065a458e70ab89b393",
+      "contentType": "image/webp",
+      "disposition": null
+    },
+    {
+      "path": "/assets/dm-sans.ttf",
+      "bytes": 240164,
+      "sha256": "8cd08d97e89c24d0aa92edd2f0f4c8ee6195eee9b7c9f154865a58b02f0c1c0d",
+      "contentType": "font/ttf",
+      "disposition": null
+    },
+    {
+      "path": "/assets/instrument-serif-italic.ttf",
+      "bytes": 71592,
+      "sha256": "08939b8bdf534afec24ae0ef5e03f948940cd9a8fe08e7fecbad040e62327385",
+      "contentType": "font/ttf",
+      "disposition": null
+    },
+    {
+      "path": "/assets/instrument-serif-regular.ttf",
+      "bytes": 70012,
+      "sha256": "498efd461f6ddfcb7a111bf9a565709d2085d48201d501ead960d93e84ffbb88",
+      "contentType": "font/ttf",
+      "disposition": null
+    },
+    {
+      "path": "/assets/site.css",
+      "bytes": 6852,
+      "sha256": "56a64058c7528467c9ecf870cfd5f0353d65da3b9396ccd5816e7d9855162a26",
+      "contentType": "text/css; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/downloads/a-glorious-chance",
+      "bytes": 423428,
+      "sha256": "c1670ee2f30d1cc948805afb3781c7d1a91a2785bb02a37298d00e15c9d579f3",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": "attachment; filename=\"A_Glorious_Chance_Solo_v0.2.18.html\""
+    },
+    {
+      "path": "/downloads/all-bridges-burning",
+      "bytes": 316555,
+      "sha256": "502e8bfca1aaded282746628143a9e43c7b17b6b3c85a4f0e6acf2560cd6b999",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": "attachment; filename=\"All_Bridges_Burning_Solo_v0.10.8.html\""
+    },
+    {
+      "path": "/downloads/cuba-libre",
+      "bytes": 393080,
+      "sha256": "57b89d7280fab73dd8a2676639bf7984076ad91b8da44e0e56d2347335e7b994",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": "attachment; filename=\"Cuba_Libre_Calixto_Solo.html\""
+    },
+    {
+      "path": "/downloads/dominant-species",
+      "bytes": 574735,
+      "sha256": "8523900b623909ef7b7d54168a200cfc5e5569c3ad395960e2e2f7feb6e03fff",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": "attachment; filename=\"Dominant_Species_Solo.html\""
+    },
+    {
+      "path": "/downloads/fire-in-the-lake",
+      "bytes": 5027690,
+      "sha256": "d6b5db8d70fd284bfde777b3a9edf4dc98c78de288097b54f3467541fd28f2b3",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": "attachment; filename=\"Fire_in_the_Lake_Trung_Solo.html\""
+    },
+    {
+      "path": "/downloads/labyrinth",
+      "bytes": 6918703,
+      "sha256": "3bd99a004185be489537005f322cc7fda84b056839d30bb28720422e063c2937",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": "attachment; filename=\"Labyrinth_Solo_Companion_v1_1.html\""
+    },
+    {
+      "path": "/downloads/liberty-or-death",
+      "bytes": 378071,
+      "sha256": "5329261d08e16d4b8e3591682ac4706986fe6628d41c11cbdd71f3fa6a296988",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": "attachment; filename=\"Liberty_or_Death_Solo.html\""
+    },
+    {
+      "path": "/downloads/pendragon",
+      "bytes": 833923,
+      "sha256": "f85c908e8a77036538d85cfa307670f36441a41bfb4e43e14cea031e9c16c7e7",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": "attachment; filename=\"Pendragon_Solo_v1.0.0.html\""
+    },
+    {
+      "path": "/games/a-glorious-chance/index.html",
+      "bytes": 423428,
+      "sha256": "c1670ee2f30d1cc948805afb3781c7d1a91a2785bb02a37298d00e15c9d579f3",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/all-bridges-burning/index.html",
+      "bytes": 316555,
+      "sha256": "502e8bfca1aaded282746628143a9e43c7b17b6b3c85a4f0e6acf2560cd6b999",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/colonial-twilight/Colonial_Twilight_FLN.zip",
+      "bytes": 353627,
+      "sha256": "e448893742ea5aefa66e24e9296fd626c0951fe9071895bd4bf41017e28ae119",
+      "contentType": "application/zip",
+      "disposition": null
+    },
+    {
+      "path": "/games/colonial-twilight/index.html",
+      "bytes": 2476807,
+      "sha256": "edcfe874431763e350af1518a49e859575d97138c7330f98ba9d1fbbbb11da4c",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/cuba-libre/index.html",
+      "bytes": 393080,
+      "sha256": "57b89d7280fab73dd8a2676639bf7984076ad91b8da44e0e56d2347335e7b994",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/dominant-species/The_Red_Queen_Cards.pdf",
+      "bytes": 540921,
+      "sha256": "e7b18512e4d02b8aa3bee0ecf91fc3943e69f610e2fe415a129ccb4c6499b3ec",
+      "contentType": "application/pdf",
+      "disposition": null
+    },
+    {
+      "path": "/games/dominant-species/The_Red_Queen_Player_Aids.pdf",
+      "bytes": 137388,
+      "sha256": "46c0c4112b8ccb242d30d06bc51ed61f0b9b95a12f4647b17c05070ed5a6e7b9",
+      "contentType": "application/pdf",
+      "disposition": null
+    },
+    {
+      "path": "/games/dominant-species/The_Red_Queen_Rulebook.pdf",
+      "bytes": 623976,
+      "sha256": "592c0a804b70c074299b6cae0b9d3d2b3b6948dfaae050c0c49337f03921bfab",
+      "contentType": "application/pdf",
+      "disposition": null
+    },
+    {
+      "path": "/games/dominant-species/index.html",
+      "bytes": 574735,
+      "sha256": "8523900b623909ef7b7d54168a200cfc5e5569c3ad395960e2e2f7feb6e03fff",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/fire-in-the-lake/index.html",
+      "bytes": 5027690,
+      "sha256": "d6b5db8d70fd284bfde777b3a9edf4dc98c78de288097b54f3467541fd28f2b3",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/kutna-hora/Kutna_Hora_Solo_v1.1.1.zip",
+      "bytes": 500564,
+      "sha256": "0beb8eb00f543cf75c12dc455047d8c7500245bc946d2e0db7dd958f826834c1",
+      "contentType": "application/zip",
+      "disposition": "attachment; filename=\"Kutna_Hora_Solo_v1.1.1.zip\""
+    },
+    {
+      "path": "/games/kutna-hora/Mincmistr_Print_and_Play.pdf",
+      "bytes": 244947,
+      "sha256": "c7c0f6b030b0eb8ba9cbec7669645a24a4a6b273002cb83fd7e70136a96c231e",
+      "contentType": "application/pdf",
+      "disposition": null
+    },
+    {
+      "path": "/games/kutna-hora/Mincmistr_Rules.md",
+      "bytes": 13673,
+      "sha256": "0addf1ee589ce97d73735b0de97b62f9c8562973687327705ec0f4cdd86ee46e",
+      "contentType": "text/markdown; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/kutna-hora/index.html",
+      "bytes": 632436,
+      "sha256": "6bd46fdc2edd66ec46d560ab491f3169a9c48c3a457d024be818b0dda0b495a8",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/labyrinth/index.html",
+      "bytes": 6918703,
+      "sha256": "3bd99a004185be489537005f322cc7fda84b056839d30bb28720422e063c2937",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/liberty-or-death/index.html",
+      "bytes": 378071,
+      "sha256": "5329261d08e16d4b8e3591682ac4706986fe6628d41c11cbdd71f3fa6a296988",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/games/pendragon/index.html",
+      "bytes": 833923,
+      "sha256": "f85c908e8a77036538d85cfa307670f36441a41bfb4e43e14cea031e9c16c7e7",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    },
+    {
+      "path": "/index.html",
+      "bytes": 12276,
+      "sha256": "1e380a1e5e277088ba6be3cece6dec537a60610a3d7c06ea2b6067f0366fd431",
+      "contentType": "text/html; charset=utf-8",
+      "disposition": null
+    }
+  ]
+}

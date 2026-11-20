@@ -1,0 +1,1048 @@
+{
+  "side": "US",
+  "seed": 987001,
+  "style": "fleet",
+  "width": 1440,
+  "group": false,
+  "actions": 124,
+  "entries": 24,
+  "reloads": 4,
+  "undos": 3,
+  "inspections": 3,
+  "result": {
+    "score": 7,
+    "level": "Draw"
+  },
+  "errors": [],
+  "trace": [
+    {
+      "n": 1,
+      "kind": "choice",
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 2,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 3,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Escort",
+            "zone": "SAC",
+            "ships": [
+              "scourge"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 1
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      }
+    },
+    {
+      "n": 4,
+      "kind": "info",
+      "title": "A10 Target Cards drawn",
+      "answer": "ok"
+    },
+    {
+      "n": 5,
+      "kind": "choice",
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "answer": "F1"
+    },
+    {
+      "n": 6,
+      "kind": "choice",
+      "title": "B1 Possible Encounter 4 in Sacket's",
+      "answer": "F1"
+    },
+    {
+      "n": 7,
+      "kind": "info",
+      "title": "B1 Possible Encounters",
+      "answer": "ok"
+    },
+    {
+      "n": 8,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 36
+    },
+    {
+      "n": 9,
+      "kind": "info",
+      "title": "Encounter Check PE1",
+      "answer": "ok"
+    },
+    {
+      "n": 10,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 8
+    },
+    {
+      "n": 11,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE3",
+      "answer": 22
+    },
+    {
+      "n": 12,
+      "kind": "info",
+      "title": "Encounter Check PE3",
+      "answer": "ok"
+    },
+    {
+      "n": 13,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE4",
+      "answer": 35
+    },
+    {
+      "n": 14,
+      "kind": "info",
+      "title": "Encounter Check PE4",
+      "answer": "ok"
+    },
+    {
+      "n": 15,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE5",
+      "answer": 1
+    },
+    {
+      "n": 16,
+      "kind": "info",
+      "title": "C Enemy Operations",
+      "answer": "ok"
+    },
+    {
+      "n": 17,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 18,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "U.S. Land Battle (Niagara)",
+      "answer": 29
+    },
+    {
+      "n": 19,
+      "kind": "info",
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 20,
+      "kind": "info",
+      "title": "Tally – June I",
+      "answer": "ok"
+    },
+    {
+      "n": 21,
+      "kind": "info",
+      "title": "Reset – end of June I",
+      "answer": "ok"
+    },
+    {
+      "n": 22,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 23,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      }
+    },
+    {
+      "n": 24,
+      "kind": "info",
+      "title": "A10 Target Cards drawn",
+      "answer": "ok"
+    },
+    {
+      "n": 25,
+      "kind": "info",
+      "title": "C Enemy Operations",
+      "answer": "ok"
+    },
+    {
+      "n": 26,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 27,
+      "kind": "info",
+      "title": "Tally – June II",
+      "answer": "ok"
+    },
+    {
+      "n": 28,
+      "kind": "info",
+      "title": "Reset – end of June II",
+      "answer": "ok"
+    },
+    {
+      "n": 29,
+      "kind": "choice",
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 30,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 31,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Escort",
+            "zone": "SAC",
+            "ships": [
+              "scourge"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      }
+    },
+    {
+      "n": 32,
+      "kind": "info",
+      "title": "A10 Target Cards drawn",
+      "answer": "ok"
+    },
+    {
+      "n": 33,
+      "kind": "info",
+      "title": "B1 Possible Encounters",
+      "answer": "ok"
+    },
+    {
+      "n": 34,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 20
+    },
+    {
+      "n": 35,
+      "kind": "info",
+      "title": "Encounter 1: enemy sighted",
+      "answer": "ok"
+    },
+    {
+      "n": 36,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Kingston (Weather Gage + Lake Zone Event)",
+      "answer": 29
+    },
+    {
+      "n": 37,
+      "kind": "info",
+      "title": "Encounter 1 in Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 38,
+      "kind": "choice",
+      "title": "Command Decision – the A.I. holds the Weather Gage",
+      "answer": "confront"
+    },
+    {
+      "n": 39,
+      "kind": "info",
+      "title": "The A.I. attacks!",
+      "answer": "ok"
+    },
+    {
+      "n": 40,
+      "kind": "choice",
+      "title": "LC3 Tactics – you are the Defender",
+      "answer": "D_rof"
+    },
+    {
+      "n": 41,
+      "kind": "info",
+      "title": "Tactics",
+      "answer": "ok"
+    },
+    {
+      "n": 42,
+      "kind": "info",
+      "title": "Gunnery Round results",
+      "answer": "ok"
+    },
+    {
+      "n": 43,
+      "kind": "info",
+      "title": "The A.I. breaks off",
+      "answer": "ok"
+    },
+    {
+      "n": 44,
+      "kind": "select",
+      "title": "Reaction Segment – declare Reaction Checks",
+      "answer": [
+        "raven"
+      ]
+    },
+    {
+      "n": 45,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Reaction Segment Weather Gage (Kingston)",
+      "answer": 37
+    },
+    {
+      "n": 46,
+      "kind": "info",
+      "title": "Reaction Segment",
+      "answer": "ok"
+    },
+    {
+      "n": 47,
+      "kind": "info",
+      "title": "The A.I. declines battle",
+      "answer": "ok"
+    },
+    {
+      "n": 48,
+      "kind": "info",
+      "title": "Encounter ended",
+      "answer": "ok"
+    },
+    {
+      "n": 49,
+      "kind": "info",
+      "title": "Tally – July I",
+      "answer": "ok"
+    },
+    {
+      "n": 50,
+      "kind": "info",
+      "title": "Reset – end of July I",
+      "answer": "ok"
+    },
+    {
+      "n": 51,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 52,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "madison"
+      }
+    },
+    {
+      "n": 53,
+      "kind": "info",
+      "title": "A10 Target Cards drawn",
+      "answer": "ok"
+    },
+    {
+      "n": 54,
+      "kind": "info",
+      "title": "B1 Possible Encounters",
+      "answer": "ok"
+    },
+    {
+      "n": 55,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 30
+    },
+    {
+      "n": 56,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 2
+    },
+    {
+      "n": 57,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 33
+    },
+    {
+      "n": 58,
+      "kind": "info",
+      "title": "Encounter Check PE2",
+      "answer": "ok"
+    },
+    {
+      "n": 59,
+      "kind": "info",
+      "title": "C Enemy Operations",
+      "answer": "ok"
+    },
+    {
+      "n": 60,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 61,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Raid on South Lake coastline",
+      "answer": 25
+    },
+    {
+      "n": 62,
+      "kind": "info",
+      "title": "British Raid on South Lake",
+      "answer": "ok"
+    },
+    {
+      "n": 63,
+      "kind": "info",
+      "title": "Tally – July II",
+      "answer": "ok"
+    },
+    {
+      "n": 64,
+      "kind": "info",
+      "title": "Reset – end of July II",
+      "answer": "ok"
+    },
+    {
+      "n": 65,
+      "kind": "choice",
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 66,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 67,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Escort",
+            "zone": "SAC",
+            "ships": [
+              "pike"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    {
+      "n": 68,
+      "kind": "info",
+      "title": "A10 Target Cards drawn",
+      "answer": "ok"
+    },
+    {
+      "n": 69,
+      "kind": "info",
+      "title": "B1 Possible Encounters",
+      "answer": "ok"
+    },
+    {
+      "n": 70,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 4
+    },
+    {
+      "n": 71,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 33
+    },
+    {
+      "n": 72,
+      "kind": "info",
+      "title": "Encounter Check PE2",
+      "answer": "ok"
+    },
+    {
+      "n": 73,
+      "kind": "info",
+      "title": "C Enemy Operations",
+      "answer": "ok"
+    },
+    {
+      "n": 74,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 75,
+      "kind": "info",
+      "title": "Tally – August I",
+      "answer": "ok"
+    },
+    {
+      "n": 76,
+      "kind": "info",
+      "title": "Reset – end of August I",
+      "answer": "ok"
+    },
+    {
+      "n": 77,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 78,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    {
+      "n": 79,
+      "kind": "info",
+      "title": "A10 Target Cards drawn",
+      "answer": "ok"
+    },
+    {
+      "n": 80,
+      "kind": "info",
+      "title": "B1 Possible Encounters",
+      "answer": "ok"
+    },
+    {
+      "n": 81,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 21
+    },
+    {
+      "n": 82,
+      "kind": "info",
+      "title": "Encounter Check PE1",
+      "answer": "ok"
+    },
+    {
+      "n": 83,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 13
+    },
+    {
+      "n": 84,
+      "kind": "info",
+      "title": "Encounter – no enemy",
+      "answer": "ok"
+    },
+    {
+      "n": 85,
+      "kind": "info",
+      "title": "C Enemy Operations",
+      "answer": "ok"
+    },
+    {
+      "n": 86,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 87,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "British Land Battle (Niagara)",
+      "answer": 26
+    },
+    {
+      "n": 88,
+      "kind": "info",
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 89,
+      "kind": "info",
+      "title": "Tally – August II",
+      "answer": "ok"
+    },
+    {
+      "n": 90,
+      "kind": "info",
+      "title": "Reset – end of August II",
+      "answer": "ok"
+    },
+    {
+      "n": 91,
+      "kind": "choice",
+      "title": "A1 Schedule your Convoy",
+      "answer": "I"
+    },
+    {
+      "n": 92,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 93,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "Escort",
+            "zone": "SAC",
+            "ships": [
+              "pike"
+            ],
+            "troops": 0
+          },
+          {
+            "mission": "Patrol",
+            "zone": "SAC",
+            "ships": [
+              "oneida",
+              "madison",
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    {
+      "n": 94,
+      "kind": "info",
+      "title": "A10 Target Cards drawn",
+      "answer": "ok"
+    },
+    {
+      "n": 95,
+      "kind": "choice",
+      "title": "B1 Possible Encounter 1 in Sacket's",
+      "answer": "F17"
+    },
+    {
+      "n": 96,
+      "kind": "info",
+      "title": "B1 Possible Encounters",
+      "answer": "ok"
+    },
+    {
+      "n": 97,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 7
+    },
+    {
+      "n": 98,
+      "kind": "info",
+      "title": "Encounter – no enemy",
+      "answer": "ok"
+    },
+    {
+      "n": 99,
+      "kind": "info",
+      "title": "C Enemy Operations",
+      "answer": "ok"
+    },
+    {
+      "n": 100,
+      "kind": "info",
+      "title": "AI Deployment",
+      "answer": "ok"
+    },
+    {
+      "n": 101,
+      "kind": "info",
+      "title": "Tally – September I",
+      "answer": "ok"
+    },
+    {
+      "n": 102,
+      "kind": "info",
+      "title": "Reset – end of September I",
+      "answer": "ok"
+    },
+    {
+      "n": 103,
+      "kind": "select",
+      "title": "A4 In Ordinary? (30-point limit)",
+      "answer": []
+    },
+    {
+      "n": 104,
+      "kind": "assign",
+      "title": "A7 Assign your ships",
+      "answer": {
+        "forces": [
+          {
+            "mission": "ArmySupport",
+            "zone": "NIA",
+            "ships": [
+              "oneida",
+              "madison"
+            ],
+            "troops": 2
+          },
+          {
+            "mission": "Patrol",
+            "zone": "KIN",
+            "ships": [
+              "tompkins",
+              "fairam",
+              "conquest",
+              "asp",
+              "growler",
+              "hamilton",
+              "julia",
+              "lady",
+              "ontario",
+              "pert",
+              "raven",
+              "scourge",
+              "sylph"
+            ],
+            "troops": 0
+          }
+        ],
+        "flagship": "pike"
+      }
+    },
+    {
+      "n": 105,
+      "kind": "info",
+      "title": "A10 Target Cards drawn",
+      "answer": "ok"
+    },
+    {
+      "n": 106,
+      "kind": "info",
+      "title": "B1 Possible Encounters",
+      "answer": "ok"
+    },
+    {
+      "n": 107,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE1",
+      "answer": 26
+    },
+    {
+      "n": 108,
+      "kind": "info",
+      "title": "Encounter Check PE1",
+      "answer": "ok"
+    },
+    {
+      "n": 109,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE2",
+      "answer": 28
+    },
+    {
+      "n": 110,
+      "kind": "info",
+      "title": "Encounter Check PE2",
+      "answer": "ok"
+    },
+    {
+      "n": 111,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Check PE3",
+      "answer": 3
+    },
+    {
+      "n": 112,
+      "kind": "info",
+      "title": "Encounter 3: enemy sighted",
+      "answer": "ok"
+    },
+    {
+      "n": 113,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "Encounter Kingston (Weather Gage + Lake Zone Event)",
+      "answer": 7
+    },
+    {
+      "n": 114,
+      "kind": "info",
+      "title": "Encounter 3 in Kingston",
+      "answer": "ok"
+    },
+    {
+      "n": 115,
+      "kind": "choice",
+      "title": "Command Decision – you hold the Weather Gage",
+      "answer": "attack"
+    },
+    {
+      "n": 116,
+      "kind": "lineup",
+      "title": "Lake Combat – choose your attacking ships",
+      "answer": {
+        "attackers": [
+          "tompkins",
+          "fairam",
+          "conquest",
+          "asp",
+          "growler",
+          "hamilton",
+          "julia",
+          "lady",
+          "ontario",
+          "pert",
+          "raven",
+          "scourge",
+          "sylph"
+        ],
+        "tows": {
+          "sylph": "tompkins"
+        }
+      }
+    },
+    {
+      "n": 117,
+      "kind": "choice",
+      "title": "LC3 Tactics – you are the Attacker",
+      "answer": "A_rake"
+    },
+    {
+      "n": 118,
+      "kind": "info",
+      "title": "Tactics",
+      "answer": "ok"
+    },
+    {
+      "n": 119,
+      "kind": "info",
+      "title": "Gunnery Round results",
+      "answer": "ok"
+    },
+    {
+      "n": 120,
+      "kind": "info",
+      "title": "Encounter ended",
+      "answer": "ok"
+    },
+    {
+      "n": 121,
+      "kind": "event",
+      "title": "Draw an Event card",
+      "purpose": "U.S. Land Battle (Niagara)",
+      "answer": 20
+    },
+    {
+      "n": 122,
+      "kind": "info",
+      "title": "Land Battle result",
+      "answer": "ok"
+    },
+    {
+      "n": 123,
+      "kind": "info",
+      "title": "Tally – September II",
+      "answer": "ok"
+    },
+    {
+      "n": 124,
+      "kind": "info",
+      "title": "Reset – end of September II",
+      "answer": "ok"
+    }
+  ]
+}
