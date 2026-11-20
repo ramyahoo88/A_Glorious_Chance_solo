@@ -1,0 +1,138 @@
+{
+  "damagedCallers": [
+    {
+      "fixture": "coastal-raidEvent",
+      "field": "order",
+      "accepted": true,
+      "error": "Cannot read properties of undefined (reading '2')",
+      "trace": [
+        {
+          "title": "Draw an Event card",
+          "answer": 27,
+          "next": "American Raid on Kingston"
+        },
+        {
+          "title": "American Raid on Kingston",
+          "answer": "ok",
+          "next": "Draw an Event card"
+        },
+        {
+          "title": "Draw an Event card",
+          "answer": 13,
+          "next": "American Raid on York"
+        },
+        {
+          "title": "American Raid on York",
+          "answer": "ok",
+          "error": "Cannot read properties of undefined (reading '2')"
+        }
+      ]
+    },
+    {
+      "fixture": "coastal-asBattleEvent",
+      "field": "order",
+      "accepted": true,
+      "error": "Cannot read properties of undefined (reading '2')",
+      "trace": [
+        {
+          "title": "Draw an Event card",
+          "answer": 23,
+          "next": "Land Battle result"
+        },
+        {
+          "title": "Land Battle result",
+          "answer": "ok",
+          "error": "Cannot read properties of undefined (reading '2')"
+        }
+      ]
+    }
+  ],
+  "multiUndo": {
+    "seed": 986000,
+    "startTurn": 1,
+    "startRemaining": 38,
+    "startText": "Encounter Check PE1\n\nShuffle your physical Event deck.\n\nDraw the top physical Event card and enter its printed number (1–38).",
+    "undos": 10,
+    "steps": [
+      {
+        "turn": 1,
+        "title": "B1 Possible Encounters",
+        "kind": "info",
+        "eventRestore": null
+      },
+      {
+        "turn": 1,
+        "title": "B1 Possible Encounter 3 in Kingston",
+        "kind": "choice",
+        "eventRestore": null
+      },
+      {
+        "turn": 1,
+        "title": "B1 Possible Encounter 1 in Kingston",
+        "kind": "choice",
+        "eventRestore": null
+      },
+      {
+        "turn": 1,
+        "title": "A10 Target Cards drawn",
+        "kind": "info",
+        "eventRestore": null
+      },
+      {
+        "turn": 1,
+        "title": "A7 Assign your ships",
+        "kind": "assign",
+        "eventRestore": null
+      },
+      {
+        "turn": 1,
+        "title": "A4 In Ordinary? (30-point limit)",
+        "kind": "select",
+        "eventRestore": null
+      },
+      {
+        "turn": 0,
+        "title": "Reset – end of June I",
+        "kind": "info",
+        "eventRestore": null
+      },
+      {
+        "turn": 0,
+        "title": "Tally – June I",
+        "kind": "info",
+        "eventRestore": null
+      },
+      {
+        "turn": 0,
+        "title": "American Raid on York",
+        "kind": "info",
+        "eventRestore": null
+      },
+      {
+        "turn": 0,
+        "title": "Draw an Event card",
+        "kind": "event",
+        "eventRestore": {
+          "cards": [
+            2
+          ],
+          "reshuffled": false
+        }
+      }
+    ],
+    "restoredRemaining": 34,
+    "note": {
+      "cards": [
+        2
+      ],
+      "reshuffled": false
+    },
+    "text": "Return the Event card #2 to the top of your physical draw pile. Keep the other cards in their previous order. Do not shuffle.",
+    "lastEntry": {
+      "turn": 0,
+      "title": "Draw an Event card",
+      "kind": "event",
+      "answer": 2
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "head": "4980c08b807c9fef8b307354b2984677effbafd2",
+  "files": {
+    "dist/index.html": "8623b7a73cacdda6eb9095871be9b8ec8fde62113ba86bb2a2910ce3000f18e4",
+    "package.json": "43c612870eac6b3228f6f7aa4d0e11645a4844ce470dcba0cc22842195f77cc8",
+    "src/assign.js": "7a1d3a93d8ff514f8de33f2e9064af461207edb60268e7694ddb3f90d8b83014",
+    "src/data.js": "764489d789f5f420912ff941d6b25b1c3fd2c3ce1713eade94be47550b483931",
+    "src/data_aids.js": "1366e543b4a891fb7041b4442e0c3ca0af92b3ff65c556646def8f7578571823",
+    "src/data_targets.js": "d7d0389271e16ca410a840dede5cb0a9bbbe6ae1636c1cc6c75c3939793f64a2",
+    "src/engine_coastal.js": "bab94b8b89a9d1b4a9f2073f3bef7fe419873e6778656f5f0955d8005e98b479",
+    "src/engine_combat.js": "1e62f8a3bd32bb14dec422f6e69328c91b142b97b9ea9daacd24faab124802bb",
+    "src/engine_core.js": "95983fbf7ef272ddc5c7ed3e460a2e12248b412fe4b1e57caa78d24850a5e3eb",
+    "src/engine_deploy.js": "36e38a0d716f18905bf0fbcca3432e1b3bb6f1ca555640bb45a8087b7fdd70c8",
+    "src/engine_encounter.js": "949a7e137c86598faec5ca79abf90f81c36509b0a5d14fc208a1d4ae84a62d5e",
+    "src/engine_tally.js": "5621ff584c568aedb752c65a447a957ee609217044ff3ffab7925c0b40683403",
+    "src/engine_turn.js": "c4a4fe39be5db627be9c9f050a81f6bfbd3122e3b9cf88cfea34bb8e45f323ea",
+    "src/main.js": "d93c2a7a229a5458f2a072a185d75fbbd83970be4dd5021fb0cc3b3939d79ff0",
+    "src/rng.js": "c6428685b5a7304b00cf1128e0987c7f8e597db2c8698ad0cf0fb19fef23d225",
+    "src/state.js": "6365a49db97baebf5ba29e0f3d8d86e8ebf988745002a02ac281c24c3a591f55",
+    "src/style.css": "7591504158be6439af416bc2ecd2ac60f988d388fc209a75fbdce3b5592cfe27",
+    "src/ui.js": "fba6ca1a098e7523b8323e3abfc16cd0b11d8125ccbe86bdd7ab34af4c4f1033",
+    "src/ui_map.js": "de00ad885799f871d625dc551198a357475da713699bc0dcda42ef63819501ce",
+    "src/ui_map_layout.js": "d989668f28324b1ba19fb1cd0b3c7ffacfad9b4505e3828f28d64a2c937e818c",
+    "src/ui_reference.js": "39772a943561668b00f0778bbf556a9a0f8a40f48137a80079a35cc3e2675127",
+    "src/ui_table.js": "8042004ba6343a5d02353a427692c4843afb9ee2deace5eca0f781f8ee3dc27f"
+  }
+}

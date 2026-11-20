@@ -1,0 +1,90 @@
+{
+  "browser": "153.0.8010.0",
+  "multiUndo": {
+    "seed": 986000,
+    "naturalActions": 26,
+    "startText": "Encounter Check PE1\n\nShuffle your physical Event deck.\n\nDraw the top physical Event card and enter its printed number (1–38).",
+    "undos": [
+      {
+        "turn": 1,
+        "kind": "info",
+        "title": "B1 Possible Encounters",
+        "note": null
+      },
+      {
+        "turn": 1,
+        "kind": "choice",
+        "title": "B1 Possible Encounter 3 in Kingston",
+        "note": null
+      },
+      {
+        "turn": 1,
+        "kind": "choice",
+        "title": "B1 Possible Encounter 1 in Kingston",
+        "note": null
+      },
+      {
+        "turn": 1,
+        "kind": "info",
+        "title": "A10 Target Cards drawn",
+        "note": null
+      },
+      {
+        "turn": 1,
+        "kind": "assign",
+        "title": "A7 Assign your ships",
+        "note": null
+      },
+      {
+        "turn": 1,
+        "kind": "select",
+        "title": "A4 In Ordinary? (30-point limit)",
+        "note": null
+      },
+      {
+        "turn": 0,
+        "kind": "info",
+        "title": "Reset – end of June I",
+        "note": null
+      },
+      {
+        "turn": 0,
+        "kind": "info",
+        "title": "Tally – June I",
+        "note": null
+      },
+      {
+        "turn": 0,
+        "kind": "info",
+        "title": "American Raid on York",
+        "note": null
+      },
+      {
+        "turn": 0,
+        "kind": "event",
+        "title": "Draw an Event card",
+        "note": {
+          "cards": [
+            2
+          ],
+          "reshuffled": false
+        }
+      }
+    ],
+    "undoText": "Return the Event card #2 to the top of your physical draw pile. Keep the other cards in their previous order. Do not shuffle.",
+    "remainingHeading": "Remaining in draw pile (34)",
+    "exactGameplayRestoration": true,
+    "reloadPreservesIncorrectNote": true
+  },
+  "damagedSave": {
+    "fixture": "coastal-asBattleEvent-missing-order.json",
+    "accepted": true,
+    "event23Resolved": true,
+    "continuationError": "Cannot read properties of undefined (reading '2')",
+    "rolledBackFailedAction": true
+  },
+  "pageErrors": [],
+  "expectedConsoleErrors": [
+    "TypeError: Cannot read properties of undefined (reading '2')\n    at side (file:///workspace/scratch/ede967a4faea/agc-audit/dist/index.html:3848:27)\n    at run (file:///workspace/scratch/ede967a4faea/agc-audit/dist/index.html:973:15)\n    at act (file:///workspace/scratch/ede967a4faea/agc-audit/dist/index.html:998:3)\n    at advance (file:///workspace/scratch/ede967a4faea/agc-audit/dist/index.html:6158:5)\n    at playTableAction (file:///workspace/scratch/ede967a4faea/agc-audit/dist/index.html:6169:3)\n    at doAct (file:///workspace/scratch/ede967a4faea/agc-audit/dist/index.html:4564:5)\n    at HTMLButtonElement.onclick (file:///workspace/scratch/ede967a4faea/agc-audit/dist/index.html:5081:126)"
+  ]
+}

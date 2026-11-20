@@ -1,0 +1,80 @@
+{
+  "url": "https://ramyahoo88.github.io/A_Glorious_Chance_solo/",
+  "browser": "153.0.8010.0",
+  "damagedImports": [
+    {
+      "name": "corrupt-coastal-raidEvent",
+      "refusedAtomically": true
+    },
+    {
+      "name": "corrupt-encounter-reactionEvent",
+      "refusedAtomically": true
+    },
+    {
+      "name": "corrupt-coastal-asBattleEvent",
+      "refusedAtomically": true
+    }
+  ],
+  "undoCases": [
+    {
+      "name": "first",
+      "reloadAndTransfer": true,
+      "exactReplay": true,
+      "reshuffled": false
+    },
+    {
+      "name": "ordinary",
+      "reloadAndTransfer": true,
+      "exactReplay": true,
+      "reshuffled": false
+    },
+    {
+      "name": "Gale",
+      "reloadAndTransfer": true,
+      "exactReplay": true,
+      "reshuffled": false
+    },
+    {
+      "name": "exhaustion",
+      "reloadAndTransfer": true,
+      "exactReplay": true,
+      "reshuffled": true
+    },
+    {
+      "name": "turn reset",
+      "reloadAndTransfer": true,
+      "exactReplay": true,
+      "reshuffled": true
+    }
+  ],
+  "widths": [
+    {
+      "width": 320,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "overflow": false
+    }
+  ],
+  "consecutiveUndos": true,
+  "deckStatus": {
+    "sorted": true,
+    "readOnly": true,
+    "draftAndFocusRetained": true
+  },
+  "intelligenceDisposition": true,
+  "download": {
+    "bytes": 422019,
+    "sha256": "8623b7a73cacdda6eb9095871be9b8ec8fde62113ba86bb2a2910ce3000f18e4"
+  },
+  "errors": []
+}

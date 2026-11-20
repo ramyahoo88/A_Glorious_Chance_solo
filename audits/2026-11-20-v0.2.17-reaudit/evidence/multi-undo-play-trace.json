@@ -1,0 +1,241 @@
+[
+  {
+    "turn": 0,
+    "title": "A1 Schedule your Convoy",
+    "kind": "choice",
+    "answer": "I"
+  },
+  {
+    "turn": 0,
+    "title": "A4 In Ordinary? (30-point limit)",
+    "kind": "select",
+    "answer": []
+  },
+  {
+    "turn": 0,
+    "title": "A7 Assign your ships",
+    "kind": "assign",
+    "answer": {
+      "forces": [
+        {
+          "mission": "Raid",
+          "zone": "KIN",
+          "ships": [
+            "asp"
+          ],
+          "troops": 0
+        },
+        {
+          "mission": "Raid",
+          "zone": "YOR",
+          "ships": [
+            "growler"
+          ],
+          "troops": 0
+        },
+        {
+          "mission": "Patrol",
+          "zone": "KIN",
+          "ships": [
+            "oneida",
+            "madison",
+            "tompkins",
+            "fairam",
+            "conquest",
+            "hamilton",
+            "julia",
+            "lady",
+            "ontario",
+            "pert",
+            "raven"
+          ],
+          "troops": 0
+        }
+      ],
+      "flagship": "madison"
+    }
+  },
+  {
+    "turn": 0,
+    "title": "A10 Target Cards drawn",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "B1 Possible Encounter 1 in Kingston",
+    "kind": "choice",
+    "answer": "F1"
+  },
+  {
+    "turn": 0,
+    "title": "B1 Possible Encounters",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "Draw an Event card",
+    "kind": "event",
+    "answer": 12
+  },
+  {
+    "turn": 0,
+    "title": "Encounter – no enemy",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "Draw an Event card",
+    "kind": "event",
+    "answer": 29
+  },
+  {
+    "turn": 0,
+    "title": "Encounter Check PE2",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "C Enemy Operations",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "AI Deployment",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "Draw an Event card",
+    "kind": "event",
+    "answer": 26
+  },
+  {
+    "turn": 0,
+    "title": "British Raid on South Lake",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "Draw an Event card",
+    "kind": "event",
+    "answer": 34
+  },
+  {
+    "turn": 0,
+    "title": "American Raid on Kingston",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "Draw an Event card",
+    "kind": "event",
+    "answer": 2
+  },
+  {
+    "turn": 0,
+    "title": "American Raid on York",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "Tally – June I",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 0,
+    "title": "Reset – end of June I",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 1,
+    "title": "A4 In Ordinary? (30-point limit)",
+    "kind": "select",
+    "answer": []
+  },
+  {
+    "turn": 1,
+    "title": "A7 Assign your ships",
+    "kind": "assign",
+    "answer": {
+      "forces": [
+        {
+          "mission": "Raid",
+          "zone": "KIN",
+          "ships": [
+            "asp"
+          ],
+          "troops": 0
+        },
+        {
+          "mission": "Raid",
+          "zone": "YOR",
+          "ships": [
+            "growler"
+          ],
+          "troops": 0
+        },
+        {
+          "mission": "ArmySupport",
+          "zone": "NIA",
+          "ships": [
+            "oneida",
+            "madison"
+          ],
+          "troops": 2
+        },
+        {
+          "mission": "Patrol",
+          "zone": "KIN",
+          "ships": [
+            "tompkins",
+            "fairam",
+            "conquest",
+            "hamilton",
+            "julia",
+            "lady",
+            "ontario",
+            "pert",
+            "raven"
+          ],
+          "troops": 0
+        }
+      ],
+      "flagship": "madison"
+    }
+  },
+  {
+    "turn": 1,
+    "title": "A10 Target Cards drawn",
+    "kind": "info",
+    "answer": "ok"
+  },
+  {
+    "turn": 1,
+    "title": "B1 Possible Encounter 1 in Kingston",
+    "kind": "choice",
+    "answer": "F5"
+  },
+  {
+    "turn": 1,
+    "title": "B1 Possible Encounter 3 in Kingston",
+    "kind": "choice",
+    "answer": "F5"
+  },
+  {
+    "turn": 1,
+    "title": "B1 Possible Encounters",
+    "kind": "info",
+    "answer": "ok"
+  }
+]

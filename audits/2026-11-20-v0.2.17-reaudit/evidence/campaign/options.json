@@ -1,0 +1,5506 @@
+{
+  "label": "options",
+  "repo": "/workspace/scratch/ede967a4faea/agc-audit",
+  "sourceHash": "3267b739fb9b16a973a5a75d899d435674eb4cac5484d8236399ad01f240838c",
+  "start": 984000,
+  "count": 64,
+  "policies": [
+    "coast"
+  ],
+  "games": [
+    {
+      "human": "US",
+      "seed": 984000,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 172,
+      "kinds": {
+        "choice": 23,
+        "select": 8,
+        "assign": 8,
+        "info": 90,
+        "event": 40,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -54,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "eb9eca9ac31a05f43c3dcd604cc612b233b121a644d7023c0376557405eba37b",
+      "changedShipRows": 279,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984000,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 153,
+      "kinds": {
+        "choice": 16,
+        "select": 12,
+        "assign": 8,
+        "info": 98,
+        "event": 18,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 66,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "d69be17890d3359e4fbd35af9974a4cc96aeea48d93a49b3a4c30b83b2ec62b9",
+      "changedShipRows": 217,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No human ship available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984001,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 165,
+      "kinds": {
+        "choice": 24,
+        "select": 8,
+        "assign": 8,
+        "info": 86,
+        "event": 38,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": -2,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "77bd5436557a7677b2c7715b386b133ab64823da5ed0dc10d40d4ed86dbcb80b",
+      "changedShipRows": 280,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984001,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 229,
+      "kinds": {
+        "choice": 24,
+        "select": 13,
+        "assign": 8,
+        "info": 136,
+        "event": 45,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 42,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 0,
+        "BR": 3
+      },
+      "outcome": "920d167b59c96de40184926d7359d7422d3e9c0362cc15d69f862211d1380a51",
+      "changedShipRows": 194,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984002,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 183,
+      "kinds": {
+        "choice": 23,
+        "select": 9,
+        "assign": 8,
+        "info": 99,
+        "event": 42,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 10,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "efe42128a45260aff7ae21839a1cb77e5ac1f15e90766067dd03bef0a0aaacec",
+      "changedShipRows": 290,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984002,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 216,
+      "kinds": {
+        "choice": 23,
+        "select": 11,
+        "assign": 8,
+        "info": 131,
+        "event": 40,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 42,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "615ad86b253397719f4fd4d194fd4c112defba8013119080df237c311d3586ac",
+      "changedShipRows": 231,
+      "seen": [
+        "A6 signed balance and band",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984003,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 199,
+      "kinds": {
+        "choice": 25,
+        "select": 10,
+        "assign": 8,
+        "info": 106,
+        "event": 48,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": -49,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "d05cb6d6e809695ba384d952da1879cfd1d2cc8e8fea0dcb7473a740dfa8cbe3",
+      "changedShipRows": 288,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "Defender Outmaneuver gained Weather Gage",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984003,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 228,
+      "kinds": {
+        "choice": 30,
+        "select": 13,
+        "assign": 8,
+        "info": 124,
+        "event": 49,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": 54,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "f72698d371491c9aa16d6a50b635406e933f3b9a986309c0c7aa5dbd77f9123f",
+      "changedShipRows": 267,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984004,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 201,
+      "kinds": {
+        "choice": 34,
+        "select": 8,
+        "assign": 8,
+        "info": 104,
+        "event": 42,
+        "lineup": 5
+      },
+      "turn": 8,
+      "score": -65,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "b3f69768f1bd9dbf093832413d03ef4795fe8a2d7ef3b3fd8f521db5cd2206cb",
+      "changedShipRows": 299,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984004,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 211,
+      "kinds": {
+        "choice": 27,
+        "select": 37,
+        "assign": 8,
+        "info": 105,
+        "event": 31,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 75,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "e1198e169ce0cf5c8615e28419eabc15b32206dbb80eeda7707dc3fb751982cb",
+      "changedShipRows": 227,
+      "seen": [
+        "A6 signed balance and band",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Separated ship rejoined same Encounter",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984005,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 170,
+      "kinds": {
+        "choice": 22,
+        "select": 8,
+        "assign": 8,
+        "info": 96,
+        "event": 35,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": -9,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "b3e8fc6b36549d8ec9cf7af01f4ed24a04444a2fec6da926bdf6534f4e20fcc7",
+      "changedShipRows": 290,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "Tied naval balance after June I"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984005,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 242,
+      "kinds": {
+        "choice": 30,
+        "select": 41,
+        "assign": 8,
+        "info": 112,
+        "event": 48,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -32,
+      "level": "British Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "843be9ae4aa95f9922509344d79ca9073264d145b463a9ff94309db14876bba0",
+      "changedShipRows": 169,
+      "seen": [
+        "A6 signed balance and band",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "Tied naval balance after June I",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984006,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 167,
+      "kinds": {
+        "choice": 23,
+        "select": 8,
+        "assign": 8,
+        "info": 87,
+        "event": 38,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -2,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "4281e86e114819eac856db6d27443663f939b3e88ff996a7bf8f2a603eda0b9d",
+      "changedShipRows": 295,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "Tied naval balance after June I"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984006,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 232,
+      "kinds": {
+        "choice": 29,
+        "select": 35,
+        "assign": 8,
+        "info": 112,
+        "event": 44,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": 10,
+      "level": "Draw",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "b760669b347a7c51f7a1d95f3cf8e8354e723e599564b1383fb7dc3253db41ff",
+      "changedShipRows": 245,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "Tied naval balance after June I"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984007,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 170,
+      "kinds": {
+        "choice": 20,
+        "select": 10,
+        "assign": 8,
+        "info": 91,
+        "event": 38,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 21,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "38671b6f09e613f9dea46474cc72966f81ef0079106de8cddfb9a3f38e7d90ce",
+      "changedShipRows": 278,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984007,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 239,
+      "kinds": {
+        "choice": 24,
+        "select": 43,
+        "assign": 8,
+        "info": 114,
+        "event": 45,
+        "lineup": 5
+      },
+      "turn": 8,
+      "score": 13,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 0,
+        "BR": 3
+      },
+      "outcome": "432a880e428331375fb55421e309642a0b2af1035015d2ef46e1311d0f26ba51",
+      "changedShipRows": 203,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984008,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 128,
+      "kinds": {
+        "choice": 21,
+        "select": 9,
+        "assign": 8,
+        "event": 39,
+        "info": 48,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 41,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "015d037fb7eb777839caedfbfd93fe4cba3cbcd7dd0eb58ed9365a3fc3bfaf98",
+      "changedShipRows": 284,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984008,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 141,
+      "kinds": {
+        "choice": 16,
+        "select": 13,
+        "assign": 8,
+        "event": 42,
+        "info": 58,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": -22,
+      "level": "British Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "4d49759e264cafa1497b457c4a3155a5d78a5abecd51e27785a3afba10419af7",
+      "changedShipRows": 251,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984009,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 147,
+      "kinds": {
+        "choice": 23,
+        "select": 9,
+        "assign": 8,
+        "event": 42,
+        "info": 62,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 2,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "53f89d84b4cc544b1bf0c39c133df276a2b324c5053f04457081e8c3bebac23c",
+      "changedShipRows": 313,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984009,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 128,
+      "kinds": {
+        "choice": 20,
+        "select": 11,
+        "assign": 8,
+        "event": 37,
+        "info": 50,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 46,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "a81be8c12c1d603101a3747f04df7f5c5fcdd60da84742b6bbcb934048ccb949",
+      "changedShipRows": 240,
+      "seen": [
+        "A6 signed balance and band",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984010,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 134,
+      "kinds": {
+        "choice": 23,
+        "select": 9,
+        "assign": 8,
+        "event": 42,
+        "info": 50,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 38,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "1cb0359811a85359d1f00ad68c14f20c31caaa760b9c0c0c2eb60512293e1f21",
+      "changedShipRows": 279,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984010,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 146,
+      "kinds": {
+        "choice": 24,
+        "select": 12,
+        "assign": 8,
+        "event": 41,
+        "info": 58,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 23,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "3a869c2b40e79060ea1891270a55ebef838fdc21c57114d03ab0173387327eb6",
+      "changedShipRows": 254,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984011,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 136,
+      "kinds": {
+        "choice": 21,
+        "select": 8,
+        "assign": 8,
+        "event": 41,
+        "info": 56,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": -23,
+      "level": "British Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "9b0bd29c76783eef68277ce247598e3a8bb8220705f551dc5093c7d8f201a0da",
+      "changedShipRows": 299,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "Defender Outmaneuver gained Weather Gage",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984011,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 172,
+      "kinds": {
+        "choice": 27,
+        "select": 14,
+        "assign": 8,
+        "event": 48,
+        "info": 72,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 16,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "678962785f476d33cc2167c7d4aff95bc516372fa537ecfa5c8b08e4bb942fe3",
+      "changedShipRows": 274,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984012,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 127,
+      "kinds": {
+        "choice": 21,
+        "select": 8,
+        "assign": 8,
+        "event": 34,
+        "info": 54,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 5,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "44eed357e61e5d09673ed18931f8578a9ef6d2b63e382c223a0990b28a787054",
+      "changedShipRows": 273,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984012,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 175,
+      "kinds": {
+        "choice": 18,
+        "select": 44,
+        "assign": 8,
+        "event": 41,
+        "info": 62,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 57,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "3bb0416934efc1723622681aa1e1c7586a01f99628092fa12996c9db756233eb",
+      "changedShipRows": 226,
+      "seen": [
+        "A6 signed balance and band",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984013,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 149,
+      "kinds": {
+        "choice": 23,
+        "select": 9,
+        "assign": 8,
+        "event": 40,
+        "info": 67,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": -40,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "fe77ee9c76b90cfedfcea56378656732f5cc4a4bda89804ccfd0d178cae28789",
+      "changedShipRows": 258,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984013,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 180,
+      "kinds": {
+        "choice": 24,
+        "select": 41,
+        "assign": 8,
+        "event": 38,
+        "info": 65,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": -13,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "fb10ddd131a3f19cfda28b833b7a584f6cf7f2972462a5cb9e6a365e7dbf2c13",
+      "changedShipRows": 235,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984014,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 124,
+      "kinds": {
+        "choice": 17,
+        "select": 8,
+        "assign": 8,
+        "event": 45,
+        "info": 44,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 30,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "d975a6e00344ab976924cd34e23e845a55ef41beec6890caef14ece5a98794aa",
+      "changedShipRows": 278,
+      "seen": [
+        "A6 signed balance and band",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984014,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 167,
+      "kinds": {
+        "choice": 16,
+        "select": 46,
+        "assign": 8,
+        "event": 40,
+        "info": 56,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 62,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "e1ca14ae10662cb0f96097a9924a5dd921c59341beacc73c1af3006a9ae92bd7",
+      "changedShipRows": 241,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984015,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 119,
+      "kinds": {
+        "choice": 19,
+        "select": 8,
+        "assign": 8,
+        "event": 35,
+        "info": 48,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": -34,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "853321752023c64549810c992d473124bfa6264adc1a19f2b3d093e4938c9f2d",
+      "changedShipRows": 295,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984015,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 180,
+      "kinds": {
+        "choice": 20,
+        "select": 35,
+        "assign": 8,
+        "event": 45,
+        "info": 68,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": 38,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "6cdbe7b2916e3d7911166298b2b7d2387b0f94708b6b007160de4e76cddfaebf",
+      "changedShipRows": 228,
+      "seen": [
+        "A6 signed balance and band",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984016,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 128,
+      "kinds": {
+        "choice": 24,
+        "select": 8,
+        "assign": 8,
+        "event": 33,
+        "info": 52,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 9,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "b2f1e99e3757403f7915a3d9f9d29afb7a38167864c176e5ae2ad5c48647131e",
+      "changedShipRows": 243,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984016,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 114,
+      "kinds": {
+        "choice": 15,
+        "select": 13,
+        "assign": 8,
+        "event": 32,
+        "info": 46
+      },
+      "turn": 8,
+      "score": 53,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "8e61fd6f55029921b704bf4b20ac66e6fad57b2834f5c85f32b970ca4e65e7fe",
+      "changedShipRows": 218,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984017,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 128,
+      "kinds": {
+        "choice": 22,
+        "select": 9,
+        "assign": 8,
+        "info": 56,
+        "event": 32,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 6,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "9d7ce6925f89a8df40483d61b5d3802bbb243224d40e1ede21028e1aa9ba1ad7",
+      "changedShipRows": 304,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "Tied naval balance after June I"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984017,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 144,
+      "kinds": {
+        "choice": 24,
+        "select": 12,
+        "assign": 8,
+        "event": 40,
+        "info": 56,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": 13,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "4dc112dc4dd9cc02e2e5cd2526c59b63dc2e11b1477e96bb5e4258aaf091a48b",
+      "changedShipRows": 214,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "Tied naval balance after June I"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984018,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 105,
+      "kinds": {
+        "choice": 16,
+        "select": 8,
+        "assign": 8,
+        "event": 35,
+        "info": 38
+      },
+      "turn": 8,
+      "score": 31,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "ba0c15308b287c5a706694fb66559128cb1f0a01366787b292757a9b01ee875c",
+      "changedShipRows": 253,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984018,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 158,
+      "kinds": {
+        "choice": 23,
+        "select": 13,
+        "assign": 8,
+        "event": 53,
+        "info": 59,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": -2,
+      "level": "Draw",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "6224faf7177f1b76a39f6deafa3b78d76389290081179cc2ca9093ea402c354c",
+      "changedShipRows": 252,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984019,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 131,
+      "kinds": {
+        "choice": 23,
+        "select": 8,
+        "assign": 8,
+        "event": 39,
+        "info": 50,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 9,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "8c0e4af940b53aad4778cde4463d04d1400a276820980a8d354a269bfc6c4fa5",
+      "changedShipRows": 286,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984019,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 125,
+      "kinds": {
+        "choice": 14,
+        "select": 12,
+        "assign": 8,
+        "event": 39,
+        "info": 52
+      },
+      "turn": 8,
+      "score": 19,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "6a45e1cf3191b40a07ea8e7187ac0f0d5b9c6ff91dc81db511ddec08a6aea8f7",
+      "changedShipRows": 211,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984020,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 142,
+      "kinds": {
+        "choice": 27,
+        "select": 8,
+        "assign": 8,
+        "event": 35,
+        "info": 62,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": -40,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "35a489428da5d74c7cc3a9b68be3238a321edb8e37dcf387ae0077e5dc8a59d7",
+      "changedShipRows": 279,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984020,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 198,
+      "kinds": {
+        "choice": 27,
+        "select": 36,
+        "assign": 8,
+        "event": 56,
+        "info": 68,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 27,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "fff0d82a79eb52d4e3e5ac83e36e3fadad40506d3d9f57d6439a853bf5ef98a7",
+      "changedShipRows": 259,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984021,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 135,
+      "kinds": {
+        "choice": 24,
+        "select": 10,
+        "assign": 8,
+        "event": 35,
+        "info": 54,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": 9,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "3e64198346e71722aa0541271843b9cae5687e96c9e36d5548b1be68d1f60127",
+      "changedShipRows": 284,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984021,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 173,
+      "kinds": {
+        "choice": 22,
+        "select": 42,
+        "assign": 8,
+        "event": 35,
+        "info": 64,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 25,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 0,
+        "BR": 3
+      },
+      "outcome": "c31c389a0c00faf281b86332bb7be1ddde475b2905b568c10262f0034dfa20ed",
+      "changedShipRows": 230,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984022,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 150,
+      "kinds": {
+        "choice": 26,
+        "select": 10,
+        "assign": 8,
+        "event": 41,
+        "info": 62,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 35,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "7512a04409500888e875c73534f2526ad0befbecc5026e89e47f70a79857dd67",
+      "changedShipRows": 281,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984022,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 190,
+      "kinds": {
+        "choice": 26,
+        "select": 46,
+        "assign": 8,
+        "event": 42,
+        "info": 65,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 33,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 2,
+        "BR": 2
+      },
+      "outcome": "d3dccd9d73f596abf4fc2151b7754d630ae8ecae1e879c1f0d41d64177b4cfbe",
+      "changedShipRows": 238,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984023,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 164,
+      "kinds": {
+        "choice": 30,
+        "select": 10,
+        "assign": 8,
+        "event": 44,
+        "info": 66,
+        "lineup": 6
+      },
+      "turn": 8,
+      "score": -14,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "0f2058cfc40fde81528f8d53bc9ae3489f7d2cb7da6e4e771e1d344314e5ccaf",
+      "changedShipRows": 272,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984023,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 176,
+      "kinds": {
+        "choice": 22,
+        "select": 51,
+        "assign": 8,
+        "event": 33,
+        "info": 58,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": 26,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 0,
+        "BR": 3
+      },
+      "outcome": "6d864a4d12c0be27b23b71cfb2f46a0639347bb01e955b5de5e52217ff811313",
+      "changedShipRows": 213,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984024,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 170,
+      "kinds": {
+        "choice": 22,
+        "select": 9,
+        "assign": 8,
+        "info": 90,
+        "event": 38,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 9,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "bb2dfbaa14d7d725d47454152e1eba45d00066201647f39d9f1b712cacbcc410",
+      "changedShipRows": 269,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984024,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 233,
+      "kinds": {
+        "choice": 26,
+        "select": 13,
+        "assign": 8,
+        "info": 136,
+        "event": 47,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 24,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "4b53358eea8c61364aeda68b9d61a441a6d37cf08d55e49b17c822a65b0143e0",
+      "changedShipRows": 183,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984025,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 164,
+      "kinds": {
+        "choice": 21,
+        "select": 8,
+        "assign": 8,
+        "info": 89,
+        "event": 35,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 2,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "9ff2cf0d6998ff79d6729fafe4f38e54f1f6043c907e1218a2544e3ab487f35e",
+      "changedShipRows": 297,
+      "seen": [
+        "A6 signed balance and band",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984025,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 219,
+      "kinds": {
+        "choice": 20,
+        "select": 12,
+        "assign": 8,
+        "info": 129,
+        "event": 47,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 5,
+      "level": "Draw",
+      "launched": {
+        "US": 0,
+        "BR": 3
+      },
+      "outcome": "a4d375d7564abaa819071f5c8726ae9612239f1a12cca01585f3336ec86f0daf",
+      "changedShipRows": 246,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984026,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 133,
+      "kinds": {
+        "choice": 13,
+        "select": 8,
+        "assign": 8,
+        "info": 74,
+        "event": 30
+      },
+      "turn": 8,
+      "score": 27,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "1908e2c3cfc090b48ce95d6b59f6bb2f661df075347774eb11774372664d9fc6",
+      "changedShipRows": 253,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984026,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 223,
+      "kinds": {
+        "choice": 20,
+        "select": 13,
+        "assign": 8,
+        "info": 134,
+        "event": 45,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 16,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "e865c0cca4ed971a9a4ad23994bb28bf4088740d414e43347f7291d9573b15ac",
+      "changedShipRows": 194,
+      "seen": [
+        "A6 signed balance and band",
+        "Defender Outmaneuver gained Weather Gage",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984027,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 151,
+      "kinds": {
+        "choice": 20,
+        "select": 9,
+        "assign": 8,
+        "info": 81,
+        "event": 31,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 14,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "257cef9817c35a2df9e4d00e553cf0f22cd87368440188f3e3e0aaf7c4ce0897",
+      "changedShipRows": 284,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984027,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 221,
+      "kinds": {
+        "choice": 20,
+        "select": 13,
+        "assign": 8,
+        "info": 129,
+        "event": 47,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": 8,
+      "level": "Draw",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "bded5c4e37ccb3333bd5cd3319a758dd3f4d3c66c3a92e762e963cee00fe50c0",
+      "changedShipRows": 256,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984028,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 195,
+      "kinds": {
+        "choice": 27,
+        "select": 10,
+        "assign": 8,
+        "info": 103,
+        "event": 41,
+        "lineup": 6
+      },
+      "turn": 8,
+      "score": -16,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "89e1e579c57c5de83938303d0fa3c8d5fee511324383c2983922f148082362d4",
+      "changedShipRows": 338,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984028,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 228,
+      "kinds": {
+        "choice": 18,
+        "select": 43,
+        "assign": 8,
+        "info": 110,
+        "event": 49
+      },
+      "turn": 8,
+      "score": -2,
+      "level": "Draw",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "0be9aaff9d5e546c64eaf9f6e2cdb03fc53df7a6daebd1e0edbb047723ff5d62",
+      "changedShipRows": 238,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "Tied naval balance after June I"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984029,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 155,
+      "kinds": {
+        "choice": 17,
+        "select": 8,
+        "assign": 8,
+        "info": 88,
+        "event": 34
+      },
+      "turn": 8,
+      "score": 32,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "95b11844023412e3bd2c23c59124dd5092fd9f16bc4dcef3d7569de57e0f52d6",
+      "changedShipRows": 289,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984029,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 229,
+      "kinds": {
+        "choice": 15,
+        "select": 42,
+        "assign": 8,
+        "info": 112,
+        "event": 49,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 19,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "4bfd4943bcc6a922c72456d550a5b975e4313cfdb487d27993b6bafbae035f17",
+      "changedShipRows": 209,
+      "seen": [
+        "A6 signed balance and band",
+        "Gale",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984030,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 164,
+      "kinds": {
+        "choice": 16,
+        "select": 8,
+        "assign": 8,
+        "info": 90,
+        "event": 40,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 63,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "4e569b44c2eeb4a16ca5a8b71262484287431ff0f371015e0f6eae060df2c8e3",
+      "changedShipRows": 284,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984030,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 232,
+      "kinds": {
+        "choice": 19,
+        "select": 34,
+        "assign": 8,
+        "info": 115,
+        "event": 55,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 26,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "c294838d1e23c772e09d63b270464747728061a251162ee4eec5114762c3cb14",
+      "changedShipRows": 224,
+      "seen": [
+        "A6 signed balance and band",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984031,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 177,
+      "kinds": {
+        "choice": 24,
+        "select": 9,
+        "assign": 8,
+        "info": 95,
+        "event": 37,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": -21,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "b415df49607dc6cb2fca8b6cca67a936fc77fe7e851b563117df063c75885fa7",
+      "changedShipRows": 261,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "Tied naval balance after June I"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984031,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 243,
+      "kinds": {
+        "choice": 28,
+        "select": 44,
+        "assign": 8,
+        "info": 117,
+        "event": 43,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 22,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "856ed638f1b5476dfae5559a463ea79cd7d532fc853360630e2d598f23f7226a",
+      "changedShipRows": 243,
+      "seen": [
+        "A6 signed balance and band",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984032,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 157,
+      "kinds": {
+        "choice": 20,
+        "select": 8,
+        "assign": 8,
+        "info": 85,
+        "event": 35,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 28,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "f2cef9418dda749cdf9eb92532b0ccee02c36a739829324ab5285bc987701693",
+      "changedShipRows": 273,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984032,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 192,
+      "kinds": {
+        "choice": 19,
+        "select": 12,
+        "assign": 8,
+        "info": 121,
+        "event": 31,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 54,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "ccfccf0d9371eba30371844e9f88871aee6a3ef75837b5d45251916d801c81c5",
+      "changedShipRows": 175,
+      "seen": [
+        "A6 signed balance and band",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984033,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 171,
+      "kinds": {
+        "choice": 27,
+        "select": 8,
+        "assign": 8,
+        "info": 92,
+        "event": 34,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": -31,
+      "level": "British Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "964414e50707b498f2cf803b898236786b1c8f62223e6b165d619c876826ce89",
+      "changedShipRows": 299,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984033,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 225,
+      "kinds": {
+        "choice": 26,
+        "select": 13,
+        "assign": 8,
+        "info": 130,
+        "event": 45,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 26,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "4b855d5987dae2590ab4fde1b707bf72db0d766895ff8a11c0dd7946e6eba607",
+      "changedShipRows": 210,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984034,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 155,
+      "kinds": {
+        "choice": 16,
+        "select": 9,
+        "assign": 8,
+        "info": 86,
+        "event": 35,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 14,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "cffe57e6cddc5abdc7a9fc62774950cc4591316ea14a3e0528c1aa6d65c1e9d6",
+      "changedShipRows": 322,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984034,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 209,
+      "kinds": {
+        "choice": 25,
+        "select": 11,
+        "assign": 8,
+        "info": 121,
+        "event": 43,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": -13,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "23e362c1688362bf9f9ca9fb6eae95c75a74e7dc9645d52bfed201a5e0d332aa",
+      "changedShipRows": 222,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984035,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 175,
+      "kinds": {
+        "choice": 20,
+        "select": 9,
+        "assign": 8,
+        "info": 94,
+        "event": 43,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 22,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "92218e228191958a642a6b631617fd8ff6adaeb9639a43d75ff94ffdd65be62d",
+      "changedShipRows": 261,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984035,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 202,
+      "kinds": {
+        "choice": 20,
+        "select": 13,
+        "assign": 8,
+        "info": 121,
+        "event": 37,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 3,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "fc85d7f4716615958ade903f7d6348d50312b64a7e758f8a60fbbf9ad3700dc9",
+      "changedShipRows": 226,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984036,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 189,
+      "kinds": {
+        "choice": 30,
+        "select": 8,
+        "assign": 8,
+        "info": 96,
+        "event": 42,
+        "lineup": 5
+      },
+      "turn": 8,
+      "score": 44,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "0c3bf6f5b447896d98cce704cffb67c86841f1f3b00830780ef325e378827954",
+      "changedShipRows": 284,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984036,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 239,
+      "kinds": {
+        "choice": 25,
+        "select": 43,
+        "assign": 8,
+        "info": 111,
+        "event": 49,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 77,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "99c1149f1d3204931abe4569d85c9d4920a176aaa202fe0d6e192ddb5f525c1f",
+      "changedShipRows": 219,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984037,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 181,
+      "kinds": {
+        "choice": 23,
+        "select": 8,
+        "assign": 8,
+        "info": 100,
+        "event": 41,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": -20,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "693aaa620bdfb45d32912c86517f24dad25a45f5170fd57c7bac428a5697db88",
+      "changedShipRows": 289,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984037,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 213,
+      "kinds": {
+        "choice": 15,
+        "select": 45,
+        "assign": 8,
+        "info": 100,
+        "event": 45
+      },
+      "turn": 8,
+      "score": 28,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "f07b7c84cb4bd691beb5e60edd4e8a19a17554b490ebb2fa59206ad7b6656226",
+      "changedShipRows": 239,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "Manual Package 8 prompts",
+        "Manual Package 8 second stack",
+        "Manual Package 8 with selected ships",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984038,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 182,
+      "kinds": {
+        "choice": 23,
+        "select": 9,
+        "assign": 8,
+        "info": 97,
+        "event": 42,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -33,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "fd0f328adce7acb94719e7e4531fa18b90a745e69f75637fff21cb48ea087c00",
+      "changedShipRows": 220,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "Defender Outmaneuver gained Weather Gage",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984038,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 171,
+      "kinds": {
+        "choice": 13,
+        "select": 41,
+        "assign": 8,
+        "info": 83,
+        "event": 25,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 57,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "8fcbb8a882d04fab93993fc84696da390e9e38914fae866335909254c177086f",
+      "changedShipRows": 196,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984039,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 145,
+      "kinds": {
+        "choice": 17,
+        "select": 8,
+        "assign": 8,
+        "info": 77,
+        "event": 33,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 28,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "922f7cca0f61c3a01f99c59e77da71ed8527e16533110b850512c4b3f2b2629c",
+      "changedShipRows": 275,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984039,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "carronade",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 226,
+      "kinds": {
+        "choice": 22,
+        "select": 38,
+        "assign": 8,
+        "info": 108,
+        "event": 47,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -1,
+      "level": "Draw",
+      "launched": {
+        "US": 0,
+        "BR": 3
+      },
+      "outcome": "d8125c264df3b79775042d9dbe6eb1af29d543a7647804e58cda493c55f5a310",
+      "changedShipRows": 236,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "Tied naval balance after June I",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984040,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 113,
+      "kinds": {
+        "choice": 15,
+        "select": 8,
+        "assign": 8,
+        "event": 39,
+        "info": 42,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 28,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "586db8432ebecf62cdeb128b2d3e1e24b3150e85c6a6e41bb716f033a9ff0013",
+      "changedShipRows": 297,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984040,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 163,
+      "kinds": {
+        "choice": 21,
+        "select": 12,
+        "assign": 8,
+        "event": 56,
+        "info": 64,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 21,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "ab6098b8fcf267158f563d428613b6d597eee119503cfe2c53847d918c611e06",
+      "changedShipRows": 243,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984041,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 163,
+      "kinds": {
+        "choice": 25,
+        "select": 9,
+        "assign": 8,
+        "event": 44,
+        "info": 73,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": -79,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "ec51af2f42f8b5ba453f9c12e15e6397d7b059cc96f963501f1f588573f5d9d9",
+      "changedShipRows": 293,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984041,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 153,
+      "kinds": {
+        "choice": 27,
+        "select": 12,
+        "assign": 8,
+        "event": 33,
+        "info": 68,
+        "lineup": 5
+      },
+      "turn": 8,
+      "score": 45,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "656b40f29995742e3117d61327f541979cb4bbd36b839feb8679a5af54885580",
+      "changedShipRows": 261,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984042,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 126,
+      "kinds": {
+        "choice": 18,
+        "select": 9,
+        "assign": 8,
+        "event": 38,
+        "info": 53
+      },
+      "turn": 8,
+      "score": 9,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "b8e6f6e24f037fa7c43abe6473d39845c8dd40fc0ad0572353ee519fbda29b9c",
+      "changedShipRows": 293,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984042,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 121,
+      "kinds": {
+        "choice": 14,
+        "select": 12,
+        "assign": 8,
+        "event": 33,
+        "info": 53,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 2,
+      "level": "Draw",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "a876919fa569488738edfe57ba6c3b45ad920d7f7b26479033662e4a109b1405",
+      "changedShipRows": 228,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984043,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 158,
+      "kinds": {
+        "choice": 24,
+        "select": 8,
+        "assign": 8,
+        "event": 50,
+        "info": 65,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -5,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "7e3ae5e6c1dc57657307cce720ab88926f33c8cd1b566311ca867224aa4be325",
+      "changedShipRows": 285,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984043,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 145,
+      "kinds": {
+        "choice": 17,
+        "select": 13,
+        "assign": 8,
+        "event": 42,
+        "info": 63,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 48,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "dd35af844d119f38400202e4d2d001f5bbe6940bfbe7a21d43dc93e380f5fdd9",
+      "changedShipRows": 250,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984044,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 130,
+      "kinds": {
+        "choice": 22,
+        "select": 8,
+        "assign": 8,
+        "event": 28,
+        "info": 62,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": -30,
+      "level": "British Victory",
+      "launched": {
+        "US": 2,
+        "BR": 1
+      },
+      "outcome": "c44bb4d0bbea270fa69a254e7e90cae7d5231a823b78588e5ece01178dec7c89",
+      "changedShipRows": 293,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984044,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 148,
+      "kinds": {
+        "choice": 16,
+        "select": 41,
+        "assign": 8,
+        "event": 39,
+        "info": 43,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 0,
+      "level": "Draw",
+      "launched": {
+        "US": 1,
+        "BR": 2
+      },
+      "outcome": "c59c391e4a1e84d38ed12cad2de50bb2178f1b160f4ff014f139c4629f7580a3",
+      "changedShipRows": 201,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984045,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 117,
+      "kinds": {
+        "choice": 16,
+        "select": 8,
+        "assign": 8,
+        "info": 49,
+        "event": 34,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 6,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "5e574799e13cc356725f395f6f6646fa8831aef4a4644623520db686b86f1872",
+      "changedShipRows": 294,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984045,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 191,
+      "kinds": {
+        "choice": 20,
+        "select": 37,
+        "assign": 8,
+        "event": 55,
+        "info": 69,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": -15,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "aa072c0bdbfe4b41acc02b0b63bc795d0d507c067904323165e11a65f07dd892",
+      "changedShipRows": 250,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984046,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 121,
+      "kinds": {
+        "choice": 14,
+        "select": 9,
+        "assign": 8,
+        "event": 40,
+        "info": 48,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 28,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "fb9814e02dc9cef63cf38a3fd77091cdd7dc9dd94b70db4e8e5607d4aecdd173",
+      "changedShipRows": 269,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984046,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 190,
+      "kinds": {
+        "choice": 20,
+        "select": 54,
+        "assign": 8,
+        "event": 42,
+        "info": 62,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": 3,
+      "level": "Draw",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "8c54e819fb74602696e735c01710283fc021e780af011abe024cd85be730c601",
+      "changedShipRows": 193,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984047,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 140,
+      "kinds": {
+        "choice": 18,
+        "select": 8,
+        "assign": 8,
+        "event": 48,
+        "info": 57,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": -42,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "3cd2cc781a5a41c8d705f2a2c84b94485d26a8293b827103e6a5cdcf31d7c5f6",
+      "changedShipRows": 310,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984047,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 161,
+      "kinds": {
+        "choice": 15,
+        "select": 49,
+        "assign": 8,
+        "event": 28,
+        "info": 58,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 25,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "71244f851128766c33f1a9eebfef8b35adce1b16961c680fb984ea629d7e5423",
+      "changedShipRows": 236,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984048,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 134,
+      "kinds": {
+        "choice": 25,
+        "select": 8,
+        "assign": 8,
+        "event": 35,
+        "info": 55,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -16,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "dac2f64b05ca1e8969892a8d1ab4f4abb65b1e4edaf24d10280bf5e56198ddae",
+      "changedShipRows": 275,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "Tied naval balance after June I"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984048,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 170,
+      "kinds": {
+        "choice": 27,
+        "select": 13,
+        "assign": 8,
+        "event": 52,
+        "info": 68,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 62,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "8641dec3840cb842a982d284b6ea12f18ca30212f5a0718ce2ffd91a5b3adf3d",
+      "changedShipRows": 221,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984049,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 149,
+      "kinds": {
+        "choice": 27,
+        "select": 10,
+        "assign": 8,
+        "event": 40,
+        "info": 60,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": 13,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "5d721fd3aca659ceda2f046195f11c68d22310c2aaaa0bfeda6431dedc389f2a",
+      "changedShipRows": 263,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984049,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 143,
+      "kinds": {
+        "choice": 21,
+        "select": 12,
+        "assign": 8,
+        "event": 45,
+        "info": 57
+      },
+      "turn": 8,
+      "score": 23,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "2816e6146b1724ac055302e3ff62773398fb27c3d25a2a57d0d88cd1c7e17520",
+      "changedShipRows": 230,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984050,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 124,
+      "kinds": {
+        "choice": 20,
+        "select": 8,
+        "assign": 8,
+        "event": 41,
+        "info": 46,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 5,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "75f44430c3dc8a0965403fb9e274ade7dbbb4a9d6def382b83eb89d9f085e848",
+      "changedShipRows": 241,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984050,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 132,
+      "kinds": {
+        "choice": 20,
+        "select": 13,
+        "assign": 8,
+        "event": 35,
+        "info": 54,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 41,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "791ec50b1dd2ea69a3939ea06c4ccf1a28239e37d5b23e74532e7d3a70d39808",
+      "changedShipRows": 260,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984051,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 144,
+      "kinds": {
+        "choice": 22,
+        "select": 9,
+        "assign": 8,
+        "event": 43,
+        "info": 60,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": -57,
+      "level": "British Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "0f7a859b50a715ffdd33c48a0f1dd0db057a90ec7fc364830eda2482bd887f98",
+      "changedShipRows": 308,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "Defender Outmaneuver gained Weather Gage",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984051,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": false,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 142,
+      "kinds": {
+        "choice": 22,
+        "select": 12,
+        "assign": 8,
+        "event": 44,
+        "info": 54,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 16,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "3752c5ad5ef8fc9c113a73653d004b447d0a4d8cdfa54e1c805aead40827d1ff",
+      "changedShipRows": 245,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984052,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 130,
+      "kinds": {
+        "choice": 25,
+        "select": 8,
+        "assign": 8,
+        "event": 32,
+        "info": 54,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -3,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "7b7ad10e871bafffea130c1fe3d55742817c04b5c948d0542d79d7fb76f4e62a",
+      "changedShipRows": 284,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984052,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 163,
+      "kinds": {
+        "choice": 19,
+        "select": 33,
+        "assign": 8,
+        "event": 50,
+        "info": 52,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 6,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "2977025a69414923f47955fce32db05f8ab7da23933b596030e763af1874c1ef",
+      "changedShipRows": 225,
+      "seen": [
+        "A6 signed balance and band",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984053,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 168,
+      "kinds": {
+        "choice": 30,
+        "select": 9,
+        "assign": 8,
+        "event": 47,
+        "info": 69,
+        "lineup": 5
+      },
+      "turn": 8,
+      "score": -26,
+      "level": "British Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "b98dd9fdd27bf2e6a3d7e78cc6688a779d90a9550d791a091b201ffd1abbe198",
+      "changedShipRows": 269,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "Breakout",
+        "Defender Outmaneuver gained Weather Gage",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984053,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 189,
+      "kinds": {
+        "choice": 24,
+        "select": 47,
+        "assign": 8,
+        "event": 45,
+        "info": 61,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": -24,
+      "level": "British Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "8bf7dcc118ec5855a300349148f8aec527b0d443ec6e5f020301d132ce53842b",
+      "changedShipRows": 193,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984054,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 155,
+      "kinds": {
+        "choice": 23,
+        "select": 10,
+        "assign": 8,
+        "event": 50,
+        "info": 61,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -16,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "cb60ad25706c09838788903c9a279b27b8ac8ee47191c68e2b7587a93640288c",
+      "changedShipRows": 273,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984054,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 169,
+      "kinds": {
+        "choice": 19,
+        "select": 45,
+        "assign": 8,
+        "event": 34,
+        "info": 61,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 29,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "846000d6cc6051a85df761d62608e1c27a70f48293f26e511565317abe46cda8",
+      "changedShipRows": 200,
+      "seen": [
+        "A6 signed balance and band",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984055,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 120,
+      "kinds": {
+        "choice": 22,
+        "select": 8,
+        "assign": 8,
+        "event": 32,
+        "info": 49,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 19,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 1
+      },
+      "outcome": "f79e0efefbf2a30fb227b52bc5de62bbc1fa6e384e037582cd4f0b408a4ee8eb",
+      "changedShipRows": 292,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984055,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": false,
+        "manualPackages": true,
+        "manualLandBattle": true,
+        "physicalEvents": true
+      },
+      "prompts": 175,
+      "kinds": {
+        "choice": 25,
+        "select": 38,
+        "assign": 8,
+        "event": 43,
+        "info": 58,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 35,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "f924ac062b6ca21716608ba99239e0559a95fd12992b97c55c65c649c8d35397",
+      "changedShipRows": 215,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984056,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 172,
+      "kinds": {
+        "choice": 17,
+        "select": 9,
+        "assign": 8,
+        "info": 96,
+        "event": 40,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 6,
+      "level": "Draw",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "f4b0429d60d9ef27f89d95cbd7da6f7d4640ab753bb3bb58d1c66c5d0ca74e07",
+      "changedShipRows": 303,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "Breakout",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984056,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 214,
+      "kinds": {
+        "choice": 22,
+        "select": 12,
+        "assign": 8,
+        "info": 120,
+        "event": 49,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -15,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "5f36a3c7e48975891b847a5b3dbd7461734777867394b72ff7a7352c12d8ed7c",
+      "changedShipRows": 226,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984057,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 175,
+      "kinds": {
+        "choice": 23,
+        "select": 9,
+        "assign": 8,
+        "info": 93,
+        "event": 39,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": -26,
+      "level": "British Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "532252786eb8c912b7534cbcfc55151f118d157613ed79d9cbdcbb557fcd2666",
+      "changedShipRows": 262,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984057,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 173,
+      "kinds": {
+        "choice": 15,
+        "select": 13,
+        "assign": 8,
+        "info": 107,
+        "event": 28,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 0,
+      "level": "Draw",
+      "launched": {
+        "US": 2,
+        "BR": 2
+      },
+      "outcome": "abfbe0037dbe7f31f01e8eea9679abd723c95d7397969d30311bd615f50ef744",
+      "changedShipRows": 220,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984058,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 158,
+      "kinds": {
+        "choice": 17,
+        "select": 9,
+        "assign": 8,
+        "info": 86,
+        "event": 36,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 12,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "988f1e2174e324f8318683b9d39afe3ac0197bca0bd0f5cad64e0d3963216d00",
+      "changedShipRows": 259,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984058,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 204,
+      "kinds": {
+        "choice": 15,
+        "select": 12,
+        "assign": 8,
+        "info": 127,
+        "event": 41,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 21,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "b1e683e83034b50291b89b01b5a0a0037c8c6f3c73cadc21755d09f2d2fd4449",
+      "changedShipRows": 234,
+      "seen": [
+        "A6 signed balance and band",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984059,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 172,
+      "kinds": {
+        "choice": 25,
+        "select": 8,
+        "assign": 8,
+        "info": 91,
+        "event": 37,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 70,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "72a9ef4ece9044fd19596aca7fc955cc599eb90c91b6718e54b28e957228fd22",
+      "changedShipRows": 286,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984059,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": false,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 202,
+      "kinds": {
+        "choice": 20,
+        "select": 13,
+        "assign": 8,
+        "info": 127,
+        "event": 32,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 89,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "d59a4eea7a10feb7c627ae8a990cc6dd847b69582ccb9175bffc7866a05361bb",
+      "changedShipRows": 268,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No human ship available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984060,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 145,
+      "kinds": {
+        "choice": 10,
+        "select": 8,
+        "assign": 8,
+        "info": 84,
+        "event": 35
+      },
+      "turn": 8,
+      "score": 14,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "ed5a03e89b080f4278dc75e0e2ff62d118835b1e362a448efdb926b8e83bee95",
+      "changedShipRows": 264,
+      "seen": [
+        "A6 signed balance and band",
+        "Gale",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984060,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 213,
+      "kinds": {
+        "choice": 16,
+        "select": 43,
+        "assign": 8,
+        "info": 103,
+        "event": 41,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 11,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 2,
+        "BR": 3
+      },
+      "outcome": "acab6791aafb92065118892e10b086964cbf5caf19ccfbe2e65937e272eb3db4",
+      "changedShipRows": 238,
+      "seen": [
+        "A6 signed balance and band",
+        "Manual Package 8 prompts",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984061,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 171,
+      "kinds": {
+        "choice": 22,
+        "select": 8,
+        "assign": 8,
+        "info": 94,
+        "event": 35,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": -17,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 3
+      },
+      "outcome": "3d7c21b4e606551879228f6e1277564de628f5709a2811137d01eaac109d7656",
+      "changedShipRows": 238,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "Defender Outmaneuver gained Weather Gage",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984061,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": false,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 248,
+      "kinds": {
+        "choice": 24,
+        "select": 48,
+        "assign": 8,
+        "info": 113,
+        "event": 51,
+        "lineup": 4
+      },
+      "turn": 8,
+      "score": -18,
+      "level": "British Marginal Victory",
+      "launched": {
+        "US": 1,
+        "BR": 3
+      },
+      "outcome": "a8248f7d40c061e84cc439dad28fac3ce5f07dd308735fc29d084a349d5965aa",
+      "changedShipRows": 168,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at 12",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at -1"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984062,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 174,
+      "kinds": {
+        "choice": 22,
+        "select": 8,
+        "assign": 8,
+        "info": 93,
+        "event": 41,
+        "lineup": 2
+      },
+      "turn": 8,
+      "score": 18,
+      "level": "U.S. Marginal Victory",
+      "launched": {
+        "US": 3,
+        "BR": 2
+      },
+      "outcome": "ddffa80b4bfcc716328c1e892485ad75b75b5f8912ef28e1c7b7d6377c4352a6",
+      "changedShipRows": 287,
+      "seen": [
+        "A6 signed balance and band",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984062,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": false,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 205,
+      "kinds": {
+        "choice": 18,
+        "select": 45,
+        "assign": 8,
+        "info": 96,
+        "event": 35,
+        "lineup": 3
+      },
+      "turn": 8,
+      "score": 8,
+      "level": "Draw",
+      "launched": {
+        "US": 2,
+        "BR": 1
+      },
+      "outcome": "f7ba548887d996448456150f1a2a639aebd4354648c0550a4106ec0352820fc3",
+      "changedShipRows": 215,
+      "seen": [
+        "A6 signed balance and band",
+        "Breakout",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Separated Ships draws",
+        "Tally independent VP components"
+      ]
+    },
+    {
+      "human": "US",
+      "seed": 984063,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 146,
+      "kinds": {
+        "choice": 16,
+        "select": 8,
+        "assign": 8,
+        "info": 77,
+        "event": 36,
+        "lineup": 1
+      },
+      "turn": 8,
+      "score": 30,
+      "level": "U.S. Victory",
+      "launched": {
+        "US": 3,
+        "BR": 0
+      },
+      "outcome": "b31c94778a9bf74e55691a94cefa5aa7e7d801bb476ad9c94f8713b61990d05c",
+      "changedShipRows": 255,
+      "seen": [
+        "A6 signed balance and band",
+        "BR supply at -1",
+        "No human Troops available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components",
+        "US supply at 12"
+      ]
+    },
+    {
+      "human": "BR",
+      "seed": 984063,
+      "style": "coast",
+      "opts": {
+        "cuttingOut": true,
+        "oa1Upgrades": true,
+        "usAiPrecondition": "longgun",
+        "confirmAiSteps": true,
+        "manualPackages": true,
+        "manualLandBattle": false,
+        "physicalEvents": true
+      },
+      "prompts": 173,
+      "kinds": {
+        "choice": 11,
+        "select": 46,
+        "assign": 8,
+        "info": 86,
+        "event": 22
+      },
+      "turn": 8,
+      "score": 77,
+      "level": "U.S. Decisive Victory",
+      "launched": {
+        "US": 2,
+        "BR": 1
+      },
+      "outcome": "36d0fe0425594092262cfcc8a4559e49c177858558fc34c4acca9ef6fbe17673",
+      "changedShipRows": 192,
+      "seen": [
+        "A6 signed balance and band",
+        "Manual Package 8 prompts",
+        "Manual Package 8 second stack",
+        "Manual Package 8 with selected ships",
+        "No human Troops available at A7",
+        "No human ship available at A7",
+        "No revealed AI Troops available at A7",
+        "Tally independent VP components"
+      ]
+    }
+  ],
+  "failures": [],
+  "checks": {
+    "prompts": 21752,
+    "roundTrips": 5738,
+    "previewPurity": 646,
+    "manualPackages": 953,
+    "manualLandBattles": 225,
+    "firstRoundPreview": 280,
+    "textOddsChecked": 280,
+    "fullSaveContinuations": 8,
+    "fullSaveActions": 980,
+    "physicalEntries": 5125
+  },
+  "coverage": {
+    "kinds": {
+      "choice": 2728,
+      "select": 2299,
+      "assign": 1024,
+      "info": 10272,
+      "event": 5125,
+      "lineup": 304
+    },
+    "prompts": {
+      "A1 Schedule your Convoy": 512,
+      "A4 In Ordinary? (30-point limit)": 1024,
+      "A7 Assign your ships": 1024,
+      "A10 Target Cards drawn": 512,
+      "B1 Possible Encounter 1 in Kingston": 390,
+      "B1 Possible Encounters": 476,
+      "Draw an Event card": 5125,
+      "Encounter 1: enemy sighted": 105,
+      "Encounter 1 in Kingston": 85,
+      "Command Decision – you hold the Weather Gage": 291,
+      "Lake Combat – choose your attacking ships": 304,
+      "LC3 Tactics – you are the Attacker": 237,
+      "Tactics": 481,
+      "Gunnery Round results": 555,
+      "Encounter ended": 516,
+      "American Raid on York": 523,
+      "Tally – June I": 128,
+      "Reset – end of June I": 128,
+      "B1 Possible Encounter 3 in Kingston": 56,
+      "Encounter – no enemy": 196,
+      "Encounter 2: enemy sighted": 75,
+      "Encounter 2 in Niagara": 16,
+      "Land Battle – read Player Aid VII": 225,
+      "Land Battle result": 442,
+      "American Raid on Kingston": 480,
+      "Tally – June II": 128,
+      "Reset – end of June II": 128,
+      "B1 Possible Encounter 2 in Kingston": 60,
+      "Encounter Check PE2": 127,
+      "C Enemy Operations": 371,
+      "AI Deployment": 676,
+      "British Raid on South Lake": 305,
+      "Tally – July I": 128,
+      "Reset – end of July I": 128,
+      "Encounter Check PE1": 209,
+      "Tally – July II": 128,
+      "Reset – end of July II": 128,
+      "Encounter 2 in York": 26,
+      "Command Decision – the A.I. holds the Weather Gage": 221,
+      "The A.I. attacks!": 188,
+      "LC3 Tactics – you are the Defender": 189,
+      "Tally – August I": 128,
+      "Reset – end of August I": 128,
+      "Encounter 3: enemy sighted": 43,
+      "Encounter 3 in Kingston": 9,
+      "Tally – August II": 128,
+      "Reset – end of August II": 128,
+      "British Raid on Sacket's": 397,
+      "Tally – September I": 128,
+      "Reset – end of September I": 128,
+      "Tally – September II": 128,
+      "Reset – end of September II": 128,
+      "B1 Possible Encounter 1 in Sacket's": 240,
+      "Encounter 1 in Sacket's": 83,
+      "Encounter 2 in South Lake": 24,
+      "Encounter Check PE3": 79,
+      "A2 British Ship Upgrades": 235,
+      "Your Convoy is attacked!": 32,
+      "Harbor Encounter": 286,
+      "Harbor Encounter ends": 71,
+      "A5 Buy down Construction Delay?": 8,
+      "D Breakout Attack?": 22,
+      "Encounter  in Kingston": 27,
+      "Gunnery Round 2 – attack or pass?": 51,
+      "American Cutting-Out mission": 52,
+      "Withdrawal result against you": 33,
+      "B1 Possible Encounter 2 in Sacket's": 55,
+      "British Cutting-Out mission": 38,
+      "Encounter 1 in South Lake": 20,
+      "The A.I. declines battle": 83,
+      "Encounter 2 – no enemy": 11,
+      "Encounter Check PE4": 31,
+      "Encounter Check PE5": 14,
+      "Encounter 6: enemy sighted": 2,
+      "Encounter 6 in Niagara": 1,
+      "B1 Possible Encounter 3 in Sacket's": 65,
+      "Encounter 1 – no enemy": 13,
+      "Convoy found!": 34,
+      "Transfer the flag?": 4,
+      "Encounter 2 in Sacket's": 55,
+      "Encounter 3 – no enemy": 8,
+      "Encounter 3 in Sacket's": 27,
+      "Reaction Segment – declare Reaction Checks": 77,
+      "Reaction Segment": 83,
+      "Encounter 2 in Kingston": 29,
+      "Encounter 4: enemy sighted": 13,
+      "Encounter 4 in Niagara": 7,
+      "Pursuit – a new Encounter": 5,
+      "Weather Gage recheck": 39,
+      "Weather Gage changes!": 41,
+      "The A.I. does not attack": 5,
+      "Encounter 1 in York": 20,
+      "Gale!": 14,
+      "Encounter 4 – no enemy": 8,
+      "Encounter 4 in Sacket's": 14,
+      "Encounter 5: enemy sighted": 3,
+      "Encounter 5 in Sacket's": 5,
+      "Encounter 3 in York": 12,
+      "Close Action": 20,
+      "You gain the Weather Gage": 13,
+      "Close Action Round": 33,
+      "Encounter 3 in Niagara": 15,
+      "Encounter 6 – no enemy": 1,
+      "B1 Possible Encounter 4 in Kingston": 12,
+      "Encounter 1 in Niagara": 10,
+      "B1 Possible Encounter 5 in Sacket's": 11,
+      "AI Force Package #4": 141,
+      "AI Force Package #11": 111,
+      "AI Force Package #10": 144,
+      "AI Force Package #7": 30,
+      "AI Force Package #3": 92,
+      "The Convoy is attacked": 2,
+      "AI Force Package #2": 171,
+      "AI Force Package #9": 27,
+      "AI Force Package #1": 110,
+      "AI Force Package #8": 26,
+      "AI Force Package #6": 25,
+      "B1 Possible Encounter 4 in Sacket's": 12,
+      "AI Force Package #5": 76,
+      "Rake – where do the hits go?": 19,
+      "Close Action Round – attack or pass?": 6,
+      "Encounter 3 in South Lake": 8,
+      "Gunnery result": 8,
+      "Encounter  in Sacket's": 5,
+      "Encounter 4 in South Lake": 3,
+      "Encounter 7 in Sacket's": 1,
+      "Encounter 5 in Niagara": 2,
+      "B1 Possible Encounter 6 in Sacket's": 2,
+      "Encounter 5 in York": 1,
+      "B1 Possible Encounter 5 in Kingston": 2,
+      "Encounter Check PE6": 4,
+      "Encounter 5 – no enemy": 1,
+      "Encounter 4 in York": 1,
+      "Encounter Check PE7": 2,
+      "Encounter 6 in South Lake": 1,
+      "Force Package #8 – second stack": 2,
+      "Encounter 5 in South Lake": 1,
+      "Encounter 7 in Niagara": 1,
+      "Encounter 4 in Kingston": 1,
+      "The A.I. breaks off": 1
+    },
+    "tactics": {
+      "A_rake": 93,
+      "D_escape": 51,
+      "D_firstshot": 22,
+      "A_surprise": 17,
+      "A_pursuit": 64,
+      "D_rof": 17,
+      "D_mutual": 20,
+      "A_firstshot": 16,
+      "D_rake": 25,
+      "A_outmaneuver": 12,
+      "D_outmaneuver": 21,
+      "D_repel": 20,
+      "A_grapple": 7,
+      "A_rof": 19,
+      "D_openrange": 13,
+      "A_sweep": 9
+    },
+    "events": {
+      "1": 283,
+      "2": 241,
+      "3": 301,
+      "4": 248,
+      "5": 294,
+      "6": 263,
+      "7": 268,
+      "8": 270,
+      "9": 206,
+      "10": 253,
+      "11": 298,
+      "12": 263,
+      "13": 261,
+      "14": 228,
+      "15": 227,
+      "16": 286,
+      "17": 315,
+      "18": 273,
+      "19": 274,
+      "20": 256,
+      "21": 268,
+      "22": 245,
+      "23": 271,
+      "24": 241,
+      "25": 237,
+      "26": 280,
+      "27": 228,
+      "28": 262,
+      "29": 308,
+      "30": 272,
+      "31": 264,
+      "32": 228,
+      "33": 276,
+      "34": 217,
+      "35": 264,
+      "36": 254,
+      "37": 225,
+      "38": 222
+    },
+    "endings": {
+      "British Decisive Victory": 10,
+      "U.S. Decisive Victory": 27,
+      "Draw": 31,
+      "British Victory": 8,
+      "U.S. Marginal Victory": 18,
+      "U.S. Victory": 22,
+      "British Marginal Victory": 12
+    },
+    "landColumns": [
+      29,
+      5,
+      1,
+      104,
+      24,
+      0,
+      21,
+      5,
+      1,
+      25,
+      3,
+      1,
+      1,
+      2,
+      3
+    ],
+    "landShift": {
+      "0": 209,
+      "-2": 16
+    },
+    "purposes": {
+      "Encounter Check PE1": 994,
+      "Encounter Kingston (Weather Gage + Lake Zone Event)": 149,
+      "U.S. Raid on York coastline": 538,
+      "Encounter Check PE2": 639,
+      "Encounter Niagara (Weather Gage + Lake Zone Event)": 53,
+      "British Land Battle (Niagara)": 123,
+      "U.S. Raid on Kingston coastline": 493,
+      "British Raid on South Lake coastline": 317,
+      "U.S. Land Battle (Kingston)": 110,
+      "U.S. Land Battle (Niagara)": 144,
+      "Encounter York (Weather Gage + Lake Zone Event)": 63,
+      "Encounter Check PE3": 345,
+      "British Raid on Sacket's coastline": 405,
+      "Encounter Sacket's (Weather Gage + Lake Zone Event)": 179,
+      "Encounter South Lake (Weather Gage + Lake Zone Event)": 55,
+      "British Land Battle (Sacket's)": 77,
+      "Encounter Check PE4": 165,
+      "Encounter Check PE5": 58,
+      "Encounter Check PE6": 21,
+      "Encounter Sacket's (Weather Gage)": 15,
+      "Reaction Segment Weather Gage (Sacket's)": 27,
+      "Encounter Kingston (Weather Gage)": 4,
+      "Encounter Niagara (Weather Gage)": 2,
+      "Weather Gage recheck": 80,
+      "Reaction Segment Weather Gage (Niagara)": 13,
+      "Reaction Segment Weather Gage (York)": 6,
+      "Reaction Segment Weather Gage (Kingston)": 29,
+      "Reaction Segment Weather Gage (South Lake)": 10,
+      "Encounter South Lake (Weather Gage)": 5,
+      "Encounter Check PE7": 6
+    }
+  },
+  "observed": {
+    "A6 signed balance and band": 1024,
+    "No human Troops available at A7": 664,
+    "No revealed AI Troops available at A7": 797,
+    "Tally independent VP components": 1024,
+    "Separated Ships draws": 46,
+    "No human ship available at A7": 3,
+    "Defender Outmaneuver gained Weather Gage": 7,
+    "Separated ship rejoined same Encounter": 1,
+    "Manual Package 8 prompts": 26,
+    "Tied naval balance after June I": 11,
+    "Manual Package 8 with selected ships": 2,
+    "Manual Package 8 second stack": 2
+  },
+  "examples": {
+    "defender-outmaneuver": {
+      "file": "options-defender-outmaneuver.json",
+      "human": "US",
+      "seed": 984003,
+      "policy": "coast",
+      "prompt": "Draw an Event card",
+      "action": 27,
+      "promptNumber": 131,
+      "position": {
+        "turn": 6,
+        "encounter": "KIN",
+        "promptAfter": "Weather Gage changes!",
+        "message": "Weather Gage recheck: Event #27. Defender Outmaneuver gives the Weather Gage to the Americans.\nCombat Sequence A begins."
+      }
+    },
+    "displaced-returned": {
+      "file": "options-displaced-returned.json",
+      "human": "BR",
+      "seed": 984004,
+      "policy": "coast",
+      "prompt": "Reaction Segment – declare Reaction Checks",
+      "action": [
+        "moira"
+      ],
+      "promptNumber": 21,
+      "position": {
+        "zone": "SOU",
+        "side": "US",
+        "back": [
+          "madison",
+          "tompkins",
+          "hamilton"
+        ]
+      }
+    },
+    "manual-package8-first": {
+      "file": "options-manual-package8-first.json",
+      "human": "BR",
+      "seed": 984037,
+      "policy": "coast",
+      "prompt": "AI Force Package #8",
+      "action": [
+        "wolfe",
+        "oneida",
+        "madison",
+        "tompkins",
+        "fairam",
+        "conquest",
+        "growler",
+        "hamilton",
+        "julia",
+        "ontario",
+        "pert",
+        "raven",
+        "scourge"
+      ],
+      "promptNumber": 200,
+      "position": {
+        "zone": "B5",
+        "selected": [
+          "wolfe",
+          "oneida",
+          "madison",
+          "tompkins",
+          "fairam",
+          "conquest",
+          "growler",
+          "hamilton",
+          "julia",
+          "ontario",
+          "pert",
+          "raven",
+          "scourge"
+        ]
+      }
+    },
+    "manual-package8-second": {
+      "file": "options-manual-package8-second.json",
+      "human": "BR",
+      "seed": 984037,
+      "policy": "coast",
+      "prompt": "Force Package #8 – second stack",
+      "action": [
+        "oneida",
+        "madison",
+        "tompkins",
+        "fairam",
+        "conquest",
+        "growler",
+        "hamilton",
+        "julia",
+        "ontario",
+        "pert",
+        "raven",
+        "scourge"
+      ],
+      "promptNumber": 201,
+      "position": {
+        "second": [
+          "oneida",
+          "madison",
+          "tompkins",
+          "fairam",
+          "conquest",
+          "growler",
+          "hamilton",
+          "julia",
+          "ontario",
+          "pert",
+          "raven",
+          "scourge"
+        ]
+      }
+    }
+  },
+  "summary": {
+    "attempts": 128,
+    "completed": 128,
+    "failures": 0,
+    "early": 0,
+    "draws": 31,
+    "totalPrompts": 21752,
+    "manualGames": 64,
+    "minPrompts": 105,
+    "maxPrompts": 248
+  }
+}

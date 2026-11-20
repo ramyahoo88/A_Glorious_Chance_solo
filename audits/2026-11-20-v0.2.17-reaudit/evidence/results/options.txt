@@ -1,0 +1,27 @@
+{
+  "sourceHash": "3267b739fb9b16a973a5a75d899d435674eb4cac5484d8236399ad01f240838c",
+  "summary": {
+    "attempts": 128,
+    "completed": 128,
+    "failures": 0,
+    "early": 0,
+    "draws": 31,
+    "totalPrompts": 21752,
+    "manualGames": 64,
+    "minPrompts": 105,
+    "maxPrompts": 248
+  },
+  "checks": {
+    "prompts": 21752,
+    "roundTrips": 5738,
+    "previewPurity": 646,
+    "manualPackages": 953,
+    "manualLandBattles": 225,
+    "firstRoundPreview": 280,
+    "textOddsChecked": 280,
+    "fullSaveContinuations": 8,
+    "fullSaveActions": 980,
+    "physicalEntries": 5125
+  },
+  "firstFailures": []
+}
