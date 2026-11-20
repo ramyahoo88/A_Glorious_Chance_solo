@@ -1,0 +1,9 @@
+{
+  "games": 10,
+  "desktopColumns": 2,
+  "phoneFits": true,
+  "launch": true,
+  "physicalRequirement": true,
+  "catalogDownloadByteIdentical": true,
+  "version": "0.2.18"
+}

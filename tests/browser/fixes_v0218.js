@@ -19,9 +19,15 @@ const check = (a, b, label) => { assert.deepEqual(a, b, label); checks++; };
     try { shell = require('@sparticuz/chromium').default; } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; }
     if (shell) { executablePath = await shell.executablePath(); args = shell.args; }
   }
-  const browser = await chromium.launch({ executablePath, args, headless: true });
+  const options = { executablePath, args, headless: true };
+  const proxyUrl = process.env.AGC_URL && (process.env.HTTPS_PROXY || process.env.HTTP_PROXY);
+  if (proxyUrl) {
+    const proxy = new URL(proxyUrl);
+    options.proxy = { server: proxy.origin, username: decodeURIComponent(proxy.username), password: decodeURIComponent(proxy.password) };
+  }
+  const browser = await chromium.launch(options);
   try {
-    const context = await browser.newContext({ viewport: { width: 390, height: 1000 }, acceptDownloads: true });
+    const context = await browser.newContext({ viewport: { width: 390, height: 1000 }, acceptDownloads: true, ignoreHTTPSErrors: !!process.env.AGC_URL });
     const page = await context.newPage();
     const errors = [];
     page.on('pageerror', e => errors.push(e.message));

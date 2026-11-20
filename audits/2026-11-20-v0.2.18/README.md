@@ -4,6 +4,10 @@
 
 Both reproduced defects are corrected. The physical Event deck remains required. Rules, deployment, combat and scoring algorithms are unchanged.
 
+**Published:** [Play on Cloudflare](https://solo-table.pages.dev/games/a-glorious-chance/) · [Download the offline HTML](https://solo-table.pages.dev/downloads/a-glorious-chance). Production deployment `78765fff-084f-4904-9767-5a3e07ca267d` completed successfully on 20 November 2026. Both the preview and public alias pass all 67 recovery/browser assertions, exact app-download verification, and byte comparisons for all 31 site files plus all nine attachment headers. The catalog browser check confirms ten games, two desktop columns, phone fit, and working launch/download controls.
+
+Code and evidence are pushed to [release/v0.2.18, PR #1](https://github.com/ramyahoo88/A_Glorious_Chance_solo/pull/1); the catalog addition is in [solo-automa PR #1](https://github.com/ramyahoo88/solo-automa/pull/1). Automatic approval review blocked direct default-branch pushes as outside the Cloudflare publication request, so both PRs remain drafts. Publication uses the tested release branch; the existing GitHub Pages copy remains available separately.
+
 | Item | Change | Verification |
 | --- | --- | --- |
 | A01 | Validate coastal side order and integer cursor, side agreement, pending queues and remaining Land Battle records before import replaces the campaign. | Both original missing-order saves are refused atomically through real Load controls, including the typed Event number, Undo history and autosave. Unmodified originals finish Coastal Action. The launched-Troops/missing-support control still passes. |
